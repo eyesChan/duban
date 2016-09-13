@@ -26,7 +26,7 @@ class OperationLogModel extends Model {
     public function getList($where, $first_rows, $list_rows) {
         $model = new UserModel();
         $list = $this->alias('opl')
-                ->join("left join wf_member on opl.operation_user_id = wf_member.uid")
+                ->join("left join __MEMBER__ AS member on opl.operation_user_id = member.uid")
                 ->where($where)
                 ->limit($first_rows, $list_rows)
                 ->order('id desc')
@@ -44,7 +44,7 @@ class OperationLogModel extends Model {
     public function getOperationLogCount($where) {
         $where['opl.status'] = 1;
         $count = $this->alias('opl')
-                        ->join("left join wf_member on opl.operation_user_id = wf_member.uid")
+                        ->join("left join __MEMBER__ AS member on opl.operation_user_id = member.uid")
                         ->where($where)->count();
         return $count;
     }

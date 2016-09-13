@@ -63,17 +63,19 @@ class AuthRuleModel extends Model {
         if (I('post.menu_url') != '#') {
             $where['status'] = 1;
             $where['menu_num'] = trim(I('post.menu_num'));
-            $where['id'] = array('neq',$param['id']);
+            $where['id'] = array('neq', $param['id']);
             if (D('AuthRule')->where($where)->select()) {
                 return 12;
             }
         }
-        $level = D('AuthRule')->field('level')->where('id = ' . $param['level'])->find();
-        if ($level == 1) {
-            $arr['level'] = 2; //模块等级
+        //$param['level']代表pid字段
+        if ($param['level'] == 1) {
+            $level_p = 0;
         } else {
-            $arr['level'] = 3; //模块等级
+            $level_p = D('AuthRule')->field('level')->where('id = ' . $param['level'])->find();
         }
+
+        $arr['level'] = intval($level_p) + 1;
         $arr['menu_num'] = $param['menu_num']; //模块标识
         $arr['title'] = $param['menu_name']; //模块名称
         $arr['pid'] = $param['level'] == 1 ? 0 : $param['level']; //父模块ID

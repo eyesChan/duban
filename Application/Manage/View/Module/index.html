@@ -1,0 +1,64 @@
+<extend name="Public:base" />
+<block name="title"><title>工作流管理系统</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/moduleManage.css"/>
+    <div class="container-padding">
+     <table class="tbl" style="margin-top: 20px;">
+            <tr>
+                <td class="cap"> <a href="{:U('add')}"><input type="button" value="新增" class="btn btn-a submit" ></a></td>
+            </tr>
+        </table>
+
+        <div class="wrap-table mt10">
+          <form method="POST" action="{:U(lst)}" name="listForm">
+                <div class="wrap-table" style="display:">
+                    <table class="tbl tbl-list">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="20%">
+                            <col width="30%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>排序</th>
+                            <th>ID</th>
+                            <th>父ID</th>
+                            <th>模块名称</th>
+                            <th>模块地址</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <foreach name ='module_list' item='v'>
+                            <tr>
+                                <td>{$v['sort']}</td>
+                                <td>{$v['id']}</td>
+                                <td>{$v['pid']}</td>
+                                <td>{$v['title']}</td>
+                                <td>{$v['name']}</td>
+                                <td>
+                                    <a class="fl mr5" href="{:U('child?pid='.$v['id'])}">
+                                    <input type="button" class="btn btn-c btn-xl button" value="关联子项">
+                                    </a>
+                                    <a class="fl operate-btn mr5" title="删除" onClick="return confirm('确定要删除吗？');" href="{:U('delete?id='.$v['id'])}">
+                                     <input type="button" class="btn btn-c btn-xl button" value="删除">
+                                    </a>
+                                    <a class="fl operate-btn mr5" title="编辑" href="{:U('save?id='.$v['id'])}">
+                                        <input type="button" class="btn btn-c btn-xl button" value="编辑">
+                                    </a>
+                                </td>
+                            </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div class="pagination"> </div>
+        </div>
+    </div>
+
+    <js href="__PUBLIC__/Js/moduleManage.js"/>
+</block>

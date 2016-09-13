@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+        <css href="__PUBLIC__/css/base.css"/>
+        <css href="__PUBLIC__/css/login.css"/>
+        <js href="__PUBLIC__/Js/jquery-1.11.2.min.js"/>
+        <js href="__PUBLIC__/Js/placeholder.js"/>
+        <js href="__PUBLIC__/Js/login.js"/>
+    </head>
+    <body>
+        <!--登录部分start-->
+        <div id="login">
+              <!-- 登录部分主要内容start-->
+                 <div class="login-rt">
+                      
+                        <!-- 表单部分-->
+                        <div class="login-form">
+                            <div class="form-title">账号登录</div>
+                            <form name="form1" method="post" action="">
+                                <ul>
+                                    <li class="common-login-list">
+                                        <input class="login-common-input login-id" type="text" placeholder="用户名" name="nickname" id="nickname" maxlength="20"/>
+                                        <div class="error-message error-id hide">
+                                            <img src="__PUBLIC__/images/login//error.png" alt=""/>
+                                            <span>请输入用户名！</span>
+                                        </div>
+                                    </li>
+                                    <li class="common-login-list">
+                                        <input class="login-common-input login-pwd"  type="password" placeholder="密码" name="password" id="password" maxlength="30"/>
+                                        <div class="error-message error-pwd hide">
+                                            <img src="__PUBLIC__/images/login/error.png" alt=""/>
+                                            <span>请输入密码！</span>
+                                        </div>
+                                    </li>
+                                    <li class="common-login-list clearfix login-verification-list">
+                                        <input class="fl login-common-input login-verification" type="text" placeholder="验证码" name="" id="verify_code"/>
+                                        <img id="checkCode" class="verifyimg reloadverify" alt="点击切换" src="{:U('Login/verify')}">
+                                        <div class="error-message error-ver hide">
+                                            <img src="__PUBLIC__/images/login/error.png" alt=""/>
+                                            <span>请输入验证码！</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input class="login-button" type="button" value="登录"/>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+        </div>
+        <!--登录部分end-->
+    </body>
+</html>

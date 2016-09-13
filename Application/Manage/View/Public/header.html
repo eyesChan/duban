@@ -1,0 +1,32 @@
+<div class="header">
+    <div class="header-inner com-width">
+        <div class="header-hd">
+            <div class="header-top-bar clear">
+
+                <a href="{:U('Index/index')}" id="home" >首页</a>
+                <div class="line"></div>
+                <a href="{:U('Ucenter/modifyPsd')}">
+                    <span>修改密码</span>
+                </a>
+                <div class="line"></div>
+                <a href="{:U('Login/logout')}">退出</a>
+
+                <div class="login-person">
+                    <div class="clear">
+                        <div class="fl">您好！<span>{$admin_info.UNAME} </span>欢迎登录</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="logo">
+                <img src="__PUBLIC__/images/logo_pic.png" alt=""/>
+            </div>
+        </div>
+        <div class="header-bd">
+            <div class="location">
+                <!--当前位置：<a href="#">111</a> ~ <a href="#">222</a> ~ <a href="#">333</a>--> 
+                当前位置：{$crumbs_str}
+            </div>
+        </div>
+    </div>
+</div>

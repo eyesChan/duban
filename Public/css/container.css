@@ -1,0 +1,105 @@
+.wp92{width:92%!important;}
+.w30{width:30px!important;}
+.w40{width:40px!important;}
+.w60{width:60px!important;}
+.w70{width:70px!important;}
+.w90{width:90px!important;}
+.w102{width:102px!important;}
+.w110{width:110px!important;}
+.w130{width:130px!important;}
+.w150{width:150px!important;}
+.w228{width:228px!important;}
+.w230{width:230px!important;}
+.w240{width:240px!important;}
+.w260{width:260px!important;}
+/* 外边距 */
+.mt-11{margin-top:-11px!important;}
+.mt10{margin-top:10px;}
+.mr5{margin-right:5px;}
+.mr10{margin-right:10px;}
+.mr20{margin-right:20px;}
+.mr30{margin-right:30px;}
+/* 内边距 */
+.pd10{padding:10px!important;}
+/* 文字排版 */
+.f-tal{text-align: left!important;}
+.f-tar{text-align: right!important;}
+/* 文字大小 */
+.f-fs14{font-size:14px!important;}
+/* 浮动 */
+.f-fl{float:left;}
+.f-fr{float:right;}
+/* 图标 */
+.ico-plus,.ico-reduce{width:14px;height:14px;overflow: hidden;background-image: url(../images/slice/dilatationIcon.png);
+background-repeat: no-repeat;vertical-align: -2px;}
+.ico-plus{background-position: -14px 0;}
+.ico-reduce{background-position: 0 0;}
+/* 表单 */
+select{height: 22px;vertical-align:middle;}
+input[type=checkbox],.ck,input[type=radio],.radio{vertical-align: -2px;}
+input.input-text, input.input-pwd{height:24px;line-height: 24px;}
+input[readonly] {color: #404040}
+.wrap-btns-a{width: 100%;margin: 20px 0;text-align: center;}
+.rd{vertical-align: -2px;}
+.input-text-2{height:20px!important;line-height: 20px!important;width:60px!important;}
+/* 按钮样式 */
+.btn-default{display: inline-block;width:120px;padding:7px 0;line-height: 16px;font-size: 12px;font-weight: 600;text-align:center;white-space: nowrap;-moz-border-radius: 2px;-webkit-border-radius: 2px;border:0 none;border-radius: 2px;cursor: pointer;}
+.btn-info{color:#fff;background:#ed6d06;}
+.btn-info.focus, .btn-info:focus,.btn-info:hover,.btn-info.active,.btn-info:active {background-color: #fa8529;color:#fff;}
+.btn-d{height:25px;line-height:25px;padding:0;font-size:12px;color:#4972bf;background:#fff;border:1px solid #4972bf;-moz-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
+.btn-d.focus,.btn-d:focus,.btn-d:hover,.btn-d.hover,.btn-d:hover,.btn-d.active, .btn-d:active{color:#4972bf;background:#ededed;border:1px solid #4972bf;}
+.btn-size-md{width:80px;padding:0;line-height: 26px;}
+.btn-size-sm{width:60px;height:25px;padding:0;line-height: 26px;}
+.btn-size-lg{width:100px;padding:0;line-height: 26px;}
+.collapse-btn{line-height: 28px;}
+/* 表格 */
+.inner-container{margin-right:1px;}
+.wrap-table-b{margin: 10px auto 0;width: 100%;}
+.wrap-table-n{margin: 0 auto;width: 100%;}
+.tbl{width: 100%;margin: 0 auto 10px;font-size:12px;table-layout:auto;border-width:1px 0 0 1px;border-style: solid;border-color: #ededed;}
+.tbl .caption{background: #f5f7f7 url(../images/bg-caption.jpg) no-repeat;}
+.tbl .caption td{font-size:14px;color:#4972bf;text-indent:20px;text-align:left;height: 30px;line-height: 30px;padding: 0;background: none;}
+.tbl .caption:hover td{background: none;}
+.tr-caption td{height: 28px;line-height: 20px;padding: 0;border-color: #ededed;border-style: solid;border-width: 0 1px 1px 0;position: relative;}
+.tbl-list .tr-caption:hover td{background:none;}
+.tbl-list .tr-hd td{height: 28px;}
+.tbl-list .tr-hd:hover td{background:none;}
+.tbl-list-2 tr:hover td {background: none;}
+.tb-detail,.tb-detail:visited{color:#4972bf;font-size:12px;}
+.tb-detail:hover,.tb-detail:active{color:#4972bf;font-size:12px;text-decoration: underline;}
+.border-bottom-0{border-bottom:0 none!important;}
+.tbl-divider td{height:15px;margin:0;padding:0;overflow: hidden;}
+#orderTable{table-layout: fixed;}
+#orderTable td{width:120px;}
+.Order{table-layout: fixed;}
+#orderTable select{width:110px;}
+#orderTable input{width:100px;}
+/* 字号 */
+.pop{margin:0;font-size:14px!important;color:#404040;}
+/* 分页 */
+.pagination li.info{line-height:22px;}
+/* 序列号设置 */
+.authorizationLine,.reverseLine{display: none;}
+/* 在线订单 */
+.authorizedSummary{float:left;line-height: 28px;}
+.authorizedSummary b{margin:0 5px;}
+#templateSubUnitInfos{display: none;}
+.dilatation-form input[readonly],.dilatation-form select[readonly],.dilatation-form input[disabled],.Order input[readonly]{color: #c9c9ca;background-color: rgb(235, 235, 228);}
+
+.wpsTrandStatus1,.wpsTrandStatus2{display:none;}
+.serial-link{margin:0 10px;text-decoration: underline;}
+
+.input-num-box:after{content:'';display: block;clear:both;width:0;height:0;overflow: hidden;}
+.input-num-box{display:inline-block;_display:inline;vertical-align:middle;zoom:1;}
+.input-num-box .com-reduce{float:left;cursor:pointer;width:28px;height:26px;line-height:26px;background:#fff;border:1px solid #6283ca;
+-moz-border-radius-topleft:4px;-moz-border-radius-bottomleft:4px;-webkit-border-top-left-radius: 4px;
+-webkit-border-bottom-left-radius:4px;border-top-left-radius: 4px;border-bottom-left-radius: 4px;}
+.input-num-box .com-reduce:hover{background: #6283ca;}
+.input-num-box .com-reduce:hover .ico-reduce{background-position: 0 -14px;}
+
+.input-num-box .com-plus{float:left;cursor:pointer;width:28px;height:26px;line-height:26px;background:#fff;border:1px solid #6283ca;
+-moz-border-radius-topright:4px;-moz-border-radius-bottomright:4px;-webkit-border-top-right-radius: 4px;
+-webkit-border-bottom-right-radius:4px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;}
+.input-num-box .com-plus:hover{background: #6283ca;}
+.input-num-box .com-plus:hover .ico-plus{background-position: -14px -14px;}
+.input-num-box .input-text{_display:inline;float:left;width:29px;color:#6283ca;text-align:center;border-width:1px 0;border-style: solid none;border-color:#6283ca;}

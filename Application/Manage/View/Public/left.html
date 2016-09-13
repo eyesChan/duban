@@ -1,0 +1,31 @@
+<div class="sidebar">
+
+    <ul class="sys-menu">
+        <volist name="main_menu" id="vo">
+            <li>
+                <h2 <eq name="i" value="1"></eq>>
+                    <!--<i class="ico ico-pencil"></i>-->
+                    <a href="javascript:void 0;">
+                        {$vo.title}
+                    </a>
+                    <i class="ico-arrow-collapse"></i>
+                </h2>
+            <notempty name="vo['children']">
+
+                <ul class="sub-sys-menu" <if condition="in_array($vo['id'], $selectmenu)">style="display:block"</if>>
+                    <volist name="vo['children']" id="cvo" >
+                        <li <if condition="in_array($cvo['id'], $selectmenu)">class="current"</if>>
+
+                        <a href="/{$cvo.name}.html" target="_self">
+                           
+                            <span>{$cvo.title}
+                                <if condition="$cvo['tip']" ></if></span>
+                        </a>
+                        </li>
+                    </volist>
+                </ul>
+            </notempty>
+            </li>
+        </volist>
+    </ul>
+</div>

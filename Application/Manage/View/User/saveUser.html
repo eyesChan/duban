@@ -1,0 +1,82 @@
+<extend name="Public:base"/>
+<block name="title">
+    <title>工作流管理系统</title>
+</block>
+
+<block name="right">
+    <css href="__PUBLIC__/css/userManage.css"/>
+    <div class="container-padding">
+        <div class="tb1 jxssp tb1-noborder">
+            <form method="POST" name="query-form" action="{$submit}" id="SalerSearchForm" onsubmit="return check();">
+                <div class="wrap-table mt10">
+                    <table class="tbl">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="80%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td class="cap"><em>*</em>用户名</td>
+                            <td colspan="3">
+                                <input type="text" class="input-text ml15 username-input" name="data[nickname]"
+                                       value="{$data[nickname]}"
+                                       placeholder="请输入用户名" maxlength="20">
+                                <span class="error-message hide"></span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="cap">真实姓名</td>
+                            <td colspan="3">
+                                <input type="text" class="input-text ml15 realname-input" name="data[name]"
+                                       value="{$data[name]}"
+                                       placeholder="请输入真实姓名" maxlength="30">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cap">性别</td>
+                            <td colspan="3">
+                                <input type="radio" name="data[sex]" value="0" class="input-text ml15"
+                                <if condition="$data[sex] eq 0 "> checked="checked"</if>
+                                >男
+                                <input type="radio" name="data[sex]" value="1" class="input-text ml15"
+                                <if condition="$data[sex] eq 1 "> checked="checked"</if>
+                                >女
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cap">手机号码</td>
+                            <td colspan="3">
+                                <input type="text" class="input-text ml15 tel-input" name="data[phone]"
+                                       value="{$data[phone]}"
+                                       placeholder="请输入手机号" maxlength="11">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cap">邮箱</td>
+                            <td colspan="3">
+                                <input type="text" class="input-text ml15 email-input" name="data[email]"
+                                       value="{$data[email]}" maxlength="50" placeholder="请输入邮箱">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cap">描述</td>
+                            <td colspan="3">
+                            <textarea maxlength="100" class="ml15 user-textarea"
+                                      name="data[description]">{$data[description]}</textarea>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clear">
+                    <input type="hidden" name="uid" value="{$data[uid]}" class="fl hidden-id">
+                    <input type="submit" value="保存" id="btn_Save" class="btn-c btn-xl button btn btn-a fl">
+                    <a href='{:U("index",array("p"=>$p))}' id="btn_Cancel" class="no_disable back-a fl">返回</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <js href="__PUBLIC__/Js/baseOperate.js"/>
+    <js href="__PUBLIC__/Js/userManage.js"/>
+</block>

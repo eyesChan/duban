@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<extend name="Public:base" />
+
+<block name="title"><title>工作流管理系统</title></block>
+
+<block name="right">
+    <css href="__PUBLIC__/css/updatePwd.css"/>
+    <div class="container-padding" style="margin-top: 20px;">
+        <div class="jxssp tb1">
+            <form method="POST" id="updatePwd" action="{:U('modifyPsd')}" enctype="multipart/form-data">
+                <table class="tb1">
+                <caption>修改密码</caption>
+                    <colgroup>
+                        <col width="20%">
+                        <col width="80%">
+                    </colgroup>
+                    <tr>
+                        <td class="text-ar">原登录密码：</td>
+                        <td class="clear">
+                            <input maxlength="30" type="password" name="old_password" id="old_password">
+                            <span class=" error-message error-message1"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-ar">新登录密码：</td>
+                        <td class="clear">
+                            <input maxlength="30" type="password" name="new_password" id="new_password">
+                            <span class="error-message error-message2"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-ar">确认新密码：</td>
+                        <td class="clear">
+                            <input maxlength="30" type="password" name="confirm_password" id="confirm_password">
+                            <span class="error-message error-message3"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="op-td clear">
+                            <div class="pwd-prompt update-pwd-pro hide">
+                                <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
+                                <span>修改密码成功，请重新登录！</span>
+                            </div>
+                            <input type="button" class="update-save fl btn btn-c btn-xl button" value="保存">
+                            <!--<input type="reset" value="返回" onclick="javascript:history.back(-1)"/><pan id="result"></span>-->
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+    </div>
+    <js href="__PUBLIC__/Js/updatePwd.js" />
+</block>

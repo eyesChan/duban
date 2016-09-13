@@ -1,0 +1,100 @@
+<extend name="Public:base" />
+<block name="title"><title>工作流管理系统</title></block>
+<block name="right">
+<css href="__PUBLIC__/css/loginlog.css"/>
+  <div class="role-padding container-padding">
+    <div class="wrap-table mt10">
+        <form  method="post" action="{:U(OperationLog/index)}" name="queryOrder-form" class="login-form">
+            <table class="tbl">
+                <caption>查询条件</caption>
+                <colgroup>
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="50%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td class="cap">操作人：</td>
+                        <td class="op-td">
+                            <input type="text" name="nickname" value="{$param['nickname']}" maxlength="20" class="input-text">&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td class="cap">IP地址：</td>
+                        <td class="op-td">
+                            <input type="text" name="ip_address" maxlength="20" value="{$param['ip_address']}" class="input-text">&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td class="cap">操作日期：</td>
+                        <td class="op-td" style="position: relative;">
+                            <input type="text" id="d4311"  value="{$param['begin_time']}" onclick="WdatePicker({ maxDate:'#F{ $dp.$D(\'d4312\')||\'2050-10-01\' }' })" name="begin_time" class="Wdate input-text"> 至&nbsp;<input type="text" id="d4312" value="{$param['end_time']}" onclick="WdatePicker({ minDate:'#F{ $dp.$D(\'d4311\') }',maxDate:'2050-10-01' })" name="end_time" class="Wdate input-text">
+                            <a class="error-message1 error-id hide">
+                                  <img src="__PUBLIC__/images/login/error.png" alt=""/>
+                                   <span>开始日期不能大于结束日期！</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cap">日志内容：</td>
+                        <td class="op-td">
+                            <input type="text" name="log_content" value="{$param['log_content']}" maxlength="20"  class="input-text">&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td class="cap">模块名：</td>
+                        <td class="op-td">
+                            <input type="text" name="moudle_name" value="{$param['moudle_name']}" maxlength="20" class="input-text">&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td class="cap"></td>
+                        <td>
+                            <input type="submit" value="筛选" id="btn_query" class="btn btn-a submit">
+                          <!--   <input type="button" value="导出" id="btn_query" class="btn btn-a op-input"> -->
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="wrap-table-a">
+        <table class="tbl tbl-list">
+            <colgroup>
+                <col width="5%">
+                <col width="20%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <col width="35%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="th1">序号</th>
+                    <th>操作日期</th>
+                    <th>操作人</th>
+                    <th>IP地址</th>
+                    <th>模块名</th>
+                    <th>操作结果</th>
+                    <th class="th4" style="text-align: center;">日志内容</th>
+                </tr>
+            </thead>
+            <tbody id="OrderListTbody" class="log-tb">
+            <foreach name="list" item="item" >
+
+                <tr>
+                    <td>{$key+1}</td>
+                    <td>{$item['time']}</td>
+                    <td>{$item['nickname']}</td>
+                    <td>{$item['ip_address']}</td>
+                    <td>{$item['moudle_name']}</td>
+                    <td><if condition=" $item['result'] eq 1">操作成功<else/>操作失败</if></td>
+                    <td style="text-align: left;">{$item['log_content']}</td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination fr page-padding" >
+        {$page}
+    </div>
+</div>
+<!-- <js href="__PUBLIC__/Js/opera.js" /> -->
+</block>

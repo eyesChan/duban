@@ -1,0 +1,62 @@
+<extend name="Public:base" />
+
+<block name="title"><title>工作流管理系统</title></block>
+<block name="right">
+<css href="__PUBLIC__/css/roleManage.css"/>
+    <div class="role-padding container-padding">
+        <div class="jxssp tb1">
+            <form  id="au-form"  class="auRole" method="POST" action="{:U(save)}" enctype="multipart/form-data">
+                <div class="current-role" >
+                    <input type="hidden" name="id" value="{$role_info['id']}">
+                    <input type="hidden" name="p" value="{$p}">
+                    当前授权角色：{$role_info['title']}
+                </div>
+                <div class="table-wrap">
+                    <table class="tb1 tb2" >
+                        <tbody>
+                        <foreach name="menu_info" item="v">
+                            <present name="v['children']">
+                                <foreach name="v['children']" item="vv">
+                                    <tr>
+                                        <td colspan="2"  class="au-role">
+                                            <input id="singleselect{$v['id']}_{$vv['id']}" class="allCheck" type='checkbox' name="box[]"
+                                    <if condition="$vv.is_check eq 1">checked='checked'</if>
+                                     value="{$v['id']},{$vv['id']}" >{$v['title']}>{$vv['title']}</td>
+                                    </tr>
+                                    <tr class="au-ro-tr clear">
+                                        <td  class="op-td1 clear right au-ro-td au-td-op">操作权限：</td>
+                                        <td class="op-td1 clear au-ro-td au2" >
+                                    <foreach name="vv['children']" item="vvv">
+                                        <input id="singleselect{$vvv['id']}" class="au-chec" type='checkbox' name="box[]" <if condition="$vvv.is_check eq 1">checked='checked'</if>value="{$vvv['id']}"><span class="operated-auth"style="display:inline-block;margin: 0 10px;">{$vvv['title']}</span>
+                                    </foreach>
+                                    </td>
+                                    </tr>
+                                    <tr class="au-ro-tr">
+                                        <td class="op-td1 right au-ro-td au-td1">查看权限：</td>
+                                        <td class="op-td1 au-ro-td au3">
+                                            <input class="au-ra s-all-ra"  type='radio' name="view_premission[{$vv['id']}]" value="{$vv['id']}-1" <if condition="$vv.pre eq 1">checked='checked'</if> ><span class="check-auth">全部</span>
+                                    <input class="au-ra" type='radio' name="view_premission[{$vv['id']}]" value="{$vv['id']}-2" <if condition="$vv.pre eq 2">checked='checked'</if> ><span class="check-auth">部门</span>
+                                    <input class="au-ra per-r" type='radio' name="view_premission[{$vv['id']}]" value="{$vv['id']}-3" <if condition="$vv.pre eq 3">checked='checked'</if> ><span class="check-auth">个人</span>
+                                    </td>
+                                    </tr>
+                                </foreach>
+                                <else />
+                                <tr>
+                                    <td colspan="2" class="au-role">
+                                    <input id="singleselect{$v['id']}" class="" type='checkbox' name="box[]" <if condition="$v.is_check eq 1">checked='checked'</if> value="{$v['id']}">{$v['title']}</td>
+                                </tr>
+                            </present>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+                <div class=" text-center op-wrap">
+                        <input type="submit" value="保存" class="filter-search" name="sub" id="sub" />
+                        <input type="reset" value="取消" class="filter-search" name="sub" id="reset" onclick="javascript:history.back(-1)"/>
+                </div>
+            </form>
+        </div>
+    </div>
+     <js href="__PUBLIC__/Js/baseOperate.js" />
+     <js href="__PUBLIC__/Js/roleManage.js" />
+</block>

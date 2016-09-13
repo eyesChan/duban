@@ -1,0 +1,74 @@
+<extend name="Public:base"/>
+<block name="title">
+    <title>
+        工作流管理系统
+    </title>
+</block>
+
+<block name="right">
+    <css href="__PUBLIC__/css/userManage.css"/>
+    <div class="container-padding">
+        <div class="wrap-table mt10 user-allocationRole">
+            <form action="{:U(allocationRole)}" method="post" class="user-allocationRole-form">
+                <table class="tbl tbl-list">
+                    <caption>当前用户：{$info.nickname}</caption>
+                    <colgroup>
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>
+                            <label class="checkbox-default user-checkboxAll" for="allSelect"></label>
+                            <input class="hide" type="checkbox" id='allSelect'>
+                            <span class="cr">选择角色</span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="user-tbody">
+                    <tr>
+                        <volist name="group_info" key="Ukey" id="vo">
+                            <td>
+                                <label class='checkbox-default checkbox-normal
+                                   <foreach name="user_group_info" item="item">
+                                <if condition=" $vo.id eq $item.group_id ">
+                                     checkbox-checked
+                                </if>
+                            </foreach>
+                                   '
+                                       for="singleSelect{$vo.id}"></label>
+                                <input type='checkbox' class="singleSelect"
+                                <foreach name="user_group_info" item="item">
+                                    <if condition=" $vo.id eq $item.group_id ">
+                                        checked=checked
+                                    </if>
+                                </foreach>
+                                id="singleSelect{$vo.id}" value='{$vo.id}'
+                                name='childrenBox[]'>
+                                <span class="allocationRoleTitle">{$vo.title}</span>
+
+                            </td>
+
+                            <if condition="$Ukey %5 eq 0"></tr><tr> </if>
+
+
+                        </volist>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <input type="hidden" name='uid' value="{$info.uid}">
+                    <input class="btn-c btn-xl button btn btn-a fl" type="submit" name='submit' value="保存"/>
+                    <a href="{:U(index)}" class="no_disable back-a fl">返回</a>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+    <js href="__PUBLIC__/Js/baseOperate.js"/>
+    <js href="__PUBLIC__/Js/userManage.js"/>
+</block>

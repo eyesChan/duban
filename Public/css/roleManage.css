@@ -1,0 +1,216 @@
+/*角色管理css*/
+.tb1 .r-from #rn {
+    height: 70px;
+    background: #fff;
+    line-height: 70px;
+    position: relative;
+}
+
+.inner-container .role-padding {
+    padding-top: 20px;
+}
+
+.role-filter {
+    margin-left: 10px;
+}
+
+.role-filter-input {
+    width: 15%;
+    margin-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    line-height: 30px \9;
+    text-indent: 2px;
+    background-color: #ECEFF4;
+    border: none;
+}
+
+.role-add:hover {
+    color: #fff;
+}
+
+.role-row-td {
+    padding: 2px 0;
+    line-height: 35px;
+    position: relative;
+}
+
+.role-link-btn {
+    display: inline-block;
+    width: 76px;
+    height: 22px;
+    line-height: 22px;
+    color: #fff;
+}
+
+.role-delete,
+.role-ediit {
+    display: inline-block;
+    height: 22px;
+}
+
+.diy-checkbox {
+    margin-top: 11px;
+}
+
+.role-tit {
+    width: 15%;
+}
+
+.filter-add {
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.jxssp .role-edit-td {
+    padding: 20px 0;
+}
+
+.jxssp .role-n {
+    width: 20%;
+    text-align: right;
+}
+
+.jxssp .role-input {
+    text-align: left;
+    padding-bottom: 20px
+}
+
+.jxssp .role-input textarea,
+.jxssp .role-input input {
+    margin-left: 20px;
+    margin-top: 10px;
+    border: 1px solid #ededed;
+}
+
+.jxssp .role-input input {
+    width: 15%;
+    height: 26px;
+    line-height: 26px;
+    line-height: 26px \9;
+    text-indent: 2px;
+}
+
+.jxssp .role-input textarea {
+    width: 300px;
+    height: 100px;
+    padding: 2px;
+}
+
+.jxssp .op-td {
+    text-align: left;
+    padding: 20px 0 20px 235px;
+}
+
+.current-role {
+    height: 60px;
+    border-bottom: 1px solid #ededed;
+    font: 16px/60px "microsoft yahei";
+    padding-left: 20px;
+    background: #fff;
+}
+
+.jxssp .tb2 {
+    width: 1040px;
+    border: none;
+    margin-top: 0;
+    margin: 20px;
+}
+
+.jxssp .tb2 td {
+    border: none;
+}
+
+.jxssp .au-role {
+    padding-left: 20px;
+    font: 14px/35px "microsoft yahei";
+    text-align: left;
+}
+
+.jxssp .au-ro-td {
+    background: #F2F6FF;
+    width: 150px;
+}
+
+.jxssp .au-td-op {
+
+}
+
+.jxssp .au3,
+.jxssp .au2 {
+    text-align: left;
+}
+
+.jxssp .au2 {
+    width: 890px;
+}
+
+.au-de {
+    margin: 12px 5px 0 10px;
+}
+
+.checkbox-deflt {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border: 1px solid #ededed;
+    margin-top: 4px;
+    margin-left: 10px;
+}
+
+.ra-default1 {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    background: url(../images/self-ra1.png) no-repeat;
+}
+
+.ra-default2 {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    background: url(../images/self-ra2.png) no-repeat;
+}
+
+.tb2 .allCheck {
+    margin-right: 10px;
+}
+
+.err-message {
+    color: red;
+    margin-left: 5px;
+}
+
+.jxssp .auRole {
+    border: 1px solid #ededed;
+}
+
+.page-padding {
+    padding-bottom: 50px;
+}
+
+#au-form {
+    background: #fff;
+}
+
+.table-wrap {
+    background: #fff;
+}
+
+.op-wrap {
+    background: #fff;
+    margin: 50px 0;
+}
+
+.jxssp .op-td1 {
+    max-height: 36px;
+    line-height: 20px;
+    padding: 8px 0 0;
+}
+
+.check-auth,
+.operated-auth {
+    display: inline-block;
+    margin: 0 10px;
+}
+

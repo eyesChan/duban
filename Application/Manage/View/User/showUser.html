@@ -1,0 +1,156 @@
+<extend name="Public:base" />
+<block name="title"><title>工作流管理系统</title></block>
+
+<block name="right">
+    <css href="__PUBLIC__/css/userManage.css"/>
+    <div class="container-padding">
+    <div class="department-item tb1 show-user">
+        <table class="tbl">
+            <colgroup>
+                <col width="5%">
+                <col width="80%">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td width="15%" class="right">
+                    <p>用户名：</p>
+                </td>
+                <td>
+                    <span class="d-item-show">{$user_info.nickname}</span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="right">
+                    <p>真实姓名：</p>
+                </td>
+                <td>
+                    <span class="d-name d-item-show">{$user_info.name}</span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="right">
+                    <p>性别：</p>
+                </td>
+                <td>
+                            <span class="d-person d-item-show">
+                                <if condition='$user_info.sex eq 0'>男
+                                    <else/>
+                                    女
+                                </if>
+                                
+                            </span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="right">
+                    <p>手机号：</p>
+                </td>
+                <td>
+                    <span class="d-item-show">{$user_info.phone}</span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="right">
+                    <p>邮箱：</p>
+                </td>
+                <td>
+                    <span class="d-item-show">{$user_info.email}</span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+
+
+            <tr>
+                <td width="15%" class="right">
+                    <p>部门：</p>
+                </td>
+                <td>
+                    <span class="d-item-show">{$user_info.dept_name}</span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="right">
+                    <p>角色：</p>
+                </td>
+                <td>
+                    <span class="d-item-show">
+                        <foreach name="role_info" key="key" item="item">
+                            <if condition="$key gt 0">
+                                、
+                            </if>
+                            {$item.title}
+                        </foreach>
+                    </span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+            
+             <tr>
+                <td width="15%" class="right">
+                    <p>状态：</p>
+                </td>
+                <td>
+                    <span class="d-item-show">
+                          <if condition="$user_info.status eq 1">
+                              启用
+                              <else/>
+                              禁用
+                            </if>
+                    </span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+             
+                  <tr>
+                <td width="15%" class="right">
+                    <p>创建时间：</p>
+                </td>
+                <td>
+                    <span class="d-item-show">
+                          {$user_info.reg_time}
+                    </span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="right">
+                    <p>修改时间：</p>
+                </td>
+                <td>
+                    <span class="d-item-show">
+                          {$user_info.update_time}
+                    </span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="right">
+                    <p>描述：</p>
+                </td>
+                <td>
+                    <span class="d-item-show">{$user_info.description}</span>
+                    <input type="text" class="d-item-hide hide input-text text short"
+                           autocomplete="off" value="">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="{:U(index)}" id="btn_Cancel" class="no_disable back-a fl">返回</a>
+    </div>
+    </div>
+</block>

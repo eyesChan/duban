@@ -1,0 +1,23 @@
+#updatePwd .text-ar {
+    text-align: right;
+}
+#updatePwd input {
+    margin-left: 20px;
+}
+
+#updatePwd td {
+    height: 50px;
+    position: relative;
+}
+#updatePwd .op-td .update-save {
+    margin-left: 236px;
+}
+.update-pwd-pro {
+    width: 200px;
+    top: 0;
+    left: 315px;
+}
+#updatePwd .update-pwd-pro img{
+    margin-right: 10px;
+    vertical-align: middle;
+}

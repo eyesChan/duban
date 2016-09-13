@@ -1,0 +1,82 @@
+<extend name="Public:base" />
+<block name="title"><title>工作流管理系统</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/moduleManage.css"/>
+    <div class="container-padding">
+        <div class="wrap-table mt10">
+            <form method="POST" action="{:U(save)}" name="searchForm" id="sform">
+                <input type="hidden" name='id' value="{:I('get.id')}"/>
+                <div class="wrap-table">
+                    <table class="tbl">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="80%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td class="cap"><em>*</em>模块编码：</td>
+                            <td colspan="3">
+                                <input name="menu_num" type="text"  class="input-text ml15" id="menu_num" value="{$auth.menu_num}" size="21">
+                                <span class="error-message hide"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cap"><em>*</em>模块名称：</td>
+                            <td colspan="3">
+                                <input name="menu_name" type="text"  class="input-text ml15" id="menu_name" value="{$auth.title}" size="21">
+                                <span class="error-message hide"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cap"><span class="rq">*</span>上级模块：</td>
+                            <td colspan="3">
+                                <select  class="ml15" id="level" name="level">
+                                    <option value="0">请选择</option>
+                                    <option value="1" <if condition="$auth['pid'] eq 0">selected="selected"</if>>顶级目录</option>
+                                    <foreach name='module_list' item='vo'>
+                                        <option value="{$vo.id}" <if condition="$vo['id'] eq $auth['pid']">selected="selected"</if>>{$vo.title}</option>
+                                        <foreach name='vo.children' item='vo2'>
+                                            <option value="{$vo2.id}" <if condition="$vo2['id'] eq $auth['pid']">selected="selected"</if>>|--{$vo2.title}</option>
+                                        </foreach>
+                                    </foreach>
+                                </select>
+                            </td>
+                            </tr>
+                        <tr>
+                            <td class="cap">模块状态：</td>
+                            <td colspan="3">
+                                <input class="ml15" name="hide" type="radio" value="0" <if condition="$auth['hide'] eq 0">checked</if>> 显示
+                                <input type="radio" name="hide" value="1" <if condition="$auth['hide'] eq 1">checked</if>> 隐藏
+                            </td>
+                        </tr>
+
+                        </tr>
+                        <tr>
+                            <td class="cap"><span class="rq">*</span>文件路径：</td>
+                            <td colspan="3"><input name="menu_url" type="text"  class="input-text ml15" id="menu_url" value="{$auth.name}" size="21" placeholder="Home/Controller/action"></td>
+                        </tr>
+                        <tr>
+                            <td class="cap">图标路径：</td>
+                            <td colspan="3"><input name="map_url" type="text"  class="input-text ml15" id="map_url" value="{$auth.map_url}" size="21"></td>
+                        </tr>
+                        <tr>
+                            <td class="cap">功能描述：</td>
+                            <td colspan="3"><textarea name="mark" cols="21" class="input-text ml15" id="mark">{$auth.tip}</textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="cap">&nbsp;</td>
+                            <td colspan="3" class="clear">
+                                <input type="button"  style="margin-left: 30px;" value="修改"  onclick="sel1(2)" class="btn btn-a fl btn btn-c btn-xl button" >
+                                <a class="back-a module-back fl" href='javascript:history.go(-1);'>返回</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </form>
+            <div class="pagination"> </div>
+        </div>
+    </div>
+    <js href="__PUBLIC__/Js/moduleManage.js" />
+</block>

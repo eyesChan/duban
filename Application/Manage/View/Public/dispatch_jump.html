@@ -1,0 +1,41 @@
+<extend name="Public:base" />
+<block name="title"><title>跳转提示</title></block>
+<block name="right">
+    <?php
+    if(C('LAYOUT_ON')) {
+    echo '{__NOLAYOUT__}';
+    }
+    ?>
+    <div class="wrap-table-a">
+        <table class="tbl">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <?php if(isset($message)) {?>
+                    <td align="center" style="height:62px;color:#30519c;">操作成功</td>
+                    <td class="cap" style="height:62px;color:#30519c;"><?php echo($message); ?></td>
+                    <?php }else{?>
+                    <td align="center" style="height:62px;color:#30519c;">操作失败</td>
+                    <td class="cap" style="height:62px;color:#30519c;"><?php echo($error); ?></td>
+
+                    <?php }?>
+
+                </tr>
+            </tbody>
+        </table>
+        <div>
+        </div>
+        <!--三种按钮样式-->
+        <div class="wrap-btns">
+            <a id="href" href="<?php echo($jumpUrl); ?>" class="btn btn-a btn-lg">返回</a>
+
+        </div>
+    </div>
+
+</block>
+
+
+

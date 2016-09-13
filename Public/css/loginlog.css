@@ -1,0 +1,36 @@
+.tbl .search-con{
+  border:none;
+  border-bottom:1px solid #ededed;
+}
+.tbl .lon{
+  padding: 12px 5px 12px 0;
+}
+.tbl .log-sel{
+  height:24px;
+}
+.log-s{
+  margin-top: -4px;
+}
+.tbl .th1{
+ border-left: 1px solid #ededed;
+}
+.tbl .th4{
+ border-right: 1px solid #ededed;
+}
+.tbl .log-tb{
+  border-left: 1px solid #ededed;
+  border-right: 1px solid #ededed;
+}
+.tbl .log-tb td{
+  border-bottom: 1px solid #ededed;
+}
+.tbl .op-td{
+  line-height: 0;
+}
+.tbl .cap{
+  width:13%;
+}
+.tbl .op-input{
+    margin: 0 5px;
+}
+

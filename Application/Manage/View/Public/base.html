@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <css href="__PUBLIC__/Js/dialog/skins/default.css"/>
+    <css href="__PUBLIC__/css/base.css"/>
+    <css href="__PUBLIC__/css/frame.css"/>
+    <css href="__PUBLIC__/css/layout.css"/>
+    <css href="__PUBLIC__/css/container.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/print.css" media="print"/>
+    <link href="__PUBLIC__/Js/DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+    <js href="__PUBLIC__/Js/jquery-1.11.2.min.js" />
+    <js href="__PUBLIC__/Js/DatePicker/WdatePicker.js" />
+    <js href="__PUBLIC__/Js/frame.js" />
+    <js href="__PUBLIC__/Js/ajaxfileupload.js" />
+    <js href="__PUBLIC__/Js/dialog/lhgdialog.min.js" />
+    <js href="__PUBLIC__/Js/jquery.validate.js"/>
+    <js href="__PUBLIC__/Js/messages_zh.min.js"/>
+    <block name="title">
+	<title>订单</title>
+	</block>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script type="text/javascript">
+        DD_belatedPNG.fix('.jns-logo,.ico,.tip,.ico-arrow-collapse,.ico-arrow-extend');
+    </script>
+    <![endif]-->
+</head>
+<body>
+<!--头部开始 -->
+<block name="header"><include file="Public:header" /></block>
+<!--头部结束 -->
+<!--主体开始 -->
+<div class="wrap clear">
+    <block name="header"><include file="Public:left" /></block>
+    <div class="content">
+        <div class="frame-wrap">
+            <div class="main-frame" id="main-frame">
+	            <div class="inner-container">
+	            	<block name="right"></block>
+	            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--主体结束 -->
+<script type="text/javascript">
+    //页面功能初始化
+    frame.init();
+    frame.backHome();
+</script>
+<js href="__PUBLIC__/Js/common.js" />
+</body>
+</html>

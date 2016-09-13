@@ -1,0 +1,506 @@
+.tabs-header, .tabs-tool {
+    background: #fff;
+}
+/*中间主要部分积分管理系统列表项
+**************************/
+.manage-title {
+    margin: 0 10px 5px 0;
+}
+
+.panel-title {
+    background: transparent;
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 80%;
+    height: 36px;
+    line-height: 36px;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    border-bottom: 1px solid #01B0F1;
+}
+
+/*自定义复选框*/
+.checkbox-default {
+    width: 13px;
+    height: 13px;
+    margin: 12px 15px 0 6px;
+    vertical-align: middle;
+    border: 1px solid #1eaee2;
+    color: #1eaee2;
+    float: left;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    behavior: url(./ie-css3.htc);
+}
+
+.checkbox-all {
+    margin: 15px 10px;
+}
+
+/*自定义复选框选中*/
+.check-selected {
+    background-image: url(../../images/common/selected.gif);
+}
+
+.all-selected {
+    background-image: url(../../images/common/selected.gif);
+}
+
+/*自定义文件选择*/
+.input-box .file {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #99D3F5;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    line-height: 20px;
+}
+
+.input-box .hidden-file {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    /*IE8兼容*/
+    filter: Alpha(opacity=0);
+    cursor: pointer;
+}
+
+.input-box .chose-file {
+    position: absolute;
+    right: 0;
+    width: 69px;
+    height: 30px;
+    color: #fff;
+    text-align: center;
+    background: #1eaee2;
+}
+
+/*输入框
+*****************************************/
+.input-box {
+    width: 288px;
+    height: 30px;
+    position: relative;
+    margin-bottom: 20px;
+    border: 1px solid #0486C1;
+}
+
+.input-box .inner-input {
+    position: absolute;
+    width: 219px;
+    height: 30px;
+    border: none;
+}
+
+.input-box .inner-btn {
+    width: 69px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    display: block;
+    background: #c4f2ff;
+    color: #1eaee2;
+}
+
+/*弹出框
+*****************************************/
+.alert-win {
+    width: 360px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -90px;
+    margin-left: -200px;
+    padding-bottom: 20px;
+    z-index: 999;
+    background-color: #E0F7FF;
+    text-align: center;
+    color: #0486C1;
+}
+
+.alert-win .alert-top {
+    height: 40px;
+    background: #0486C1;
+    color: #fff;
+}
+
+.alert-top .alert-title {
+    float: left;
+    margin-left: 20px;
+    line-height: 40px;
+}
+
+.alert-top .alert-close {
+    float: right;
+    font-size: 20px;
+    margin-right: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.alert-win .alert-message {
+    font-size: 15px;
+    text-align: center;
+    line-height: 130px;
+}
+
+/*列表项
+*****************************************/
+.list .list-title {
+    height: 40px;
+    border-bottom: 1px solid #1eaee2;
+}
+
+/*设置图片统一样式*/
+.list-dt img {
+    width: 80px;
+    height: 80px;
+}
+
+.list .list-title .list-dt {
+    height: 40px;
+    line-height: 40px;
+    color: #000;
+    float: left;
+}
+
+.list .list-title .dt255 {
+    text-align: center;
+}
+
+.list-dt select,
+.list-dt input {
+    color: #1eaee2;
+    border: 1px solid #1eaee2;
+}
+
+.list-search .list-dt select {
+    margin-left: 10px
+}
+
+.list .list-search {
+    height: 50px;
+}
+
+.list .list-search .list-dt {
+    float: left;
+    height: 50px;
+    text-align: center;
+}
+
+.list-search .list-dt .dt-input {
+    border: 1px solid #ccc;
+    width: 90%;
+    height: 25px;
+    margin: 20px auto;
+}
+
+.list-dt > img {
+    border: 1px solid #EBEBEB;
+}
+
+.list .list-normal {
+    width: 100%;
+    padding-left: 5px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #c4f2ff;
+}
+
+.list-normal .list-dt {
+    padding-top: 4px;
+    line-height: 3em;
+}
+
+.list-col .list-dt {
+    color: #000;
+    float: left;
+    text-align: center;
+}
+
+.list-col .list-noborder {
+    border: none;
+}
+
+.list-col .dt55 {
+    width: 55px;
+}
+
+/*文本对齐方式*/
+.list-col .text-ar {
+    text-align: right;
+    color: #666;
+    padding-right: 10px;
+}
+
+.list-col .text-al {
+    text-align: left;
+}
+
+.dt95 {
+    width: 95px;
+}
+
+.list-col .dt195 {
+    width: 195px;
+}
+
+.list-col .dt255 {
+    width: 255px;
+}
+.list-col .dt-over {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-indent: 10px;
+}
+
+.list-col .dt75 {
+    width: 90px;
+}
+
+.list-col .dt55 .input-check {
+    width: 15px;
+    height: 15px;
+    margin: 14px 0 0 25px;
+}
+
+.list-title .input-check {
+    margin-top: 10px;
+}
+
+.list-search .input-check {
+    margin-top: 25px;
+}
+
+.list-col .dt165 {
+    width: 165px;
+}
+
+.search-select {
+    margin-top: 23px;
+}
+
+.list-search .price-to {
+    width: 6px;
+    height: 25px;
+    float: left;
+    margin-top: 20px;
+    line-height: 25px;
+    color: #ccc;
+}
+
+.list-search .list-dt .price-input {
+    border: 1px solid #ccc;
+    width: 39px;
+    height: 25px;
+    margin: 20px auto;
+    float: left;
+}
+.list-search .list-dt .price-input-shop {
+    border: 1px solid #ccc;
+    width: 30px;
+    height: 25px;
+    margin: 20px auto;
+    float: left;
+}
+
+
+/*列表的时间项*/
+.list-col .list-time-dt {
+    margin-left: 5px;
+}
+
+.list-col .title-time-dt {
+    margin-left: 10px;
+}
+
+/*需要操作的列表行数据项颜色*/
+.list-operate-btn {
+    color: #0486C1;
+}
+
+/*搜索一栏里的下拉列表*/
+.common-search-select {
+    margin-top: 22px;
+}
+
+/*列表里的按钮样式*/
+.common-list-btn {
+    width: 70px;
+    border-radius: 3px;
+    background: #DAF1FF;
+    display: block;
+    float: left;
+    color: #0486C1;
+}
+
+.common-list-btn:hover {
+    background: #85DFFF;
+}
+
+.list-common-search {
+    width: 80px;
+    background: #01B0F1;
+    margin-top: 18px;
+    border-radius: 3px;
+    display: block;
+}
+
+/*批量修改统一样式*/
+.update-integral-message ul {
+    width: 220px;
+    height: 80px;
+    margin: 10px auto;
+    border: 1px solid #e6e6e6;
+}
+
+.update-integral-message ul > li {
+    line-height: 30px;
+}
+
+.update-integral-message .btn {
+    display: block;
+    float: left;
+    width: 110px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.current-operate {
+    background: #0486C1;
+}
+
+.win-intergral-input {
+    width: 220px;
+    height: 40px;
+    text-align: center;
+}
+
+/*搜索不到结果时*/
+.search-nothing {
+    background: #F7F7F7;
+    margin-top: 20px;
+    position: relative;
+}
+
+.search-nothing img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -52px;
+    margin-left: -65px;
+}
+
+/*分页部分*/
+/*分页*/
+.divide-page {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    border-top: 2px solid #1d7ead;
+}
+
+.page-items {
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-left: 225px;
+}
+
+.page-num li {
+    float: left;
+    width: 30px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.page-num li a {
+    color: #999;
+}
+
+.page-prev {
+    font-size: 15px;
+    color: #999;
+    margin-right: 20px;
+}
+
+.page-next {
+    font-size: 15px;
+    color: #999;
+    margin-left: 20px;
+}
+
+.input-num {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 13px;
+    border-bottom: 1px solid #999;
+}
+
+.input-page {
+    margin: 0 40px 0 50px;
+    color: #999;
+}
+
+.page-num li .current-page {
+    color: #01B0F1;
+}
+
+.btn-sure {
+    width: 70px;
+    height: 30px;
+    background: #0486c1;
+    margin-top: 10px;
+}
+
+/*打开新页面的样式*/
+.new-page-title {
+    margin-right: 3px;
+}
+
+/*返回按钮样式*/
+.main-back {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    cursor: pointer;
+}
+
+/*版权信息
+***********************/
+.copyright {
+    color: #fff;
+    padding-left: 10px;
+    margin-top: 50px;
+}
+
+/*日历部分*/
+#cc-par, #cc-aa {
+    position: relative;
+    width: 140px;
+    margin-right: 0px;
+}
+
+.list-dt .Wdate {
+    width: 110px;
+    height: 25px;
+    margin-top: 20px;
+    padding-left: 20px;
+    border: 1px solid #EBEBEB;
+}
+
+.start-date, .end-date {
+    position: absolute;
+    top: 24px;
+    left: 5px;
+}
+

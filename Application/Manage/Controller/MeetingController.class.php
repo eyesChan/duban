@@ -13,7 +13,7 @@ namespace Manage\Controller;
  *  @author       lishuaijie <shuaijie.li@pactera.com>
  *  Date          2016/07/05
  */
-class ScheduleController extends AdminController {
+class MeetingController extends AdminController {
     /**
      *  显示个人日程会议记录
      */

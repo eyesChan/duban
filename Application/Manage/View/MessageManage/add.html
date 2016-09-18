@@ -1,0 +1,64 @@
+<extend name="Public:base"/>
+
+<block name="title"><title>海航会议督办系统</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/noticeManage.css"/>
+    <div class="role-padding container-padding" style="padding-top: 40px;">
+        <div class="jxssp tb1">
+            <form id="addnotice" method="POST" action="{:U(add)}" enctype="multipart/form-data">
+                <div class="common-notice-item clear">
+                    <span><em>*</em>公告标题：</span>
+                    <input class="notice-title" type="text" name="title">
+                    <span class="error-message error-message1 hide">请输入公告标题！</span>
+                </div>
+                <div class="common-notice-item clear">
+                    <div class="fl start-time-div">
+                        <span class="role-edit-td"><em>*</em>开始时间：</span>
+                        <input id="date11" class="start-time" name="start_time" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00', dateFmt: 'yyyy-MM-dd', alwaysUseStartDate: true, maxDate: $('#date12').val()})">
+                        <span class="error-message error-message2 hide">请输入开始时间！</span>
+                    </div>
+                    <div class="fl end-time-div">
+                        <span class="role-edit-td"><em>*</em>结束时间：</span>
+                        <input id="date12" class="end-time" name="end_time" onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#date11').val()})">
+                        <span class="error-message error-message3 hide">请输入结束时间！</span>
+                    </div>
+                </div>
+                <table class="tb1">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="80%">
+                    </colgroup>
+                    <tr>
+                        <td class="right role-n"><em>*</em>公告内容:</td>
+
+                        <td>
+                            <script id="CONTENT" type="text/plain"></script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="op-td">
+                            <div class="common-prompt save-success hide">
+                                <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
+                                <span></span>
+                            </div>
+                            <input type="hidden" name="p" value="{$p}"/>
+                            <input type="button" name="submit" value="保存" id="add-btn" class="filter-search mr10">
+                            <input type="reset" value="返回" class="filter-search ml10"
+                                   onclick="javascript:history.back(-1)"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <js href="__PUBLIC__/Js/noticeManage.js"/>
+
+    <script>
+	UE.getEditor('CONTENT', {
+	    initialFrameWidth: "81%",
+	    initialFrameHeight: "200",
+	    textarea: 'content'
+	});
+    </script>
+
+</block>

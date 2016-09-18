@@ -1,0 +1,72 @@
+<extend name="Public:base"/>
+
+<block name="title"><title>海航会议督办系统</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/noticeManage.css"/>
+    <div class="role-padding container-padding" style="padding-top: 40px;">
+        <div class="jxssp tb1">
+            <form id="addrole" method="POST" action="{:U(edit)}" enctype="multipart/form-data">
+                <div class="common-notice-item clear">
+                    <span><em>*</em>公告标题：</span>
+                    <input class="notice-title" type="text" name="title" value="{$info.title}">
+                    <span class="error-message error-message1 hide">请输入公告标题！</span>
+                </div>
+                <div class="common-notice-item clear">
+                    <div class="fl start-time-div">
+                        <span class="role-edit-td"><em>*</em>开始时间：</span>
+                        <input type="" name="start_time" id="date11" class="start-time"
+                               onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00', dateFmt: 'yyyy-MM-dd', alwaysUseStartDate: true, maxDate: $('#date12').val()})"
+                               value="{$info['start_time']}">
+                        <span class="error-message error-message2 hide">请输入开始时间！</span>
+                    </div>
+
+                    <div class="fl end-time-div">
+                        <span class="role-edit-td"><em>*</em>结束时间：</span>
+                        <input type="" name="end_time" id="date12" class="end-time"
+                               onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#date11').val()})"
+                               value="{$info['end_time']}">
+                        <span class="error-message error-message3 hide">请输入结束时间！</span>
+                    </div>
+                </div>
+
+                <table class="tb1">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="70%">
+                    </colgroup>
+                    <tr>
+                        <td class="right role-n"><em>*</em>公告内容:</td>
+                        <td>
+                            <script id="editor" type="text/plain">{$info['content']}</script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="op-td">
+                            <div class="common-prompt save-success hide">
+                                <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
+                                <span></span>
+                            </div>
+                            <input type="hidden" name="p" class='p' value="{$p}"/>
+                            <input type="hidden" name="id" class="edit-id" value="{$info['id']}"/>
+                            <input type="button" name="submit" value="保存" id="edit-btn" class="filter-search mr10">
+                            <input type="reset" value="返回" class="filter-search ml10"
+                                   onclick="javascript:history.back(-1)"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <js href="__PUBLIC__/Js/noticeManage.js"/>
+
+    <script>
+
+        UE.getEditor('editor', {
+            initialFrameWidth: "81%",
+            initialFrameHeight: "200",
+            textarea: 'content'
+        }
+        );
+    </script>
+
+</block>

@@ -1,0 +1,118 @@
+<extend name="Public:base"/>
+
+<block name="title"><title>海航会议督办系统</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/noticeManage.css"/>
+    <div class="role-padding container-padding">
+        <div class="filter-main clear">
+            <form method="post" action="{:U(index)}">
+
+                <div class="filter-item"><span>状态:</span>
+                    <select name="status">
+                        <option value="100">--全部--</option>
+                        <option value="2"
+                        <if condition="$status eq '2'">selected='selected'</if>
+                        >未发布</option>
+                        <option value="1"
+                        <if condition="$status eq '1'">selected='selected'</if>
+                        >已发布</option>
+                        <option value="3"
+                        <if condition="$status eq '3'">selected='selected'</if>
+                        >已失效</option>
+                        <option value="0"
+                        <if condition="$status eq '0'">selected='selected'</if>
+                        >已停用</option>
+                    </select>
+                </div>
+
+                <div class="filter-item"><span>公告标题</span>
+                    <input type="text" name="title" value="{$title}">
+                </div>
+
+                <input class="fl filter-btn filter-search" type="submit" value="筛选"/>
+                <a href="{:U(add,array('p'=>$p))}">
+                    <input class="fl filter-btn filter-add" type="button"/>
+                </a>
+            </form>
+        </div>
+        <div class="tb1">
+            <form action="{:U(index)}">
+                <div class="jxssp">
+                    <div class="common-prompt notice-prompt hide">
+                        <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
+                        <span></span>
+                    </div>
+                    <table class="tbl" width="100%">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="20%">
+                            <col width="25%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="10%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th class="role-table-title role-tit">序号</th>
+                            <th class="role-table-title">公告标题</th>
+                            <th class="role-table-title">起始时间</th>
+                            <th class="role-table-title">状态</th>
+                            <th class="role-table-title">录入人</th>
+                            <th class="role-table-title">录入时间</th>
+                            <th class="role-table-title op">操作</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="role-tbody">
+                        <foreach name="info" item="v">
+                            <tr>
+                                <td>{$key +1}</td>
+                                <td>{$v['title']}</td>
+                                <td>{$v['start_time']}至{$v['end_time']}</td>
+                                <if condition="$v['status'] eq 1">
+                                    <td>已发布</td>
+                                    <elseif condition="$v['status'] eq 2"/>
+                                    <td>未发布</td>
+                                    <elseif condition="$v['status'] eq 3"/>
+                                    <td>已失效</td>
+                                    <else/>
+                                    <td>已停用</td>
+                                </if>
+                                <td>{$v['name']}</td>
+                                <td>{$v['create_time']}</td>
+                                <td>
+                                    <a class="fl operate-btn mr5" title="编辑"
+                                       href="{:U('NoticeManage/edit',array('id'=>$v['id'],'p'=>$p))}">
+                                        <span class="operate-span-edit"></span>
+                                    </a>&nbsp;
+                                    <a class="fl operate-btn mr5" title="删除" href="javascript:void(0);"
+                                       onclick="singleDel({$v['id']})">
+                                        <span class="operate-span-del"></span>
+                                    </a>&nbsp;
+                                    <if condition="$v['status'] eq 1">
+                                        <a  class="fl operate-btn mr5" href="javascript:void(0);"
+                                                                         onclick="changeStatus({$v['id']}, 0)">
+                                        <span title="已停用" class="operate-span-disabled"></span>
+                                    </a>
+                                        <elseif condition="$v['status'] eq 0 or $v['status'] eq 2"/>
+                                        <a  class="fl operate-btn mr5" href="javascript:void(0);" onclick="changeStatus({$v['id']}, 1)">
+                                            <span title="发布" class="operate-span-open"></span>
+                                        </a>
+                                        <elseif condition="$v['status'] eq 3"/>
+                                    </if>
+                                </td>
+                            </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div class="pagination fr">
+                {$page}
+            </div>
+        </div>
+        <js href="__PUBLIC__/Js/baseOperate.js"/>
+        <js href="__PUBLIC__/Js/noticeManage.js"/>
+</block>
+

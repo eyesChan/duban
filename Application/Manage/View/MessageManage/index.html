@@ -2,70 +2,68 @@
 
 <block name="title"><title>海航会议督办系统</title></block>
 <block name="right">
-    <css href="__PUBLIC__/css/noticeManage.css"/>
     <div class="role-padding container-padding">
         <div class="filter-main clear">
             <form method="post" action="{:U(index)}">
-
-                <div class="filter-item"><span>状态:</span>
-                    <select name="status">
-                        <option value="100">--全部--</option>
-                        <option value="2"
-                        <if condition="$status eq '2'">selected='selected'</if>
-                        >未发布</option>
-                        <option value="1"
-                        <if condition="$status eq '1'">selected='selected'</if>
-                        >已发布</option>
-                        <option value="3"
-                        <if condition="$status eq '3'">selected='selected'</if>
-                        >已失效</option>
-                        <option value="0"
-                        <if condition="$status eq '0'">selected='selected'</if>
-                        >已停用</option>
-                    </select>
-                </div>
-
-                <div class="filter-item"><span>公告标题</span>
-                    <input type="text" name="title" value="{$title}">
-                </div>
-
-                <input class="fl filter-btn filter-search" type="submit" value="筛选"/>
-                <a href="{:U(add,array('p'=>$p))}">
-                    <input class="fl filter-btn filter-add" type="button"/>
-                </a>
+              <table class="tbl">
+                        <caption>查询条件</caption>
+                        <tr>
+                            <td class="cap">状态：</td>
+                            <td>
+                                <select>
+                                    <option value="">全部</option>
+                                </select>
+                            </td>
+                            <td class="cap">公告标题：</td>
+                            <td><input class="input-text text" name="nickname" value="" type="text"/></td>
+                            <td><input class="btn btn-red mr10 submit" type="button" value="查询"/></td>
+                        </tr>         
+                </table>
             </form>
         </div>
         <div class="tb1">
             <form action="{:U(index)}">
                 <div class="jxssp">
-                    <div class="common-prompt notice-prompt hide">
-                        <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
-                        <span></span>
-                    </div>
-                    <table class="tbl" width="100%">
+                    <table class="tbl tbl-list" width="100%">
+                    <caption>产品信息列表 <a class="tb-detail f-fr mr30" href="{:U(add,array('p'=>$p))}" id="exportbtn">新增公告</a></caption>
                         <colgroup>
                             <col width="5%">
                             <col width="20%">
-                            <col width="25%">
+                            <col width="15%">
+                            <col width="5%">
                             <col width="10%">
-                            <col width="10%">
-                            <col width="20%">
-                            <col width="10%">
+                            <col width="15%">
+                            <col width="30%">
                         </colgroup>
                         <thead>
                         <tr>
-                            <th class="role-table-title role-tit">序号</th>
-                            <th class="role-table-title">公告标题</th>
-                            <th class="role-table-title">起始时间</th>
-                            <th class="role-table-title">状态</th>
-                            <th class="role-table-title">录入人</th>
-                            <th class="role-table-title">录入时间</th>
-                            <th class="role-table-title op">操作</th>
+                            <th>序号</th>
+                            <th>公告标题</th>
+                            <th>起始时间</th>
+                            <th>状态</th>
+                            <th>录入人</th>
+                            <th>录入时间</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
-
-                        <tbody class="role-tbody">
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>123456</td>
+                                    <td>2016-9-18</td>
+                                    <td>启用</td>
+                                    <td>lll</td>
+                                    <td>2016-9-18</td>
+                                    <td>
+                                       <input type="button" value="详细" class="btn btn-r btn-xl button">
+                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
+                                        <input type="button" value="删除" class="btn btn-r btn-xl button"> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                       <!--  <tbody class="role-tbody">
                         <foreach name="info" item="v">
+                        
                             <tr>
                                 <td>{$key +1}</td>
                                 <td>{$v['title']}</td>
@@ -104,7 +102,7 @@
                                 </td>
                             </tr>
                         </foreach>
-                        </tbody>
+                        </tbody> -->
                     </table>
                 </div>
             </form>
@@ -112,7 +110,5 @@
                 {$page}
             </div>
         </div>
-        <js href="__PUBLIC__/Js/baseOperate.js"/>
-        <js href="__PUBLIC__/Js/noticeManage.js"/>
 </block>
 

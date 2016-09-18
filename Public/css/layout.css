@@ -29,7 +29,7 @@
 .tbl-list td{text-align: center;}
 .tbl-list td p{border-bottom: 1px solid #ededed;min-height: 110px;line-height: 16px;}
 .tbl-list td p:last-child{border-bottom: none;}
-.tbl-list tr:hover td {background: #fffac8 none repeat scroll 0 0;}
+/*.tbl-list tr:hover td {background: #fffac8 none repeat scroll 0 0;}*/
 #tr_test td.text-al{text-align: left;} 
 #tr_test td p{border-bottom: none; min-height: 0;} 
 .sort-td {cursor: pointer;}
@@ -109,7 +109,8 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
 .tbl .tb-label td:last-child{border-right: 1px solid #ededed;}
 .tbl-list tr.tb-label:hover td {background: #f2f5fa;}
 .tbl-list tr.tb-cap:hover td {background: #f5f7f7 url(../images/bg-caption.jpg) no-repeat;}
-
+.tbl-list .text-ar{text-align: right;}
+.tbl-list .text-al{text-align: left;}
 /* position  */
 .none{display:none;}
 .text-center{text-align:center;}

@@ -144,10 +144,21 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
     width:100px;
     height:30px;
 }
+.btn-red {
+    background: #CC3333;
+    width: 100px;
+    height:30px;
+}
 .btn-blue:hover{
     background:#30519c;
 }
-
+.btn-normal {
+    width: 100px;
+    height: 30px;
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+}
 .login-step dd{
     float:left;
     border-bottom:3px solid #f5f7f7 ;

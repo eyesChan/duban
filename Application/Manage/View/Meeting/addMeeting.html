@@ -2,5 +2,192 @@
 <block name="title"><title>会议创建</title></block>
 
 <block name="right">
-    <a href="{:U('add')}">添加会议</a>
+    <form action="{:U(save)}" method='post' class="mt20" id="productManage">
+        <table class="tbl">
+          <colgroup>
+                <col width="12%">
+                <col width="21%">
+                <col width="13%">
+                <col width="21%">
+                <col width="12%">
+                <col width="21%">
+            </colgroup>
+            
+        <caption>创建会议信息</caption>
+            <tr>
+                <td class="cap">会议名称：</td>
+                <td colspan="5">
+                   <input type="text" class="input-text text">
+                </td>
+            </tr>
+            <tr>
+                <td class="cap">会议类型：</td>
+                <td>
+                   <select>
+                   		<option value="">创新工作会议</option>
+                   </select>
+                </td>
+                <td class="cap">会议界别：</td>
+                <td colspan="3">
+                   <input type="text" class="input-text text">
+                </td>
+            </tr>
+            <tr>
+                <td class="cap">召集人：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">主持人：</td>
+                <td colspan="3">
+                   <input type="text" class="input-text text">
+                </td>
+            </tr>
+             <tr>
+                <td class="cap">会议形式：</td>
+                <td>
+                   <select>
+                   		<option value="">现场</option>
+                   		<option value="">视频</option>
+                   		<option value="">电话</option>
+                   </select>
+                </td>
+                <td class="cap">参会人员：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">参会模式：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+            </tr>
+            <tr>
+                <td class="cap">会议日期：</td>
+                <td>
+                  <input type="text" name='start_time' id="date1" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                </td>
+                <td class="cap">会议时刻：</td>
+                <td>
+                   <input type="text" id="date2" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate input-text fl"/>
+                </td>
+                <td class="cap">会议时长：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+            </tr>
+            <tr>
+                <td class="cap">会议地点：</td>
+                <td>
+                  <input type="text" class="input-text text">
+                </td>
+                <td class="cap">交办日期：</td>
+                <td colspan="3">
+                    <input type="text" name='start_time' id="date3" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                </td>
+            </tr>
+            <tr>
+                <td class="cap">会议通知撰写人：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">通知发送日期：</td>
+                <td>
+                   <input type="text" name='start_time' id="date4" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                </td>
+                <td class="cap">通知时刻：</td>
+                <td>
+                   <input type="text" id="date5" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate input-text fl"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="cap">会议材料收益：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">材料收集时间：</td>
+                <td>
+                  <input type="text" name='start_time' id="d4311" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,maxDate:$('#d4312').val()})" class="Wdate input-text fl">
+                </td>
+                <td class="cap">材料提交时间：</td>
+                <td>
+                    <input type="text" name='end_time' id="d4312" value="{$end_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 23:59:59',dateFmt:'yyyy-MM-dd',minDate:$('#d4311').val()})" class="Wdate input-text fl">
+                </td>
+            </tr>
+            <tr>
+                <td class="cap">物料准备人：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">会场布置调试人：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">测试日期：</td>
+                <td>
+                   <input type="text" name='start_time' id="date8" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                </td>
+            </tr>
+             <tr>
+                <td class="cap">测试时间：</td>
+                <td>
+                   <input type="text" id="date9" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate input-text fl"/>
+                </td>
+                <td class="cap">问题明细：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">解决状态：</td>
+                <td>
+                  	<select>
+                  		<option>集团</option>
+                  	</select>
+                </td>
+            </tr>
+            <tr>
+                <td class="cap">会议摄影摄像：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">会议结束时间：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">会议结束时刻：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+            </tr>
+            <tr>
+                <td class="cap">餐饮安排：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                </td>
+                <td class="cap">会场整理人：</td>
+                <td colspan="3">
+                   <input type="text" class="input-text text">
+                </td>                
+            </tr>
+            <tr>
+                <td class="cap">台账整理人：</td>
+                <td>
+                   <input type="text" class="input-text text">
+                   <span class="rq">*</span>
+                </td>
+                <td class="cap">台账整理人邮箱地址：</td>
+                <td colspan="3">
+                   <input type="text" class="input-text text">
+                   <span class="rq">*</span>
+                </td>                
+            </tr>
+            <tr>
+                <td class="cap">上传附件：</td>
+                <td colspan="5">
+                   <input type="file">
+                </td>                             
+            </tr>
+        </table>
+        <div class="text-center">
+	        <input class="btn btn-red mr10 submit productSubmit" type="button" value="提交"/>
+	        <input class="btn ml10 button btn-normal" type="button" value="取消"/>
+    	</div>
+    </form>
 </block>

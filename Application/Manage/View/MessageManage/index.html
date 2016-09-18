@@ -8,25 +8,17 @@
             <form method="post" action="{:U(index)}">
 
                 <div class="filter-item"><span>状态:</span>
-                    <select name="status">
-                        <option value="100">--全部--</option>
-                        <option value="2"
-                        <if condition="$status eq '2'">selected='selected'</if>
-                        >未发布</option>
-                        <option value="1"
-                        <if condition="$status eq '1'">selected='selected'</if>
-                        >已发布</option>
-                        <option value="3"
-                        <if condition="$status eq '3'">selected='selected'</if>
-                        >已失效</option>
-                        <option value="0"
-                        <if condition="$status eq '0'">selected='selected'</if>
-                        >已停用</option>
+                    <select name="msg_sys_status">
+                        <option value="">--全部--</option>
+                        <option value="2" <if condition="$remember_search['msg_sys_status'] eq '2'">selected='selected'</if> >未发布</option>
+                        <option value="1" <if condition="$remember_search['msg_sys_status'] eq '1'">selected='selected'</if> >已发布</option>
+                        <option value="3" <if condition="$remember_search['msg_sys_status'] eq '3'">selected='selected'</if> >已失效</option>
+                        <option value="0" <if condition="$remember_search['msg_sys_status'] eq '0'">selected='selected'</if> >已停用</option>
                     </select>
                 </div>
 
                 <div class="filter-item"><span>公告标题</span>
-                    <input type="text" name="title" value="{$title}">
+                    <input type="text" name="msg_sys_title" value="{$remember_search['msg_sys_title']}">
                 </div>
 
                 <input class="fl filter-btn filter-search" type="submit" value="筛选"/>
@@ -44,13 +36,6 @@
                     </div>
                     <table class="tbl" width="100%">
                         <colgroup>
-                            <col width="5%">
-                            <col width="20%">
-                            <col width="25%">
-                            <col width="10%">
-                            <col width="10%">
-                            <col width="20%">
-                            <col width="10%">
                         </colgroup>
                         <thead>
                         <tr>
@@ -65,22 +50,22 @@
                         </thead>
 
                         <tbody class="role-tbody">
-                        <foreach name="info" item="v">
+                        <foreach name="list" item="v">
                             <tr>
                                 <td>{$key +1}</td>
-                                <td>{$v['title']}</td>
-                                <td>{$v['start_time']}至{$v['end_time']}</td>
-                                <if condition="$v['status'] eq 1">
+                                <td>{$v['msg_sys_title']}</td>
+                                <td>{$v['msg_sys_starttime']}至{$v['msg_sys_endtime']}</td>
+                                <if condition="$v['msg_sys_status'] eq 1">
                                     <td>已发布</td>
-                                    <elseif condition="$v['status'] eq 2"/>
+                                    <elseif condition="$v['msg_sys_status'] eq 2"/>
                                     <td>未发布</td>
-                                    <elseif condition="$v['status'] eq 3"/>
+                                    <elseif condition="$v['msg_sys_status'] eq 3"/>
                                     <td>已失效</td>
                                     <else/>
                                     <td>已停用</td>
                                 </if>
-                                <td>{$v['name']}</td>
-                                <td>{$v['create_time']}</td>
+                                <td>{$v['user_id']}</td>
+                                <td>{$v['msg_sys_creattime']}</td>
                                 <td>
                                     <a class="fl operate-btn mr5" title="编辑"
                                        href="{:U('NoticeManage/edit',array('id'=>$v['id'],'p'=>$p))}">

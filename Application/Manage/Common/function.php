@@ -35,17 +35,17 @@ function writeOperationLog($log_content, $result) {
     $moudle_url = MODULE_NAME . '/' . CONTROLLER_NAME . '/' . ACTION_NAME;
     $moudle_info = M('auth_rule')->where("name = '" . $moudle_url . "'")->find();
     if ($moudle_info['level'] != 2) {
-	$moudle_info_p = M('auth_rule')->where("id = '" . $moudle_info['pid'] . "'")->find();
+        $moudle_info_p = M('auth_rule')->where("id = '" . $moudle_info['pid'] . "'")->find();
     }
     $moudle_name = $moudle_info_p['title'];
     $data = array(
-	'moudle_name' => $moudle_name,
-	'operation_user_id' => $uid,
-	'ip_address' => get_client_ip(),
-	'time' => $time,
-	'log_content' => '【' . $moudle_info['title'] . '】' . $log_content,
-	'result' => $result,
-	'status' => 1
+        'moudle_name' => $moudle_name,
+        'operation_user_id' => $uid,
+        'ip_address' => get_client_ip(),
+        'time' => $time,
+        'log_content' => '【' . $moudle_info['title'] . '】' . $log_content,
+        'result' => $result,
+        'status' => 1
     );
 
     $res = M('operation_log')->add($data);
@@ -62,7 +62,7 @@ function writeOperationLog($log_content, $result) {
  */
 function encrypt_data($data) {
     if (!is_array($data)) {
-	$data = (array) $data;
+        $data = (array) $data;
     }
     ksort($data);
     $str = http_build_query($data);
@@ -79,9 +79,9 @@ function encrypt_data($data) {
 function is_login() {
     $user = session('S_USER_INFO');
     if (empty($user)) {
-	return 0;
+        return 0;
     } else {
-	return session('S_USER_SIGN') == encrypt_data($user) ? $user['UID'] : 0;
+        return session('S_USER_SIGN') == encrypt_data($user) ? $user['UID'] : 0;
     }
 }
 
@@ -110,7 +110,7 @@ function addLoginLog($status, $operating, $nickname = '') {
     //如果退出并且没有缓存，说明已经退出，无须加日志
     $uid = session('S_USER_INFO.UID');
     if ($status == 0 && empty($uid)) {
-	return true;
+        return true;
     }
     $data['login_ip'] = get_client_ip();
     $data['server_ip'] = $_SERVER["SERVER_ADDR"];
@@ -137,23 +137,23 @@ function getTree($list, $pk = 'id', $pid = 'pid', $child = 'children', $root = 0
     // 创建Tree
     $tree = array();
     if (is_array($list)) {
-	// 创建基于主键的数组引用
-	$refer = array();
-	foreach ($list as $key => $data) {
-	    $refer[$data[$pk]] = & $list[$key];
-	}
-	foreach ($list as $key => $data) {
-	    // 判断是否存在parent
-	    $parentId = $data[$pid];
-	    if ($root == $parentId) {
-		$tree[] = & $list[$key];
-	    } else {
-		if (isset($refer[$parentId])) {
-		    $parent = & $refer[$parentId];
-		    $parent[$child][] = & $list[$key];
-		}
-	    }
-	}
+        // 创建基于主键的数组引用
+        $refer = array();
+        foreach ($list as $key => $data) {
+            $refer[$data[$pk]] = & $list[$key];
+        }
+        foreach ($list as $key => $data) {
+            // 判断是否存在parent
+            $parentId = $data[$pid];
+            if ($root == $parentId) {
+                $tree[] = & $list[$key];
+            } else {
+                if (isset($refer[$parentId])) {
+                    $parent = & $refer[$parentId];
+                    $parent[$child][] = & $list[$key];
+                }
+            }
+        }
     }
     return $tree;
 }
@@ -171,7 +171,7 @@ function getTree($list, $pk = 'id', $pid = 'pid', $child = 'children', $root = 0
 function getMoudel($level = '', $status = '1', $hide = '0') {
     $where[] = array();
     if (!empty($level)) {
-	$where['level'] = $level;
+        $where['level'] = $level;
     }
     $where['status'] = $status;
     $where['hide'] = $hide;
@@ -189,61 +189,91 @@ function getMoudel($level = '', $status = '1', $hide = '0') {
  */
 function getDataAccess($uid, $name = '') {
     if (empty($name)) {
-	$name = __CONTROLLER__ . '/index';
+        $name = __CONTROLLER__ . '/index';
     }
     if (empty($uid)) {
-	return C('OTHER.PARAMTER_ERROR');
+        return C('OTHER.PARAMTER_ERROR');
     }
     if (in_array($uid, C("ADMINISTRATOR"))) {
-	return C('DATA_ACCESS.ALL');
+        return C('DATA_ACCESS.ALL');
     }
     $module_name = ltrim($name, '/');
     $module_info = D('auth_rule')
-	    ->where(array('name' => "$module_name", 'level' => 2))
-	    ->find();
+            ->where(array('name' => "$module_name", 'level' => 2))
+            ->find();
     //模块Id
     $module_id = $module_info['id'];
     //获取用户所有用的角色 
     $user_model = new Manage\Model\UserModel();
     $user_group_info = $user_model->getRole($uid);
     if (empty($user_group_info)) {
-	return C('OTHER.NO_GROUP');
+        return C('OTHER.NO_GROUP');
     }
     $group_id_info = array();
     foreach ($user_group_info as $val) {
-	$group_id_info[] = $val['id'];
+        $group_id_info[] = $val['id'];
     }
     $group_id = implode($group_id_info, ',');
     //获取 角色对应的数据权限列表
     $data_access_info = D('auth_group')
-	    ->where(array('id' => array('in', $group_id), 'status' => 1))
-	    ->field('view_premission')
-	    ->select();
+            ->where(array('id' => array('in', $group_id), 'status' => 1))
+            ->field('view_premission')
+            ->select();
 
     $access_info = array();
     $all_access = $module_id . '-' . C('DATA_ACCESS.ALL');
     $department_access = $module_id . '-' . C('DATA_ACCESS.DEPARTMENT');
     $personal_access = $module_id . '-' . C('DATA_ACCESS.PERSONAL');
     foreach ($data_access_info as $val) {
-	$access_info = explode(',', $val['view_premission']);
-	if (in_array($all_access, $access_info)) {
-	    $data_all_access = true;
-	}
-	if (in_array($department_access, $access_info)) {
-	    $data_department_access = true;
-	}
-	if (in_array($personal_access, $access_info)) {
-	    $data_personal_access = true;
-	}
+        $access_info = explode(',', $val['view_premission']);
+        if (in_array($all_access, $access_info)) {
+            $data_all_access = true;
+        }
+        if (in_array($department_access, $access_info)) {
+            $data_department_access = true;
+        }
+        if (in_array($personal_access, $access_info)) {
+            $data_personal_access = true;
+        }
     }
     if (true === $data_all_access) {
-	return C('DATA_ACCESS.ALL');
+        return C('DATA_ACCESS.ALL');
     }
     if (true === $data_department_access) {
-	return C('DATA_ACCESS.DEPARTMENT');
+        return C('DATA_ACCESS.DEPARTMENT');
     }
     if (true === $data_personal_access) {
-	return C('DATA_ACCESS.PERSONAL');
+        return C('DATA_ACCESS.PERSONAL');
     }
 }
 
+/**
+ *  会议类型
+ * @author lishuaijie
+ * @return 所有会议类型
+ */
+function getMeetType() {
+    $config_meemting = D('config_meeting_type');
+    $meeting_type = $config_meemting->where(array('meeting_type_state' => 1))->select();
+    return $meeting_type;
+}
+/**
+ *  会议级别
+ * @author lishuaijie
+ * @return 所有会议级别
+ */
+function getMeetLevel() {
+    $config_meemting = D('config_meeting_level');
+    $meeting_level = $config_meemting->where(array('meeting_level_state' => 1))->select();
+    return $meeting_level;
+}
+/**
+ *  会议形式
+ * @author lishuaijie
+ * @return 所有会议形式
+ */
+function getMeetForm() {
+    $config_meemting = D('config_meeting_form');
+    $meeting_form = $config_meemting->where(array('meeting_form_state' => 1))->select();
+    return $meeting_form;
+}

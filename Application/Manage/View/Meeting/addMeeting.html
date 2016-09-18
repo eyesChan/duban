@@ -4,7 +4,7 @@
 <block name="right">
     <form action="{:U(save)}" method='post' class="mt20" id="productManage">
         <table class="tbl">
-          <colgroup>
+            <colgroup>
                 <col width="12%">
                 <col width="21%">
                 <col width="13%">
@@ -12,182 +12,194 @@
                 <col width="12%">
                 <col width="21%">
             </colgroup>
-            
-        <caption>创建会议信息</caption>
+
+            <caption>创建会议信息</caption>
             <tr>
                 <td class="cap">会议名称：</td>
                 <td colspan="5">
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_name]' class="input-text text">
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议类型：</td>
                 <td>
-                   <select>
-                   		<option value="">创新工作会议</option>
-                   </select>
+                    <select name='metting[meeting_type]'>
+                        <foreach item='item' name='type_info'>
+                            <option value="{$item.meeting_type_id}">{$item.meeting_type_name}</option>
+                        </foreach>
+                    </select>
                 </td>
                 <td class="cap">会议界别：</td>
                 <td colspan="3">
-                   <input type="text" class="input-text text">
+                    <select name='metting[meeting_level]'>
+                        <foreach item='item' name='level_info'>
+                            <option value="{$item.meeting_level_id}">{$item.meeting_level_name}</option>
+                        </foreach>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <td class="cap">召集人：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_callman]' class="input-text text">
                 </td>
                 <td class="cap">主持人：</td>
                 <td colspan="3">
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_moderator]' class="input-text text">
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <td class="cap">会议形式：</td>
                 <td>
-                   <select>
-                   		<option value="">现场</option>
-                   		<option value="">视频</option>
-                   		<option value="">电话</option>
-                   </select>
+                    <select name='meeting[meeting_form]'>
+                        <foreach item='item' name='form_info'>
+                            <option value="{$item.meeting_form_id}">{$item.meeting_form_name}</option>
+                        </foreach>
+                    </select>
                 </td>
                 <td class="cap">参会人员：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_participants]' class="input-text text">
                 </td>
                 <td class="cap">参会模式：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_scale]' class="input-text text">
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议日期：</td>
                 <td>
-                  <input type="text" name='start_time' id="date1" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    <input type="text" name='meeting[meeting_date]'  id="date1" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
                 <td class="cap">会议时刻：</td>
                 <td>
-                   <input type="text" id="date2" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate input-text fl"/>
+                    <input type="text" name='meeting[meeting_time]' id="date2" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl"/>
                 </td>
                 <td class="cap">会议时长：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_timelong]' class="input-text text">
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议地点：</td>
                 <td>
-                  <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_place]' class="input-text text">
                 </td>
                 <td class="cap">交办日期：</td>
                 <td colspan="3">
-                    <input type="text" name='start_time' id="date3" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    <input type="text" name='meeting[meeting_assigned_date]' id="date3" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议通知撰写人：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_writeperson]' class="input-text text">
                 </td>
                 <td class="cap">通知发送日期：</td>
                 <td>
-                   <input type="text" name='start_time' id="date4" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    <input type="text" name='meeting[meeting_sendnotice_date]' id="date4" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
                 <td class="cap">通知时刻：</td>
                 <td>
-                   <input type="text" id="date5" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate input-text fl"/>
+                    <input type="text" name='meeting[meeting_notice_date]' id="date5" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl"/>
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议材料收益：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_material_collect_person]' class="input-text text">
                 </td>
                 <td class="cap">材料收集时间：</td>
                 <td>
-                  <input type="text" name='start_time' id="d4311" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,maxDate:$('#d4312').val()})" class="Wdate input-text fl">
+                    <input type="text" name='meeting[meeting_material_collect_date]' id="d4311" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00', dateFmt: 'yyyy-MM-dd', alwaysUseStartDate: true, maxDate: $('#d4312').val()})" class="Wdate input-text fl">
                 </td>
                 <td class="cap">材料提交时间：</td>
                 <td>
-                    <input type="text" name='end_time' id="d4312" value="{$end_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 23:59:59',dateFmt:'yyyy-MM-dd',minDate:$('#d4311').val()})" class="Wdate input-text fl">
+                    <input type="text" name='meeting[meeting_material_send_date]' id="d4312" value="{$end_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
                 </td>
             </tr>
             <tr>
                 <td class="cap">物料准备人：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_material_madeperson]' class="input-text text">
                 </td>
                 <td class="cap">会场布置调试人：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_venue_arrangeperson]' class="input-text text">
                 </td>
                 <td class="cap">测试日期：</td>
                 <td>
-                   <input type="text" name='start_time' id="date8" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    <input type="text" name='meeting[meeting_try_date]' id="date8" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <td class="cap">测试时间：</td>
                 <td>
-                   <input type="text" id="date9" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate input-text fl"/>
+                    <input type="text" id="date9" name='meeting[meeting_try_time]' onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl"/>
                 </td>
                 <td class="cap">问题明细：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_qusetion_detail]' class="input-text text">
                 </td>
                 <td class="cap">解决状态：</td>
                 <td>
-                  	<select>
-                  		<option>集团</option>
-                  	</select>
+                    <select name='meeting[meeting_fix_state]' >
+                        <option value='1'>解决</option>
+                        <option value='2'>未解决</option>
+                        <option value='3'>处理中</option>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议摄影摄像：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_vedio]' class="input-text text">
                 </td>
                 <td class="cap">会议结束时间：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_end_date]' class="input-text text">
                 </td>
                 <td class="cap">会议结束时刻：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_end_time]' class="input-text text">
                 </td>
             </tr>
             <tr>
                 <td class="cap">餐饮安排：</td>
                 <td>
-                   <input type="text" class="input-text text">
+                    <input type="text" name='meeting[meeting_food_drink]' class="input-text text">
                 </td>
                 <td class="cap">会场整理人：</td>
-                <td colspan="3">
-                   <input type="text" class="input-text text">
-                </td>                
+                <td >
+                    <input type="text" name='meeting[meeting_clean_person]' class="input-text text">
+                </td>    
+                 <td class="cap">记录整理人：</td>
+                <td >
+                    <input type="text" name='meeting[meeting_record_person]' class="input-text text">
+                </td>   
             </tr>
             <tr>
                 <td class="cap">台账整理人：</td>
                 <td>
-                   <input type="text" class="input-text text">
-                   <span class="rq">*</span>
+                    <input type="text" name='meeting[meeting_ledger_re_person]' class="input-text text">
+                    <span class="rq">*</span>
                 </td>
                 <td class="cap">台账整理人邮箱地址：</td>
                 <td colspan="3">
-                   <input type="text" class="input-text text">
-                   <span class="rq">*</span>
+                    <input type="text" name='meeting[meeting_ledger_re_person_email]' class="input-text text">
+                    <span class="rq">*</span>
                 </td>                
             </tr>
             <tr>
                 <td class="cap">上传附件：</td>
                 <td colspan="5">
-                   <input type="file">
+                    <input type="file" name='meeting[]'>
                 </td>                             
             </tr>
         </table>
         <div class="text-center">
-	        <input class="btn btn-red mr10 submit productSubmit" type="button" value="提交"/>
-	        <input class="btn ml10 button btn-normal" type="button" value="取消"/>
-    	</div>
+            <input class="btn btn-red mr10 submit productSubmit" type="button" value="提交"/>
+            <input class="btn ml10 button btn-normal" type="button" value="取消"/>
+        </div>
     </form>
 </block>

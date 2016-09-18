@@ -26,4 +26,10 @@ class MeetingController extends AdminController {
     public function addMeeting(){
         $this->display();
     }
+    /**
+     *  会议查询
+     */
+    public function selectMeeting(){
+        $this->display();
+    }
 }

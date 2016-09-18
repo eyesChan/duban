@@ -1,0 +1,114 @@
+<extend name="Public:base"/>
+
+<block name="title"><title>海航会议督办系统</title></block>
+<block name="right">
+    <div class="role-padding container-padding">
+        <div class="filter-main clear">
+            <form method="post" action="{:U(index)}">
+              <table class="tbl">
+                        <caption>查询条件</caption>
+                        <tr>
+                            <td class="cap">状态：</td>
+                            <td>
+                                <select>
+                                    <option value="">全部</option>
+                                </select>
+                            </td>
+                            <td class="cap">公告标题：</td>
+                            <td><input class="input-text text" name="nickname" value="" type="text"/></td>
+                            <td><input class="btn btn-red mr10 submit" type="button" value="查询"/></td>
+                        </tr>         
+                </table>
+            </form>
+        </div>
+        <div class="tb1">
+            <form action="{:U(index)}">
+                <div class="jxssp">
+                    <table class="tbl tbl-list" width="100%">
+                    <caption>产品信息列表 <a class="tb-detail f-fr mr30" href="{:U(add,array('p'=>$p))}" id="exportbtn">新增公告</a></caption>
+                        <colgroup>
+                            <col width="5%">
+                            <col width="20%">
+                            <col width="15%">
+                            <col width="5%">
+                            <col width="10%">
+                            <col width="15%">
+                            <col width="30%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>公告标题</th>
+                            <th>起始时间</th>
+                            <th>状态</th>
+                            <th>录入人</th>
+                            <th>录入时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>123456</td>
+                                    <td>2016-9-18</td>
+                                    <td>启用</td>
+                                    <td>lll</td>
+                                    <td>2016-9-18</td>
+                                    <td>
+                                       <input type="button" value="详细" class="btn btn-r btn-xl button">
+                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
+                                        <input type="button" value="删除" class="btn btn-r btn-xl button"> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                       <!--  <tbody class="role-tbody">
+                        <foreach name="info" item="v">
+                        
+                            <tr>
+                                <td>{$key +1}</td>
+                                <td>{$v['title']}</td>
+                                <td>{$v['start_time']}至{$v['end_time']}</td>
+                                <if condition="$v['status'] eq 1">
+                                    <td>已发布</td>
+                                    <elseif condition="$v['status'] eq 2"/>
+                                    <td>未发布</td>
+                                    <elseif condition="$v['status'] eq 3"/>
+                                    <td>已失效</td>
+                                    <else/>
+                                    <td>已停用</td>
+                                </if>
+                                <td>{$v['name']}</td>
+                                <td>{$v['create_time']}</td>
+                                <td>
+                                    <a class="fl operate-btn mr5" title="编辑"
+                                       href="{:U('NoticeManage/edit',array('id'=>$v['id'],'p'=>$p))}">
+                                        <span class="operate-span-edit"></span>
+                                    </a>&nbsp;
+                                    <a class="fl operate-btn mr5" title="删除" href="javascript:void(0);"
+                                       onclick="singleDel({$v['id']})">
+                                        <span class="operate-span-del"></span>
+                                    </a>&nbsp;
+                                    <if condition="$v['status'] eq 1">
+                                        <a  class="fl operate-btn mr5" href="javascript:void(0);"
+                                                                         onclick="changeStatus({$v['id']}, 0)">
+                                        <span title="已停用" class="operate-span-disabled"></span>
+                                    </a>
+                                        <elseif condition="$v['status'] eq 0 or $v['status'] eq 2"/>
+                                        <a  class="fl operate-btn mr5" href="javascript:void(0);" onclick="changeStatus({$v['id']}, 1)">
+                                            <span title="发布" class="operate-span-open"></span>
+                                        </a>
+                                        <elseif condition="$v['status'] eq 3"/>
+                                    </if>
+                                </td>
+                            </tr>
+                        </foreach>
+                        </tbody> -->
+                    </table>
+                </div>
+            </form>
+            <div class="pagination fr">
+                {$page}
+            </div>
+        </div>
+</block>
+

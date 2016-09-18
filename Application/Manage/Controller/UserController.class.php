@@ -30,8 +30,8 @@ class UserController extends AdminController {
      */
     public function index() {
         $serach_data = I();
-        if(!empty($search_data['nickname']) && intval(I('p')) != 0)
-            $search_data['class_name'] = urldecode ($search_data['nickname']);
+        if(!empty($serach_data['nickname']) && intval(I('p')) != 0)
+            $serach_data['class_name'] = urldecode ($serach_data['nickname']);
         //带条件查询
         $count = $this->model->count($serach_data);
         $Page = new \Think\Page($count, 10);

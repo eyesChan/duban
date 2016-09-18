@@ -65,15 +65,18 @@ label{margin-right: 10px;}
 .btn-a{background: #e86d4c;}
 .btn-b{color:#e86d4c;background: none;border:1px solid #e46e4a;}
 .btn-c{background: #6283ca;}
+.btn-r{background: #CC3333;}
 .btn-xl{width:auto;padding:0 12px!important;}
 .btn-lg{width:auto;padding:0 38px!important;}
 .btn-a:hover{color:#fff;background: #e7542c;cursor: pointer;transition: all 0.2s ease-in;}
 .btn-b:hover{color:#fff;background: #e86d4c;cursor: pointer;}
 .btn-c:hover{background: #1855b0;}
 a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
+.rightBtn{position: absolute;top: 1px; right:1px;}
+
 .collapse-btn{position: relative;text-align: center;}
 .collapse-arrow{display:none;position:absolute;bottom:-10px;right:14px;z-index:1;width:0;height:0;border-width:10px 9px 0;border-color: #e7542c transparent transparent;border-style: solid dashed dashed;}
-.collapse-btn.hover .collapse-arrow{display: block;border-color: #e86d4c transparent transparent;}
+.collapse-btn.hover .collapse-arrow{dispay: block;border-color: #e86d4c transparent transparent;}
 /* 按钮结束 */
 .wrap-btns {width: 100%;margin: 20px 0 30px;text-align: center;}
 .wrap-btns .btn{padding:0 30px;margin:0 5px;}
@@ -221,9 +224,6 @@ table td.LabelInvoice label input{
 }
 
 /*经销商审批*/
-.jxssp{
-    width:950px;
-}
 
 .jxssp table{
     width:100%;

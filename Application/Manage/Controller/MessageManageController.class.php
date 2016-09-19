@@ -60,5 +60,12 @@ class MessageManageController extends AdminController {
         $res_info_edit = $this->mod_message_manage->doEdit($params);
         $this->ajaxReturn($res_info_edit);
     }
+    
+    public function delete(){
+        
+        $msg_sys_id = I('msg_sys_id');
+        $res_info_delete = $this->mod_message_manage->doDelete($msg_sys_id);
+        $this->ajaxReturn($res_info_delete);
+    }
 
 }

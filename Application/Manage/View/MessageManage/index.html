@@ -58,7 +58,7 @@
                         <tbody class="role-tbody">
                         <foreach name="list" item="v">
                             <tr>
-                                <td>{$key +1}</td>
+                                <td>{$key+1}</td>
                                 <td>{$v['msg_sys_title']}</td>
                                 <td>{$v['msg_sys_starttime']}
                                 </br>至{$v['msg_sys_endtime']}</td>
@@ -68,10 +68,10 @@
                                     <td>未发布</td>
                                     <elseif condition="$v['msg_sys_status'] eq 3"/>
                                     <td>已失效</td>
-                                    <else/>
+                                    <elseif condition="$v['msg_sys_status'] eq 0"/>
                                     <td>已停用</td>
                                 </if>
-                                <td>{$v['user_id']}</td>
+                                <td>{$v['creatname']}</td>
                                 <td>{$v['msg_sys_creattime']}</td>
                                 <td>
                                     <a  class="btn btn-c btn-xl button" href="{:U('MessageManage/edit',array('msg_sys_id'=>$v['msg_sys_id']))}">编辑</a>
@@ -79,7 +79,7 @@
                                     <if condition="$v['msg_sys_status'] eq 1">
                                         <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['msg_sys_id']}, 0)" value="停用">                                     
                                     <elseif condition="$v['msg_sys_status'] eq 0 or $v['msg_sys_status'] eq 2"/>
-                                            <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['msg_sys_id']}, 1)" value="发布">
+                                        <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['msg_sys_id']}, 1)" value="发布">
 
                                     </if>
                                 </td>

@@ -74,6 +74,7 @@ $("#edit-btn").on("click", function () {
     }
 });
 
+//单条删除
 function singleDel(msg_sys_id) {
     var top = $(this).offset();
     console.log(top)
@@ -96,6 +97,7 @@ function singleDel(msg_sys_id) {
     });
 }
 
+//修改状态（停用/发布）
 function changeStatus(msg_sys_id, msg_sys_status) {
     $.ajax({
         url: "/Manage/MessageManage/changeStatus",

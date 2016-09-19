@@ -29,8 +29,11 @@ class MessageManageModel extends Model {
 
         $where = $this->makeWhereForSearch($params);
         $page = $params['p'];
-        $arr_for_list['msg_sys'] = $mod_msg_sys->where($where)->order('msg_sys_creattime desc')->page($page, 10)->select();
-
+        $arr_for_list['msg_sys'] = $mod_msg_sys->where($where)
+                ->join('db_member as member ON db_message_sys.user_id = member.uid')
+                ->order('msg_sys_creattime desc')
+                ->page($page, 10)
+                ->getField('msg_sys_id,msg_sys_title,msg_sys_starttime,msg_sys_endtime,msg_sys_status,member.name as creatname,msg_sys_creattime', TRUE);
         $count = $mod_msg_sys->where($where)->count();
         $Page = new \Think\Page($count, 10);
         foreach ($params as $k => $v) {
@@ -59,6 +62,8 @@ class MessageManageModel extends Model {
 
         if (isset($params['msg_sys_status']) && ($params['msg_sys_status'] != '')) {
             $where['msg_sys_status'] = $params['msg_sys_status'];
+        } else {
+            $where['msg_sys_status'] = array('NEQ',4);
         }
         if (!empty($params['msg_sys_title'])) {
             $where['msg_sys_title'] = array('LIKE', "%" . $params['msg_sys_title'] . "%");
@@ -111,5 +116,19 @@ class MessageManageModel extends Model {
             return $err_check_update;
         }
     }
-    
+
+    //删除
+    public function doDelete($msg_sys_id) {
+
+        $msg_sys_data = array();
+        $msg_sys_data['msg_sys_id'] = $msg_sys_id;
+        $msg_sys_data['msg_sys_status'] = 4; //删除状态
+        $res_delete = $this->save($msg_sys_data);
+        if ($res_delete == 1) {
+            return C('COMMON.DEL_SUCCESS');
+        } else {
+            return C('COMMON.DEL_ERROR');
+        }
+    }
+
 }

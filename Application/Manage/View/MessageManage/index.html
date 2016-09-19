@@ -2,6 +2,7 @@
 
 <block name="title"><title>海航会议督办系统</title></block>
 <block name="right">
+    <css href="__PUBLIC__/css/messageManage.css"/>
     <div class="role-padding container-padding">
         <div class="filter-main clear">
             <form method="post" action="{:U(index)}">
@@ -18,7 +19,8 @@
                                 <option value="0" <if condition="$remember_search['msg_sys_status'] eq '0'">selected='selected'</if> >已停用</option>
                             </select>
                         </td>
-                        <td class="cap">公告标题：<input type="text" name="msg_sys_title" value="{$remember_search['msg_sys_title']}"></td>
+                        <td class="cap">公告标题：</td>
+                        <td><input class="input-text" type="text" name="msg_sys_title" value="{$remember_search['msg_sys_title']}"></td>
                         <td><input class="btn btn-red mr10 submit" type="submit" value="查询"/></td>
                     </tr>         
                 </table>
@@ -27,6 +29,10 @@
         <div class="tb1">
             <form action="{:U(index)}">
                 <div class="jxssp">
+                <div class="common-prompt notice-prompt hide">
+                        <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
+                        <span></span>
+                    </div>
                     <table class="tbl tbl-list" width="100%">
                         <caption>系统消息列表 <a class="tb-detail f-fr mr30" href="{:U(add)}" id="exportbtn">新增系统消息</a></caption>
                         <colgroup>
@@ -54,7 +60,8 @@
                             <tr>
                                 <td>{$key +1}</td>
                                 <td>{$v['msg_sys_title']}</td>
-                                <td>{$v['msg_sys_starttime']}至{$v['msg_sys_endtime']}</td>
+                                <td>{$v['msg_sys_starttime']}
+                                </br>至{$v['msg_sys_endtime']}</td>
                                 <if condition="$v['msg_sys_status'] eq 1">
                                     <td>已发布</td>
                                     <elseif condition="$v['msg_sys_status'] eq 2"/>
@@ -67,24 +74,13 @@
                                 <td>{$v['user_id']}</td>
                                 <td>{$v['msg_sys_creattime']}</td>
                                 <td>
-                                    <a class="fl operate-btn mr5" title="编辑" href="{:U('MessageManage/edit',array('msg_sys_id'=>$v['msg_sys_id']))}">
-                                        <input type="button" class="operate-span-edit btn btn-c btn-xl button" value="编辑">
-                                        <span class="operate-span-edit"></span>
-                                    </a>
-                                    <a class="fl operate-btn mr5" title="删除" href="javascript:void(0);" onclick="singleDel({$v['msg_sys_id']})">
-                                        <input type="button" class="operate-span-del btn btn-c btn-xl button" value="删除">
-                                        <span class="operate-span-del"></span>
-                                    </a>
+                                    <a  class="btn btn-c btn-xl button" href="{:U('MessageManage/edit',array('msg_sys_id'=>$v['msg_sys_id']))}">编辑</a>
+                                    <a class="btn btn-c btn-xl button" href="javascript:void(0);" onclick="singleDel({$v['msg_sys_id']})">删除</a>
                                     <if condition="$v['msg_sys_status'] eq 1">
-                                        <a class="fl operate-btn mr5" href="javascript:void(0);" >
-                                            <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['msg_sys_id']}, 0)" value="停用">
-                                            <span title="停用" class="operate-span-disabled"></span>
-                                        </a>
+                                        <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['msg_sys_id']}, 0)" value="停用">                                     
                                     <elseif condition="$v['msg_sys_status'] eq 0 or $v['msg_sys_status'] eq 2"/>
-                                        <a class="fl operate-btn mr5" href="javascript:void(0);" onclick="changeStatus({$v['msg_sys_id']}, 1)">
-                                            <input type="button" class="operate-span-del btn btn-c btn-xl button" value="发布">
-                                            <span title="发布" class="operate-span-open"></span>
-                                        </a>
+                                            <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['msg_sys_id']}, 1)" value="发布">
+
                                     </if>
                                 </td>
                             </tr>

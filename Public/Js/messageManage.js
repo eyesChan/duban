@@ -75,6 +75,8 @@ $("#edit-btn").on("click", function () {
 });
 
 function singleDel(msg_sys_id) {
+    var top = $(this).offset();
+    console.log(top)
     $.dialog({
         title: '提示信息', content: '确认删除该系统消息吗？', ok: function () {
             $.ajax({
@@ -105,8 +107,8 @@ function changeStatus(msg_sys_id, msg_sys_status) {
         type: 'post',
         success: function (data) {
             //checkAuth(data);
-            if (data.status == 200) {
-                showPro(".notice-prompt", data.msg, "/Manage/MessageManage/index");
+            if (data.code == 200) {
+                showPro(".notice-prompt", data.status, "/Manage/MessageManage/index");
             }
         },
         error: function () {

@@ -85,6 +85,8 @@ a.button{line-height: 30px;}
 .operate-row .btn{width:80px;padding:0;margin:0 20px;}
 /* 分页 */
 .pagination{ width:100%; margin:20px 0 10px 0; }
+.pagination .page-input {width: 20px;border: 1px solid #ededed;}
+.pagination-go {cursor: pointer;width: 30px; height: 20px;line-height: 20px;background: #1855b0;border: none;color: #fff;margin: 0 10px;}
 .pagination ul{ vertical-align:bottom; text-align:center; }
 .pagination li{ display:inline-block; *display:inline; *zoom:1; margin:0 3px;vertical-align: top;}
 .pagination li a{ float:left; height:20px; padding:0 9px; font:12px/20px 'microsoft yahei'; color:#55708B; background:#FFF; border:1px solid #CFCFCF; }

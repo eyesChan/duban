@@ -1,0 +1,12 @@
+.meeting-plan td div {
+	width: 120px;
+	line-height: 16px;
+}
+.meeting-plan td div span {
+	width: 10px;
+	height: 10px;
+	margin-top: 4px;
+	margin-right: 5px;
+	float: left;
+	background: blue;
+}

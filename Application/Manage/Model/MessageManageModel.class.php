@@ -41,6 +41,17 @@ class MessageManageModel extends Model {
         return $arr_for_list;
     }
 
+    //获取单条数据信息
+    public function getDataById($msg_sys_id) {
+
+        $where['msg_sys_id'] = $msg_sys_id;
+        $res = $this->where($where)->find();
+        $res['msg_sys_starttime'] = date("Y-m-d", strtotime($res['msg_sys_starttime']));
+        $res['msg_sys_endtime'] = date("Y-m-d", strtotime($res['msg_sys_endtime']));
+        $res['msg_sys_content'] = htmlspecialchars_decode($res['msg_sys_content']);
+        return $res;
+    }
+
     //获取查询条件
     public function makeWhereForSearch($params) {
 
@@ -68,10 +79,10 @@ class MessageManageModel extends Model {
         //入库
         if ($msg_sys_data) {
             $res_add = $this->add($msg_sys_data);
-            if ($res_add) {
-                return C('COMMON.SUCCESS_ADD');
-            } else {
+            if (FALSE === $res_add) {
                 return C('COMMON.ERROR_ADD');
+            } else {
+                return C('COMMON.SUCCESS_ADD');
             }
         } else {
             $err_check_add = $this->getError();
@@ -79,4 +90,26 @@ class MessageManageModel extends Model {
         }
     }
 
+    //编辑
+    public function doEdit($data) {
+
+        //完善待插入数据
+        $data['msg_sys_updatetime'] = date('Y-m-d H:i:s');
+        //后台数据验证
+        $msg_sys_data = $this->create($data);
+        //入库
+        if ($msg_sys_data) {
+            $where['msg_sys_id'] = $msg_sys_data['msg_sys_id'];
+            $res_update = $this->where($where)->save($msg_sys_data);
+            if (FALSE === $res_update) {
+                return C('COMMON.ERROR_EDIT');
+            } else {
+                return C('COMMON.SUCCESS_EDIT');
+            }
+        } else {
+            $err_check_update = $this->getError();
+            return $err_check_update;
+        }
+    }
+    
 }

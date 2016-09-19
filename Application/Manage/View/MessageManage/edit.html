@@ -4,7 +4,7 @@
 <block name="right">
     <div class="role-padding container-padding" style="padding-top: 40px;">
         <div class="jxssp tb1">
-            <form id="addrole" method="POST" action="{:U(edit)}" enctype="multipart/form-data">
+            <form id="addrole" enctype="multipart/form-data">
             <table class="tbl">
                     <colgroup>
                         <col width="20%">
@@ -12,30 +12,27 @@
                         <col width="20%">
                         <col width="30%">
                     </colgroup>
-            
                     <tr>
                         <td class="cap"><span class="rq">*</span>公告标题：</td>
-                        <td colspan="3"><input class="notice-title input-text text" type="text" name="title" value="{$info.title}"></td>
+                        <td colspan="3"><input class="notice-title input-text text" type="text" name="msg_sys_title" value="{$msg_sys['msg_sys_title']}"></td>
                     </tr>
                     <tr>
-                        <td class="cap">开始时间：</td>
-                        <td> <input id="date11" class="start-time input-text text" name="start_time" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00', dateFmt: 'yyyy-MM-dd', alwaysUseStartDate: true, maxDate: $('#date12').val()})" value="{$info['start_time']}"></td>
+                        <td class="cap"><span class="rq">*</span>开始时间：</td>
+                        <td> <input id="date11" class="start-time input-text text" name="msg_sys_starttime" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00', dateFmt: 'yyyy-MM-dd', alwaysUseStartDate: true, maxDate: $('#date12').val()})" value="{$msg_sys['msg_sys_starttime']}"></td>
                         <td class="cap"><span class="rq">*</span>结束时间：</td>
-                        <td><input id="date12" class="end-time input-text text" name="end_time" onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#date11').val()})" value="{$info['end_time']}"></td>
+                        <td><input id="date12" class="end-time input-text text" name="msg_sys_endtime" onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#date11').val()})" value="{$msg_sys['msg_sys_endtime']}"></td>
                     </tr>
                     <tr>
                         <td class="right role-n"><span class="rq">*</span>公告内容:</td>
-
                         <td colspan="3">
-                            <script id="CONTENT" type="text/plain">{$info['content']}</script>
+                            <script id="editor" type="text/plain">{$msg_sys['msg_sys_content']}</script>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4">
                             <div class="text-center">
-                                <input type="hidden" name="p" class='p' value="{$p}"/>
-                                <input type="hidden" name="id" class="edit-id" value="{$info['id']}"/>
-                                <input class="btn btn-red mr10 submit" type="button" value="保存"/>
+                                <input type="hidden" name="id" class="edit-id" value="{$msg_sys['msg_sys_id']}"/>
+                                <input class="btn btn-red mr10 submit" id='edit-btn' type="button" value="保存"/>
                                 <input class="btn ml10 button btn-normal" type="button" value="取消"/>
                             </div>
                         </td>                   
@@ -44,15 +41,14 @@
             </form>
         </div>
     </div>
-
+    <js href="__PUBLIC__/Js/messageManage.js"/>
     <script>
 
         UE.getEditor('editor', {
             initialFrameWidth: "81%",
             initialFrameHeight: "200",
             textarea: 'content'
-        }
-        );
+        });
     </script>
 
 </block>

@@ -1,43 +1,3 @@
-
-function singleDel(id) {
-    $.dialog({
-        title: '提示信息', content: '确认删除该公告吗？', ok: function () {
-            $.ajax({
-                url: "/Manage/NoticeManage/del/id/" + id,
-                dataType: "json",
-                type: 'get',
-                success: function (data) {
-                    checkAuth(data);
-                    showPro(".notice-prompt", data, "/Manage/NoticeManage/index");
-                },
-                error: function () {
-                }
-            });
-        },
-        cancel: function () {
-        }
-    });
-}
-
-function changeStatus(id, status) {
-    $.ajax({
-        url: "/Manage/NoticeManage/save",
-        data: {"id": id, 'status': status},
-        dataType: "json",
-        type: 'get',
-        success: function (data) {
-            checkAuth(data);
-            if (data.status == 200 || data.status == 201) {
-                showPro(".notice-prompt", data.msg, "/Manage/NoticeManage/index");
-            }
-
-        },
-        error: function () {
-
-        }
-    });
-}
-
 //新增动作
 $("#add-btn").on("click", function () {
 
@@ -49,7 +9,7 @@ $("#add-btn").on("click", function () {
     //结束时间
     var msg_sys_endtime = $(".end-time").val();
     //内容
-    var msg_sys_content = UE.getEditor('CONTENT').getContentTxt();
+    var msg_sys_content = UE.getEditor('CONTENT').getContent();
 
     if (!$(".error-message").hasClass("show")) {
         $.ajax({
@@ -76,31 +36,35 @@ $("#add-btn").on("click", function () {
 
 //编辑页面
 $("#edit-btn").on("click", function () {
-    
-    judgeNull();
-    //开始时间
-    var start_time = $(".start-time").val();
-    //结束时间
-    var end_time = $(".end-time").val();
-    //内容
-    var content = UE.getEditor('editor').getContentTxt();
-    //标题
-    var title = $(".notice-title").val();
-    //页码
-    var p = $(".p").val();
 
-    var id = $(".edit-id").val();
-    //$("#addnotice").serialize(),
+    //judgeNull();
+    //标题
+    var msg_sys_title = $(".notice-title").val();
+    //开始时间
+    var msg_sys_starttime = $(".start-time").val();
+    //结束时间
+    var msg_sys_endtime = $(".end-time").val();
+    //内容
+    var msg_sys_content = UE.getEditor('editor').getContent();
+    //当前系统消息ID
+    var msg_sys_id = $(".edit-id").val();
+
     if (!$(".error-message").hasClass("show")) {
         $.ajax({
-            url: "/Manage/NoticeManage/edit",
-            data: {"title": title, 'start_time': start_time, 'end_time': end_time, 'content': content, "id": id},
+            url: "/Manage/MessageManage/edit",
+            data: {
+                'msg_sys_title': msg_sys_title,
+                'msg_sys_starttime': msg_sys_starttime,
+                'msg_sys_endtime': msg_sys_endtime,
+                'msg_sys_content': msg_sys_content,
+                'msg_sys_id': msg_sys_id
+            },
             type: 'post',
             dataType: "json",
             success: function (data) {
-                checkAuth(data);
+                //checkAuth(data);
                 if (data.code == 200) {
-                    showPro(".save-success", data.status, "/Manage/NoticeManage/index/p/" + p);
+                    showPro(".save-success", data.status, "/Manage/MessageManage/index/");
                 }
             },
             error: function () {
@@ -109,6 +73,48 @@ $("#edit-btn").on("click", function () {
         });
     }
 });
+
+function singleDel(msg_sys_id) {
+    $.dialog({
+        title: '提示信息', content: '确认删除该系统消息吗？', ok: function () {
+            $.ajax({
+                url: "/Manage/MessageManage/delete/msg_sys_id/" + msg_sys_id,
+                dataType: "json",
+                type: 'get',
+                success: function (data) {
+                    //checkAuth(data);
+                    showPro(".notice-prompt", data, "/Manage/MessageManage/index");
+                },
+                error: function () {
+                }
+            });
+        },
+        cancel: function () {
+        }
+    });
+}
+
+function changeStatus(msg_sys_id, msg_sys_status) {
+    $.ajax({
+        url: "/Manage/MessageManage/changeStatus",
+        data: {
+            "msg_sys_id": msg_sys_id,
+            'msg_sys_status': msg_sys_status
+        },
+        dataType: "json",
+        type: 'post',
+        success: function (data) {
+            //checkAuth(data);
+            if (data.status == 200) {
+                showPro(".notice-prompt", data.msg, "/Manage/MessageManage/index");
+            }
+        },
+        error: function () {
+        }
+    });
+}
+
+
 $("#addnotice").on("blur", ".notice-title", function () {
     judgeMust($(this), ".error-message1");
 });

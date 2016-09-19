@@ -40,4 +40,25 @@ class MessageManageController extends AdminController {
         }
     }
 
+    public function edit() {
+
+        if (IS_POST) {
+            $params = I('param.');
+            $res_info_edit = $this->mod_message_manage->doEdit($params);
+            $this->ajaxReturn($res_info_edit);
+        } else {
+            $msg_sys_id = I('param.msg_sys_id');
+            $data_for_edit = $this->mod_message_manage->getDataById($msg_sys_id);
+            $this->assign('msg_sys', $data_for_edit);
+            $this->display('edit');
+        }
+    }
+    
+    public function changeStatus(){
+        
+        $params = I('param.');
+        $res_info_edit = $this->mod_message_manage->doEdit($params);
+        $this->ajaxReturn($res_info_edit);
+    }
+
 }

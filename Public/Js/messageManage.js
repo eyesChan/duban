@@ -1,3 +1,4 @@
+
 function singleDel(id) {
     $.dialog({
         title: '提示信息', content: '确认删除该公告吗？', ok: function () {
@@ -17,7 +18,6 @@ function singleDel(id) {
         }
     });
 }
-;
 
 function changeStatus(id, status) {
     $.ajax({
@@ -130,6 +130,7 @@ function judgeMust(target, msg) {
         $(msg).addClass("hide").removeClass("show");
     }
 }
+
 function showPro(target, msg, loca) {
     $(target).show().children("span").html(msg);
     setTimeout(function () {

@@ -26,7 +26,7 @@ class MessageManageModel extends Model {
 
         $arr_for_list = array();
         $mod_msg_sys = M('message_sys');
-        
+
         $where = $this->makeWhereForSearch($params);
         $page = $params['p'];
         $arr_for_list['msg_sys'] = $mod_msg_sys->where($where)->order('msg_sys_creattime desc')->page($page, 10)->select();
@@ -55,8 +55,28 @@ class MessageManageModel extends Model {
 
         return $where;
     }
-    
+
     //添加
-    
+    public function doAdd($data) {
+
+        //完善待插入数据
+        $data['user_id'] = UID;
+        $data['msg_sys_creattime'] = date('Y-m-d H:i:s');
+        $data['msg_sys_updatetime'] = date('Y-m-d H:i:s');
+        //后台数据验证
+        $msg_sys_data = $this->create($data);
+        //入库
+        if ($msg_sys_data) {
+            $res_add = $this->add($msg_sys_data);
+            if ($res_add) {
+                return C('COMMON.SUCCESS_ADD');
+            } else {
+                return C('COMMON.ERROR_ADD');
+            }
+        } else {
+            $err_check_add = $this->getError();
+            return $err_check_add;
+        }
+    }
 
 }

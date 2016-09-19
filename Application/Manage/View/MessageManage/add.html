@@ -19,14 +19,13 @@
                         <td colspan="3"><input class="notice-title input-text text" type="text" name="msg_sys_title"></td>
                     </tr>
                     <tr>
-                        <td class="cap">开始时间：</td>
+                        <td class="cap"><span class="rq">*</span>开始时间：</td>
                         <td> <input id="date11" class="start-time input-text text" name="msg_sys_starttime" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00', dateFmt: 'yyyy-MM-dd', alwaysUseStartDate: true, maxDate: $('#date12').val()})"></td>
                         <td class="cap"><span class="rq">*</span>结束时间：</td>
                         <td><input id="date12" class="end-time input-text text" name="msg_sys_endtime" onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#date11').val()})"></td>
                     </tr>
                     <tr>
                         <td class="right role-n"><span class="rq">*</span>公告内容:</td>
-
                         <td colspan="3">
                             <script id="CONTENT" type="text/plain"></script>
                         </td>

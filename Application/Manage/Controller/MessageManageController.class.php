@@ -31,12 +31,12 @@ class MessageManageController extends AdminController {
 
     public function add() {
 
-        $params = I('param.');
-
         if (IS_POST) {
-            
+            $params = I('param.');
+            $res_info_add = $this->mod_message_manage->doAdd($params);
+            $this->ajaxReturn($res_info_add);
         } else {
-            $this->display();
+            $this->display('add');
         }
     }
 

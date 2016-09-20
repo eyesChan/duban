@@ -4,7 +4,7 @@ return array(
     'FILE_ROOT_PATH' => 'Public/',
     'FILE_MEETING' => array(//会议相关文件上传
         'FILE_SIZE' => 3145728,
-        'FILE_PATH' => 'meeting/',
+        'FILE_PATH' => 'meeting/', //临时存储路径
         'ALLOW_FILE'=>array('xlsx','xls'),
     ),
 );

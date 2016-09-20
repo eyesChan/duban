@@ -1,0 +1,43 @@
+<extend name="Public:base" />
+<block name="title"><title>会议创建</title></block>
+<block name="right">
+    <form action="{:U(voidWork)}" method='post' class="mt20" id="productManage">
+        <table class="tbl">
+          <colgroup>
+                <col width="12%">
+                <col width="21%">
+                <col width="13%">
+                <col width="21%">
+                <col width="12%">
+                <col width="21%">
+            </colgroup>
+            
+       
+            <tr>
+                <td class="cap">工作单名称：</td>
+                <td colspan="1">
+                   <input type="text" class="input-text text" readonly="true" name="workname" value="{$workorder['worksheet_name']}">
+                </td>
+             
+            </tr>  
+                 <td class="cap">工作单负责人：</td>
+                <td>
+                   <input type="text" readonly="true" class="input-text text" name="worksheet_rule_person" value="{$workorder['worksheet_rule_person']}">
+                </td>
+               
+            </tr>
+             </tr>  
+                 <td class="cap">废弃原因：</td>
+                <td>
+                    <textarea class="textarea" name="abandoned_reason"></textarea>
+                </td>
+              
+            </tr>
+            <input type="hidden" value="{$workorder['worksheet_id']}" name="worksheet_id">
+        </table>
+        <div class="text-center">
+	        <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
+	        <input class="btn ml10 button btn-normal" type="reset" value="取消"/>
+    	</div>
+    </form>
+</block>

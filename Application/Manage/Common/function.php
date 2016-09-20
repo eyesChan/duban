@@ -277,3 +277,116 @@ function getMeetForm() {
     $meeting_form = $config_meemting->where(array('meeting_form_state' => 1))->select();
     return $meeting_form;
 }
+
+/*
+ * 邮件发送函数
+ * @author xiaohui
+ * @param $to  邮件收件人地址
+ * @param $titlle  邮件标题
+ * @param $content  邮件内容
+ * @return object 
+ */
+ function sendMail($to, $title, $content) {
+
+    Vendor('PHPMailer.PHPMailerAutoload');     
+    $mail = new PHPMailer(); //实例化
+    $mail->IsSMTP(); // 启用SMTP
+    $mail->Port = '465'; 
+    $mail->SMTPSecure = 'ssl'; 
+    $mail->Host=C('MAIL_HOST'); //smtp服务器的名称（这里以QQ邮箱为例）
+    $mail->SMTPAuth = C('MAIL_SMTPAUTH'); //启用smtp认证
+    $mail->Username = C('MAIL_USERNAME'); //你的邮箱名
+    $mail->Password = C('MAIL_PASSWORD') ; //邮箱密码
+    $mail->From = C('MAIL_FROM'); //发件人地址（也就是你的邮箱地址）
+    $mail->FromName = C('MAIL_FROMNAME'); //发件人姓名
+    $mail->AddAddress($to,"尊敬的客户");
+    $mail->WordWrap = 50; //设置每行字符长度
+    $mail->IsHTML(C('MAIL_ISHTML')); // 是否HTML格式邮件
+    $mail->CharSet=C('MAIL_CHARSET'); //设置邮件编码
+    $mail->Subject =$title; //邮件主题
+    $mail->Body = $content; //邮件内容
+    $mail->AltBody = "这是一个纯文本的身体在非营利的HTML电子邮件客户端"; //邮件正文不支持HTML的备用显示
+    return($mail->Send());
+    
+ }
+ 
+ 
+/**
+ * 导出excel
+ * @param type $headArr 表头
+ * @param type $data 要导出的数据
+ * 
+ */
+function getExcel($headArr, $data) {
+    //导入PHPExcel类库，因为PHPExcel没有用命名空间，只能inport导入
+    import("Org.Util.PHPExcel.PHPExcel");
+    import("Org.Util.PHPExcel.PHPExcel.Writer.Excel5");
+    import("Org.Util.PHPExcel.PHPExcel.IOFactory.php");
+
+    $date = date("Y_m_d", time());
+    $fileName = "excel_{$date}.xls";
+
+    //创建PHPExcel对象，注意，不能少了\
+    $objPHPExcel = new \PHPExcel();
+    $objProps = $objPHPExcel->getProperties();
+
+    //设置表头
+    $key = ord("A");
+    $key2 = ord("@");
+    //print_r($headArr);exit;
+    foreach ($headArr as $v) {
+        if ($key > ord("Z")) {
+            $key2 += 1;
+            $key = ord("A");
+            $colum = chr($key2) . chr($key); //超过26个字母时才会启用  
+        } else {
+            if ($key2 >= ord("A")) {
+                $colum = chr($key2) . chr($key); //超过26个字母时才会启用  
+            } else {
+                $colum = chr($key);
+            }
+        }
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue($colum . '1', $v);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue($colum . '1', $v);
+        $key += 1;
+    }
+    $column = 2;
+    $objActSheet = $objPHPExcel->getActiveSheet();
+
+    foreach ($data as $key => $rows) { //行写入
+        $key = ord("A");
+        $key2 = ord("@");
+        foreach ($rows as $keyName => $value) {// 列写入
+            if ($key > ord("Z")) {
+                $key2 += 1;
+                $key = ord("A");
+                $colum = chr($key2) . chr($key); //超过26个字母时才会启用  
+            } else {
+                if ($key2 >= ord("A")) {
+                    $colum = chr($key2) . chr($key); //超过26个字母时才会启用  
+                } else {
+                    $colum = chr($key);
+                }
+            }
+//            $objPHPExcel->getActiveSheet()->setCellValueExplicit($colum . $column, $value, PHPExcel_Cell_DataType::TYPE_STRING);
+//            $objPHPExcel->getActiveSheet()->getStyle($colum . $column)->getNumberFormat()->setFormatCode("@");
+            $objActSheet->setCellValue($colum . $column, $value);
+            $key++;
+        }
+        $column++;
+    }
+    $fileName = iconv("utf-8", "gb2312", $fileName);
+    //重命名表
+    //$objPHPExcel->getActiveSheet()->setTitle('test');
+    //设置活动单指数到第一个表,所以Excel打开这是第一个表
+    $objPHPExcel->setActiveSheetIndex(0);
+    ob_end_clean();
+    header('Content-Type: application/vnd.ms-excel');
+    header("Content-Disposition: attachment;filename=\"$fileName\"");
+    header('Cache-Control: max-age=0');
+
+    $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save('php://output'); //文件通过浏览器下载
+    exit;
+}
+

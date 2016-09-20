@@ -1,7 +1,6 @@
 <?php
 
 namespace Manage\Controller;
-
 use Manage\Controller\AdminController;
 
 /**

@@ -21,7 +21,12 @@ class MessageManageModel extends Model {
         );
     }
 
-    //获取列表所需数据
+    /**
+     * 获取列表所需数据
+     * 
+     * @param array $params
+     * @return array
+     */
     public function getDataForList($params) {
 
         $arr_for_list = array();
@@ -44,7 +49,12 @@ class MessageManageModel extends Model {
         return $arr_for_list;
     }
 
-    //获取单条数据信息
+    /**
+     * 获取单条数据信息
+     * 
+     * @param int $msg_sys_id
+     * @return array
+     */
     public function getDataById($msg_sys_id) {
 
         $where['msg_sys_id'] = $msg_sys_id;
@@ -55,7 +65,12 @@ class MessageManageModel extends Model {
         return $res;
     }
 
-    //获取查询条件
+    /**
+     * 获取查询条件数组
+     * 
+     * @param array $params
+     * @return array
+     */
     public function makeWhereForSearch($params) {
 
         $where = array();
@@ -72,7 +87,12 @@ class MessageManageModel extends Model {
         return $where;
     }
 
-    //添加
+    /**
+     * 添加入库
+     * 
+     * @param array $data
+     * @return array
+     */
     public function doAdd($data) {
 
         //完善待插入数据
@@ -95,7 +115,12 @@ class MessageManageModel extends Model {
         }
     }
 
-    //编辑
+    /**
+     * 编辑入库
+     * 
+     * @param array $data
+     * @return array
+     */
     public function doEdit($data) {
 
         //完善待插入数据
@@ -117,7 +142,12 @@ class MessageManageModel extends Model {
         }
     }
 
-    //删除
+    /**
+     * 删除（修改状态）
+     * 
+     * @param int $msg_sys_id
+     * @return array
+     */
     public function doDelete($msg_sys_id) {
 
         $msg_sys_data = array();

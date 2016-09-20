@@ -5,7 +5,7 @@ namespace Manage\Controller;
 use Manage\Controller\AdminController;
 
 /**
- * Description of MessageManageController
+ * 系统消息：列表展示、按条件查询、添加、编辑、修改状态、删除（修改状态）
  *
  * @author chengyayu
  */
@@ -17,9 +17,17 @@ class MessageManageController extends AdminController {
         parent::__construct();
         $this->mod_message_manage = D('MessageManage');
     }
-
+    
+    /**
+     * 查询列表展示
+     * 
+     * @param string $msg_sys_status
+     * @param string $msg_sys_title
+     * @param string $p
+     * @return object 跳转或显示页面
+     */
     public function index() {
-
+            
         $params = I('param.');
         $data_for_list = $this->mod_message_manage->getDataForList($params);
 
@@ -28,7 +36,10 @@ class MessageManageController extends AdminController {
         $this->assign('remember_search', $params);
         $this->display();
     }
-
+    
+    /**
+     * 添加
+     */
     public function add() {
 
         if (IS_POST) {
@@ -40,6 +51,9 @@ class MessageManageController extends AdminController {
         }
     }
 
+    /**
+     * 编辑
+     */
     public function edit() {
 
         if (IS_POST) {
@@ -54,6 +68,13 @@ class MessageManageController extends AdminController {
         }
     }
     
+    /**
+     * 修改状态
+     * 
+     * @param string $msg_sys_id
+     * @param string $msg_sys_status 修改后状态值
+     * @return object json对象
+     */
     public function changeStatus(){
         
         $params = I('param.');
@@ -61,6 +82,9 @@ class MessageManageController extends AdminController {
         $this->ajaxReturn($res_info_edit);
     }
     
+    /**
+     * 删除（修改状态为４）
+     */
     public function delete(){
         
         $msg_sys_id = I('msg_sys_id');

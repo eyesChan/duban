@@ -5,7 +5,7 @@ return array(
     'FILE_MEETING' => array(//会议相关文件上传
         'FILE_SIZE' => 3145728,
         'FILE_PATH' => 'meeting/',
-        'ALLOW_FILE'=>'xls,xlsx'
+        'ALLOW_FILE'=>array('xlsx','xls'),
     ),
 );
 

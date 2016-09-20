@@ -7,6 +7,7 @@
  */
 
 namespace Manage\Controller;
+use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
 
 /**
  *  Description   督办后台用日程会议 
@@ -32,14 +33,16 @@ class MeetingController extends AdminController {
         if (!empty($data)) {
             $meetingMod = D('meeting');
             if (!empty($_FILES)) {
+                $upload_obj = new MeetingUplod();
                 $config_info = C();
                 //判断上传方式
                 if($config_info['OPEN_FTP'] == '1'){ //开启ftp上传
-                    var_dump($config_info);die;
                     $file_config = $config_info['FTP_MEETING'];
                     var_dump($file_config);
                 }else{ //普通上传
-                    
+                    $file_config = $config_info['FILE_MEETING'];
+                    $result = $upload_obj->normalUpload($file_config);
+                    var_dump($result);die;
                 }die;
                 $upload = new \Think\Upload(); // 实例化上传类
                 $upload->maxSize = $config_info['FILE_SIZE']; // 设置附件上传大小

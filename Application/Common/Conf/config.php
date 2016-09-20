@@ -29,7 +29,7 @@ return array(
         'DEPARTMENT' => 2, //部门
         'PERSONAL' => 3, //个人
     ),
-    'OPEN_FTP'=>'1', //上传启用ftp
+    'OPEN_FTP'=>'0', //上传启用ftp
 );
 
 

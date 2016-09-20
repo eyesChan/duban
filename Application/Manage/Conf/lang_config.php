@@ -57,6 +57,14 @@ return array(
 	    'code' => 200,
 	    'status' => '保存成功'
 	),
+        'UPLOAD_ERROR'=>array(
+            'code'=>100,
+            'status'=>'上传失败',
+        ),
+        'UPLOAD_SUCCESS'=>array(
+            'code'=>200,
+            'status'=>'上传成功'
+        ),
     ),
     /* 用户相关提示 */
     'USER' => array(

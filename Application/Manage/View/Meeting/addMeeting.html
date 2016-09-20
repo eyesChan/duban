@@ -2,7 +2,7 @@
 <block name="title"><title>会议创建</title></block>
 
 <block name="right">
-    <form action="{:U(save)}" method='post' class="mt20" id="productManage">
+    <form action="{:U(addMeeting)}" method='post' class="mt20" id="productManage">
         <table class="tbl">
             <colgroup>
                 <col width="12%">
@@ -23,7 +23,7 @@
             <tr>
                 <td class="cap">会议类型：</td>
                 <td>
-                    <select name='metting[meeting_type]'>
+                    <select name='meeting[meeting_type]'>
                         <foreach item='item' name='type_info'>
                             <option value="{$item.meeting_type_id}">{$item.meeting_type_name}</option>
                         </foreach>
@@ -31,7 +31,7 @@
                 </td>
                 <td class="cap">会议界别：</td>
                 <td colspan="3">
-                    <select name='metting[meeting_level]'>
+                    <select name='meeting[meeting_level]'>
                         <foreach item='item' name='level_info'>
                             <option value="{$item.meeting_level_id}">{$item.meeting_level_name}</option>
                         </foreach>
@@ -181,7 +181,7 @@
             <tr>
                 <td class="cap">会议记录：</td>
                 <td colspan='5'>
-                    <textarea style="width: 80%; height: 100px;border: 1px solid #ededed;">
+                    <textarea name="meeting[meeting_content]" style="width: 80%; height: 100px;border: 1px solid #ededed;">
                         
                     </textarea>    
                 </td>
@@ -201,13 +201,13 @@
             <tr>
                 <td class="cap">上传附件：</td>
                 <td colspan="5">
-                    <input type="file" name='meeting[]'>
+                    <input type="file" name='file'>
                 </td>                             
             </tr>
         </table>
         <div class="text-center">
 
-	        <input class="btn btn-red mr10 submit" type="button" value="提交"/>
+	        <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
 	        <input class="btn ml10 button btn-normal" type="button" value="取消"/>
     	</div>
     </form>

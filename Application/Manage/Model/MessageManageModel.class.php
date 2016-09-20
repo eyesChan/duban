@@ -1,11 +1,10 @@
 <?php
 
 namespace Manage\Model;
-
 use Think\Model;
 
 /**
- * Description of MessageManageModel
+ * 系统消息模型类，负责查询列表数据、根据消息ID获取单条数据、生成查询条件、添加入库、编辑入库、删除动作
  *
  * @author chengyayu
  */

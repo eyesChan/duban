@@ -28,11 +28,7 @@ return array(
         'ALL' => 1, //全部权限
         'DEPARTMENT' => 2, //部门
         'PERSONAL' => 3, //个人
-    ),
-    'COMMON_PARAM'=>array(
-        'FILE_SIZE'=>3145728,
-        'FILE_PATH'=>'aa/',
-    ),
+    ) 
 );
 
 

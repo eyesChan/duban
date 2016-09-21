@@ -1,0 +1,90 @@
+<extend name="Public:base"/>
+<block name="title"><title>文档发布</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/messageManage.css"/>
+    <div class="role-padding container-padding">
+        <div class="filter-main clear">  
+            <form method="post" action="{:U(index)}">
+                <table class="tbl">
+                    <tr>
+                        <td class="cap">文档名称:</td>
+                        <td> <input class="input-text" type="text" name="msg_sys_title"></td>
+                        <td class="cap">发布人：</td>
+                        <td><input class="input-text" type="text" name="msg_sys_title" ></td>
+                        <td class="cap">发布时间：</td>
+                         <td><input type="text" name='start_time' id="date8" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl"></td>
+                        <td class="cap">发布类型：</td>
+                        <td>
+                             <select name='meeting[meeting_form]'>
+                                <foreach item='item' name='file_type'>
+                                    <option value="{$item.config_id}">{$item.config_descripion}</option>
+                                </foreach>
+                             </select>
+                        </td>
+                         </tr>         
+                </table>
+            </form>
+             <table class="tbl tbl-list">
+	            <caption>会议列表</caption>
+	            <colgroup>
+	                <col width="13%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="38%">
+	            </colgroup>
+	            <thead>
+	            <tr>
+                                <th>文档名称</th>
+                                <th>文档类型</th>
+                                <th>发布人</th>
+                                <th>发布时间</th>
+                                <th>失效时间</th>
+                                <th>状态</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+	            </thead>
+	        
+	        <tbody>	
+	        	<tr>
+                                <td>XXg工作</td>
+                                <td>财务类</td>
+                                <td>明珠</td>
+                               <!--<if condition="$v['msg_sys_status'] eq 1">
+                                    <td>已发布</td>
+                                    <elseif condition="$v['msg_sys_status'] eq 2"/>
+                                    <td>未发布</td>
+                                    <elseif condition="$v['msg_sys_status'] eq 3"/>
+                                    <td>已失效</td>
+                                    <elseif condition="$v['msg_sys_status'] eq 0"/>
+                                    <td>已停用</td>
+                                </if>-->
+                                <td>2016/9/20</td>
+                                <td>2016/9/20</td>
+                                <td>生效</td>
+                                <td>xxx</td>       
+                                <td>
+	        		   <input type="button" value="编辑" class="btn btn-r btn-xl button">
+	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button">
+                                </td>
+	        	</tr>
+
+	        </tbody>
+	        </table>
+                </div>
+            <div class="pagination fr">
+                {$page}
+            </div>
+        </div>
+        <js href="__PUBLIC__/Js/messageManage.js"/>
+        <script type="text/javascript">
+	    	var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" value="记录导出"/>';
+	    	$(rightBtn).appendTo(".location");
+	    </script> 
+</block>
+ 
+

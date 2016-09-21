@@ -260,9 +260,12 @@ function getConfigInfo($key) {
             'config_key'=>$key,
             'config_status'=>1,
         );
-        $meeting_type = $config_meemting->where(array())->order('config_sort desc')->select();
+        $meeting_type = $config_meemting->where($arr)->order('config_sort desc')->select();
         return $meeting_type;
+    }else{
+        return array();
     }
+    
 }
 
 /**

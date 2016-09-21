@@ -15,6 +15,18 @@ return array(
         'ALLOW_FILE' => array('xlsx', 'xls'),
         'PATH' => 'meeting/'
     ),
+    
+    'FIP_DOC' => array(//文档附件文件上传
+        'FILE_SIZE' =>20971520 ,
+        'FILE_PATH' => 'filedoc/', //临时存储路径
+        'ALLOW_FILE'=>array('xlsx','xls','word','pdf','jpeg'),
+    ),   
+    
+      'FTP_COVER' => array(//文档附件封面文件上传
+        'FILE_SIZE' =>524288,
+        'FILE_PATH' => 'filecover/', //临时存储路径
+        'ALLOW_FILE'=>array('jpg','png'),
+    ),   
 );
 
 

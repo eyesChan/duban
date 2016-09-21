@@ -10,3 +10,18 @@
 	float: left;
 	background: blue;
 }
+.person-del {
+	font-size: 16px;
+	color: red;
+	margin-left: 25px;
+	cursor: pointer;
+	margin-right: 25px;
+}
+.person-content {
+	padding: 0 5px;
+}
+.hide-input {
+	border: 1px solid #ededed;
+	width: 80px;
+	height: 26px;
+}

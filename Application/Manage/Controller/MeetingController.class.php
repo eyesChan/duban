@@ -53,13 +53,13 @@ class MeetingController extends AdminController {
         }
 
         //会议类型
-        $meeting_type_info = getMeetType();
+        $meeting_type_info = getConfigInfo('meeting_type');
         $this->assign('type_info', $meeting_type_info);
         //会议级别
-        $meeting_level_info = getMeetLevel();
+        $meeting_level_info = getConfigInfo('meeting_level');
         $this->assign('level_info', $meeting_level_info);
         //会议形式
-        $meeting_form_info = getMeetForm();
+        $meeting_form_info = getConfigInfo('meeting_form');
         $this->assign('form_info', $meeting_form_info);
 
 

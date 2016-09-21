@@ -25,7 +25,7 @@
                 <td>
                     <select name='meeting[meeting_type]'>
                         <foreach item='item' name='type_info'>
-                            <option value="{$item.meeting_type_id}">{$item.meeting_type_name}</option>
+                            <option value="{$item.config_id}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>
@@ -33,7 +33,7 @@
                 <td colspan="3">
                     <select name='meeting[meeting_level]'>
                         <foreach item='item' name='level_info'>
-                            <option value="{$item.meeting_level_id}">{$item.meeting_level_name}</option>
+                           <option value="{$item.config_id}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>
@@ -53,7 +53,7 @@
                 <td>
                     <select name='meeting[meeting_form]'>
                         <foreach item='item' name='form_info'>
-                            <option value="{$item.meeting_form_id}">{$item.meeting_form_name}</option>
+                           <option value="{$item.config_id}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>

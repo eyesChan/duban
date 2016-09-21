@@ -1,7 +1,7 @@
 <extend name="Public:base"/>
 <block name="title"><title>文档发布</title></block>
 <block name="right">
-    <css href="__PUBLIC__/css/messageManage.css"/>
+    <css href="__PUBLIC__/css/meeting.css"/>
     <div class="role-padding container-padding">
         <div class="filter-main clear">  
             <form method="post" action="{:U(index)}">
@@ -20,6 +20,9 @@
                                     <option value="{$item.config_id}">{$item.config_descripion}</option>
                                 </foreach>
                              </select>
+                        </td>
+                        <td>
+                             <input class="btn btn-red mr10 submit" type="submit" value="查询"/>
                         </td>
                          </tr>         
                 </table>
@@ -80,11 +83,14 @@
                 {$page}
             </div>
         </div>
-        <js href="__PUBLIC__/Js/messageManage.js"/>
         <script type="text/javascript">
-	    	var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" value="记录导出"/>';
+	    	var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="文档发布创建"/>';
 	    	$(rightBtn).appendTo(".location");
+                function openNew(){
+                    location.href = '{:U(addFile)}';
+                }
 	    </script> 
+      
 </block>
  
 

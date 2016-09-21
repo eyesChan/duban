@@ -76,8 +76,6 @@ $("#edit-btn").on("click", function () {
 
 //单条删除
 function singleDel(msg_sys_id) {
-    var top = $(this).offset();
-    console.log(top)
     $.dialog({
         title: '提示信息', content: '确认删除该系统消息吗？', ok: function () {
             $.ajax({

@@ -1,0 +1,82 @@
+<extend name="Public:base"/>
+
+<block name="title"><title>海航会议督办系统</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/messageManage.css"/>
+    <div class="role-padding container-padding">
+        <div class="filter-main clear">
+            <form method="post" action="{:U(index)}">
+                <table class="tbl">
+                    <caption>查询条件</caption>
+                    <tr>
+                        <td class="cap">参数类别：</td>
+                        <td>
+                            <select name="config_key">
+                                <option value="">--全部--</option>
+                                <foreach name="configs" item="config">
+                                    <option value="{$config['config_value']}" <if condition="$remember_search['config_key'] eq $config['config_value']">selected = 'true'</if> >{$config['config_descripion']}</option>
+                                </foreach>
+                            </select>
+                        </td>
+                        <td class="cap">参数名称：</td>
+                        <td><input class="input-text" type="text" name="config_descripion" value="{$remember_search['config_descripion']}"></td>
+                        <td><input class="btn btn-red mr10 submit" type="submit" value="查询"/></td>
+                    </tr>         
+                </table>
+            </form>
+        </div>
+        <div class="tb1">
+            <form action="{:U(index)}">
+                <div class="jxssp">
+                <div class="common-prompt notice-prompt hide">
+                        <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
+                        <span></span>
+                    </div>
+                    <table class="tbl tbl-list" width="100%">
+                        <caption>系统参数列表 <a class="tb-detail f-fr mr30" href="{:U(add)}" id="exportbtn">新增系统参数</a></caption>
+                        <colgroup></colgroup>
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>参数类别标记</th>
+                                <th>参数类别</th>
+                                <th>参数名称</th>
+                                <th>参数值</th>
+                                <th>参数状态</th>
+                                <th>更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="role-tbody">
+                        <foreach name="list" item="v">
+                            <tr>
+                                <td>{$key+1}</td>
+                                <td>{$v['config_key']}</td>
+                                <td>{$v['config_name']}</td>
+                                <td>{$v['config_descripion']}</td>
+                                <td>{$v['config_value']}</td>
+                                <td>{$v['config_status_name']}</td>
+                                <td>{$v['config_change_time']}</td>
+                                <td>
+                                    <a class="btn btn-c btn-xl button" href="{:U('ConfigManage/edit',array('config_id'=>$v['config_id']))}">编辑</a>
+                                    <a class="btn btn-c btn-xl button" href="javascript:void(0);" onclick="singleDel({$v['config_id']})">删除</a>
+                                    <if condition="$v['config_status'] eq 1">
+                                        <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['config_id']}, 0)" value="停用">                                     
+                                    <elseif condition="$v['config_status'] eq 0"/>
+                                        <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['config_id']}, 1)" value="启用">
+                                    </if>
+                                </td>
+                            </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div class="pagination fr">
+                {$page}
+            </div>
+        </div>
+        <js href="__PUBLIC__/Js/configManage.js"/>
+</block>
+
+

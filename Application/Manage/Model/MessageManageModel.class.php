@@ -29,16 +29,15 @@ class MessageManageModel extends Model {
     public function getDataForList($params) {
 
         $arr_for_list = array();
-        $mod_msg_sys = M('message_sys');
 
         $where = $this->makeWhereForSearch($params);
         $page = $params['p'];
-        $arr_for_list['msg_sys'] = $mod_msg_sys->where($where)
+        $arr_for_list['msg_sys'] = $this->where($where)
                 ->join('db_member as member ON db_message_sys.user_id = member.uid')
                 ->order('msg_sys_creattime desc')
                 ->page($page, 10)
                 ->getField('msg_sys_id,msg_sys_title,msg_sys_starttime,msg_sys_endtime,msg_sys_status,member.name as creatname,msg_sys_creattime', TRUE);
-        $count = $mod_msg_sys->where($where)->count();
+        $count = $this->where($where)->count();
         $Page = new \Think\Page($count, 10);
         foreach ($params as $k => $v) {
             $Page->parameter[$k] = urlencode($v);

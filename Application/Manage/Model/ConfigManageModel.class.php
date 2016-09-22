@@ -5,7 +5,9 @@ namespace Manage\Model;
 use Think\Model;
 
 /**
- * 
+ * 系统参数管理模型类。
+ * 查询列表数据、根据消息ID获取单条数据、生成查询条件、添加入库、编辑入库、删除动作
+ * 获取某个参数类别下最大序号、获取参数类别数据集
  *
  * @author chengyayu
  */
@@ -139,7 +141,7 @@ class ConfigManageModel extends Model {
     public function doAdd($data) {
 
         //完善待插入数据
-        $data['config_system']['config_name'] = $this->where(array('config_key' => $data['config_system']['config_key']))->getField('config_name');
+        $data['config_system']['config_name'] = $this->where(array('config_value' => $data['config_system']['config_key']))->getField('config_descripion');
         $now_bigest_sort = $this->getBigestSort($data['config_system']['config_key']);
         $data['config_system']['config_sort'] = $now_bigest_sort + 1;
         $data['config_system']['config_change_time'] = date('Y-m-d H:i:s');

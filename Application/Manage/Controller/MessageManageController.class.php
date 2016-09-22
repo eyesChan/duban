@@ -28,8 +28,9 @@ class MessageManageController extends AdminController {
     public function index() {
             
         $params = I('param.');
+        $data_for_search = $this->mod_message_manage->getDataForSearch();
         $data_for_list = $this->mod_message_manage->getDataForList($params);
-
+        $this->assign('msg_sys_type', $data_for_search['msg_sys_type']);
         $this->assign('list', $data_for_list['msg_sys']);
         $this->assign('page', $data_for_list['page_show']);
         $this->assign('remember_search', $params);

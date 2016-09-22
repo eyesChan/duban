@@ -13,14 +13,13 @@
                         <td>
                             <select name="msg_sys_status">
                                 <option value="">--全部--</option>
-                                <option value="2" <if condition="$remember_search['msg_sys_status'] eq '2'">selected='selected'</if> >未发布</option>
-                                <option value="1" <if condition="$remember_search['msg_sys_status'] eq '1'">selected='selected'</if> >已发布</option>
-                                <option value="3" <if condition="$remember_search['msg_sys_status'] eq '3'">selected='selected'</if> >已失效</option>
-                                <option value="0" <if condition="$remember_search['msg_sys_status'] eq '0'">selected='selected'</if> >已停用</option>
+                                <foreach name="msg_sys_type" item="type">
+                                    <option value="{$type['config_value']}" <if condition="$remember_search['msg_sys_status'] eq $type['config_value']">selected="true"</if> >{$type['config_descripion']}</option>
+                                </foreach>
                             </select>
                         </td>
                         <td class="cap">公告标题：</td>
-                        <td><input class="input-text" type="text" name="msg_sys_title" value="{$remember_search['msg_sys_title']}"></td>
+                        <td><input class="input-text" type="text" name="msg_sys_title" value="{$remember_search['msg_sys_title']}" ></td>
                         <td><input class="btn btn-red mr10 submit" type="submit" value="查询"/></td>
                     </tr>         
                 </table>

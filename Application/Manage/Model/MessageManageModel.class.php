@@ -21,6 +21,22 @@ class MessageManageModel extends Model {
     }
 
     /**
+     * 获取查询条件所需数据
+     * 
+     * @param array $params
+     * @return array
+     */
+    public function getDataForSearch() {
+
+        $mod_config_system = M('config_system');
+        $where['config_key'] = 'msg_sys_status';
+        $where['config_value'] = array('NEQ',4);//排除‘已删除’状态
+        $arr_for_search['msg_sys_type'] = $mod_config_system->where($where)->select();
+
+        return $arr_for_search;
+    }
+    
+    /**
      * 获取列表所需数据
      * 
      * @param array $params

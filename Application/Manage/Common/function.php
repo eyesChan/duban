@@ -267,29 +267,6 @@ function getConfigInfo($key) {
     }
     
 }
-
-/**
- *  会议级别
- * @author lishuaijie
- * @return 所有会议级别
- */
-function getMeetLevel() {
-    $config_meemting = D('config_meeting_level');
-    $meeting_level = $config_meemting->where(array('meeting_level_state' => 1))->select();
-    return $meeting_level;
-}
-
-/**
- *  会议形式
- * @author lishuaijie
- * @return 所有会议形式
- */
-function getMeetForm() {
-    $config_meemting = D('config_meeting_form');
-    $meeting_form = $config_meemting->where(array('meeting_form_state' => 1))->select();
-    return $meeting_form;
-}
-
 /*
  * 邮件发送函数
  * @author xiaohui

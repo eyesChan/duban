@@ -51,8 +51,8 @@ class FileModel  extends Model{
             $data['doc_end_date'] = $param['doc_end_date'];
             $data['doc_root_view'] = $param['doc_root_view'];
             $data['doc_root_do'] = $param['doc_root_do'];
-            $data['doc_upload_file_url'] = 1;
-            $data['doc_upload_img_url'] = 1;
+            $data['doc_upload_file_url'] = $param['doc_upload_file_url'];
+            $data['doc_upload_img_url'] =$param['doc_upload_img_url'];
             $data['doc_beizhu'] = $param['doc_beizhu'];
             $data['doc_status'] = 1 ; //$param['doc_status'];
             $res = $order->add($data);
@@ -67,25 +67,12 @@ class FileModel  extends Model{
      */
     public function getFileDocCount($where) {
         $count = M('doc')
-                ->where($where)->count();
-       // return M("doc")->getLastSql();
+                ->join('db_member on db_doc.doc_pub_person = db_member.uid')
+                ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+                ->where($where)
+                ->count();
         return $count;
     }
-    
-    /*
-     * 查询会议名称
-     * @author xiaohui
-     * @return array 会议名称
-     */
-   /* public function listMeeting(){
-        $meeting = M('meeting')
-                ->field('meeting_id,meeting_name')
-                ->where('meeting_delete = 1')
-                ->order('meeting_id desc')
-                ->select();
-        return $meeting;
-    }
-    
     /**
      * 分页查询操作
      * 
@@ -98,64 +85,14 @@ class FileModel  extends Model{
     public function getList($where, $first_rows, $list_rows) {
       $order = M('doc');
       $list = $order
-              ->where($where)
+              ->join('db_member on db_doc.doc_pub_person = db_member.uid')
+              ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+              ->where($where) 
               ->limit($first_rows, $list_rows)
               ->order('doc_id desc')
               ->select();
       return $list;
     }
-    /*
-     * 查询单个工作单
-     * @author xiaohui
-     * @param int 工作单号
-     * @return array 成功返回列表
-     */
-   /* public function selectWork($param){
-        $work = D('worksheet')
-              ->field('worksheet_id,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state')
-              ->where("worksheet_id = $param")
-              ->find();
-        return $work;
-    }
-    /*
-     * 修改工单状态
-     * @author xiaohui
-     * @param int 工作单号
-     * @return array 成功返回
-     */
-   /* public function saveWork($param){
-        $order = M('worksheet');
-        $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
-        $data['worksheet_rule_person'] = $param['personliable'];
-        $data['worksheet_done_persent'] = $param['worksheet_done_persent'];
-        $data['worksheet_state'] = $param['worksheet_state'];
-        $work_id = $param['worksheet_id'];
-        $res = $order->where("worksheet_id = $work_id")->save($data);
-        if($res){
-            return C('COMMON.SUCCESS_EDIT');
-        }else{
-            return C('COMMON.ERROR_EDIT');
-        } 
-    }
-    /*
-     * 工作单废弃修改
-     * @author xiaohui
-     * @param int 工作单号
-     * @param string 废弃原因
-     * @return array 成功返回
-    */
-   /* public function abandonedWork($param){
-        $order = M('worksheet');
-        $data['worksheet_abandoned_reason'] = $param['abandoned_reason'];
-        $data['worksheet_state'] = 3;
-        $work_id = $param['worksheet_id'];
-        $res = $order->where("worksheet_id = $work_id")->save($data);
-        if($res){
-            return C('COMMON.SUCCESS_EDIT');
-        }else{
-            return C('COMMON.ERROR_EDIT');
-        } 
-    }*/
 }
 
 

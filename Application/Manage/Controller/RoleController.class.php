@@ -2,8 +2,6 @@
 
 namespace Manage\Controller;
 
-use Manage\Model\AuthGroupModel;
-
 /**
  * 角色管理
  *

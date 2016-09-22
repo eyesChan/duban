@@ -3,37 +3,37 @@
 <extend name="Public:base" />
 <block name="title"><title>工作流管理系统</title></block>
 <block name="right">
-<css href="__PUBLIC__/css/roleManage.css"/>
-  <div class="role-padding container-padding">
-    <div class="jxssp tb1">
-			<form id="roleFrom" method="POST" action="{:U(edit)}" enctype="multipart/form-data">
-			    <table class="tb1">
-							<tr>
-							    <td  class="right role-edit-td role-n"><span style="color:red;">*</span>角色名称:</td>
-							    <td class="role-edit-td role-input">
-								<input class="role-name-input" type="text" maxlength="30" name="title" value="{$info.title}">
-								<input class="Role-name-hidden" type="hidden"  name="$_id" value="{$info.id}">
-								<span class="err-message hide"></span>
-							    </td>
-							</tr>
-							<tr>
-							    <td class="right role-n ">描述:</td>
-							    <td class="role-input">
-								<textarea maxlength="100" name="describe">{$info.describe}</textarea>
-							    </td>
-							</tr>
-							<tr>
-							    <td colspan="2" class="op-td">
-								<input type="hidden" name="id" value="{$info['id']}" />
-								<input type="hidden" name="p" value="{$p}" />
-								<input type="submit" value="保存" class="filter-search mr10" id="btn-save" >
-								<input type="reset" value="返回" class="filter-search ml10" name="sub" id="reset" onclick="javascript:history.back(-1)"/>
-							    </td>
-							</tr>
-			    </table>
-			</form>
+    <css href="__PUBLIC__/css/roleManage.css"/>
+    <div class="role-padding container-padding">
+        <div class="jxssp tb1">
+            <form id="roleFrom" method="POST" action="{:U(edit)}" enctype="multipart/form-data">
+                <table class="tb1">
+                    <tr>
+                        <td  class="right role-edit-td role-n"><span style="color:red;">*</span>角色名称:</td>
+                        <td class="role-edit-td role-input">
+                            <input class="role-name-input" type="text" maxlength="30" name="title" value="{$info.title}">
+                            <input class="Role-name-hidden" type="hidden"  name="$_id" value="{$info.id}">
+                            <span class="err-message hide"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right role-n ">描述:</td>
+                        <td class="role-input">
+                            <textarea maxlength="100" name="describe">{$info.describe}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="op-td">
+                            <input type="hidden" name="id" value="{$info['id']}" />
+                            <input type="hidden" name="p" value="{$p}" />
+                            <input type="submit" value="保存" class="filter-search mr10" id="btn-save" >
+                            <input type="reset" value="返回" class="filter-search ml10" name="sub" id="reset" onclick="javascript:history.back(-1)"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </div>
-  </div>
-   <js href="__PUBLIC__/Js/baseOperate.js" />
-   <js href="__PUBLIC__/Js/roleManage.js" />
+    <js href="__PUBLIC__/Js/baseOperate.js" />
+    <js href="__PUBLIC__/Js/roleManage.js" />
 </block>

@@ -10,7 +10,7 @@ return array(
      'FILE_DOC' => array(//文档附件文件上传
         'FILE_SIZE' =>20971520,
         'FILE_PATH' => 'filedoc/', //临时存储路径
-        'ALLOW_FILE'=>array('xlsx','xls','word','pdf','jpeg'),
+        'ALLOW_FILE'=>array('xlsx','xls','doc','pdf','jpeg'),
     ),  
      'FILE_COVER' => array(//文档附件封面文件上传
         'FILE_SIZE' =>524288,

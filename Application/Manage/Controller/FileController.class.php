@@ -67,7 +67,7 @@ class FileController extends AdminController {
             $param['doc_name'] != '' ? $where['doc_name'] = array('like', '%' . $param['doc_name'] . '%') : '';
             $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
             if (!empty($param['doc_pub_date'])) {
-                $where['doc_pub_date'] = array('EQ', $param['doc_pub_date'] . ' 00:00:00');
+                $where['doc_pub_date'] = array('EQ', $param['doc_pub_date']);
             }
             if (!empty($param['doc_pub_type'])) {
                 $where['doc_pub_type'] = array('EQ', $param['doc_pub_type']);
@@ -84,6 +84,7 @@ class FileController extends AdminController {
             $this->assign('list', $list);
             $this->assign('page', $show);
             $this->assign('param', $param); 
+            $this->assign('time', date('Y-m-d'));
          //文档发布类型 
           $file_type=getConfigInfo('doc_pub_type');     
           $this->assign('file_type',$file_type);     
@@ -141,5 +142,14 @@ class FileController extends AdminController {
        $this->assign('file_authority',$file_authority);
        $this->display();
    } 
+   
+   /*
+    * 文档撤回
+    */
+   public function delFile(){
+      $doc_id=I('doc_id');
+      $result = $this->filedoc->delFile($doc_id);
+      
+   }
 
 }

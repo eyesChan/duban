@@ -1,16 +1,61 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<extend name="Public:base"/>
+
+<block name="title"><title>海航会议督办系统</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/messageManage.css"/>
+    <div class="container-padding">
+        <div class="jxssp tb1">
+            <form id="edit_config_info" enctype="multipart/form-data">
+                <table class="tbl">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="30%">
+                        <col width="20%">
+                        <col width="30%">
+                    </colgroup>
+                    <tr>
+                        <td class="cap"><span class="rq">*</span>参数类别：</td>
+                        <td>
+                            <select name="config_key">
+                                <option value="">--全部--</option>
+                                <foreach name="config_types" item="c_type">
+                                    <option value="{$c_type['config_value']}" <if condition="$c_type['config_value'] eq $config_system['config_key']">selected='true'</if> >{$c_type['config_descripion']}</option>
+                                </foreach>
+                            </select>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td class="cap"><span class="rq">*</span>参数名称：</td>
+                        <td colspan="3"><input class="notice-title input-text text" type="text" name="config_descripion" value="{$config_system[config_descripion]}"></td>
+                    </tr>
+                    <tr>
+                        <td class="cap"><span class="rq">*</span>参数值：</td>
+                        <td colspan="3"><input class="notice-title input-text text" type="text" name="config_value" value="{$config_system[config_value]}"></td>
+                    </tr>
+                    <tr>
+                        <td class="cap"><span class="rq">*</span>参数状态：</td>
+                        <td colspan="3">
+                            <input type="radio" name="config_status" value="1" <if condition="$config_system[config_status] eq 1">checked="checked"</if> class="input-text ml15">启用
+                            <input type="radio" name="config_status" value="0" <if condition="$config_system[config_status] eq 0">checked="checked"</if>class="input-text ml15">停用
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div class="text-center">
+                            <div class="common-prompt save-success hide">
+                                <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
+                                <span></span>
+                            </div>
+                                <input type='hidden' name='config_id' value="{$config_system[config_id]}"/>
+                                <input class="btn btn-red mr10 submit" id='edit-btn' type="button" value="保存"/>
+                                <input class="btn ml10 button btn-normal" type="button" value="取消" onclick="javascript:history.back(-1)"/>
+                            </div>
+                        </td>                   
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <js href="__PUBLIC__/Js/configManage.js"/>
+
+</block>

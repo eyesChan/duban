@@ -122,4 +122,10 @@ return array(
 	'MENU_NUM_EXIST' => '模块编码,已存在',
 	'CHILD_EXIST' => '存在子模块，不允许删除',
     ),
+    
+    //文档管理提示
+    'DOCFILE' => array(
+	'DOCDEL_SUCCESS' => '撤回成功',
+	'DOCDEL_ERROR' => '撤回失败',
+    ),
 );

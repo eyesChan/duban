@@ -67,31 +67,58 @@ class MeetingUpload extends \Think\Controller {
         $ftp_option = C('FTP_OPTION');
         $result = $this->normalUpload($param);
         $src_path = $result['path'];
-        $file_info = pathinfo($src_path);//获取文件详细信息 
+        $file_info = pathinfo($src_path); //获取文件详细信息 
+        $new_name = $file_info['filename'] . '.' . $file_info['extension'];
         $this->conn_id = @ftp_connect($ftp_option['FTP_HOST'], $ftp_option['FTP_PORT']);
         @ftp_login($this->conn_id, $ftp_option['FTP_USER'], $ftp_option['FTP_PWD']);
         @ftp_pasv($this->conn_id, 1); // 打开被动模拟
-        $upload_flag =  @ftp_put($this->conn_id,$file_info['filename'].'.'.$file_info['extension'],$src_path,FTP_BINARY);
-        if($upload_flag){
+        //创建文件夹
+        $path = $param['PATH'].date('Y-m-d');
+        $this->ftp_mkdir($this->conn_id, $param['ROOT_PATH'].$path);
+        $upload_flag = @ftp_put($this->conn_id, $new_name, $src_path, FTP_BINARY);
+        if ($upload_flag) {
             //删除临时文件
             unlink($src_path);
             rmdir($file_info['dirname']);
             $result_info = C('COMMON.UPLOAD_SUCCESS');
-            $result_info['path'] = '';
+            $result_info['path'] = $path.'/'.$new_name;
             return $result_info;
-            
-        }else{
+        } else {
             return C('COMMON.UPLOAD_ERROR');
         }
     }
+
     /**
      *  ftp创建文件夹
      * @param path 创建路径
      * @param $conn 资源
      * @return true/false 
      */
-    public function ftp_mkdir($conn,$path){
-        
+    public function ftp_mkdir($conn, $path) {
+        $path_arr = explode('/', $path); // 取目录数组
+        $path_div = count($path_arr); // 取层数
+        foreach ($path_arr as $val) { // 创建目录
+            if (@ftp_chdir($conn, $val) == FALSE) {
+                $tmp = @ftp_mkdir($conn, $val);
+                @ftp_chdir($conn, $val);
+            }
+        }
+        return true;
+    }
+
+    /**
+     *  获取所有用户
+     * @author lishuaijie
+     * @return array
+     * @date 16/09/21
+     */
+    public function getUserInfo() {
+        $user_info = D('member')->where(array('status' => 1))->order('uid desc')->filed('uid,name')->select();
+        if (empty($user_info)) {
+            return array();
+        } else {
+            return $user_info;
+        }
     }
 
 }

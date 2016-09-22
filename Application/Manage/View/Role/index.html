@@ -2,86 +2,86 @@
 
 <block name="title"><title>工作流管理系统</title></block>
 <block name="right">
-<css href="__PUBLIC__/css/roleManage.css"/>
-   <div class="role-padding container-padding">
-	  <form action="{:U(index)}" class="r-from">
-	     <table class="tbl">
-            <caption>查询条件</caption>
-            <tr>
-                <td class="cap">角色名称：</td>
-                <td><input type="text" class="input-text text" name="search" value="{$search}"></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div class="text-center">
-	                    <a href="{:U(add,array('p'=>$p))}">
-							<input type="button" class="btn btn-a submit" value="新增"/>
-						</a>
-                    </div>
-                </td>
-            </tr>
-        </table>
-		<div class="tb1 jxssp">
-		    <table class="tbl tbl-list" width="100%">
-		    <caption>角色列表</caption>
-			<colgroup>
-			    <col width="13%">
-			    <col width="25%">
-			    <col width="37%">
-			    <col width="25%">
-			</colgroup>
-			<thead>
-			    <tr>
-					<th>
-					    <input type='checkbox' name='cbox' id="allSelect" >序号</th>
-					<th>角色名称</th>
-					<th>描述</th>
-					<th>操作</th>
-			    </tr>
-			</thead>
-			<tbody class="role-tbody">
-			<foreach name="info" item="v">
-			    <tr class="role-row">
-				<td class="role-row-td">
-				    <in name="v['id']" value="$admin">
+    <css href="__PUBLIC__/css/roleManage.css"/>
+    <div class="role-padding container-padding">
+        <form action="{:U(index)}" class="r-from">
+            <table class="tbl">
+                <caption>查询条件</caption>
+                <tr>
+                    <td class="cap">角色名称：</td>
+                    <td><input type="text" class="input-text text" name="search" value="{$search}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="text-center">
+                            <a href="{:U(add,array('p'=>$p))}">
+                                <input type="button" class="btn btn-a submit" value="新增"/>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="tb1 jxssp">
+                <table class="tbl tbl-list" width="100%">
+                    <caption>角色列表</caption>
+                    <colgroup>
+                        <col width="13%">
+                        <col width="25%">
+                        <col width="37%">
+                        <col width="25%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type='checkbox' name='cbox' id="allSelect" >序号</th>
+                            <th>角色名称</th>
+                            <th>描述</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="role-tbody">
+                    <foreach name="info" item="v">
+                        <tr class="role-row">
+                            <td class="role-row-td">
+                                <in name="v['id']" value="$admin">
 
-				   	<input  type="checkbox" name="childrenBox[]" class="singleSelect">{$key +1}
-			    <else />
-			    <label class="checkbox-normal diy-checkbox-normal checkbox-default  diy-checkbox" for="singleSelect{$v['id']}"></label>
-			    <input id="singleSelect{$v['id']}" type='checkbox' class="singleSelect" name='cbox[]' value="{$v['id']}">{$key +1}
-			    </in>
+                                <input  type="checkbox" name="childrenBox[]" class="singleSelect">{$key +1}
+                        <else />
+                        <label class="checkbox-normal diy-checkbox-normal checkbox-default  diy-checkbox" for="singleSelect{$v['id']}"></label>
+                        <input id="singleSelect{$v['id']}" type='checkbox' class="singleSelect" name='cbox[]' value="{$v['id']}">{$key +1}
+                        </in>
 
-			    </td>
-			    <td style="line-height: 20px;" class="role-row-td">{$v.title}</td>
-			    <td style="line-height: 20px;" class="role-row-td">{$v.describe}</td>
-			    <in name="v['id']" value="$admin">
-			    <td class="role-row-td"></td>
-			    <else />
-			    <td class="role-row-td">
-				<a class="role-link-btn common-blue-btn mr5" href="{:U('Role/authorizeRole',array('id'=>$v['id'],'p'=>$p))}">
-				<input type="button" class="btn btn-c btn-xl button" value="角色授权"></a>
-				<a class="role-ediit operate-btn" title="编辑" href="{:U('Role/edit',array('id'=>$v['id'],'p'=>$p))}">
-				<input type="button" class="operate-span-edit btn btn-c btn-xl button" value="编辑">
-				</a>
-				<a onclick='singleDel({$v['id']})'  class="role-delete operate-btn" title="删除" ><input type="button" class="operate-span-del btn btn-c btn-xl button" value="删除">
-			    </td>
-			    </in>
-                            </tr>
-                        </foreach>
-                        </tbody>
-                    </table>
-                </div>
-            </form>
-            <div class="batch-operate fl">
-                批量操作
-                <a href="javascript:javascipt:;" onclick="roleDelAll()" class="user-batch-del batch-del">
-                    <img src="__PUBLIC__/images/batch_del.png" alt=""/>删除</a>
-            </div>
-            <div class="pagination fr">
-                {$page}
-            </div>
-        </div>
-    </div>
-    <js href="__PUBLIC__/Js/baseOperate.js" />
-    <js href="__PUBLIC__/Js/roleManage.js" />
-</block>
+                        </td>
+                        <td style="line-height: 20px;" class="role-row-td">{$v.title}</td>
+                        <td style="line-height: 20px;" class="role-row-td">{$v.describe}</td>
+                        <in name="v['id']" value="$admin">
+                        <td class="role-row-td"></td>
+                        <else />
+                        <td class="role-row-td">
+                            <a class="role-link-btn common-blue-btn mr5" href="{:U('Role/authorizeRole',array('id'=>$v['id'],'p'=>$p))}">
+                                <input type="button" class="btn btn-c btn-xl button" value="角色授权"></a>
+                            <a class="role-ediit operate-btn" title="编辑" href="{:U('Role/edit',array('id'=>$v['id'],'p'=>$p))}">
+                                <input type="button" class="operate-span-edit btn btn-c btn-xl button" value="编辑">
+                            </a>
+                            <a onclick='singleDel({$v['id']})'  class="role-delete operate-btn" title="删除" ><input type="button" class="operate-span-del btn btn-c btn-xl button" value="删除">
+                                </td>
+                                </in>
+                                </tr>
+                                </foreach>
+                                </tbody>
+                                </table>
+                                </div>
+                                </form>
+                                <div class="batch-operate fl">
+                                    批量操作
+                                    <a href="javascript:javascipt:;" onclick="roleDelAll()" class="user-batch-del batch-del">
+                                        <img src="__PUBLIC__/images/batch_del.png" alt=""/>删除</a>
+                                </div>
+                                <div class="pagination fr">
+                                    {$page}
+                                </div>
+                                </div>
+                                </div>
+                                <js href="__PUBLIC__/Js/baseOperate.js" />
+                                <js href="__PUBLIC__/Js/roleManage.js" />
+                                </block>

@@ -1,7 +1,7 @@
 <extend name="Public:base" />
 <block name="title"><title>会议创建</title></block>
 <block name="right">
-    <form action="{:U(save)}" method='post' class="mt20" id="productManage">
+    <form action="{:U(add)}" method='post' class="mt20" id="productManage">
         <table class="tbl">
           <colgroup>
                 <col width="12%">
@@ -21,6 +21,7 @@
                 <td class="cap">关联会议：</td>
                 <td>
                    <select name="association">
+                       <option value="0">选择会议</option>
                         <foreach name="meeting" item="item">
                             <option value="{$item['meeting_id']}">{$item['meeting_name']}</option>
                         </foreach>

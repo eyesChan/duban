@@ -31,7 +31,7 @@ class LoginController extends Controller {
             $verify_code = $param['verify_code'];
             $member_api = new UserController();
             $login_result = $member_api->login($nickname, $password, $verify_code);
-            echo json_encode($login_result);
+            $this->ajaxReturn($login_result);
         } else {
             if (is_login()) {
                 $this->redirect('Index/index');

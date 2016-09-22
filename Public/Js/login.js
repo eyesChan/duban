@@ -80,7 +80,7 @@ $(function () {
                     url: "/Manage/Login/index",
                     data: {"nickname": uVal, "password": pVal, "verify_code": cVal},
                     success: function (data) { //php 页面返回值状态
-                        var dataJson = JSON.parse(data);
+                        var dataJson = data;
                         if (dataJson.code == "901") {
                             $(".error-id").show().children("span").html("用户名错误！");
                             code.val("");

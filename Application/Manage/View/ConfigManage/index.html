@@ -37,7 +37,7 @@
                         <colgroup></colgroup>
                         <thead>
                             <tr>
-                                <th>序号</th>
+                                <th class="th1">序号</th>
                                 <th>参数类别标记</th>
                                 <th>参数类别</th>
                                 <th>参数名称</th>
@@ -50,7 +50,7 @@
                         <tbody class="role-tbody">
                         <foreach name="list" item="v">
                             <tr>
-                                <td>{$key+1}</td>
+                                <td>{$s_number++}</td>
                                 <td>{$v['config_key']}</td>
                                 <td>{$v['config_name']}</td>
                                 <td>{$v['config_descripion']}</td>

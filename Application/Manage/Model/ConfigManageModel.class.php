@@ -48,7 +48,7 @@ class ConfigManageModel extends Model {
         $where = $this->makeWhereForSearch($params);
         $page = $params['p'];
         $arr_for_list['config_items'] = $this->where($where)
-                ->order('config_sort asc')
+                ->order('config_key asc,config_sort')
                 ->page($page, 10)
                 ->getField('config_id,config_key,config_name,config_descripion,config_value,config_status,config_change_time', TRUE);
         foreach ($arr_for_list['config_items'] as $key => $value) {

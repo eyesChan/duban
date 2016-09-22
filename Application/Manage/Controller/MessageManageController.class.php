@@ -33,6 +33,7 @@ class MessageManageController extends AdminController {
         $this->assign('list', $data_for_list['msg_sys']);
         $this->assign('page', $data_for_list['page_show']);
         $this->assign('remember_search', $params);
+        $this->assign('s_number', 1);//初始序号
         $this->display();
     }
     

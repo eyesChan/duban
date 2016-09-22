@@ -34,7 +34,7 @@ class WorkOrderController extends AdminController {
     
         $this->mod_worksheet = D('WorkSheet');
     }
-    
+
      /**
      * 对数组进行转义
      * 
@@ -50,27 +50,41 @@ class WorkOrderController extends AdminController {
     }
     
     /*
-     * 添加
+     * 工作单添加
      */
     public function add(){
         $meeting = $this->mod_worksheet->listMeeting();
+        if(IS_POST){
+            $param = I('post.');
+            if(empty($param)){
+                $this->success($result['status'], '/Manage/WorkOrder/add');
+            }else{
+                $result = $this->mod_worksheet->addWork($param);
+                if($result['code'] == 200){
+                    $this->success($result['status'], '/Manage/WorkOrder/index');
+                }else{
+                    $this->success($result['status'], '/Manage/WorkOrder/add');
+                }
+            }
+        }
         $this->assign('meeting',$meeting);
         $this->display();
     }
-
+  
     /*
      * 工作单列表
      * @author Hui Xiao
      * @return object 跳转或显示页面
      */
     
-    
     public function index(){
         $param = I();
-       
+        if($param['hiddenform'] == '1'){
+            $this->exportExecl($param);
+        }else{
         //处理查询条件：操作人姓名、IP地址、模块名称、操作内容、开始时间 结束时间 
         $param['worksheet_name'] != '' ? $where['worksheet_name'] = array('like', '%' . $param['worksheet_name'] . '%') : '';
-        $param['worksheet_creat_person'] != '' ? $where['worksheet_creat_person'] = array('like', '%' . $param['worksheet_creat_person'] . '%') : '';
+        $param['meeting_name'] != '' ? $where['meeting_name'] = array('like', '%' . $param['meeting_name'] . '%') : '';
         $param['worksheet_rule_person'] != '' ? $where['worksheet_rule_person'] = array('like', '%' . $param['worksheet_rule_person'] . '%') : '';
         $param['worksheet_start_date'] != '' ? $where['worksheet_start_date'] = array('like', '%' . $param['worksheet_start_date'] . '%') : '';
         
@@ -98,39 +112,24 @@ class WorkOrderController extends AdminController {
         $this->assign('list', $list);
         $this->assign('page', $show);
         $this->assign('param', $param);
+        
         $this->display('index');
-    }
-    
-    /*
-     * 工作单添加
-     */
-    public function save(){
-        $param = I('post.');
-        if(empty($param)){
-            echo json_encode(C('COMMON.ERROR_EDIT'));
-        }else{
-            $result = $this->mod_worksheet->addWork($param);
-            if($result['code'] == 200){
-                $this->success($result['status'], '/Manage/WorkOrder/listWork');
-            }else{
-                $this->success($result['status'], '/Manage/WorkOrder/addWork');
-            }
         }
     }
-       
+    
     /*
      * 工作单状态调整
      * @author Hui Xiao
      * @param string $condition
      * @return object 跳转或显示页面
      */
-    public function savea(){
+    public function save(){
         if(IS_GET){
             $param = I('get.id');
             if(!empty($param)){
                 $workorder = $this->mod_worksheet->selectWork($param);
                 $this->assign('workorder',$workorder);
-                $this->display();
+                $this->display('save');
             }else{
                 echo json_encode(C('COMMON.ERROR_EDIT'));
             }
@@ -142,9 +141,9 @@ class WorkOrderController extends AdminController {
             }else{
                 $result = $this->mod_worksheet->saveWork($param);
                 if($result['code'] == 200){
-                    $this->success($result['status'], '/Manage/WorkOrder/listWork');
+                    $this->success($result['status'], '/Manage/WorkOrder/index');
                 }else{
-                    $this->success($result['status'], '/Manage/WorkOrder/addWork');
+                    $this->success($result['status'], '/Manage/WorkOrder/index');
                 }
             }
         }
@@ -155,7 +154,7 @@ class WorkOrderController extends AdminController {
      * @author Hui Xiao
      * @param string $condition
      * @return object 跳转或显示页面
-     */
+
     public function voidWork(){
         if(IS_GET){
             $param = I('get.id');
@@ -176,19 +175,21 @@ class WorkOrderController extends AdminController {
             }else{
                 $result = $this->mod_worksheet->abandonedWork($param);
                 if($result['code'] == 200){
-                        $this->success($result['status'], '/Manage/WorkOrder/listWork');
-                   }else{
-                        $this->error($result['status'], '/Manage/WorkOrder/addWork');
-                   }
+                    $this->success($result['status'], '/Manage/WorkOrder/listWork');
+                }else{
+                     $this->error($result['status'], '/Manage/WorkOrder/addWork');
+                }
             }
         }
     }
+*/
+    
     /*
      * 督办发送邮件
      * @author xiaohui
      */
     public function sendEmail(){
-        $to = "wyxiaohui@163.com";
+        $to = "210338487@qq.com";
         $title = "测试";
         $content = "success";
         if(sendMail($to,$title,$content)){
@@ -197,11 +198,38 @@ class WorkOrderController extends AdminController {
         else{
             $this->error('发送失败');
         }
-    }
+    } 
     /*
      * 查看工作单
      * @author xiaohui
-     * @
+     * @param int id
      */
+    public function details(){
+        $param = I('get.id');
+        $work = $this->mod_worksheet->selectwork($param);
+        $this->assign('item',$work);
+        $this->display();
+    }
     
+    /*
+     * 工作单导出execl
+     */
+    public function exportExecl($param){
+        
+       
+        $work = $this->mod_worksheet->getExecl($param);
+        $headArr = array('工作单名称',
+                        '关联会议名称',
+                        '工作单创建人',
+                        '工作单负责人',
+                        '开始时间',
+                        '结束时间',
+                        '工作单状态',
+                        '挂起/废弃原因',
+                        '工作单描述'
+            );
+        getExcel($headArr, $work);
+
+        
+    }
 }

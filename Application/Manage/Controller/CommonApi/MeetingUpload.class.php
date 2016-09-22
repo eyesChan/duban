@@ -45,43 +45,76 @@ class MeetingUpload extends \Think\Controller {
             return C('COMMON.UPLOAD_ERROR');
         } else {// 上传成功 获取上传文件信息
             $result = C('COMMON.UPLOAD_SUCCESS');
-            $result['path'] = $upload->rootPath . '' . $info['file']['savepath'] . $info['file']['savename'];
+            $result['info'] = $info; //$upload->rootPath . '' . $info['file']['savepath'] . $info['file']['savename'];
+            $result['rootPath'] = $upload->rootPath;
             return $result;
         }
     }
 
     /**
-     *  ftp文件上传
-     * @param file_size 文件大小
-     * @param file_path 文件路径
-     * @param allow_file 允许格式
+     *  ftp文件上传登录
+     * @param array ftp相关配置
+     * @author lishuaijie
+     * @return source
+     * @date 16/09/20
+     */
+    public function ftpLogin($param = array()) {
+        if (!empty($param)) {
+            $ftp_option = $param;
+        } else {
+            return false;
+        }
+        $this->conn_id = @ftp_connect($ftp_option['FTP_HOST'], $ftp_option['FTP_PORT']);
+        @ftp_login($this->conn_id, $ftp_option['FTP_USER'], $ftp_option['FTP_PWD']);
+        @ftp_pasv($this->conn_id, 1); // 打开被动模拟
+        return $this->conn_id;
+    }
+
+    /**
+     *  ftp移动文件上传
+     * @param $conn_Id 资源
+     * @param $src 源文件路径
+     * @param $newPath 上传文件路径
+     * @author lishuaijie
+     * @return true/false
+     * @date 16/09/20
+     */
+    public function ftpPut($conn_id,$src,$newPath){
+        $upload_flag = @ftp_put($this->conn_id, $newPath, $src, FTP_BINARY);
+        return $upload_flag;
+    }
+
+    /**
+     *  ftp操作文件
+     * @param param 文件上传的限制信息
      * @author lishuaijie
      * @return array
      * @date 16/09/20
      */
-    public function ftpUpload($param = array()) {
+    public function ftpUpload($param = array(),$file_name) {
         if (empty($param)) {
             $result = C('COMMON.PARAMTER_ERROR');
             return $result;
         }
         $ftp_option = C('FTP_OPTION');
+        //文件上传到临时目录
         $result = $this->normalUpload($param);
-        $src_path = $result['path'];
+        $src_path = $result['rootPath'] . $result['info'][$file_name]['savepath'] . $result['info'][$file_name]['savename'];
         $file_info = pathinfo($src_path); //获取文件详细信息 
         $new_name = $file_info['filename'] . '.' . $file_info['extension'];
-        $this->conn_id = @ftp_connect($ftp_option['FTP_HOST'], $ftp_option['FTP_PORT']);
-        @ftp_login($this->conn_id, $ftp_option['FTP_USER'], $ftp_option['FTP_PWD']);
-        @ftp_pasv($this->conn_id, 1); // 打开被动模拟
+        //连接ftp
+        $this->conn_id = $this->ftpLogin($ftp_option);
         //创建文件夹
-        $path = $param['PATH'].date('Y-m-d');
-        $this->ftp_mkdir($this->conn_id, $param['ROOT_PATH'].$path);
-        $upload_flag = @ftp_put($this->conn_id, $new_name, $src_path, FTP_BINARY);
+        $path = $param['PATH'] . date('Y-m-d');
+        $this->ftpMkdir($this->conn_id, $param['ROOT_PATH'] . $path);
+        //上传文件
+        $upload_flag = $this->ftpPut($this->conn_id, $src_path, $new_name);
         if ($upload_flag) {
             //删除临时文件
             unlink($src_path);
             rmdir($file_info['dirname']);
             $result_info = C('COMMON.UPLOAD_SUCCESS');
-            $result_info['path'] = $path.'/'.$new_name;
+            $result_info['path'] = $path . '/' . $new_name;
             return $result_info;
         } else {
             return C('COMMON.UPLOAD_ERROR');
@@ -94,7 +127,8 @@ class MeetingUpload extends \Think\Controller {
      * @param $conn 资源
      * @return true/false 
      */
-    public function ftp_mkdir($conn, $path) {
+    public function ftpMkdir($conn, $path) {
+        //每切换一次的目录 $conn 将自动改变 
         $path_arr = explode('/', $path); // 取目录数组
         $path_div = count($path_arr); // 取层数
         foreach ($path_arr as $val) { // 创建目录

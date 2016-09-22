@@ -38,7 +38,7 @@ class MeetingController extends AdminController {
                 //判断上传方式
                 if($config_info['OPEN_FTP'] == '1'){ //开启ftp上传
                     $file_config = $config_info['FTP_MEETING'];
-                    $result = $upload_obj->ftpUpload($file_config);
+                    $result = $upload_obj->ftpUpload($file_config,'file');
                     
                 }else{ //普通上传
                     $file_config = $config_info['FILE_MEETING'];

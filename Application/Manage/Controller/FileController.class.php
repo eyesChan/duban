@@ -16,75 +16,116 @@ use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
  */
 class FileController extends AdminController {
     
-    
-   private $file_doc_type;
+     
+    private $filedoc;
+    /*
+     * 添加文档
+     * @author huang gang
+     * @param string $wordname 工作单名称
+     * @param string $password
+     * @param string $verify_code
+     * @return object 跳转或显示页面
+     */
     public function __construct() {
         parent::__construct();
-        $this->file_doc_type = D('File');
+    
+        $this->filedoc = D('File');
     }
     
+    /**
+     * 对数组进行转义
+     * 
+     * @param array 需要转义的数组
+     * @return array 返回转义后的数组
+     */
+    public function escape($param) {
+        foreach ($param as $k => $val) {
+            $param[$k] = str_replace("_", "\_", $val);
+        }
+        
+        return $param;
+    }
     /**
      *  显示文档发布列表
      */
     public function index() {
-        
+         $param = I();
+            //处理查询条件：文档名称、发布人、发布日期、文档类型 
+            $param['doc_name'] != '' ? $where['doc_name'] = array('like', '%' . $param['doc_name'] . '%') : '';
+            $param['nickname'] != '' ? $where['nickname'] = array('like', '%' . $param['nickname'] . '%') : '';
+            if (!empty($param['doc_pub_date'])) {
+                $where['doc_pub_date'] = array('EQ', $param['doc_pub_date'] . ' 00:00:00');
+            }
+            if (!empty($param['doc_pub_type'])) {
+                $where['doc_pub_type'] = array('EQ', $param['doc_pub_type']);
+            }
+            $where = $this->escape($where);
+
+
+          $count = $this->filedoc->getFileDocCount($where);
+          print_r($count);
+            $page = new \Think\Page($count, 5);
+            $list = $this->filedoc->getList($where, $page->firstRow, $page->listRows);
+            foreach ($param as $key => $val) {
+                $page->parameter[$key] = $val;
+            }
+            $show = $page->show();
+            $this->assign('list', $list);
+            $this->assign('page', $show);
+            $this->assign('param', $param); 
          //文档发布类型 
-          $file_type=$this->file_doc_type->getFileDocType();
-          $this->assign('file_type',$file_type);
+          $file_type=getConfigInfo('doc_pub_type');     
+          $this->assign('file_type',$file_type);     
           $this->display();
     }
     
     /**
-     *  显示会议创建页面
+     *  文档添加
      */
     public function addFile(){
-        
-        //文档发布类型 
-       $file_type=$this->file_doc_type->getFileDocType();
-       $this->assign('file_type',$file_type);
        $data=I();
        if(!empty($data)){
-           print_r($data);
-            $fliedoc = D('doc');
-            if (!empty($_FILES)) {
+           //print_r($data);die;
+           if (!empty($_FILES)) {
                 $upload_obj = new MeetingUplod();
                 $config_info = C();
                 //判断上传方式
                 if($config_info['OPEN_FTP'] == '1'){ //开启ftp上传
-                    $file_config = $config_info['FTP_MEETING'];
-                    var_dump($file_config);
+                    $file_config = $config_info['FTP_DOC'];
+                    $result = $upload_obj->ftpUpload($file_config);
+                    
                 }else{ //普通上传
-                    $file_config = $config_info['FILE_MEETING'];
+                    $file_config = $config_info['FILE_DOC'];
                     $result = $upload_obj->normalUpload($file_config);
-                    var_dump($result);die;
-                }die;
-                $upload = new \Think\Upload(); // 实例化上传类
-                $upload->maxSize = $config_info['FILE_SIZE']; // 设置附件上传大小
-                $upload->exts = array('xls', 'xlsx'); // 设置附件上传类型
-                $upload->rootPath = $config_info['FILE_PATH']; // 设置附件上传根目录
-                $upload->savePath = 'meeting'; // 设置附件上传（子）目录
-                if(file_exists($upload->rootPath)){
-                    chmod($upload->rootPath, '0777');
                 }
-                // 上传文件 
-                $info = $upload->upload();
-                if (!$info) {// 上传错误提示错误信息
-                    $this->error($upload->getError());
-                } else {// 上传成功 获取上传文件信息
-                    $orderInfo['ESTIMATED_TIME'] = '';
-                    $orderInfo['PAYMENT_DOC_PATH'] = $upload->rootPath .'' . $info['file']['savepath'] . $info['file']['savename'];
+                P($result);
+                if($result['code'] == 100){
+                    $this->error('/Manage/File/index/',$result['status']);
                 }
-            }die;   
-            var_dump($meetingMod->add($data['meeting']));
-            die;
-       }
+             //   print_r($result);
+            }
+            
+            $result = $this->filedoc->addFile($data);
+            if($result['code'] == 200){
+                $this->success($result['status'], 'index');
+            }else{
+                $this->success($result['status'], 'addFile');
+            }
+        }
+  
+       
+        //文档发布类型 
+       $file_type=getConfigInfo('doc_pub_type');     
+       $this->assign('file_type',$file_type);
+       //文档发布部门
+       $file_depart=getConfigInfo('doc_pub_depart');     
+       $this->assign('file_depart',$file_depart);
+       //文档可见范围
+       $file_range=getConfigInfo('doc_pub_range');     
+       $this->assign('file_range',$file_range);
+       //文档权限设定
+       $file_authority=getConfigInfo('doc_pub_authority');     
+       $this->assign('file_authority',$file_authority);
        $this->display();
-    }
-    
-    /**
-     *  显示文档查询页面
-     */
-    public function selectFile(){
-        $this->display();
     }
 }

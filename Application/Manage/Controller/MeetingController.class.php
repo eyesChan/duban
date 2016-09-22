@@ -49,7 +49,7 @@ class MeetingController extends AdminController {
                     $this->error('{:U(selectMeeting)}',$result['status']);
                 }
             }
-            var_dump($meetingMod->add($data['meeting']));
+         //   var_dump($meetingMod->add($data['meeting']));
             die;
         }
         $user_info = $upload_obj->getUserInfo();

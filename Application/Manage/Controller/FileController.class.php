@@ -63,7 +63,7 @@ class FileController extends AdminController {
      */
     public function index() {
          $param = I();
-            //处理查询条件：文档名称、发布人、发布日期、文档类型 
+            //处理查询条件：文档名称、发布人、发布日期、文档类型.发布与撤回区分的状态
             $param['doc_name'] != '' ? $where['doc_name'] = array('like', '%' . $param['doc_name'] . '%') : '';
             $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
             if (!empty($param['doc_pub_date'])) {
@@ -72,10 +72,9 @@ class FileController extends AdminController {
             if (!empty($param['doc_pub_type'])) {
                 $where['doc_pub_type'] = array('EQ', $param['doc_pub_type']);
             }
+            $where['doc_status']=array('EQ','1');
             $where = $this->escape($where);
-
-
-          $count = $this->filedoc->getFileDocCount($where);
+            $count = $this->filedoc->getFileDocCount($where);
             $page = new \Think\Page($count, 5);
             $list = $this->filedoc->getList($where, $page->firstRow, $page->listRows);
             foreach ($param as $key => $val) {

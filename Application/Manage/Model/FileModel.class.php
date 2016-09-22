@@ -69,7 +69,8 @@ class FileModel  extends Model{
         $count = M('doc')
                 ->join('db_member on db_doc.doc_pub_person = db_member.uid')
                 ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
-                ->where($where)->count();
+                ->where($where)
+                ->count();
        // return M("doc")->getLastSql();
         return $count;
     }

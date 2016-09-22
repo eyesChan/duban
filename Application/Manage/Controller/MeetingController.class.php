@@ -29,8 +29,9 @@ class MeetingController extends AdminController {
      */
 
     public function addMeeting() {
+        
         $data = I();
-        if (!empty($data)) {
+        if (!empty($data['meeting'])) {
             $meetingMod = D('meeting');
             if (!empty($_FILES)) {
                 $upload_obj = new MeetingUplod();
@@ -48,7 +49,7 @@ class MeetingController extends AdminController {
                     $this->error('{:U(selectMeeting)}',$result['status']);
                 }
             }
-            var_dump($meetingMod->add($data['meeting']));
+         //   var_dump($meetingMod->add($data['meeting']));
             die;
         }
 

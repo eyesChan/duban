@@ -86,7 +86,6 @@ class FileController extends AdminController {
        $data=I();
        if(!empty($data)){
            //print_r($data);die;
-           var_dump($_FILES);die;
            if (!empty($_FILES)) {
                 $upload_obj = new MeetingUplod();
                 $config_info = C();
@@ -101,7 +100,7 @@ class FileController extends AdminController {
                 }
                 P($result);
                 if($result['code'] == 100){
-                    $this->error('{:U(index)}',$result['status']);
+                    $this->error('/Manage/File/index/',$result['status']);
                 }
              //   print_r($result);
             }

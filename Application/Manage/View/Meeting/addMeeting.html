@@ -2,6 +2,7 @@
 <block name="title"><title>会议创建</title></block>
 
 <block name="right">
+    <css href="__PUBLIC__/css/meeting.css"/>
     <form action="{:U(addMeeting)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
             <colgroup>
@@ -33,7 +34,7 @@
                 <td colspan="3">
                     <select name='meeting[meeting_level]'>
                         <foreach item='item' name='level_info'>
-                           <option value="{$item.config_id}">{$item.config_descripion}</option>
+                            <option value="{$item.config_id}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>
@@ -41,11 +42,27 @@
             <tr>
                 <td class="cap">召集人：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_callman]' class="input-text text">
+                    <select name='meeting[meeting_callman]' class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addCallman" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>
                 <td class="cap">主持人：</td>
                 <td colspan="3">
-                    <input type="text" name='meeting[meeting_moderator]' class="input-text text">
+                    <select name='meeting[meeting_moderator]'  class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addModerator" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>
             </tr>
             <tr>
@@ -53,13 +70,21 @@
                 <td>
                     <select name='meeting[meeting_form]'>
                         <foreach item='item' name='form_info'>
-                           <option value="{$item.config_id}">{$item.config_descripion}</option>
+                            <option value="{$item.config_id}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>
                 <td class="cap">参会人员：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_participants]' class="input-text text">
+                    <select name='meeting[meeting_participants]' class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addParticipants" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>
                 <td class="cap">参会模式：</td>
                 <td>
@@ -93,7 +118,15 @@
             <tr>
                 <td class="cap">会议通知撰写人：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_writeperson]' class="input-text text">
+                    <select name='meeting[meeting_writeperson]' class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addWriteperson" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>
                 <td class="cap">通知发送日期：</td>
                 <td>
@@ -121,11 +154,27 @@
             <tr>
                 <td class="cap">物料准备人：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_material_madeperson]' class="input-text text">
+                    <select name='meeting[meeting_material_madeperson]' class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addMadeperson" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>
                 <td class="cap">会场布置调试人：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_venue_arrangeperson]' class="input-text text">
+                    <select name='meeting[meeting_venue_arrangeperson]' class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addArrangeperson" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>
                 <td class="cap">测试日期：</td>
                 <td>
@@ -153,7 +202,15 @@
             <tr>
                 <td class="cap">会议摄影摄像：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_vedio]' class="input-text text">
+                    <select name='meeting[meeting_vedio]' class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addMeetingVedio" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>
                 <td class="cap">会议结束时间：</td>
                 <td>
@@ -171,11 +228,27 @@
                 </td>
                 <td class="cap">会场整理人：</td>
                 <td >
-                    <input type="text" name='meeting[meeting_clean_person]' class="input-text text">
+                    <select name='meeting[meeting_clean_person]' class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addCleanPerson" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>    
-                 <td class="cap">记录整理人：</td>
+                <td class="cap">记录整理人：</td>
                 <td >
-                    <input type="text" name='meeting[meeting_record_person]' class="input-text text">
+                    <select name='meeting[meeting_record_person]' class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addRecordPerson" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>   
             </tr>
             <tr>
@@ -187,15 +260,20 @@
                 </td>
             </tr>
             <tr>
-                <td class="cap">台账整理人：</td>
-                <td>
-                    <input type="text" name='meeting[meeting_ledger_re_person]' class="input-text text">
-                    <span class="rq">*</span>
+                <td class="cap"> <span class="rq">*</span>台账整理人：</td>
+                <td colspan="2">
+                    <select name='meeting[meeting_ledger_re_person]' class="selectItem">
+                        <option value="-100">其他</option>
+                        <option value="1">张三</option>
+                        <option value="2">赵四</option>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addLedgerRePerson" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>
-                <td class="cap">台账整理人邮箱地址：</td>
-                <td colspan="3">
-                    <input type="text" name='meeting[meeting_ledger_re_person_email]' class="input-text text">
-                    <span class="rq">*</span>
+                <td class="cap"><span class="rq">*</span>台账整理人邮箱地址：</td>
+                <td colspan="2">
+                    <input type="text" name='meeting[meeting_ledger_re_person_email]' class="input-text text">   
                 </td>                
             </tr>
             <tr>
@@ -207,8 +285,122 @@
         </table>
         <div class="text-center">
 
-	        <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
-	        <input class="btn ml10 button btn-normal" type="button" value="取消"/>
-    	</div>
+            <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
+            <input class="btn ml10 button btn-normal" type="button" value="取消"/>
+        </div>
     </form>
+    <script type="text/javascript">
+        $(".selectItem").each(function () {
+            if ($(this).val() == "-100") {
+                $(this).siblings(".hide-input").show();
+            } else {
+                $(this).siblings(".hide-input").hide();
+            }
+        })
+
+        $(".selectItem").on("change", function () {
+            if ($(this).val() == "-100") {
+                $(this).siblings(".hide-input").show();
+            } else {
+                $(this).siblings(".hide-input").hide();
+            }
+        });
+        function getHtml(text, uid, selectName) {
+            var html = "";
+            if (uid == '-100') {
+                selectName = selectName + '[value][]';
+                uid = text;
+            } else {
+                selectName = selectName + '[]';
+
+            }
+            html += '<div class="person fl">';
+            html += '<input type="hidden" name=' + selectName + ' value="' + uid + '">';
+            html += '<span>' + text + '</span>';
+            html += '<i class="person-del">X</i>';
+            html += '</div>';
+            return html;
+        }
+        function addPerson(_this, message) {
+            var val = _this.prev("select").children("option:selected").val();
+            if (val == "-100") {
+                if ($.trim(_this.siblings(".hide-input").val()) == "") {
+                    $.dialog.alert(message);
+                    return false;
+                } else {
+                    var inputVal = _this.siblings(".hide-input").val();
+                    var len = $(".person").length;
+                    for (i = 0; i < len; i++) {
+                        if (_this.siblings(".person-content").find(".person").eq(i).children("span").text() == inputVal) {
+                            return;
+                        }
+                    }
+                    var uid = _this.prev("select").children("option:selected").val();
+                    var seleName = _this.prev("select").attr('name');
+                    $(getHtml(inputVal, uid, seleName)).appendTo(_this.siblings(".person-content"));
+                }
+
+            } else {
+                var text = _this.prev("select").children("option:selected").text();
+                var uid = _this.prev("select").children("option:selected").val();
+                var seleName = _this.prev("select").attr('name');
+                var len = $(".person").length;
+                for (i = 0; i < len; i++) {
+                    if (_this.siblings(".person-content").find(".person").eq(i).children("span").text() == text) {
+                        return;
+                    }
+                }
+                $(getHtml(text, uid, seleName)).appendTo(_this.siblings(".person-content"));
+            }
+
+            $(".person-del").on("click", function () {
+                $(this).parent().remove();
+            });
+        }
+        $(".person-del").on("click", function () {
+            $(this).parent().remove();
+        });
+        $(".addCallman").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写召集人！");
+        });
+        $(".addModerator").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写主持人！");
+        });
+        $(".addParticipants").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写参会人员！");
+        });
+        $(".addWriteperson").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写会议通知撰写人！");
+        });
+        $(".addMadeperson").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写物料准备人！");
+        });
+        $(".addArrangeperson").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写会场布置调试人！");
+        });
+        $(".addMeetingVedio").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写会议摄影摄像！");
+        });
+        $(".addCleanPerson").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写会场整理人！");
+        });
+        $(".addRecordPerson").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写记录整理人！");
+        });
+        $(".addLedgerRePerson").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写台账整理人！");
+        });
+
+
+    </script>
 </block>

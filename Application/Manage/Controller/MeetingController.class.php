@@ -29,11 +29,11 @@ class MeetingController extends AdminController {
      */
 
     public function addMeeting() {
+        $upload_obj = new MeetingUplod();
         $data = I('meeting');
         if (!empty($data)) {
             $meetingMod = D('meeting');
             if (!empty($_FILES)) {
-                $upload_obj = new MeetingUplod();
                 $config_info = C();
                 //判断上传方式
                 if($config_info['OPEN_FTP'] == '1'){ //开启ftp上传
@@ -52,6 +52,8 @@ class MeetingController extends AdminController {
             var_dump($meetingMod->add($data['meeting']));
             die;
         }
+        $user_info = $upload_obj->getUserInfo();
+        $this->assign('user_info',$user_info);
 
         //会议类型
         $meeting_type_info = getConfigInfo('meeting_type');

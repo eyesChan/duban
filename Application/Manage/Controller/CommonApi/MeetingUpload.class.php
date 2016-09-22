@@ -79,7 +79,7 @@ class MeetingUpload extends \Think\Controller {
      * @return true/false
      * @date 16/09/20
      */
-    public function ftpPut($conn_id,$src,$newPath){
+    public function ftpPut($conn_id, $src, $newPath) {
         $upload_flag = @ftp_put($this->conn_id, $newPath, $src, FTP_BINARY);
         return $upload_flag;
     }
@@ -91,7 +91,7 @@ class MeetingUpload extends \Think\Controller {
      * @return array
      * @date 16/09/20
      */
-    public function ftpUpload($param = array(),$file_name) {
+    public function ftpUpload($param = array(), $file_name) {
         if (empty($param)) {
             $result = C('COMMON.PARAMTER_ERROR');
             return $result;
@@ -109,10 +109,11 @@ class MeetingUpload extends \Think\Controller {
         $this->ftpMkdir($this->conn_id, $param['ROOT_PATH'] . $path);
         //上传文件
         $upload_flag = $this->ftpPut($this->conn_id, $src_path, $new_name);
+        //上传成功或失败 都删除 临时文件
+        //删除临时文件
+        unlink($src_path);
+        rmdir($file_info['dirname']);
         if ($upload_flag) {
-            //删除临时文件
-            unlink($src_path);
-            rmdir($file_info['dirname']);
             $result_info = C('COMMON.UPLOAD_SUCCESS');
             $result_info['path'] = $path . '/' . $new_name;
             return $result_info;
@@ -147,10 +148,16 @@ class MeetingUpload extends \Think\Controller {
      * @date 16/09/21
      */
     public function getUserInfo() {
-        $user_info = D('member')->where(array('status' => 1))->order('uid desc')->filed('uid,name')->select();
+        $user_info = D('member')
+                ->where(array('status' => 1))
+                ->field('uid,name')
+                ->order('uid desc')
+                ->select();
         if (empty($user_info)) {
             return array();
         } else {
+            $info = array('uid' => -100, 'name' => '其他');
+            array_push($user_info, $info);
             return $user_info;
         }
     }

@@ -51,8 +51,8 @@ class FileModel  extends Model{
             $data['doc_end_date'] = $param['doc_end_date'];
             $data['doc_root_view'] = $param['doc_root_view'];
             $data['doc_root_do'] = $param['doc_root_do'];
-            $data['doc_upload_file_url'] = 1;
-            $data['doc_upload_img_url'] = 1;
+            $data['doc_upload_file_url'] = $param['doc_upload_file_url'];
+            $data['doc_upload_img_url'] =$param['doc_upload_img_url'];
             $data['doc_beizhu'] = $param['doc_beizhu'];
             $data['doc_status'] = 1 ; //$param['doc_status'];
             $res = $order->add($data);
@@ -67,25 +67,12 @@ class FileModel  extends Model{
      */
     public function getFileDocCount($where) {
         $count = M('doc')
+                ->join('db_member on db_doc.doc_pub_person = db_member.uid')
+                ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
                 ->where($where)->count();
        // return M("doc")->getLastSql();
         return $count;
     }
-    
-    /*
-     * 查询会议名称
-     * @author xiaohui
-     * @return array 会议名称
-     */
-   /* public function listMeeting(){
-        $meeting = M('meeting')
-                ->field('meeting_id,meeting_name')
-                ->where('meeting_delete = 1')
-                ->order('meeting_id desc')
-                ->select();
-        return $meeting;
-    }
-    
     /**
      * 分页查询操作
      * 
@@ -98,7 +85,9 @@ class FileModel  extends Model{
     public function getList($where, $first_rows, $list_rows) {
       $order = M('doc');
       $list = $order
-              ->where($where)
+              ->join('db_member on db_doc.doc_pub_person = db_member.uid')
+              ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+              ->where($where) 
               ->limit($first_rows, $list_rows)
               ->order('doc_id desc')
               ->select();

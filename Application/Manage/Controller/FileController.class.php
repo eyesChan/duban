@@ -45,6 +45,19 @@ class FileController extends AdminController {
         
         return $param;
     }
+    
+    /*
+     * 对文件大小进行判断
+     */
+    public function filesize($size){
+        
+        if($size['file']['size'] <= C('FILE_DOC.FILE_SIZE') && $size['file']['size']<=C('FTP_COVER.FILE_SIZE')){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**
      *  显示文档发布列表
      */
@@ -63,7 +76,6 @@ class FileController extends AdminController {
 
 
           $count = $this->filedoc->getFileDocCount($where);
-          print_r($count);
             $page = new \Think\Page($count, 5);
             $list = $this->filedoc->getList($where, $page->firstRow, $page->listRows);
             foreach ($param as $key => $val) {
@@ -85,8 +97,9 @@ class FileController extends AdminController {
     public function addFile(){
        $data=I();
        if(!empty($data)){
-           //print_r($data);die;
            if (!empty($_FILES)) {
+               $size=$this->filesize($_FILES);
+               if(isset($size)){
                 $upload_obj = new MeetingUplod();
                 $config_info = C();
                 //判断上传方式
@@ -98,11 +111,11 @@ class FileController extends AdminController {
                     $file_config = $config_info['FILE_DOC'];
                     $result = $upload_obj->normalUpload($file_config);
                 }
-                P($result);
+                $data['doc_upload_file_url']=$result['info']['file']['savepath'].$result['info']['file']['savename'];
+                $data['doc_upload_img_url']=$result['info']['file1']['savepath'].$result['info']['file1']['savename'];
                 if($result['code'] == 100){
                     $this->error('/Manage/File/index/',$result['status']);
                 }
-             //   print_r($result);
             }
             
             $result = $this->filedoc->addFile($data);
@@ -113,7 +126,8 @@ class FileController extends AdminController {
             }
         }
   
-       
+     }
+
         //文档发布类型 
        $file_type=getConfigInfo('doc_pub_type');     
        $this->assign('file_type',$file_type);
@@ -127,5 +141,6 @@ class FileController extends AdminController {
        $file_authority=getConfigInfo('doc_pub_authority');     
        $this->assign('file_authority',$file_authority);
        $this->display();
-    }
+   } 
+
 }

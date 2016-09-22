@@ -29,7 +29,7 @@ class MeetingController extends AdminController {
      */
 
     public function addMeeting() {
-        $data = I();
+        $data = I('meeting');
         if (!empty($data)) {
             $meetingMod = D('meeting');
             if (!empty($_FILES)) {
@@ -38,12 +38,13 @@ class MeetingController extends AdminController {
                 //判断上传方式
                 if($config_info['OPEN_FTP'] == '1'){ //开启ftp上传
                     $file_config = $config_info['FTP_MEETING'];
-                    $result = $upload_obj->ftpUpload($file_config);
+                    $result = $upload_obj->ftpUpload($file_config,'file');
                     
                 }else{ //普通上传
                     $file_config = $config_info['FILE_MEETING'];
                     $result = $upload_obj->normalUpload($file_config);
                 }
+                var_dump($result);die;
                 if($result['code'] == 100){
                     $this->error('{:U(selectMeeting)}',$result['status']);
                 }

@@ -65,7 +65,7 @@ class FileController extends AdminController {
          $param = I();
             //处理查询条件：文档名称、发布人、发布日期、文档类型 
             $param['doc_name'] != '' ? $where['doc_name'] = array('like', '%' . $param['doc_name'] . '%') : '';
-            $param['nickname'] != '' ? $where['nickname'] = array('like', '%' . $param['nickname'] . '%') : '';
+            $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
             if (!empty($param['doc_pub_date'])) {
                 $where['doc_pub_date'] = array('EQ', $param['doc_pub_date'] . ' 00:00:00');
             }

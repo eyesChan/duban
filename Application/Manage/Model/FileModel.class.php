@@ -71,7 +71,6 @@ class FileModel  extends Model{
                 ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
                 ->where($where)
                 ->count();
-       // return M("doc")->getLastSql();
         return $count;
     }
     /**
@@ -94,58 +93,6 @@ class FileModel  extends Model{
               ->select();
       return $list;
     }
-    /*
-     * 查询单个工作单
-     * @author xiaohui
-     * @param int 工作单号
-     * @return array 成功返回列表
-     */
-   /* public function selectWork($param){
-        $work = D('worksheet')
-              ->field('worksheet_id,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state')
-              ->where("worksheet_id = $param")
-              ->find();
-        return $work;
-    }
-    /*
-     * 修改工单状态
-     * @author xiaohui
-     * @param int 工作单号
-     * @return array 成功返回
-     */
-   /* public function saveWork($param){
-        $order = M('worksheet');
-        $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
-        $data['worksheet_rule_person'] = $param['personliable'];
-        $data['worksheet_done_persent'] = $param['worksheet_done_persent'];
-        $data['worksheet_state'] = $param['worksheet_state'];
-        $work_id = $param['worksheet_id'];
-        $res = $order->where("worksheet_id = $work_id")->save($data);
-        if($res){
-            return C('COMMON.SUCCESS_EDIT');
-        }else{
-            return C('COMMON.ERROR_EDIT');
-        } 
-    }
-    /*
-     * 工作单废弃修改
-     * @author xiaohui
-     * @param int 工作单号
-     * @param string 废弃原因
-     * @return array 成功返回
-    */
-   /* public function abandonedWork($param){
-        $order = M('worksheet');
-        $data['worksheet_abandoned_reason'] = $param['abandoned_reason'];
-        $data['worksheet_state'] = 3;
-        $work_id = $param['worksheet_id'];
-        $res = $order->where("worksheet_id = $work_id")->save($data);
-        if($res){
-            return C('COMMON.SUCCESS_EDIT');
-        }else{
-            return C('COMMON.ERROR_EDIT');
-        } 
-    }*/
 }
 
 

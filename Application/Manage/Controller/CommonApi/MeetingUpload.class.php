@@ -45,7 +45,7 @@ class MeetingUpload extends \Think\Controller {
             return C('COMMON.UPLOAD_ERROR');
         } else {// 上传成功 获取上传文件信息
             $result = C('COMMON.UPLOAD_SUCCESS');
-            $result['info'] = $info; //$upload->rootPath . '' . $info['file']['savepath'] . $info['file']['savename'];
+            $result['info'] = $info; 
             $result['rootPath'] = $upload->rootPath;
             return $result;
         }
@@ -105,7 +105,8 @@ class MeetingUpload extends \Think\Controller {
         foreach ($result['info'] as $key => $val) {
             @ftp_chdir($this->conn_id, $ftp_option['FTP_ROOT_PATH']);
             $src_path = $result['rootPath'] . $val['savepath'] . $val['savename'];
-            $file_info = pathinfo($src_path); //获取文件详细信息 
+            //获取文件详细信息 
+            $file_info = pathinfo($src_path); 
             $new_name = $file_info['filename'] . '.' . $file_info['extension'];
             //创建文件夹
             $path = $param['PATH'] . date('Y-m-d');

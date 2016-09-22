@@ -49,7 +49,7 @@ class MeetingController extends AdminController {
 
             //召集人-手输
             if ($data['meeting_callman']['value']) {
-                $data['meeting_callman_value'] = implode(',',$data['meeting_callman']['value']);
+                $data['meeting_callman_value'] = implode(',', $data['meeting_callman']['value']);
                 unset($data['meeting_callman']['value']);
             }
             //召集人
@@ -119,15 +119,19 @@ class MeetingController extends AdminController {
             //记录整理人
             $data['meeting_record_person'] = implode($data['meeting_record_person'], ',');
 
-            //记录整理人-手输
-            if ($data['meeting_record_person']['value']) {
-                $data['meeting_record_person_value'] = implode($data['meeting_record_person']['value'], ',');
-                unset($data['meeting_record_person']['value']);
+            //会议摄影摄像-手输
+            if ($data['meeting_vedio']['value']) {
+                $data['meeting_vedio_value'] = implode($data['meeting_vedio']['value'], ',');
+                unset($data['meeting_vedio']['value']);
             }
+            //会议摄影摄像
+            $data['meeting_vedio'] = implode($data['meeting_vedio'], ',');
+
             //记录整理人
             $data['meeting_record_person'] = implode($data['meeting_record_person'], ',');
-            //会议记录
-            $data['meeting_content'] = trim($data['meeting_content']);
+
+
+
 //            P($data);die;
             var_dump($meetingMod->add($data));
             echo $meetingMod->getLastSql();

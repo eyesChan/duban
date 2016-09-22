@@ -138,7 +138,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="cap">会议材料收益：</td>
+                <td class="cap">会议材料收集：</td>
                 <td>
                     <input type="text" name='meeting[meeting_material_collect_person]' class="input-text text">
                 </td>
@@ -178,13 +178,13 @@
                 </td>
                 <td class="cap">测试日期：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_try_date]' id="date8" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    <input type="text" name='meeting[meeting_try_date]' id="date8" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d'})" class="Wdate input-text fl">
                 </td>
             </tr>
             <tr>
                 <td class="cap">测试时间：</td>
                 <td>
-                    <input type="text" id="date9" name='meeting[meeting_try_time]' onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl"/>
+                    <input type="text" id="date9" name='meeting[meeting_try_time]' onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl"/>
                 </td>
                 <td class="cap">问题明细：</td>
                 <td>
@@ -202,7 +202,7 @@
             <tr>
                 <td class="cap">会议摄影摄像：</td>
                 <td>
-                    <select name='meeting[meeting_vedio]' class="selectItem">
+                    <select data='meeting[meeting_vedio]' class="selectItem">
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
                         </foreach>

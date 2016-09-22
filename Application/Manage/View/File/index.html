@@ -28,7 +28,7 @@
                 </table>
             </form>
              <table class="tbl tbl-list">
-	            <caption>会议列表</caption>
+	            <caption>文档列表</caption>
 	            <colgroup>
 	                <col width="13%">
                             <col width="11%">
@@ -58,22 +58,20 @@
                                 <td>{$item.doc_name}</td>
                                 <td>{$item.config_descripion}</td>
                                 <td>{$item.name}</td>
-                               <!--<if condition="$v['msg_sys_status'] eq 1">
-                                    <td>已发布</td>
-                                    <elseif condition="$v['msg_sys_status'] eq 2"/>
-                                    <td>未发布</td>
-                                    <elseif condition="$v['msg_sys_status'] eq 3"/>
+                               
+                                <td>{$item.doc_pub_date}</td>
+                                <td>{$item.doc_end_date}</td>
+                                <if condition="$item['doc_start_date'] gt $time">
+                                    <td>未生效</td>
+                                    <elseif condition="$item['doc_end_date'] lt $time" />
                                     <td>已失效</td>
-                                    <elseif condition="$v['msg_sys_status'] eq 0"/>
-                                    <td>已停用</td>
-                                </if>-->
-                                <td>{$item.doc_pub_date|substr=0,10}</td>
-                                <td>{$item.doc_end_date|substr=0,10}</td>
-                                <td>正常</td>
+                                    <else/>
+                                    <td>生效中</td>
+                                </if>
                                 <td>{$item.doc_beizhu}</td>       
                                 <td>
 	        		   <input type="button" value="编辑" class="btn btn-r btn-xl button">
-	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button">
+	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button" onclick="withdraw({$item.doc_id})" >
                                 </td>
 	        	</tr>
                     </foreach>
@@ -89,6 +87,14 @@
 	    	$(rightBtn).appendTo(".location");
                 function openNew(){
                     location.href = '{:U(addFile)}';
+                }
+                
+                //撤回操作
+                function withdraw(id){
+                   var page= $('#go_page').val();
+                   $.post('/Manage/File/delFile',{doc_id:id},function(obj){
+   
+                   })
                 }
 	    </script> 
       

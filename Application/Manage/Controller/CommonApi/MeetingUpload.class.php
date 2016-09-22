@@ -91,35 +91,40 @@ class MeetingUpload extends \Think\Controller {
      * @return array
      * @date 16/09/20
      */
-    public function ftpUpload($param = array(), $file_name) {
+    public function ftpUpload($param = array()) {
         if (empty($param)) {
             $result = C('COMMON.PARAMTER_ERROR');
             return $result;
         }
         $ftp_option = C('FTP_OPTION');
-        //文件上传到临时目录
-        $result = $this->normalUpload($param);
-        $src_path = $result['rootPath'] . $result['info'][$file_name]['savepath'] . $result['info'][$file_name]['savename'];
-        $file_info = pathinfo($src_path); //获取文件详细信息 
-        $new_name = $file_info['filename'] . '.' . $file_info['extension'];
         //连接ftp
         $this->conn_id = $this->ftpLogin($ftp_option);
-        //创建文件夹
-        $path = $param['PATH'] . date('Y-m-d');
-        $this->ftpMkdir($this->conn_id, $param['ROOT_PATH'] . $path);
-        //上传文件
-        $upload_flag = $this->ftpPut($this->conn_id, $src_path, $new_name);
-        //上传成功或失败 都删除 临时文件
-        //删除临时文件
-        unlink($src_path);
-        rmdir($file_info['dirname']);
-        if ($upload_flag) {
-            $result_info = C('COMMON.UPLOAD_SUCCESS');
-            $result_info['path'] = $path . '/' . $new_name;
-            return $result_info;
-        } else {
-            return C('COMMON.UPLOAD_ERROR');
+        //文件上传到临时目录
+        $result = $this->normalUpload($param);
+        $return_info = array();
+        foreach ($result['info'] as $key => $val) {
+            @ftp_chdir($this->conn_id, $ftp_option['FTP_ROOT_PATH']);
+            $src_path = $result['rootPath'] . $val['savepath'] . $val['savename'];
+            $file_info = pathinfo($src_path); //获取文件详细信息 
+            $new_name = $file_info['filename'] . '.' . $file_info['extension'];
+            //创建文件夹
+            $path = $param['PATH'] . date('Y-m-d');
+            $this->ftpMkdir($this->conn_id, $param['ROOT_PATH'] . $path);
+            //上传文件
+            $upload_flag = $this->ftpPut($this->conn_id, $src_path, $new_name);
+            if($upload_flag){
+                $return_info[$key]['status'] = C('COMMON.UPLOAD_SUCCESS');
+            }else{
+                $return_info[$key]['status'] = C('COMMON.UPLOAD_ERROR');
+            }
+            $return_info[$key]['path'] = $path .'/'. $new_name;
+            //上传成功或失败 都删除 临时文件
+            //删除临时文件
+            unlink($src_path);
         }
+        //删除临时文件夹
+        rmdir($file_info['dirname']);
+        return $return_info;
     }
 
     /**

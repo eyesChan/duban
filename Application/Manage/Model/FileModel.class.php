@@ -41,7 +41,7 @@ class FileModel  extends Model{
     
     public function addFile($param){
 
-            $order = M('doc');
+            $docfile = M('doc');
             $data['doc_name'] = $param['doc_name'];
             $data['doc_dept_id'] = $param['doc_dept_id'];
             $data['doc_pub_person'] = session('S_USER_INFO.UID'); //$param['doc_pub_person'];
@@ -55,7 +55,7 @@ class FileModel  extends Model{
             $data['doc_upload_img_url'] =$param['doc_upload_img_url'];
             $data['doc_beizhu'] = $param['doc_beizhu'];
             $data['doc_status'] = 1 ; //$param['doc_status'];
-            $res = $order->add($data);
+            $res = $docfile->add($data);
             if($res){
                 return C('COMMON.SUCCESS_EDIT');
             }else{
@@ -83,8 +83,8 @@ class FileModel  extends Model{
      * @return array 成功返回列表
      */
     public function getList($where, $first_rows, $list_rows) {
-      $order = M('doc');
-      $list = $order
+      $docfile = M('doc');
+      $list = $docfile
               ->join('db_member on db_doc.doc_pub_person = db_member.uid')
               ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
               ->where($where) 
@@ -92,6 +92,20 @@ class FileModel  extends Model{
               ->order('doc_id desc')
               ->select();
       return $list;
+    }
+    
+    /*
+     * 撤回
+     */
+    public function delFile($doc_id){
+        $docfile = M('doc');
+        $res_delete=$docfile-> where('doc_id='.$doc_id)->setField('doc_status','0');
+        if ($res_delete == 1) {
+            return C('DOCFILE.DOCDEL_SUCCESS');
+        } else {
+            return C('DOCFILE.DOCDEL_ERROR');
+        }
+      
     }
 }
 

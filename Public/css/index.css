@@ -11,3 +11,54 @@ td.detail-r {
     text-align: left;
     padding-left: 20px;
 }
+.meeting-content {
+	width: 680px;
+	height: 490px;
+	position: absolute;
+	top: 60px;
+	left: 50%;
+	margin-left: -310px;
+}
+.inner-box {
+	width: 260px;
+	height: 100px;
+	float: left;
+	margin-top: 20px;
+	margin-left: 20px;
+	padding: 20px 10px;
+}
+.inner-box table td {
+	font-size: 12px;
+	color: #fff;
+}
+.inner-box table td.td-title {
+	width: 115px;
+	font-size: 14px;
+	color: #fff;
+	font-weight: bold;
+	text-align: right;
+}
+.meeting-prompt {
+	background: #999999;
+}
+.meeting-prompt table {
+	margin-top: 28px;
+}
+.create-amount {
+	background: #0099FF;
+}
+.create-amount table {
+	margin-top: 31px;
+}
+.work-status {
+	background: #66CC66;
+}
+.work-progress {
+	background: #FFCC66;
+}
+.file-release {
+	background: #00CCFF;
+}
+.ledger-release {
+	background: #FF6666;
+}

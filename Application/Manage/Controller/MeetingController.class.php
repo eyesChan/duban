@@ -9,6 +9,7 @@
 namespace Manage\Controller;
 
 use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
+use Manage\Model\MeetingModel as MeetingModel;
 
 /**
  *  Description   督办后台用日程会议 
@@ -33,109 +34,31 @@ class MeetingController extends AdminController {
         $upload_obj = new MeetingUplod();
         $data = I('meeting');
         if (!empty($data)) {
-            $meetingMod = D('meeting');
+            $meeting_model = new MeetingModel();
             if (!empty($_FILES['file']['name'])) {
-
                 $config_info = C();
                 //判断上传方式
                 if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
                     $file_config = $config_info['FTP_MEETING'];
                     $result = $upload_obj->ftpUpload($file_config);
+                    $path = $result['file']['path'];
                 } else { //普通上传
                     $file_config = $config_info['FILE_MEETING'];
                     $result = $upload_obj->normalUpload($file_config);
+                    $path = $result['rootPath'] . $result['info']['file']['savepath'] . $result['info']['file']['savename'];
                 }
+                $data['meeting_annexes_url'] = $path;
             }
 
-            //召集人-手输
-            if ($data['meeting_callman']['value']) {
-                $data['meeting_callman_value'] = implode(',', $data['meeting_callman']['value']);
-                unset($data['meeting_callman']['value']);
+            $add_flag = $meeting_model->addMeeting($data);
+            $lang_info = C('COMMON');
+            if ($add_flag) {
+                writeOperationLog('添加“' . $data['meeting_name'] . '”会议', 1);
+                $this->success($lang_info['SUCCESS_ADD']['status'], U('selectMeeting'));
             }
-            //召集人
-            $data['meeting_callman'] = implode($data['meeting_callman'], ',');
+            writeOperationLog('添加“' . $data['meeting_name'] . '”会议', 0);
 
-            //主持人-手输
-            if ($data['meeting_moderator']['value']) {
-                $data['meeting_moderator_value'] = implode($data['meeting_moderator']['value'], ',');
-                unset($data['meeting_moderator']['value']);
-            }
-            //主持人
-            $data['meeting_moderator'] = implode($data['meeting_moderator'], ',');
-
-            //参会人员-手输
-            if ($data['meeting_participants']['value']) {
-                $data['meeting_participants_value'] = implode($data['meeting_participants']['value'], ',');
-                unset($data['meeting_participants']['value']);
-            }
-            //参会人员
-            $data['meeting_participants'] = implode($data['meeting_participants'], ',');
-
-            //会议撰写人-手输
-            if ($data['meeting_writeperson']['value']) {
-                $data['meeting_writeperson_value'] = implode($data['meeting_writeperson']['value'], ',');
-                unset($data['meeting_writeperson']['value']);
-            }
-            //会议撰写人
-            $data['meeting_writeperson'] = implode($data['meeting_writeperson'], ',');
-
-            //物料准备人-手输
-            if ($data['meeting_material_madeperson']['value']) {
-                $data['meeting_material_madeperson_value'] = implode($data['meeting_material_madeperson']['value'], ',');
-                unset($data['meeting_material_madeperson']['value']);
-            }
-            //物料准备人
-            $data['meeting_material_madeperson'] = implode($data['meeting_material_madeperson'], ',');
-
-            //会场布置测试人-手输
-            if ($data['meeting_venue_arrangeperson']['value']) {
-                $data['meeting_venue_arrangeperson_value'] = implode($data['meeting_venue_arrangeperson']['value'], ',');
-                unset($data['meeting_venue_arrangeperson']['value']);
-            }
-            //会场布置测试人
-            $data['meeting_venue_arrangeperson'] = implode($data['meeting_venue_arrangeperson'], ',');
-
-            //餐饮安排负责人-手输
-            if ($data['meeting_food_drink']['value']) {
-                $data['meeting_food_drink_value'] = implode($data['meeting_food_drink']['value'], ',');
-                unset($data['meeting_food_drink']['value']);
-            }
-            //餐饮安排负责人
-            $data['meeting_food_drink'] = implode($data['meeting_food_drink'], ',');
-
-            //会场整理人-手输
-            if ($data['meeting_clean_person']['value']) {
-                $data['meeting_clean_person_value'] = implode($data['meeting_clean_person']['value'], ',');
-                unset($data['meeting_clean_person']['value']);
-            }
-            //会场整理人
-            $data['meeting_clean_person'] = implode($data['meeting_clean_person'], ',');
-
-            //记录整理人-手输
-            if ($data['meeting_record_person']['value']) {
-                $data['meeting_record_person_value'] = implode($data['meeting_record_person']['value'], ',');
-                unset($data['meeting_record_person']['value']);
-            }
-            //记录整理人
-            $data['meeting_record_person'] = implode($data['meeting_record_person'], ',');
-
-            //会议摄影摄像-手输
-            if ($data['meeting_vedio']['value']) {
-                $data['meeting_vedio_value'] = implode($data['meeting_vedio']['value'], ',');
-                unset($data['meeting_vedio']['value']);
-            }
-            //会议摄影摄像
-            $data['meeting_vedio'] = implode($data['meeting_vedio'], ',');
-
-            //记录整理人
-            $data['meeting_record_person'] = implode($data['meeting_record_person'], ',');
-
-
-
-//            P($data);die;
-            var_dump($meetingMod->add($data));
-            echo $meetingMod->getLastSql();
-            die;
+            $this->error($lang_info['ERROR_ADD']['status'], U('selectMeeting'));
         }
         $user_info = $upload_obj->getUserInfo();
         $this->assign('user_info', $user_info);
@@ -149,8 +72,6 @@ class MeetingController extends AdminController {
         //会议形式
         $meeting_form_info = getConfigInfo('meeting_form');
         $this->assign('form_info', $meeting_form_info);
-
-
         $this->display();
     }
 
@@ -158,6 +79,32 @@ class MeetingController extends AdminController {
      *  会议查询
      */
     public function selectMeeting() {
+        $searchInfo = I('seach');
+        $config_mod = D('config_system');
+        $count = $meeting_info = D('meeting')
+                ->where(array('meeting_state' => 1))
+                ->count();
+        $page = new \Think\Page($count, 2, $param); // 实例化分页类 传入总记录数和每页显示的记录数
+        $meeting_info = D('meeting')
+                ->where(array('meeting_state' => 1))
+                ->field('meeting_id,meeting_name,meeting_type,meeting_date,meeting_place,meeting_moderator,meeting_moderator_value')
+                ->order('meeting_id desc')
+                ->limit($page->firstRow, $page->listRows)
+                ->select();
+        //会议主持人 重新赋值
+        foreach ($meeting_info as $key => $val) {
+            if (!empty($val['meeting_moderator'])) {
+                $user_name_info = getUserField($val['meeting_moderator'], 'name');
+                $meeting_info[$key]['meeting_moderator'] = implode($user_name_info, ',');
+            }
+            $meeting_type = $config_mod->where(array('config_value' => $val['meeting_type'], 'config_key' => 'meeting_type', 'config_status' => 1))->getField('config_descripion');
+            if (!$meeting_type) {
+                $meeting_info[$key]['meeting_type'] = '其他';
+            }
+            $meeting_info[$key]['meeting_type'] = $meeting_type;
+        }
+        $this->assign('page', $page->show());
+        $this->assign('meeting_info', $meeting_info);
         $this->display();
     }
 

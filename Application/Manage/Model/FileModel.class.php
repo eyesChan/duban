@@ -97,16 +97,39 @@ class FileModel  extends Model{
     /*
      * 撤回
      */
-    public function delFile($doc_id){
+    public function delFiledoc($doc_id){
         $docfile = M('doc');
         $res_delete=$docfile-> where('doc_id='.$doc_id)->setField('doc_status','0');
-        if ($res_delete == 1) {
-            return C('DOCFILE.DOCDEL_SUCCESS');
-        } else {
-            return C('DOCFILE.DOCDEL_ERROR');
-        }
+        return $res_delete;
       
     }
+    
+   /*
+    * 编辑状态查询
+    */
+    public function saveFiledoc($doc_id){
+        $docfile = M('doc');
+        $list = $docfile
+              ->join('db_member on db_doc.doc_pub_person = db_member.uid')
+              ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+              ->where('doc_id='.$doc_id)       
+              ->find();
+        return $list;
+    }
+    
+ /*
+  * 编辑文档
+  */
+    public function updateFiledoc($data,$doc_id){
+        $docfile = M('doc');
+        $res = $docfile->where("doc_id =".$doc_id)->save($data);
+        if($res){
+            return C('COMMON.SUCCESS_EDIT');
+        }else{
+            return C('COMMON.ERROR_EDIT');
+        } 
+    }
+    
 }
 
 

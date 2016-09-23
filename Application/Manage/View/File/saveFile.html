@@ -1,0 +1,112 @@
+<extend name="Public:base" />
+<block name="title"><title>文档创建</title></block>
+
+<block name="right">
+    <form action="{:U(saveFile)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
+        <table class="tbl">
+            <colgroup>
+                <col width="12%">
+                <col width="21%">
+                <col width="13%">
+                <col width="21%">
+                <col width="12%">
+                <col width="21%">
+            </colgroup>
+            <tr>
+                <td class="cap">文档名称：</td>
+                <td>
+                     <input type="text" name='doc_name' class="input-text text" value="{$list.doc_name}">
+                </td>
+                <td class="cap">发布部门：</td>
+                <td colspan="3">
+                    <select name='doc_dept_id'>
+                        <foreach item='item' name='file_depart'>
+                            <option <if condition="$list['doc_dept_id'] eq $item['config_id'] "> selected</if> value="{$item.config_id}" > {$item.config_descripion}</option>
+                        </foreach>        
+                    </select>
+                </td>
+            </tr>     
+            <tr>
+                <td class="cap">发布类别：</td>
+                <td>
+                    <select name='doc_pub_type'>
+                        <foreach item='item' name='file_type'>
+                            <option <if condition="$list['doc_pub_type'] eq $item['config_id'] "> selected</if>  value="{$item.config_id}">{$item.config_descripion}</option>
+                        </foreach>
+                    </select>
+                </td>
+                <td class="cap">生效日期：</td>
+                <td>
+                       <input type="text" name='doc_start_date'  id="date1" value="{$list['doc_start_date']}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+              </td>
+                <td class="cap">失效日期：</td>
+                <td>
+                         <input type="text" name='doc_end_date'  id="date2" value="{$list['doc_end_date']}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+               </td>
+            </tr>
+        </table>
+        <table class="tbl">
+            <tr>
+                <td colspan='4'>公文发布文件设定</td>
+                
+            </tr>
+            
+             <tr>
+                 <td class="cap">文档可见范围：</td>
+                <td >
+                    <select name='doc_root_view'>
+                        <foreach item='item' name='file_range'>
+                            <option  <if condition="$list['doc_root_view'] eq $item['config_value'] "> selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
+                        </foreach>
+                    </select>
+                </td>
+               <td class="cap">浏览权限设定：</td>
+                <td>
+                    <select name='doc_root_do'>
+                        <foreach item='item' name='file_authority'>
+                            <option <if condition="$list['doc_root_do'] eq $item['config_value'] "> selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table class="tbl">
+            <tr>
+                <td colspan='2'>附件上传</td>
+            </tr>
+            
+             <tr>
+                 <td class="cap">上传文档：</td>
+                <td colspan='2'>
+                    <input type="file" name='file' > 文档大小不能超过20M
+                </td>
+             </tr>
+        </table>
+        <table class="tbl">
+            <tr>
+                <td colspan='2'>附件封面上传</td>
+            </tr>
+             <tr>
+               <td class="cap">上传图片：</td>
+                <td colspan='2'>
+                   <input type="file" name='file1' >图片支持JPG、大小不能超过0.5M
+                </td>
+            </tr>
+        </table>
+         <table class="tbl">
+             <tr>
+               <td class="cap">文档备注：</td>
+                <td>
+                 <textarea class="textarea" name="doc_beizhu">{$list.doc_beizhu}</textarea>
+                </td>
+            </tr>
+             <input type="hidden" name='doc_id' value="{$list.doc_id}">
+            
+        </table>
+        <div class="text-center">
+
+	        <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
+	        
+    	</div>
+    </form>
+</block>

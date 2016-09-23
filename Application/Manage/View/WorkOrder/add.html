@@ -1,6 +1,7 @@
 <extend name="Public:base" />
 <block name="title"><title>会议创建</title></block>
 <block name="right">
+    <css href="__PUBLIC__/css/meeting.css"/>
     <form action="{:U(add)}" method='post' class="mt20" id="productManage">
         <table class="tbl">
           <colgroup>
@@ -42,7 +43,14 @@
             <tr>
                  <td class="cap">工作单负责人：</td>
                 <td>
-                   <input type="text" class="input-text text" name="personliable">
+                     <select name="personliable" class="selectItem">
+                        <option value="-100">其他</option>
+                        <option value="1">李</option>
+                        <option value="2">张</option>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addPrincipal" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear"></div>
                 </td>
             </tr>
             <tr>
@@ -57,4 +65,73 @@
 	        <input class="btn ml10 button btn-normal" type="reset" value="取消"/>
     	</div>
     </form>
+    <script type="text/javascript">
+         $(".selectItem").each(function () {
+            if ($(this).val() == "-100") {
+                $(this).siblings(".hide-input").show();
+            } else {
+                $(this).siblings(".hide-input").hide();
+            }
+        })
+
+        $(".selectItem").on("change", function () {
+            if ($(this).val() == "-100") {
+                $(this).siblings(".hide-input").show();
+            } else {
+                $(this).siblings(".hide-input").hide();
+            }
+        });
+        function getHtml(text, uid, selectName) {
+            var html = "";
+            html += '<div class="person fl">';
+            html += '<input type="hidden" name=' + selectName + ' value="' + uid + '">';
+            html += '<span>' + text + '</span>';
+            html += '<i class="person-del">X</i>';
+            html += '</div>';
+            return html;
+        }
+        function addPerson(_this, message) {
+            var val = _this.prev("select").children("option:selected").val();
+            if (val == "-100") {
+                if ($.trim(_this.siblings(".hide-input").val()) == "") {
+                    $.dialog.alert(message);
+                    return false;
+                } else {
+                    var inputVal = _this.siblings(".hide-input").val();
+                    var len = $(".person").length;
+                    for (i = 0; i < len; i++) {
+                        if (_this.siblings(".person-content").find(".person").eq(i).children("span").text() == inputVal) {
+                            return;
+                        }
+                    }
+                    var uid = _this.prev("select").children("option:selected").val();
+                    var seleName = _this.prev("select").attr('data');
+                    $(getHtml(inputVal, uid, seleName)).appendTo(_this.siblings(".person-content"));
+                }
+
+            } else {
+                var text = _this.prev("select").children("option:selected").text();
+                var uid = _this.prev("select").children("option:selected").val();
+                var seleName = _this.prev("select").attr('data');
+                var len = $(".person").length;
+                for (i = 0; i < len; i++) {
+                    if (_this.siblings(".person-content").find(".person").eq(i).children("span").text() == text) {
+                        return;
+                    }
+                }
+                $(getHtml(text, uid, seleName)).appendTo(_this.siblings(".person-content"));
+            }
+
+            $(".person-del").on("click", function () {
+                $(this).parent().remove();
+            });
+        }
+        $(".person-del").on("click", function () {
+            $(this).parent().remove();
+        });
+        $(".addPrincipal").on("click", function () {
+            var _this = $(this);
+            addPerson(_this, "请填写工作单负责人！");
+        });
+    </script>
 </block>

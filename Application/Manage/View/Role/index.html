@@ -1,9 +1,9 @@
 <extend name="Public:base" />
 
-<block name="title"><title>工作流管理系统</title></block>
+<block name="title"><title>海航会议督办系统</title></block>
 <block name="right">
     <css href="__PUBLIC__/css/roleManage.css"/>
-    <div class="role-padding container-padding">
+    <div class="role-padding">
         <form action="{:U(index)}" class="r-from">
             <table class="tbl">
                 <caption>查询条件</caption>
@@ -14,6 +14,7 @@
                 <tr>
                     <td colspan="2">
                         <div class="text-center">
+                            <input class="btn btn-a submit" type="submit" value="筛选"/>
                             <a href="{:U(add,array('p'=>$p))}">
                                 <input type="button" class="btn btn-a submit" value="新增"/>
                             </a>

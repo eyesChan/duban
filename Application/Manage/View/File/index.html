@@ -70,7 +70,9 @@
                                 </if>
                                 <td>{$item.doc_beizhu}</td>       
                                 <td>
-	        		   <input type="button" value="编辑" class="btn btn-r btn-xl button">
+                                    <a href="{:U('saveFile?doc_id='.$item['doc_id'])}"> 
+                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
+                                    </a> 
 	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button" onclick="withdraw({$item.doc_id})" >
                                 </td>
 	        	</tr>
@@ -82,22 +84,7 @@
                 {$page}
             </div>
         </div>
-        <script type="text/javascript">
-	    	var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="文档发布创建"/>';
-	    	$(rightBtn).appendTo(".location");
-                function openNew(){
-                    location.href = '{:U(addFile)}';
-                }
-                
-                //撤回操作
-                function withdraw(id){
-                   var page= $('#go_page').val();
-                   $.post('/Manage/File/delFile',{doc_id:id},function(obj){
-   
-                   })
-                }
-	    </script> 
-      
+    <js href="__PUBLIC__/Js/docFile.js"/>    
 </block>
  
 

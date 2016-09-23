@@ -127,5 +127,7 @@ return array(
     'DOCFILE' => array(
 	'DOCDEL_SUCCESS' => '撤回成功',
 	'DOCDEL_ERROR' => '撤回失败',
+        'SZIE_TYPE' => '类型或者大小不符合',
+        
     ),
 );

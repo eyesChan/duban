@@ -130,6 +130,34 @@ class FileModel  extends Model{
         } 
     }
     
+     /*
+     * 导出execl 查询
+     * @author $data
+     */
+    public function getExecl($param){
+        foreach($param as $k => $v){
+            $data[$k]['doc_name']=$v['doc_name'];
+            $data[$k]['config_descripion']=$v['config_descripion'];
+            $data[$k]['name']=$v['name'];
+            $data[$k]['doc_pub_date']=$v['doc_pub_date'];
+            $data[$k]['doc_start_date']=$v['doc_start_date'];
+            $data[$k]['doc_end_date']=$v['doc_end_date'];
+            $data[$k]['doc_root_view']=$this->getRootview($v['doc_root_view']);
+            $data[$k]['doc_root_do']=$this->getRootview($v['doc_root_do']);
+            $data[$k]['doc_beizhu']=$v['doc_beizhu'];
+        }
+         return $data;
+    }
+  /*
+   * 获取导出数据的可见范围及权限
+   */
+    public function  getRootview($config_id){
+         $work = M('config_system')
+              ->field('config_descripion')
+              ->where("config_id = $config_id")
+              ->find();   
+        return $work['config_descripion'];
+    }
 }
 
 

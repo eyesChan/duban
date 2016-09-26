@@ -1,0 +1,99 @@
+<extend name="Public:base"/>
+<block name="title"><title>文档发布</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/meeting.css"/>
+   <form method="post" action="{:U(exportFile)}">
+    <input type="submit" value="导出记录" class="btn btn-r btn-xl button">
+    <input  type="hidden" name="export_file" value="{$export_file}">
+   </form>
+    <div class="role-padding container-padding">     
+        <div class="filter-main clear">              
+            <form method="post" action="{:U(index)}">
+                <table class="tbl">
+                    <tr>
+                        <td class="cap">文档名称:</td>
+                        <td> <input class="input-text" type="text" name="doc_name" value="{$param['doc_name']}"></td>
+                        <td class="cap">发布人：</td>
+                        <td><input class="input-text" type="text" name="name" value="{$param['name']}"></td>
+                        <td class="cap">发布时间：</td>
+                         <td><input type="text" name='doc_pub_date' id="date8" value="{$param['doc_pub_date']}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>
+                        <td class="cap">发布类型：</td>
+                        <td>
+                             <select name='doc_pub_type'>
+                                <foreach item='item' name='file_type'>
+                                    <option  <if condition="$param['doc_pub_type'] eq $item['config_id'] "> selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
+                                </foreach>
+                             </select>
+                        </td>
+                        <td>
+                             <input class="btn btn-red mr10 submit" type="submit" value="查询"/>
+                        </td>
+                         </tr>         
+                </table>
+            </form>
+             <table class="tbl tbl-list">
+	            <caption>文档列表</caption>
+	            <colgroup>
+	                <col width="13%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="38%">
+	            </colgroup>
+	            <thead>
+	            <tr>
+                                <th>文档名称</th>
+                                <th>文档类型</th>
+                                <th>发布人</th>
+                                <th>发布时间</th>
+                                <th>失效时间</th>
+                                <th>状态</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+	            </thead>	        
+	        <tbody>	
+           
+                    <foreach name="list" item="item">
+	        	<tr>
+                                <td>{$item.doc_name}</td>
+                                <td>{$item.config_descripion}</td>
+                                <td>{$item.name}</td>
+                               
+                                <td>{$item.doc_pub_date}</td>
+                                <td>{$item.doc_end_date}</td>
+                                <if condition="$item['doc_start_date'] gt $time">
+                                    <td>未生效</td>
+                                    <elseif condition="$item['doc_end_date'] lt $time" />
+                                    <td>已失效</td>
+                                    <else/>
+                                    <td>生效中</td>
+                                </if>
+                                <td>{$item.doc_beizhu}</td>       
+                                <td>
+                                    <a href="{:U('saveFile?doc_id='.$item['doc_id'])}"> 
+                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
+                                    </a> 
+	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button" onclick="withdraw({$item.doc_id})" >
+                                </td>
+	        	</tr>
+                    </foreach>
+	        </tbody>
+	        </table>
+                </div>
+            <div class="pagination fr">
+                {$page}
+            </div>
+        </div>
+    <script>
+         var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="会谈会见台账创建"/>';
+            $(rightBtn).appendTo(".location");
+            function openNew(){
+                location.href = '/Manage/LedgerMeeting/addLedger';
+            }
+    </script>  
+</block>
+

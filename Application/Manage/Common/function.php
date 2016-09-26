@@ -257,16 +257,16 @@ function getConfigInfo($key) {
     if ($key) {
         $config_meemting = D('config_system');
         $arr = array(
-            'config_key'=>$key,
-            'config_status'=>1,
+            'config_key' => $key,
+            'config_status' => 1,
         );
         $meeting_type = $config_meemting->where($arr)->order('config_sort desc')->select();
         return $meeting_type;
-    }else{
+    } else {
         return array();
     }
-    
 }
+
 /*
  * 邮件发送函数
  * @author xiaohui
@@ -377,3 +377,18 @@ function getExcel($headArr, $data) {
     $objWriter->save('php://output'); //文件通过浏览器下载
     exit;
 }
+
+/**
+ *  根据用户 id 获取用户字段
+ * @param $uid 用户 id 多个用','隔开 $name Description
+ * @param $field 用户 字段 多个用','隔开 $name Description
+ * @return 所查询的字段 Description
+ * @date 2016/09/23
+ */
+function getUserField($uid, $field) {
+    $user_mod = D('member');
+    $user_info = $user_mod->where(array('uid' => array('in', $uid)))
+            ->getField($field, true);
+    return $user_info;
+}
+ 

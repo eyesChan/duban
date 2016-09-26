@@ -65,7 +65,8 @@ label{margin-right: 10px;}
 .btn-a{background: #e86d4c;}
 .btn-b{color:#e86d4c;background: none;border:1px solid #e46e4a;}
 .btn-c{background: #6283ca;}
-.btn-r{background: #CC3333;}
+/*.btn-r{background: #CC3333;}*/
+.btn-r{background: #6283ca;}
 .btn-xl{width:auto;padding:0 12px!important;}
 .btn-lg{width:auto;padding:0 38px!important;}
 .btn-a:hover{color:#fff;background: #e7542c;cursor: pointer;transition: all 0.2s ease-in;}
@@ -153,6 +154,7 @@ a.button{line-height: 30px;}
 .btn-red {
     width: 100px;
     height:30px;
+    background: #e86d4c;
 }
 .btn-blue:hover{
     background:#30519c;

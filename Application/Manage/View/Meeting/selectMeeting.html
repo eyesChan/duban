@@ -48,18 +48,18 @@
                         <td>{$item.meeting_type}</td>
                         <td>{$item.meeting_date}</td>
                         <td>
-                            <if condition="$item.meeting_moderator AND $item.meeting_moderator_value ">
-                                {$item.meeting_moderator},
-                                <else />
-                                {$item.meeting_moderator}
-                            </if>
-                            {$item.meeting_moderator_value}</td>
-                        <td>{$item.meeting_place}</td>
-                        <td>
-                            <input type="button" value="详细" onclick="showMeeting({$item.meeting_id})" class="btn btn-r btn-xl button">
-                            <input type="button" value="编辑" onclick="edit({$item.meeting_id})" class="btn btn-r btn-xl button">
-                            <input type="button" value="删除" class="btn btn-r btn-xl button">
-                        </td>
+                    <if condition="$item.meeting_moderator AND $item.meeting_moderator_value ">
+                        {$item.meeting_moderator},
+                        <else />
+                        {$item.meeting_moderator}
+                    </if>
+                    {$item.meeting_moderator_value}</td>
+                    <td>{$item.meeting_place}</td>
+                    <td>
+                        <input type="button" value="详细" onclick="showMeeting({$item.meeting_id})" class="btn btn-r btn-xl button">
+                        <input type="button" value="编辑" onclick="edit({$item.meeting_id})" class="btn btn-r btn-xl button">
+                        <input type="button" value="删除" onclick="delMeeting({$item.meeting_id})" class="btn btn-r btn-xl button">
+                    </td>
 
                     </tr>
                 </foreach>
@@ -74,11 +74,26 @@
         </div>
     </div>	  
     <script type="text/javascript">
-        var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" value="创建会议"/>';
+        var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" onclick="createMeeting()" type="button" value="创建会议"/>';
         $(rightBtn).appendTo(".location");
+        //跳转添加会议页面
+        function createMeeting(){
+        location.href = "{:U('/Manage/Meeting/addMeeting/')}"
+        }
         //跳转编辑页面
         function edit(id){
-            location.href = "{:U('/Manage/Meeting/edit/meeting_id/"+id+"')}"
+        location.href = "{:U('/Manage/Meeting/edit/meeting_id/" + id + "')}"
         }
+        //跳转查看页面
+        function showMeeting(id){
+        location.href = "{:U('/Manage/Meeting/showMeeting/meeting_id/" + id + "')}"
+        }
+        //删除会议
+        function delMeeting(id){
+             $.post('/Manage/Meeting/delMeeting', {meeting_id:id}, function(obj){
+                 alert(obj)
+             })
+        }
+
     </script> 
 </block>

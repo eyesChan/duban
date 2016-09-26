@@ -56,7 +56,7 @@ class MessageManageModel extends Model {
         $count = $this->where($where)->count();
         $Page = new \Think\Page($count, 10);
         foreach ($params as $k => $v) {
-            $Page->parameter[$k] = urlencode($v);
+            $Page->parameter[$k] = $v;
         }
         $arr_for_list['page_show'] = $Page->show();
 

@@ -11,6 +11,14 @@ namespace Manage\Controller;
  * 
  */
 class IndexController extends AdminController {
+
+    private $mod_index;
+
+    public function __construct() {
+        parent::__construct();
+        $this->mod_index = D('Index');
+    }
+
     /**
      * 首页展示
      * @param array $info 公告集合
@@ -18,7 +26,10 @@ class IndexController extends AdminController {
      * @param return object 公告信息
      */
     public function index() {
-	$this->display();
+
+        $list = $this->mod_index->getDataForList();
+        $this->assign('list', $list);
+        $this->display();
     }
 
 }

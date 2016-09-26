@@ -41,7 +41,7 @@ class FileModel  extends Model{
     
     public function addFile($param){
 
-            $order = M('doc');
+            $docfile = M('doc');
             $data['doc_name'] = $param['doc_name'];
             $data['doc_dept_id'] = $param['doc_dept_id'];
             $data['doc_pub_person'] = session('S_USER_INFO.UID'); //$param['doc_pub_person'];
@@ -55,7 +55,7 @@ class FileModel  extends Model{
             $data['doc_upload_img_url'] =$param['doc_upload_img_url'];
             $data['doc_beizhu'] = $param['doc_beizhu'];
             $data['doc_status'] = 1 ; //$param['doc_status'];
-            $res = $order->add($data);
+            $res = $docfile->add($data);
             if($res){
                 return C('COMMON.SUCCESS_EDIT');
             }else{
@@ -83,8 +83,8 @@ class FileModel  extends Model{
      * @return array 成功返回列表
      */
     public function getList($where, $first_rows, $list_rows) {
-      $order = M('doc');
-      $list = $order
+      $docfile = M('doc');
+      $list = $docfile
               ->join('db_member on db_doc.doc_pub_person = db_member.uid')
               ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
               ->where($where) 
@@ -92,6 +92,71 @@ class FileModel  extends Model{
               ->order('doc_id desc')
               ->select();
       return $list;
+    }
+    
+    /*
+     * 撤回
+     */
+    public function delFiledoc($doc_id){
+        $docfile = M('doc');
+        $res_delete=$docfile-> where('doc_id='.$doc_id)->setField('doc_status','0');
+        return $res_delete;
+      
+    }
+    
+   /*
+    * 编辑状态查询
+    */
+    public function saveFiledoc($doc_id){
+        $docfile = M('doc');
+        $list = $docfile
+              ->join('db_member on db_doc.doc_pub_person = db_member.uid')
+              ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+              ->where('doc_id='.$doc_id)       
+              ->find();
+        return $list;
+    }
+    
+ /*
+  * 编辑文档
+  */
+    public function updateFiledoc($data,$doc_id){
+        $docfile = M('doc');
+        $res = $docfile->where("doc_id =".$doc_id)->save($data);
+        if($res){
+            return C('COMMON.SUCCESS_EDIT');
+        }else{
+            return C('COMMON.ERROR_EDIT');
+        } 
+    }
+    
+     /*
+     * 导出execl 查询
+     * @author $data
+     */
+    public function getExecl($param){
+        foreach($param as $k => $v){
+            $data[$k]['doc_name']=$v['doc_name'];
+            $data[$k]['config_descripion']=$v['config_descripion'];
+            $data[$k]['name']=$v['name'];
+            $data[$k]['doc_pub_date']=$v['doc_pub_date'];
+            $data[$k]['doc_start_date']=$v['doc_start_date'];
+            $data[$k]['doc_end_date']=$v['doc_end_date'];
+            $data[$k]['doc_root_view']=$this->getRootview($v['doc_root_view']);
+            $data[$k]['doc_root_do']=$this->getRootview($v['doc_root_do']);
+            $data[$k]['doc_beizhu']=$v['doc_beizhu'];
+        }
+         return $data;
+    }
+  /*
+   * 获取导出数据的可见范围及权限
+   */
+    public function  getRootview($config_id){
+         $work = M('config_system')
+              ->field('config_descripion')
+              ->where("config_id = $config_id")
+              ->find();   
+        return $work['config_descripion'];
     }
 }
 

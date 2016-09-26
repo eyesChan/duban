@@ -53,7 +53,7 @@ input[readonly] {color: #404040}
 .btn-size-lg{width:100px;padding:0;line-height: 26px;}
 .collapse-btn{line-height: 28px;}
 /* 表格 */
-.inner-container{margin-right:1px;}
+.inner-container{margin-right:1px;position: relative;}
 .wrap-table-b{margin: 10px auto 0;width: 100%;}
 .wrap-table-n{margin: 0 auto;width: 100%;}
 .tbl{width: 100%;margin: 0 auto 10px;font-size:12px;table-layout:auto;border-width:1px 0 0 1px;border-style: solid;border-color: #ededed;}

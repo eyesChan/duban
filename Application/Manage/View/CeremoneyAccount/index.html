@@ -1,0 +1,102 @@
+<extend name="Public:base"/>
+
+<block name="title"><title>海航会议督办系统</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/messageManage.css"/>
+    <div class="role-padding container-padding">
+        <div class="filter-main clear">
+            <form method="post" action="{:U(index)}">
+                <table class="tbl">
+                    <caption>查询条件</caption>
+                    <tr>
+                        <td class="cap">状态：</td>
+                        <td>
+                            <select name="msg_sys_status">
+                                <option value="">--全部--</option>
+                                <foreach name="msg_sys_type" item="type">
+                                    <option value="{$type['config_value']}" <if condition="$remember_search['msg_sys_status'] eq $type['config_value']">selected="true"</if> >{$type['config_descripion']}</option>
+                                </foreach>
+                            </select>
+                        </td>
+                        <td class="cap">公告标题：</td>
+                        <td><input class="input-text" type="text" name="msg_sys_title" value="{$remember_search['msg_sys_title']}" ></td>
+                        <tr>
+                            <td colspan="4">
+                            <div class="wrap-btns">
+                                 <input class="btn btn-a mr10 submit" type="submit" value="查询"/>
+                            </div>
+                            </td>
+                        </tr>
+                    </tr>         
+                </table>
+            </form>
+        </div>
+        <div class="tb1">
+            <form action="{:U(index)}">
+                <div class="jxssp">
+                <div class="common-prompt notice-prompt hide">
+                        <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
+                        <span></span>
+                    </div>
+                    <table class="tbl tbl-list" width="100%">
+                        <caption>系统消息列表 <a class="tb-detail f-fr mr30" href="{:U(add)}" id="exportbtn">新增系统消息</a></caption>
+                        <colgroup>
+                            <col width="5%">
+                            <col width="20%">
+                            <col width="15%">
+                            <col width="5%">
+                            <col width="10%">
+                            <col width="15%">
+                            <col width="30%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="th1">序号</th>
+                                <th>公告标题</th>
+                                <th>起止时间</th>
+                                <th>状态</th>
+                                <th>录入人</th>
+                                <th>录入时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="role-tbody">
+                        <foreach name="list" item="v">
+                            <tr>
+                                <td>{$s_number++}</td>
+                                <td>{$v['msg_sys_title']}</td>
+                                <td>{$v['msg_sys_starttime']}
+                                </br>至{$v['msg_sys_endtime']}</td>
+                                <if condition="$v['msg_sys_status'] eq 1">
+                                    <td>已发布</td>
+                                    <elseif condition="$v['msg_sys_status'] eq 2"/>
+                                    <td>未发布</td>
+                                    <elseif condition="$v['msg_sys_status'] eq 3"/>
+                                    <td>已失效</td>
+                                    <elseif condition="$v['msg_sys_status'] eq 0"/>
+                                    <td>已停用</td>
+                                </if>
+                                <td>{$v['creatname']}</td>
+                                <td>{$v['msg_sys_creattime']}</td>
+                                <td>
+                                    <a  class="btn btn-c btn-xl button" href="{:U('MessageManage/edit',array('msg_sys_id'=>$v['msg_sys_id']))}">编辑</a>
+                                    <a class="btn btn-c btn-xl button" href="javascript:void(0);" onclick="singleDel({$v['msg_sys_id']})">删除</a>
+                                    <if condition="$v['msg_sys_status'] eq 1">
+                                        <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['msg_sys_id']}, 0)" value="停用">                                     
+                                    <elseif condition="$v['msg_sys_status'] eq 0 or $v['msg_sys_status'] eq 2"/>
+                                        <input type="button" class="operate-span-del btn btn-c btn-xl button" onclick="changeStatus({$v['msg_sys_id']}, 1)" value="发布">
+
+                                    </if>
+                                </td>
+                            </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div class="pagination fr">
+                {$page}
+            </div>
+        </div>
+        <js href="__PUBLIC__/Js/messageManage.js"/>
+</block>

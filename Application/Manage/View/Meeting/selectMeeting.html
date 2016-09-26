@@ -1,70 +1,84 @@
 <extend name="Public:base" />
-<block name="title"><title>会议创建</title></block>
+<block name="title"><title>会议查询</title></block>
 
 <block name="right">
 
-<div class="container-padding">
- 	<form method="post" action="{:U(index)}">
-	    <table class="tbl">
-			<caption>查询条件</caption>
-			<tr>
-			    <td class="cap">会议名称：</td>
-			    <td><input class="input-text text" name="nickname" value="" type="text" placeholder="关键字"/></td>
-			    <td class="cap">创建人：</td>
-			    <td><input class="input-text text" name="nickname" value="" type="text"/></td>
-			    <td class="cap">会议时间：</td>
-			    <td><input type="text" name='start_time' id="date8" value="{$start_time}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl"></td>
-			    <td><input class="btn btn-red mr10 submit" type="button" value="查询"/></td>
-	    	</tr>         
-	    </table>
-	    </form>
-	    <div class="tb1 jxssp">
-	        <table class="tbl tbl-list">
-	            <caption>会议列表</caption>
-	            <colgroup>
-	                <col width="20%">
-	                <col width="13%">
-	                <col width="13%">
-	                <col width="13%">
-	                <col width="13%">
-	                <col width="28%">
-	            </colgroup>
-	            <thead>
-	            <tr>
-	                <th>会议名称</th>
-	                <th>会议类型</th>
-	                <th>会议日期</th>
-	                <th>主持人</th>
-	                <th>会议地点</th>
-	                <th>操作</th>
-	            </tr>
-	            </thead>
-	        
-	        <tbody>	
-	        	<tr>
-	        		<td>陈峰主席企业文化专题讲座</td>
-	        		<td>专题会议</td>
-	        		<td>2016/02/28</td>
-	        		<td>童甫</td>
-	        		<td>北京雍和航星园8号</td>
-	        		<td>
-	        			<input type="button" value="详细" class="btn btn-r btn-xl button">
-	        			<input type="button" value="编辑" class="btn btn-r btn-xl button">
-	        			<input type="button" value="删除" class="btn btn-r btn-xl button">
-	        		</td>
-	        	</tr>
+    <div class="container-padding">
+        <form method="post" action="{:U(selectMeeting)}">
+            <table class="tbl">
+                <caption>查询条件</caption>
+                <tr>
+                    <td class="cap">会议名称：</td>
+                    <td><input class="input-text text" name="meeting_name" value="{$search.meeting_name}" type="text" placeholder="关键字"/></td>
+                    <td class="cap">召集人：</td>
+                    <td><input class="input-text text" name="meeting_callman" value="{$search.meeting_callman}" type="text"/></td>
+                    <td class="cap">会议时间：</td>
+                    <td><input type="text" name='meeting_date' id="date8" value="{$search.meeting_date}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl"></td>
+                    <td><input class="btn btn-red mr10 submit" type="submit" value="查询"/></td>
+                </tr>         
+            </table>
+        </form>
+        <div class="tb1 jxssp">
+            <table class="tbl tbl-list">
+                <caption>会议列表</caption>
+                <colgroup>
+                    <col width="20%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="13%">
+                    <col width="13%">
+                    <col width="28%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>会议名称</th>
+                        <th>会议类型</th>
+                        <th>会议日期</th>
+                        <th>主持人</th>
+                        <th>会议地点</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
 
-	        </tbody>
-	        </table>
-	            <div class="pagination fr">
-	                {$page}
+                <tbody>	
+                <foreach name="meeting_info" item="item">
 
-	            </div>
+                    <tr>
+                        <td>{$item.meeting_name}</td>
+                        <td>{$item.meeting_type}</td>
+                        <td>{$item.meeting_date}</td>
+                        <td>
+                            <if condition="$item.meeting_moderator AND $item.meeting_moderator_value ">
+                                {$item.meeting_moderator},
+                                <else />
+                                {$item.meeting_moderator}
+                            </if>
+                            {$item.meeting_moderator_value}</td>
+                        <td>{$item.meeting_place}</td>
+                        <td>
+                            <input type="button" value="详细" onclick="showMeeting({$item.meeting_id})" class="btn btn-r btn-xl button">
+                            <input type="button" value="编辑" onclick="edit({$item.meeting_id})" class="btn btn-r btn-xl button">
+                            <input type="button" value="删除" class="btn btn-r btn-xl button">
+                        </td>
 
-	        </div>
-	    </div>	  
-	    <script type="text/javascript">
-	    	var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" value="创建会议"/>';
-	    	$(rightBtn).appendTo(".location");
-	    </script> 
+                    </tr>
+                </foreach>
+
+                </tbody>
+            </table>
+            <div class="pagination fr">
+                {$page}
+
+            </div>
+
+        </div>
+    </div>	  
+    <script type="text/javascript">
+        var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" value="创建会议"/>';
+        $(rightBtn).appendTo(".location");
+        //跳转编辑页面
+        function edit(id){
+            location.href = "{:U('/Manage/Meeting/edit/meeting_id/"+id+"')}"
+        }
+    </script> 
 </block>

@@ -2,10 +2,7 @@
 <block name="title"><title>文档发布</title></block>
 <block name="right">
     <css href="__PUBLIC__/css/meeting.css"/>
-   <form method="post" action="{:U(exportFile)}">
-    <input type="submit" value="导出记录" class="btn btn-r btn-xl button">
-    <input  type="hidden" name="export_file" value="{$export_file}">
-   </form>
+  
     <div class="role-padding container-padding">     
         <div class="filter-main clear">              
             <form method="post" action="{:U(index)}">
@@ -32,7 +29,13 @@
                 </table>
             </form>
              <table class="tbl tbl-list">
-	            <caption>文档列表</caption>
+	            <caption>文档列表
+                <form method="post" action="{:U(exportFile)}" class="tb-detail f-fr mr30">
+                    <input type="submit" value="导出记录" class="btn btn-c mr10 submit">
+                    <input  type="hidden" name="export_file" value="{$export_file}">
+                </form>
+               <!--  <a class="tb-detail f-fr mr30" href="/Manage/ConfigManage/add.html" id="exportbtn">导出记录</a> -->
+                </caption>
 	            <colgroup>
 	                <col width="13%">
                             <col width="11%">

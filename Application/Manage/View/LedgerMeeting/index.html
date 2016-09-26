@@ -1,0 +1,81 @@
+<extend name="Public:base"/>
+<block name="title"><title>会谈会见列表</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/meeting.css"/>
+    <div class="role-padding container-padding">     
+        <div class="filter-main clear">              
+            <form method="post" action="{:U(index)}">
+                <table class="tbl">
+                    <tr>
+                        <td class="cap">会谈名称:</td>
+                        <td> <input class="input-text" type="text" name="led_meeting_name" value="{$param['led_meeting_name']}"></td>
+                        <td class="cap">主持人：</td>
+                        <td><input class="input-text" type="text" name="led_meeting_host" value="{$param['led_meeting_host']}"></td>
+                        <td class="cap">时间：</td>
+                         <td><input type="text" name='led_meeting_date' id="date8" value="{$param['led_meeting_date']}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>                   
+                        <td>
+                             <input class="btn btn-r btn-xl button" type="submit" value="查询"/>
+                        </td>
+                        <td>
+                             <input class="btn btn-r btn-xl button" type="submit" value="导出"/>
+                        </td>
+                        <td>
+                             <input class="btn btn-r btn-xl button" type="submit" value="导入"/>
+                        </td>
+                        
+                         </tr> 
+                       
+                </table>
+            </form>
+             <table class="tbl tbl-list">
+	            <caption>文档列表</caption>
+	            <colgroup>
+                            <col width="9%">
+                            <col width="13%">
+                            <col width="11%">
+                            <col width="11%">
+                            <col width="25%">
+                            <col width="38%">
+	            </colgroup>
+	            <thead>
+	            <tr>
+                                <th>序号</th>
+                                <th>会谈名称</th>
+                                <th>时间</th>
+                                <th>主持人</th>
+                                <th>会议地点</th>              
+                                <th>操作</th>
+                            </tr>
+	            </thead>	        
+	        <tbody>	
+           
+                    <foreach name="list" item="item">
+	        	<tr>
+                                <td>{$item.led_meeting_id}</td>
+                                <td>{$item.led_meeting_name}</td>
+                                <td>{$item.led_meeting_date}</td>
+                                <td>{$item.led_meeting_host}</td>
+                                <td>{$item.led_meeting_place}</td> 
+                                <td>
+                                    <a href="{:U('detailsLedger?led_meeting_id='.$item['led_meeting_id'])}"> 
+                                        <input type="button" value="详情" class="btn btn-r btn-xl button">
+                                    </a> 
+                                    <a href="{:U('saveLedger?led_meeting_id='.$item['led_meeting_id'])}"> 
+                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
+                                    </a> 
+                                    <a href="{:U('delLedger?led_meeting_id='.$item['led_meeting_id'])}"> 
+                                        <input type="button" value="删除" class="btn btn-r btn-xl button">
+                                    </a> 
+                                </td>
+	        	</tr>
+                    </foreach>
+	        </tbody>
+	        </table>
+                </div>
+            <div class="pagination fr">
+                {$page}
+            </div>
+        </div> 
+    <js href="__PUBLIC__/Js/ledgerMeeting.js"/>
+</block>
+

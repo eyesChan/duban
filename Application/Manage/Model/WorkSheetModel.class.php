@@ -76,6 +76,7 @@ class WorkSheetModel  extends Model{
      public function getWorkOrderCount($where) {
         $count = D('worksheet')
                 ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
+                ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
                 ->where($where)->count();
         return $count;
     }
@@ -107,6 +108,7 @@ class WorkSheetModel  extends Model{
       $order = M('worksheet');
       $list = $order
               ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
+              ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
               ->where($where)
               ->limit($first_rows, $list_rows)
               ->order('worksheet_id desc')
@@ -124,8 +126,9 @@ class WorkSheetModel  extends Model{
     
     public function selectWork($param){
         $work = D('worksheet')
-              ->field('worksheet_state,worksheet_id,worksheet_end_date,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state,meeting_name,worksheet_abandoned_reason,worksheet_describe')
-              ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')  
+              ->field('name,worksheet_state,worksheet_id,worksheet_end_date,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state,meeting_name,worksheet_abandoned_reason,worksheet_describe')
+              ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
+              ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
               ->where("worksheet_id = $param")
               ->find();
         return $work;
@@ -145,6 +148,7 @@ class WorkSheetModel  extends Model{
         $data['worksheet_done_persent'] = $param['worksheet_done_persent']; 
         $data['worksheet_state'] = $this->workState($param['worksheet_state'],$param['worksheet_id'],$param['worksheet_done_persent']);
         $work_id = $param['worksheet_id'];
+        $data['worksheet_abandoned_reason'] = $param['worksheet_abandoned_reason'];
         $res = $order->where("worksheet_id = $work_id")->save($data);
         if($res){
             return C('COMMON.SUCCESS_EDIT');
@@ -221,12 +225,18 @@ class WorkSheetModel  extends Model{
                     $day = floor($timeiff/3600/24);
                     $surplus = $day * $work['worksheet_parcent_day'];
                     $sum = $surplus + $work['worksheet_done_persent'];
-                    if($sum < 100){
-                        $states = "延迟";
+                    if($starttime > $time){
+                        
+                        $states="未启动";
                         return $states;
                     }else{
-                        $states = "正常";
-                        return $states;
+                        if($sum < 100){
+                            $states = "延迟";
+                            return $states;
+                        }else{
+                            $states = "正常";
+                            return $states;
+                        }
                     }
                 }else{
                     $states = "延迟";
@@ -296,6 +306,15 @@ class WorkSheetModel  extends Model{
      */
     public function getUser(){
         return D('member')->field('email,name,uid')->where('status = 1')->select();
+    }
+    public function userPerson($param){
+        $work = $this->selectWork($param);
+        $user = $work['worksheet_rule_person'];
+        $where['uid']=array("in",$user);
+        $userEmail = D('member')->field('email,name')->where($where)->select();
+        $content = "关于".$work['meeting_name']."会议".$work['worksheet_name']."的工作单进度延迟，请尽快处理，并尽快调整工作单进度状态；";
+        $userEmail['content'] = $content;
+        return $userEmail;
     }
 }
 

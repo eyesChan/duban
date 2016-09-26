@@ -1,3 +1,7 @@
+
+
+
+
 <?php
 
 /*
@@ -49,11 +53,14 @@ class WorkOrderController extends AdminController {
         return $param;
     }
     
+    
+    
     /*
      * 工作单添加
      */
     public function add(){
         $meeting = $this->mod_worksheet->listMeeting();
+        $user = $this->mod_worksheet->getUser();
         if(IS_POST){
             $param = I('post.');
             if(empty($param)){
@@ -68,6 +75,7 @@ class WorkOrderController extends AdminController {
             }
         }
         $this->assign('meeting',$meeting);
+        $this->assign('user',$user);
         $this->display();
     }
   
@@ -85,7 +93,7 @@ class WorkOrderController extends AdminController {
         //处理查询条件：操作人姓名、IP地址、模块名称、操作内容、开始时间 结束时间 
         $param['worksheet_name'] != '' ? $where['worksheet_name'] = array('like', '%' . $param['worksheet_name'] . '%') : '';
         $param['meeting_name'] != '' ? $where['meeting_name'] = array('like', '%' . $param['meeting_name'] . '%') : '';
-        $param['worksheet_rule_person'] != '' ? $where['worksheet_rule_person'] = array('like', '%' . $param['worksheet_rule_person'] . '%') : '';
+        $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
         $param['worksheet_start_date'] != '' ? $where['worksheet_start_date'] = array('like', '%' . $param['worksheet_start_date'] . '%') : '';
         
         if (!empty($param['begin_time']) && empty($param['end_time'])) {
@@ -112,7 +120,6 @@ class WorkOrderController extends AdminController {
         $this->assign('list', $list);
         $this->assign('page', $show);
         $this->assign('param', $param);
-        
         $this->display('index');
         }
     }
@@ -189,14 +196,13 @@ class WorkOrderController extends AdminController {
      * @author xiaohui
      */
     public function sendEmail(){
-        $to = "210338487@qq.com";
-        $title = "测试";
-        $content = "success";
-        if(sendMail($to,$title,$content)){
-            $this->success('发送成功！');
-        }
-        else{
-            $this->error('发送失败');
+        
+        $param = I('get.id');
+        $email = $this->mod_worksheet->userPerson($param);
+        $title = "工作单督办";
+        $content = array_pop($email);
+        foreach ($email as $key=>$val){
+            sendMail($val['email'],$title,$content);
         }
     } 
     /*

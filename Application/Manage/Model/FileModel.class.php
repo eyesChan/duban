@@ -68,7 +68,7 @@ class FileModel  extends Model{
      * @return object 返回true或false
      */
 
-    public function filesize($size) {
+    public function fileSize($size) {
         if ($size['file']['size'] <= C('FILE_DOC.FILE_SIZE') && $size['file']['size'] <= C('FTP_COVER.FILE_SIZE')) {
             $doc_upload_file = end(explode('.', $size['file']['name']));
             $doc_upload_img = end(explode('.', $size['file1']['name']));
@@ -124,7 +124,7 @@ class FileModel  extends Model{
      * @param $doc_id 撤回条件
      * @return 返回处理数据
      */
-    public function delFiledoc($doc_id){
+    public function delFileDoc($doc_id){
         $docfile = M('doc');
         $res_delete=$docfile-> where('doc_id='.$doc_id)->setField('doc_status','0');
         return $res_delete;
@@ -138,7 +138,7 @@ class FileModel  extends Model{
      * @param $doc_id 查询条件
      * @return 返回查询的数据
     */
-    public function saveFiledoc($doc_id){
+    public function saveFileDoc($doc_id){
         $docfile = M('doc');
         $list = $docfile
               ->join('db_member on db_doc.doc_pub_person = db_member.uid')
@@ -156,7 +156,7 @@ class FileModel  extends Model{
      * @param $doc_id 修改条件
      * @return object 修改成功或失败
      */
-    public function updateFiledoc($data,$doc_id){
+    public function updateFileDoc($data,$doc_id){
         $docfile = M('doc');
         $res = $docfile->where("doc_id =".$doc_id)->save($data);
         if($res){
@@ -180,8 +180,8 @@ class FileModel  extends Model{
             $data[$k]['doc_pub_date']=$v['doc_pub_date'];
             $data[$k]['doc_start_date']=$v['doc_start_date'];
             $data[$k]['doc_end_date']=$v['doc_end_date'];
-            $data[$k]['doc_root_view']=$this->getRootview($v['doc_root_view']);
-            $data[$k]['doc_root_do']=$this->getRootview($v['doc_root_do']);
+            $data[$k]['doc_root_view']=$this->getRootView($v['doc_root_view']);
+            $data[$k]['doc_root_do']=$this->getRootView($v['doc_root_do']);
             $data[$k]['doc_beizhu']=$v['doc_beizhu'];
         }
          return $data;
@@ -193,7 +193,7 @@ class FileModel  extends Model{
    * @param  $config_id 查询条件
    * @return 返回查询的数据
    */
-    public function  getRootview($config_id){
+    public function  getRootView($config_id){
          $work = M('config_system')
               ->field('config_descripion')
               ->where("config_id = $config_id")

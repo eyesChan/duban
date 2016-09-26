@@ -121,90 +121,16 @@ class MeetingController extends AdminController {
      * @return 跳转页面 Description
      */
     public function edit() {
+        $upload_obj = new MeetingUplod();
+
         $meeting_info = I('meeting');
         $meeting_id = I('meeting_id');
-        $user_mod = D('member');
         if ($meeting_id && empty($meeting_info)) {
             $upload_obj = new MeetingUplod();
             $meeting_info = $this->meeting_model->where(array('meeting_id' => $meeting_id, 'meeting_state' => 1))->find();
             $user_info = $upload_obj->getUserInfo();
             $this->assign('user_info', $user_info);
-           
-                if (!empty($meeting_info['meeting_callman'])) {
-                    //召集人
-                    $meeting_callman = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_callman'])))->getField('uid,name', true);
-                    $meeting_info['meeting_callman'] = $meeting_callman;
-                    //召集人手写
-                    $meeting_info['meeting_callman_value'] = explode(',', $meeting_info['meeting_callman_value']);
-                }
-
-                if (!empty($meeting_info['meeting_moderator'])) {
-                    //会议主持人 
-                    $meeting_moderator = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_moderator'])))->getField('uid,name', true);
-                    $meeting_info['meeting_moderator'] = $meeting_moderator;
-                    //会议主持人 手输 meeting_moderator
-                    $meeting_info['meeting_moderator_value'] = explode(',', $meeting_info['meeting_moderator_value']);
-                }
-                if (!empty($meeting_info['meeting_participants'])) {
-                    //参会人员 
-                    $meeting_participants = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_participants'])))->getField('uid,name', true);
-                    $meeting_info['meeting_participants'] = $meeting_participants;
-                    //参会人员 手输 meeting_participants_value
-                    $meeting_info['meeting_participants_value'] = explode(',', $meeting_info['meeting_participants_value']);
-                }
-
-                if (!empty($meeting_info['meeting_writeperson'])) {
-                    //会议通知撰写人 meeting_writeperson 
-                    $meeting_writeperson = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_writeperson'])))->getField('uid,name', true);
-                    $meeting_info['meeting_writeperson'] = $meeting_writeperson;
-                    //会议通知 撰写人 手输 meeting_writeperson
-                    $meeting_info['meeting_writeperson_value'] = explode(',', $meeting_info['meeting_writeperson_value']);
-                }
-
-                if (!empty($meeting_info['meeting_material_madeperson'])) {
-                    //物料准备人 meeting_material_madeperson 
-                    $meeting_material_madeperson = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_material_madeperson'])))->getField('uid,name', true);
-                    $meeting_info['meeting_material_madeperson'] = $meeting_material_madeperson;
-                    //物料准备人 手输 meeting_material_madeperson
-                    $meeting_info['meeting_material_madeperson_value'] = explode(',', $meeting_info['meeting_material_madeperson_value']);
-                }
-
-                if (!empty($meeting_info['meeting_venue_arrangeperson'])) {
-                    //会场调试布置人 meeting_venue_arrangeperson 
-                    $meeting_venue_arrangeperson = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_venue_arrangeperson'])))->getField('uid,name', true);
-                    $meeting_info['meeting_venue_arrangeperson'] = $meeting_venue_arrangeperson;
-                    //会场调试布置人 手输 meeting_material_madeperson
-                    $meeting_info['meeting_venue_arrangeperson_value'] = explode(',', $meeting_info['meeting_venue_arrangeperson_value']);
-                }
-                if (!empty($meeting_info['meeting_vedio'])) {
-                    //会议摄影摄像 meeting_vedio 
-                    $meeting_vedio = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_vedio'])))->getField('uid,name', true);
-                    $meeting_info['meeting_vedio'] = $meeting_vedio;
-                    //会场调试布置人 手输 meeting_vedio
-                    $meeting_info['meeting_vedio_value'] = explode(',', $meeting_info['meeting_vedio_value']);
-                }
-//                if (!empty($meeting_info['meeting_food_drink'])) {
-//                    //餐饮安排 meeting_food_drink 
-//                    $meeting_food_drink = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_food_drink'])))->getField('uid,name', true);
-//                    $meeting_info['meeting_food_drink'] = $meeting_food_drink;
-//                    //餐饮安排 手输 meeting_food_drink
-//                    $meeting_info['meeting_food_drink_value'] = explode(',', $meeting_info['meeting_food_drink_value']);
-//                }
-
-                if (!empty($meeting_info['meeting_clean_person'])) {
-                    //会场整理人 meeting_clean_person 
-                    $meeting_clean_person = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_clean_person'])))->getField('uid,name', true);
-                    $meeting_info['meeting_clean_person'] = $meeting_clean_person;
-                    //会场整理人 手输 meeting_clean_person
-                    $meeting_info['meeting_clean_person_value'] = explode(',', $meeting_info['meeting_clean_person_value']);
-                }
-                if (!empty($meeting_info['meeting_record_person'])) {
-                    //记录整理人 meeting_record_person 
-                    $meeting_record_person = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_record_person'])))->getField('uid,name', true);
-                    $meeting_info['meeting_record_person'] = $meeting_record_person;
-                    //会场整理人 手输 meeting_clean_person
-                    $meeting_info['meeting_record_person_value'] = explode(',', $meeting_info['meeting_record_person_value']);
-                }
+            $meeting_info = $this->meeting_model->editData($meeting_info);
             //会议类型
             $meeting_type_info = getConfigInfo('meeting_type');
             $this->assign('type_info', $meeting_type_info);
@@ -214,10 +140,60 @@ class MeetingController extends AdminController {
             //会议形式
             $meeting_form_info = getConfigInfo('meeting_form');
             $this->assign('form_info', $meeting_form_info);
+            $meeting_info['file_name'] = pathinfo($meeting_info['meeting_annexes_url'])['filename'];
             $this->assign('meeting_info', $meeting_info);
-
             $this->display('addMeeting');
+        } else {
+            if (!empty($_FILES['file']['name'])) {
+                $config_info = C();
+                //判断上传方式
+                if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
+                    $file_config = $config_info['FTP_MEETING'];
+                    $result = $upload_obj->ftpUpload($file_config);
+                    $path = $result['file']['path'];
+                } else { //普通上传
+                    $file_config = $config_info['FILE_MEETING'];
+                    $result = $upload_obj->normalUpload($file_config);
+                    $path = $result['rootPath'] . $result['info']['file']['savepath'] . $result['info']['file']['savename'];
+                }
+                $meeting_info['meeting_annexes_url'] = $path;
+            }
+            $save_flag = $this->meeting_model->addMeeting($meeting_info, $meeting_id);
+            if ($save_flag !== false) {
+                $this->success(C('COMMON.SUCCESS_EDIT')['status'], U('/Manage/Meeting/selectMeeting'));
+            } else {
+                $this->error(C('COMMON.ERROR_EDIT.status')['status'], U('/Manage/Meeting/selectMeeting'));
+            }
         }
+    }
+
+    /**
+     *  会议详情
+     * @param meeting_id 会议id
+     * @author lishuaijie
+     * @return 显示页面 Description
+     * @date  2016/09/26
+     */
+    public function showMeeting() {
+        $meeting_id = I('meeting_id');
+        $config_mod = D('config_system');
+        $meeting_info = $this->meeting_model->where(array('meeting_id' => $meeting_id, 'meeting_state' => 1))->find();
+        $meeting_info = $this->meeting_model->editData($meeting_info);
+        $meeting_info['file_name'] = pathinfo($meeting_info['meeting_annexes_url'])['filename'];
+        //会议类型
+        $meeting_info['meeting_type'] = $config_mod
+                ->where(array('config_key' => 'meeting_type', 'config_value' => $meeting_info['meeting_type']))
+                ->getField('config_descripion');
+        //会议级别
+        $meeting_info['meeting_level'] = $config_mod
+                ->where(array('config_key' => 'meeting_level', 'config_value' => $meeting_info['meeting_level']))
+                ->getField('config_descripion');
+        //会议形式
+        $meeting_info['meeting_form'] = $config_mod
+                ->where(array('config_key' => 'meeting_form', 'config_value' => $meeting_info['meeting_form']))
+                ->getField('config_descripion');
+        $this->assign('meeting_info',$meeting_info);
+        $this->display();
     }
 
 }

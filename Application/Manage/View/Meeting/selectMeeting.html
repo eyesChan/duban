@@ -56,7 +56,7 @@
                             {$item.meeting_moderator_value}</td>
                         <td>{$item.meeting_place}</td>
                         <td>
-                            <input type="button" value="详细" class="btn btn-r btn-xl button">
+                            <input type="button" value="详细" onclick="showMeeting({$item.meeting_id})" class="btn btn-r btn-xl button">
                             <input type="button" value="编辑" onclick="edit({$item.meeting_id})" class="btn btn-r btn-xl button">
                             <input type="button" value="删除" class="btn btn-r btn-xl button">
                         </td>
@@ -79,6 +79,10 @@
         //跳转编辑页面
         function edit(id){
             location.href = "{:U('/Manage/Meeting/edit/meeting_id/"+id+"')}"
+        }
+        //详情页面
+        function showMeeting(id){
+            location.href = "{:U('/Manage/Meeting/showMeeting/meeting_id/"+id+"')}"
         }
     </script> 
 </block>

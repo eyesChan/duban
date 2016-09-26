@@ -1,9 +1,8 @@
 <extend name="Public:base" />
-<block name="title"><title>会议创建</title></block>
+<block name="title"><title>会议详细信息</title></block>
 
 <block name="right">
     <css href="__PUBLIC__/css/meeting.css"/>
-    <form action="<if condition='$meeting_info.meeting_id '>{:U(edit)}<else />{:U(addMeeting)}</if>" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
             <colgroup>
                 <col width="12%">
@@ -18,63 +17,43 @@
             <tr>
                 <td class="cap"><span class="rq">*</span>会议名称：</td>
                 <td colspan="5">
-                    <input type="text" name='meeting[meeting_name]' value="{$meeting_info.meeting_name}" class="input-text text">
+                    {$meeting_info.meeting_name}
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议类型：</td>
                 <td>
-                    <select name='meeting[meeting_type]'>
-                        <foreach item='item' name='type_info'>
-                            <option value="{$item.config_value}" <if condition="$item.config_value eq $meeting_info.meeting_type ">selected=true</if> >{$item.config_descripion}</option>
-                        </foreach>
-                    </select>
+                    {$meeting_info.meeting_type}
                 </td>
                 <td class="cap">会议级别：</td>
                 <td colspan="3">
-                    <select name='meeting[meeting_level]'>
-                        <foreach item='item' name='level_info'>
-                            <option value="{$item.config_value}" <if condition="$item.config_value eq $meeting_info.meeting_level ">selected=true </if>>{$item.config_descripion}</option>
-                        </foreach>
-                    </select>
+                    {$meeting_info.meeting_level}
                 </td>
             </tr>
             <tr>
                 <td class="cap">召集人：</td>
                 <td>
-                    <select data='meeting[meeting_callman]' class="selectItem">
-                        <foreach name="user_info" item="item">
-                            <option value="{$item.uid}">{$item.name}</option>
-
-                        </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addCallman" value="添加">
-                    <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
                         <foreach name="meeting_info.meeting_callman" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_callman][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
                         <foreach name="meeting_info.meeting_callman_value" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_callman][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
                     </div>
                 </td>
                 <td class="cap">主持人：</td>
                 <td colspan="3">
-                    <select data='meeting[meeting_moderator]'  class="selectItem">
-                        <foreach name="user_info" item="item">
-                            <option value="{$item.uid}">{$item.name}</option>
-
-                        </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addModerator" value="添加">
-                    <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
                         <foreach name="meeting_info.meeting_moderator" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_moderator][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
                         <foreach name="meeting_info.meeting_moderator_value" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_moderator][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
                     </div>
                 </td>
@@ -82,28 +61,19 @@
             <tr>
                 <td class="cap">会议形式：</td>
                 <td>
-                    <select name='meeting[meeting_form]'>
-                        <foreach item='item' name='form_info'>
-                            <option value="{$item.config_value}" <if condition="$item.config_value eq $meeting_info.meeting_form ">selected=true </if>>{$item.config_descripion}</option>
-                        </foreach>
-                    </select>
+                        {$meeting_info.meeting_form}
                 </td>
                 <td class="cap">参会人员：</td>
                 <td>
-                    <select data='meeting[meeting_participants]' class="selectItem">
-                        <foreach name="user_info" item="item">
-                            <option value="{$item.uid}">{$item.name}</option>
-                        </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addParticipants" value="添加">
-                    <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
                         <div class="person-content clear">
                             <foreach name="meeting_info.meeting_participants" key="$key" item="item">
-                                <div class="person fl"><input type="hidden" name="meeting[meeting_participants][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                                <div class="person fl"><span>{$item}</span></div>
+                                <br/>
                             </foreach>
                             <foreach name="meeting_info.meeting_participants_value" key="$key" item="item">
-                                <div class="person fl"><input type="hidden" name="meeting[meeting_participants][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                                <div class="person fl"><span>{$item}</span></div>
+                                <br/>
                             </foreach>
                         </div>
 
@@ -111,168 +81,143 @@
                 </td>
                 <td class="cap">参会模式：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_scale]' value="{$meeting_info.meeting_scale}" class="input-text text">
+                    {$meeting_info.meeting_scale}
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议日期：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_date]'  id="date1" value="{$meeting_info.meeting_date}" onfocus="WdatePicker({startDate: '%y-%M-%d'})" class="Wdate input-text fl">
+                    {$meeting_info.meeting_date}
                 </td>
                 <td class="cap">会议时刻：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_time]' id="date2" value="{$meeting_info.meeting_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl"/>
+                    {$meeting_info.meeting_time}
                 </td>
                 <td class="cap">会议时长：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_timelong]' value="{$meeting_info.meeting_timelong}" class="input-text text">
+                    {$meeting_info.meeting_timelong}
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议地点：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_place]' value="{$meeting_info.meeting_place}" class="input-text text">
+                    {$meeting_info.meeting_place}
                 </td>
                 <td class="cap">交办日期：</td>
                 <td colspan="3">
-                    <input type="text" name='meeting[meeting_assigned_date]' value="{$meeting_info.meeting_assigned_date}" id="date3" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d'})" class="Wdate input-text fl">
+                    {$meeting_info.meeting_assigned_date}
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议通知撰写人：</td>
                 <td>
-                    <select data='meeting[meeting_writeperson]' class="selectItem">
-                        <foreach name="user_info" item="item">
-                            <option value="{$item.uid}">{$item.name}</option>
-
-                        </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addWriteperson" value="添加">
-                    <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
                         <foreach name="meeting_info.meeting_writeperson" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_writeperson][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
                         <foreach name="meeting_info.meeting_writeperson_value" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_writeperson][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
 
                     </div>
                 </td>
                 <td class="cap">通知发送日期：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_sendnotice_date]' value="{$meeting_info.meeting_sendnotice_date}" id="date4" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    {$meeting_info.meeting_sendnotice_date}
                 </td>
                 <td class="cap">通知时刻：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_notice_date]' value="{$meeting_info.meeting_notice_date}" id="date5" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl"/>
+                    {$meeting_info.meeting_notice_date}
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议材料收集：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_material_collect_person]' value="{$meeting_info.meeting_material_collect_person}" class="input-text text">
+                    {$meeting_info.meeting_material_collect_person}
                 </td>
                 <td class="cap">材料收集时间：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_material_collect_date]' value="{$meeting_info.meeting_material_collect_date}" id="d4311"  onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00', dateFmt: 'yyyy-MM-dd', alwaysUseStartDate: true, maxDate: $('#d4312').val()})" class="Wdate input-text fl">
+                    {$meeting_info.meeting_material_collect_date}
                 </td>
                 <td class="cap">材料提交时间：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_material_send_date]' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
+                    {$meeting_info.meeting_material_send_date}
                 </td>
             </tr>
             <tr>
                 <td class="cap">物料准备人：</td>
                 <td>
-                    <select data='meeting[meeting_material_madeperson]' class="selectItem">
-                        <foreach name="user_info" item="item">
-                            <option value="{$item.uid}">{$item.name}</option>
-
-                        </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addMadeperson" value="添加">
-                    <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
                         <foreach name="meeting_info.meeting_material_madeperson" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_material_madeperson][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
                         <foreach name="meeting_info.meeting_material_madeperson_value" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_material_madeperson][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
 
                     </div>
                 </td>
                 <td class="cap">会场布置调试人：</td>
                 <td>
-                    <select data='meeting[meeting_venue_arrangeperson]' class="selectItem">
-                        <foreach name="user_info" item="item">
-                            <option value="{$item.uid}">{$item.name}</option>
-
-                        </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addArrangeperson" value="添加">
-                    <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
                         <foreach name="meeting_info.meeting_venue_arrangeperson" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_venue_arrangeperson][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
                         <foreach name="meeting_info.meeting_venue_arrangeperson_value" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_venue_arrangeperson][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
 
                     </div>
                 </td>
                 <td class="cap">测试日期：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_try_date]' id="date8" value="{$meeting_info.meeting_try_date}" onfocus="WdatePicker({startDate: '%y-%M-%d'})" class="Wdate input-text fl">
+                    {$meeting_info.meeting_try_date}
                 </td>
             </tr>
             <tr>
                 <td class="cap">测试时间：</td>
                 <td>
-                    <input type="text" id="date9" name='meeting[meeting_try_time]' value="{$meeting_info.meeting_try_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl"/>
+                    {$meeting_info.meeting_try_time}
                 </td>
                 <td class="cap">问题明细：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_qusetion_detail]' value="{$meeting_info.meeting_qusetion_detail}" class="input-text text">
+                    {$meeting_info.meeting_qusetion_detail}
                 </td>
                 <td class="cap">解决状态：</td>
                 <td>
-                    <select name='meeting[meeting_fix_state]' >
-                        <option value='1' <if condition="$meeting_info.meeting_fix_state eq 1">selected=true</if> >解决</option>
-                        <option value='2' <if condition="$meeting_info.meeting_fix_state eq 2">selected=true</if> >未解决</option>
-                        <option value='3' <if condition="$meeting_info.meeting_fix_state eq 3">selected=true</if> >处理中</option>
-                    </select>
+                          <if condition="$meeting_info.meeting_fix_state eq 1">解决</if>   
+                          <if condition="$meeting_info.meeting_fix_state eq 2">未解决</if> 
+                         <if condition="$meeting_info.meeting_fix_state eq 3">处理中</if>  
                 </td>
             </tr>
             <tr>
                 <td class="cap">会议摄影摄像：</td>
                 <td>
-                    <select data='meeting[meeting_vedio]' class="selectItem">
-                        <foreach name="user_info" item="item">
-                            <option value="{$item.uid}">{$item.name}</option>
-                        </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addMeetingVedio" value="添加">
-                    <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
                         <foreach name="meeting_info.meeting_vedio" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_vedio][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
                         <foreach name="meeting_info.meeting_vedio_value" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_vedio][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
 
                     </div>
                 </td>
                 <td class="cap">会议结束时间：</td>
                 <td>
-                    <input type="text" id="date9" name='meeting[meeting_end_date]' value="{$meeting_info.meeting_end_date}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl"/>
+                    {$meeting_info.meeting_end_date}
                 </td>
                 <td class="cap">会议结束时刻：</td>
                 <td>
-                    <input type="text" name='meeting[meeting_end_time]' value="{$meeting_info.meeting_end_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" class="input-text text">
+                    {$meeting_info.meeting_end_time}
                 </td>
             </tr>
             <tr>
@@ -290,40 +235,28 @@
                 </td>
                 <td class="cap">会场整理人：</td>
                 <td >
-                    <select data='meeting[meeting_clean_person]' class="selectItem">
-                        <foreach name="user_info" item="item">
-                            <option value="{$item.uid}">{$item.name}</option>
-
-                        </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addCleanPerson" value="添加">
-                    <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
                         <foreach name="meeting_info.meeting_clean_person" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_clean_person][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br/>
                         </foreach>
                         <foreach name="meeting_info.meeting_clean_person_value" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_clean_person][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                            <div class="person fl"><span>{$item}</span></div>
+                            <br>
                         </foreach>
-
                     </div>
                 </td>    
                 <td class="cap">记录整理人：</td>
                 <td >
-                    <select data='meeting[meeting_record_person]' class="selectItem">
-                        <foreach name="user_info" item="item">
-                            <option value="{$item.uid}">{$item.name}</option>
-
-                        </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addRecordPerson" value="添加">
-                    <input type="text" class="hide hide-input" >
+ 
                     <div class="person-content clear">
                         <foreach name="meeting_info.meeting_record_person" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_record_person][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                             <div class="person fl"><span>{$item}</span></div>
+                           <br>
                         </foreach>
                         <foreach name="meeting_info.meeting_record_person_value" key="$key" item="item">
-                            <div class="person fl"><input type="hidden" name="meeting[meeting_record_person][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                             <div class="person fl"><span>{$item}</span></div>
+                            <br>
                         </foreach>
 
                     </div>
@@ -332,9 +265,7 @@
             <tr>
                 <td class="cap">会议记录：</td>
                 <td colspan='5'>
-                    <textarea name="meeting[meeting_content]" value="{$meeting_info.meeting_content}" style="width: 80%; height: 100px;border: 1px solid #ededed;">
                       {$meeting_info.meeting_content}  
-                    </textarea>    
                 </td>
             </tr>
             <tr>
@@ -345,16 +276,13 @@
                         <option value="1">张三</option>
                         <option value="2">赵四</option>
                     </select>
-                    <input type="button" class="btn btn-r btn-xl button addLedgerRePerson" value="添加">
-                    <input type="text" class="hide hide-input" >
-                    <div class="person-content clear"></div>
+                   
                 </td>
 
             </tr>
             <tr>
                 <td class="cap">上传附件：</td>
                 <td colspan="5">
-                    <input type="file" name='file'>
                     <if condition="$meeting_info.meeting_annexes_url ">
                         <a href="{$meeting_info.meeting_annexes_url}">{$meeting_info.file_name}</a>
                     </if>
@@ -362,11 +290,8 @@
             </tr>
         </table>
         <div class="text-center">
-            <input type="hidden" name="meeting_id" value="{$meeting_info.meeting_id}">
-            <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
-            <input class="btn ml10 button btn-normal" type="button" value="取消"/>
+            <input class="btn btn-red mr10 submit" type="button" value="返回"/>
         </div>
-    </form>
     <script type="text/javascript">
         $(".selectItem").each(function () {
             if ($(this).val() == "-100") {

@@ -2,8 +2,12 @@
 <block name="title"><title>文档发布</title></block>
 <block name="right">
     <css href="__PUBLIC__/css/meeting.css"/>
-    <div class="role-padding container-padding">
-        <div class="filter-main clear">  
+   <form method="post" action="{:U(exportFile)}">
+    <input type="submit" value="导出记录" class="btn btn-r btn-xl button">
+    <input  type="hidden" name="export_file" value="{$export_file}">
+   </form>
+    <div class="role-padding container-padding">     
+        <div class="filter-main clear">              
             <form method="post" action="{:U(index)}">
                 <table class="tbl">
                     <tr>
@@ -50,9 +54,9 @@
                                 <th>备注</th>
                                 <th>操作</th>
                             </tr>
-	            </thead>
-	        
+	            </thead>	        
 	        <tbody>	
+           
                     <foreach name="list" item="item">
 	        	<tr>
                                 <td>{$item.doc_name}</td>
@@ -86,5 +90,4 @@
         </div>
     <js href="__PUBLIC__/Js/docFile.js"/>    
 </block>
- 
 

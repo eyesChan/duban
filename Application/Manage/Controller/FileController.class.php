@@ -88,6 +88,10 @@ class FileController extends AdminController {
         foreach ($param as $key => $val) {
             $page->parameter[$key] = $val;
         }
+        //数组转换为字符串
+        $export_file=  json_encode($list);
+        $export_file= base64_encode($export_file);
+        $this->assign('export_file',$export_file);
         $show = $page->show();
         $this->assign('list', $list);
         $this->assign('page', $show);
@@ -107,7 +111,6 @@ class FileController extends AdminController {
         if (!empty($data)) {
             if (!empty($_FILES)) {
                 $size = $this->filesize($_FILES);
-                // P($size);die;
                 if (!empty($size)) {
                     $upload_obj = new MeetingUplod();
                     $config_info = C();
@@ -158,6 +161,7 @@ class FileController extends AdminController {
     public function delFile() {
         $doc_id = I('doc_id');
         $result = $this->filedoc->delFiledoc($doc_id);
+      //  writeOperationLog('文档管理撤回', 0);
         $this->ajaxReturn($result);
     }
     
@@ -216,5 +220,26 @@ class FileController extends AdminController {
                 }
             }
         }       
+    }
+    
+ /*
+  * 文档导出
+  */
+    public function exportFile(){
+        $export_file =I('export_file');
+        $export_file=  base64_decode($export_file, true);
+        $data=json_decode($export_file,true);    
+        $work = $this->filedoc->getExecl($data);    
+        $headArr = array('文档名称',
+                        '文档类型',
+                        '发布人',
+                        '发布时间',
+                        '生效时间',
+                        '失效时间',
+                        '可见范围',
+                        '权限设定',
+                        '备注'
+                );
+            getExcel($headArr, $work);
     }
 }

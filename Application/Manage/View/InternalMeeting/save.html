@@ -2,122 +2,122 @@
 <block name="title"><title>文档创建</title></block>
  
 <block name="right">
-    <form action="{:U(add)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
+    <form action="{:U(save)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
             <caption>会议基本信息</caption>
           
             <tr>
                 <td class="cap">项目名称：</td>
                <td>
-                     <input type="text" name='internal_name' class="input-text text">
+                     <input type="text" name='internal_name' value="{$onedata.internal_name}" class="input-text text">
                 </td>
                 <td class="cap">交办人：</td>
                 <td>
-                     <input type="text" name='internal_assigned_person' class="input-text text">
+                     <input type="text" name='internal_assigned_person'  value="{$onedata.internal_name}" class="input-text text">
                 </td>
                  <td class="cap">交办时间：</td>
                  <td>
-                      <input type="text" name='internal_assigned_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                      <input type="text" name='internal_assigned_date'  value="{$onedata.internal_name}"  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
                 
             </tr> 
              <tr>
                 <td class="cap">负责人：</td>
                 <td>
-                     <input type="text" name='internal_responsible_person' class="input-text text">
+                     <input type="text" name='internal_responsible_person'  value="{$onedata.internal_name}" class="input-text text">
                 </td>
                 <td class="cap">会议名称：</td>
                 <td>
-                     <input type="text" name='internal_meeting_name' class="input-text text">
+                     <input type="text" name='internal_meeting_name'  value="{$onedata.internal_name}"  class="input-text text">
                 </td>
                  <td class="cap">会议时间：</td>
                 <td>
-                      <input type="text" name='internal_meeting_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                      <input type="text" name='internal_meeting_date'  id="date2" value="{$onedata.internal_meeting_date}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
             </tr>  
             <tr>
                 <td class="cap">会议地点：</td>
                 <td>
-                     <input type="text" name='internal_meeting_place' class="input-text text">
+                     <input type="text" name='internal_meeting_place'  value="{$onedata.internal_meeting_place}"  class="input-text text">
               </td>
                 <td class="cap">会议形式：</td>
                 <td>
                       <select name='internal_meeting_form'>
-                            <option value="现场">现场</option>
-                            <option value="视频">视频</option>
-                            <option value="电话">电话</option>
+                            <option  <if condition="$onedata['internal_meeting_form'] eq '现场' ">selected</if> value="现场">现场</option>
+                            <option  <if condition="$onedata['internal_meeting_form'] eq '视频' ">selected</if> value="视频">视频</option>
+                            <option  <if condition="$onedata['internal_meeting_form'] eq '电话' ">selected</if> value="电话">电话</option>
                     </select>
                </td>
                <td class="cap">会议类型：</td>
                 <td>
                       <select name="internal_meeting_type">
-                        <option value="创新工作会议">创新工作会议</option>
-                        <option value="CEO办公会议">CEO办公会议</option>
-                        <option value="周会">周会</option>
-                        <option value="月度会议">月度会议</option>
-                        <option value="季度生产经营会议">季度生产经营会议</option>
-                        <option value="年中工作会议">年中工作会议</option>
-                        <option value="战略预算会议">战略预算会议</option>
-                        <option value="专题会议">专题会议</option>
-                        <option value="年终工作会议">年终工作会议</option>
-                        <option value="职能体系联席会议">职能体系联席会议</option>
-                        <option value="会谈会见">会谈会见</option>
-                        <option value="其他（讲座、培训等)">其他（讲座、培训等)</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '创新工作会议' ">selected</if> value="创新工作会议">创新工作会议</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq 'CEO办公会议' ">selected</if> value="CEO办公会议">CEO办公会议</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '周会' ">selected</if> value="周会">周会</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '月度会议' ">selected</if> value="月度会议">月度会议</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '季度生产经营会议' ">selected</if> value="季度生产经营会议">季度生产经营会议</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '年中工作会议' ">selected</if> value="年中工作会议">年中工作会议</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '战略预算会议' ">selected</if> value="战略预算会议">战略预算会议</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '专题会议' ">selected</if> value="专题会议">专题会议</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '年终工作会议' ">selected</if> value="年终工作会议">年终工作会议</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '职能体系联席会议' ">selected</if> value="职能体系联席会议">职能体系联席会议</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '会谈会见' ">selected</if> value="会谈会见">会谈会见</option>
+                        <option <if condition="$onedata['internal_meeting_type'] eq '其他（讲座、培训等)' ">selected</if> value="其他（讲座、培训等)">其他（讲座、培训等)</option>
                       </select>
             </tr>
              <tr>
                 <td class="cap">会议级别：</td>
                 <td>
                 <select name="internal_meeting_level">
-                    <option value="集团">集团</option>
-                    <option value="产业集团">产业集团</option>
-                    <option value="公司">公司</option>
-                    <option value="部门">部门</option>
+                    <option <if condition="$onedata['internal_meeting_level'] eq '集团' ">selected</if> value="集团">集团</option>
+                    <option <if condition="$onedata['internal_meeting_level'] eq '产业集团' ">selected</if> value="产业集团">产业集团</option>
+                    <option <if condition="$onedata['internal_meeting_level'] eq '公司' ">selected</if> value="公司">公司</option>
+                    <option <if condition="$onedata['internal_meeting_level'] eq '部门' ">selected</if> value="部门">部门</option>
                 </select>
                 </td>
                 
                 <td class="cap">密级：</td>
                 <td>
                     <select name='internal_meeting_dense'>
-                            <option value="普通">普通</option>
-                            <option value="秘密">秘密</option>
-                            <option value="机密">机密</option>
-                            <option value="绝密">绝密</option>
+                            <option <if condition="$onedata['internal_meeting_dense'] eq '普通' ">selected</if> value="普通">普通</option>
+                            <option <if condition="$onedata['internal_meeting_dense'] eq '秘密' ">selected</if> value="秘密">秘密</option>
+                            <option <if condition="$onedata['internal_meeting_dense'] eq '机密' ">selected</if> value="机密">机密</option>
+                            <option <if condition="$onedata['internal_meeting_dense'] eq '绝密' ">selected</if> value="绝密">绝密</option>
                             
                     </select>
                 </td>
                  <td class="cap">召集人：</td>
                 <td>
-                     <input type="text" name='internal_call_man' class="input-text text">
+                     <input type="text" name='internal_call_man' value="{$onedata.internal_call_man}"  class="input-text text">
               </td>
             </tr>
                 <tr>
                 <td class="cap">主持人：</td>
                <td>
-                     <input type="text" name='internal_host' class="input-text text">
+                     <input type="text" name='internal_host' value="{$onedata.internal_host}"  class="input-text text">
                 </td>
                 <td class="cap">参会人员：</td>
                 <td>
-                     <input type="text" name='internal_participants' class="input-text text">
+                     <input type="text" name='internal_participants' value="{$onedata.internal_participants}"  class="input-text text">
                 </td>
                  <td class="cap">工作人员：</td>
                  <td>
-                     <input type="text" name='internal_work_ren' class="input-text text">
+                     <input type="text" name='internal_work_ren' value="{$onedata.internal_work_ren}"  class="input-text text">
                 </td>
                 
             </tr> 
              <tr>
                 <td class="cap">议程安排：</td>
                 <td>
-                     <input type="text" name='internal_meeting_arrange' class="input-text text">
+                     <input type="text" name='internal_meeting_arrange' value="{$onedata.internal_meeting_arrange}"  class="input-text text">
                 </td>
                 <td class="cap">开始时间：</td>
                 <td>
-                     <input type="text" name='internal_meeting_start_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                     <input type="text" name='internal_meeting_start_date' value="{$onedata.internal_meeting_start_date}"   id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
                  <td class="cap">结束时间：</td>
                 <td>
-                      <input type="text" name='internal_meeting_stop_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                      <input type="text" name='internal_meeting_stop_date' value="{$onedata.internal_meeting_stop_date}"   id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
             </tr> 
         </table>
@@ -127,18 +127,18 @@
              <tr>
                  <td class="cap">议程责任人：</td>
                 <td >
-                   <input type="text" name='internal_meeting_responsible_person' class="input-text text">
+                   <input type="text"  value="{$onedata.internal_meeting_responsible_person}" name='internal_meeting_responsible_person' class="input-text text">
                 </td>
                <td class="cap">是否预定会议室：</td>
                 <td>
-                   <input type="text" name='internal_reserve_name' class="input-text text">
+                   <input type="text"  value="{$onedata.internal_reserve_name}" name='internal_reserve_name' class="input-text text">
                 </td>
                  <td class="cap">议程报批状况：</td>
                 <td>
                         <select name="internal_meeting_bao_state">
-                        <option value="完成">完成</option>
-                        <option value="报批中">报批中</option>
-                        <option value="未报批">未报批</option>
+                        <option <if condition="$onedata['internal_meeting_bao_state'] eq '完成' ">selected</if> value="完成">完成</option>
+                        <option <if condition="$onedata['internal_meeting_bao_state'] eq '报批中' ">selected</if> value="报批中">报批中</option>
+                        <option <if condition="$onedata['internal_meeting_bao_state'] eq '未报批' ">selected</if> value="未报批">未报批</option>
                       </select>
                 </td>
             </tr>
@@ -148,15 +148,15 @@
              <tr>
                  <td class="cap">发布会议通知：</td>
                 <td>
-                    <input type="text" name='internal_send_meeting_notice' class="input-text text">
+                    <input type="text"  value="{$onedata.internal_send_meeting_notice}" name='internal_send_meeting_notice' class="input-text text">
                 </td>
                  <td class="cap">通知材料准备：</td>
                 <td>
-                    <input type="text" name='internal_notice_ready' class="input-text text">
+                    <input type="text"  value="{$onedata.internal_notice_ready}" name='internal_notice_ready' class="input-text text">
                 </td>
                  <td class="cap">通知服务单位保障：</td>
                 <td>
-                    <input type="text" name='internal_notice_company' class="input-text text">
+                    <input type="text"  value="{$onedata.internal_notice_company}" name='internal_notice_company' class="input-text text">
                 </td>
              </tr>
         </table>
@@ -166,26 +166,26 @@
               <tr>
                  <td class="cap">材料收集：</td>
                 <td>
-                    <input type="text" name='internal_material_person' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_material_person}" name='internal_material_person' class="input-text text" placeholder="责任人">
                 </td>
                  <td class="cap">通知日期：</td>
                 <td>
-                   <input type="text" name='internal_notice_start_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
+                   <input type="text" value="{$onedata.internal_notice_start_date}"  name='internal_notice_start_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
                 </td>
                  <td class="cap">通知时间：</td>
                 <td>
-                     <input type="text" name='internal_notice_start_time' value="{$meeting_info.meeting_end_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" class="input-text text">
+                     <input type="text"  value="{$onedata.internal_notice_start_time}" name='internal_notice_start_time' value="{$meeting_info.meeting_end_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" class="input-text text">
                 </td>
              </tr>
               <tr>
                  <td class="cap">通知截止日期：</td>
                 <td>
-                    <input type="text" name='internal_notice_stop_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
+                    <input type="text"  value="{$onedata.internal_notice_stop_date}" name='internal_notice_stop_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
                 </td>
                  <td class="cap">通知截止时间：</td>
                 <td>
                      
-                     <input type="text" name='internal_notice_stop_time' value="{$meeting_info.meeting_end_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" class="input-text text">
+                     <input type="text"  value="{$onedata.internal_notice_stop_time}" name='internal_notice_stop_time' value="{$meeting_info.meeting_end_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" class="input-text text">
                 </td>
             </tr>
                 </td>
@@ -194,8 +194,8 @@
                  <td class="cap">违规：</td>
                 <td>
                 <select name="internal_misdeed">
-              <option value="是">是</option>
-              <option value="否">否</option>
+              <option <if condition="$onedata['internal_misdeed'] eq '是' ">selected</if>  value="是">是</option>
+              <option <if condition="$onedata['internal_misdeed'] eq '否' ">selected</if>  value="否">否</option>
             </select>
                 </td>
              </tr>
@@ -204,17 +204,17 @@
                       <td class="cap">违规类别（晚交/质量）：</td>
                 <td>
                 <select name="internal_misdeed_type">
-              <option value="质量">质量</option>
-              <option value="晚交">晚交</option>
+              <option  <if condition="$onedata['internal_misdeed_type'] eq '质量' ">selected</if>  value="质量">质量</option>
+              <option  <if condition="$onedata['internal_misdeed_type'] eq '晚交' ">selected</if>  value="晚交">晚交</option>
             </select>
                 </td>
                  <td class="cap">发送会议材料：</td>
                 <td>
-                    <input type="text" name='internal_get_meeting_person' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_get_meeting_person}" name='internal_get_meeting_person' class="input-text text" placeholder="责任人">
                 </td>
                  <td class="cap">打印材料：</td>
                 <td>
-                      <input type="text" name='internal_print_person' class="input-text text" placeholder="责任人">
+                      <input type="text" value="{$onedata.internal_print_person}"  name='internal_print_person' class="input-text text" placeholder="责任人">
                 </td>
               
              </tr>
@@ -226,43 +226,43 @@
              <tr>
                  <td class="cap">摆放桌牌：</td>
                 <td>
-                    <input type="text" name='internal_bai_person' class="input-text text"  placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_bai_person}" name='internal_bai_person' class="input-text text"  placeholder="责任人">
                 </td>
                  <td class="cap">背景板设计：</td>
                 <td>
-                    <input type="text" name='internal_bei_person' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_bei_person}" name='internal_bei_person' class="input-text text" placeholder="责任人">
                 </td>
                  <td class="cap">背景板：</td>
                 <td>
-                    <input type="text" name='internal_beiban' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_beiban}" name='internal_beiban' class="input-text text" placeholder="责任人">
                 </td>
              </tr>
                <tr>
                  <td class="cap">回报台：</td>
                 <td>
-                    <input type="text" name='internal_hui_person' class="input-text text"  placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_hui_person}" name='internal_hui_person' class="input-text text"  placeholder="责任人">
                 </td>
                  <td class="cap">测试话筒：</td>
                 <td>
-                    <input type="text" name='internal_cehua_person' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_cehua_person}" name='internal_cehua_person' class="input-text text" placeholder="责任人">
                 </td>
                  <td class="cap">测试视频：</td>
                 <td>
-                    <input type="text" name='internal_cevideo_person' class="input-text text" placeholder="责任人">
+                    <input type="text" value="{$onedata.internal_cevideo_person}"  name='internal_cevideo_person' class="input-text text" placeholder="责任人">
                 </td>
              </tr>
                <tr>
                  <td class="cap">测试音频：</td>
                 <td>
-                    <input type="text" name='internal_cemp_person' class="input-text text"  placeholder="责任人">
+                    <input type="text" value="{$onedata.internal_cemp_person}"  name='internal_cemp_person' class="input-text text"  placeholder="责任人">
                 </td>
                  <td class="cap">测试翻页器：</td>
                 <td>
-                    <input type="text" name='internal_cefan_person' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_cefan_person}" name='internal_cefan_person' class="input-text text" placeholder="责任人">
                 </td>
                  <td class="cap">录音笔：</td>
                 <td>
-                    <input type="text" name='internal_recorder_person' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_recorder_person}" name='internal_recorder_person' class="input-text text" placeholder="责任人">
                 </td>
              
              </tr>
@@ -270,7 +270,7 @@
                 
                  <td class="cap">准备茶水：</td>
                 <td>
-                    <input type="text" name='internal_ready_person' class="input-text text" placeholder="责任人">
+                    <input type="text" value="{$onedata.internal_ready_person}"  name='internal_ready_person' class="input-text text" placeholder="责任人">
                 </td>
              
              </tr>
@@ -281,18 +281,18 @@
                  <td class="cap">是否出现问题：</td>
                 <td>
                    <select name="internal_whether_problem">
-                <option value="是">是</option>
-                <option value="否">否</option>
+                <option <if condition="$onedata['internal_whether_problem'] eq '是' ">selected</if>  value="是">是</option>
+                <option <if condition="$onedata['internal_whether_problem'] eq '否' ">selected</if>  value="否">否</option>
               </select>
                 </td>
                  <td class="cap">问题类型：</td>
                 <td>
-                    <select name="internal_problem_type">
-                <option value="无">无</option>
-                <option value="视频连接中断">视频连接中断</option>
-                <option value="麦克风无声音">麦克风无声音</option>
-                <option value="会议材料不完整">会议材料不完整</option>
-                <option value="与会领导未通知">与会领导未通知</option>
+                <select name="internal_problem_type">
+                <option <if condition="$onedata['internal_problem_type'] eq '是无' ">selected</if> value="无">无</option>
+                <option <if condition="$onedata['internal_problem_type'] eq '视频连接中断' ">selected</if> value="视频连接中断">视频连接中断</option>
+                <option <if condition="$onedata['internal_problem_type'] eq '麦克风无声音' ">selected</if> value="麦克风无声音">麦克风无声音</option>
+                <option <if condition="$onedata['internal_problem_type'] eq '会议材料不完整' ">selected</if> value="会议材料不完整">会议材料不完整</option>
+                <option <if condition="$onedata['internal_problem_type'] eq '与会领导未通知' ">selected</if> value="与会领导未通知">与会领导未通知</option>
               </select>
                 </td>            
              </tr>
@@ -302,17 +302,17 @@
              <tr>
                  <td class="cap">纪要拟定责任人：</td>
                 <td>
-                    <input type="text" name='internal_summary_person' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_summary_person}" name='internal_summary_person' class="input-text text" placeholder="责任人">
                 </td>
                  <td class="cap">纪要报批进度：</td>
                 <td>
-                    <input type="text" name='internal_summary_speed' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_summary_speed}" name='internal_summary_speed' class="input-text text" placeholder="责任人">
                 </td>
                  <td class="cap">是否已下发：</td>
                 <td>
                      <select name="internal_whether_issued">
-                <option value="是">是</option>
-                <option value="否">否</option>
+               <option <if condition="$onedata['internal_whether_issued'] eq '是' ">selected</if>  value="是">是</option>
+                <option <if condition="$onedata['internal_whether_issued'] eq '否' ">selected</if>  value="否">否</option>
               </select>
                 </td>
                
@@ -321,17 +321,17 @@
                  <td class="cap">会议材料是否归档：</td>
                 <td>
                      <select name="internal_meeting_speed">
-                <option value="是">是</option>
-                <option value="否">否</option>
+                <option <if condition="$onedata['internal_meeting_speed'] eq '是' ">selected</if>  value="是">是</option>
+                <option <if condition="$onedata['internal_meeting_speed'] eq '否' ">selected</if>  value="否">否</option>
               </select>
                 </td>
                  <td class="cap">归档接受人：</td>
                 <td>
-                    <input type="text" name='internal_file_person' class="input-text text" placeholder="责任人">
+                    <input type="text"  value="{$onedata.internal_file_person}" name='internal_file_person' class="input-text text" placeholder="责任人">
                 </td>
                  <td class="cap">归档日期：</td>
                 <td>
-                    <input type="text" name='internal_notice_stop_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
+                    <input type="text"  value="{$onedata.internal_notice_stop_date}" name='internal_notice_stop_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
                 </td>
                
              </tr>
@@ -341,7 +341,7 @@
              <tr>
                <td class="cap">改进建议：</td>
                 <td>
-                 <textarea class="textarea" name="internal_proposal"></textarea>
+                 <textarea class="textarea" name="internal_proposal"> {$onedata.internal_proposal}</textarea>
                 </td>
             </tr>
     

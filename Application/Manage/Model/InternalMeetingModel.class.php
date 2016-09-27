@@ -121,5 +121,64 @@ class InternalMeetingModel  extends Model{
               ->find();
         return $internal;
     }
+    /*
+     * 导出公司execl
+     */
+    public function getExecl(){
+        $internal = D('internalmeeting')->select();
+        $count = count($internal);
+        for($i=0; $i<=$count; $i++){
+            unset($internal[$i]['internal_username']);
+        }
+        return $internal;
+    }
+    /*
+     * 导出execl
+     */
+    public function groupExecl(){
+        $internal = D('internalmeeting')->select();
+        $count = count($internal);
+        for($i=0; $i<=$count; $i++){
+            unset($internal[$i]['internal_username']);
+            unset($internal[$i]['internal_meeting_level']);
+            unset($internal[$i]['internal_notice_start_time']);
+        }
+        return $internal;
+    }
     
+    /**
+     *  普通文件上传
+     * @param file_size 文件大小
+     * @param file_path 文件路径
+     * @param allow_file 允许格式
+     * @author xiaohui
+     * @return array
+     * @date 16/09/20
+
+     */
+    public function normalUpload($param = array()) {
+        if (empty($param)) {
+            $result = C('COMMON.PARAMTER_ERROR');
+            return $result;
+        }
+        $upload = new \Think\Upload(); // 实例化上传类
+        $upload->maxSize = $param['FILE_SIZE']; // 设置附件上传大小
+        $upload->exts = $param['ALLOW_FILE']; // 设置附件上传类型
+        $upload->rootPath = C('FILE_ROOT_PATH'); // 设置附件上传根目录
+        $upload->savePath = $param['FILE_PATH']; // 设置附件上传（子）目录
+        if (file_exists($upload->rootPath)) {
+            chmod($upload->rootPath, '0777');
+        }
+        // 上传文件 
+        $info = $upload->upload();
+        if (!$info) {// 上传错误提示错误信息
+            $this->error($upload->getError());
+            return C('COMMON.UPLOAD_ERROR');
+        } else {// 上传成功 获取上传文件信息
+            $result = C('COMMON.UPLOAD_SUCCESS');
+            $result['info'] = $info; 
+            $result['rootPath'] = $upload->rootPath;
+            return $result;
+        }
+    }
 }

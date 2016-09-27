@@ -44,10 +44,6 @@ class MeetingModel extends Model {
                 //关联表信息
                 $callman_info = explode(',', $data['meeting_callman']);
             }
-
-
-
-
             //主持人-手输
             if ($data['meeting_moderator']['value']) {
                 $data['meeting_moderator_value'] = implode($data['meeting_moderator']['value'], ',');
@@ -55,8 +51,6 @@ class MeetingModel extends Model {
             }
             //主持人
             $data['meeting_moderator'] = implode($data['meeting_moderator'], ',');
-
-
             //参会人员-手输
             if ($data['meeting_participants']['value']) {
                 $data['meeting_participants_value'] = implode($data['meeting_participants']['value'], ',');
@@ -66,8 +60,6 @@ class MeetingModel extends Model {
             //关联表信息
             $meeting_participants_info = $data['meeting_participants'];
             $data['meeting_participants'] = implode($data['meeting_participants'], ',');
-
-
             //会议撰写人-手输
             if ($data['meeting_writeperson']['value']) {
                 $data['meeting_writeperson_value'] = implode($data['meeting_writeperson']['value'], ',');
@@ -406,13 +398,62 @@ class MeetingModel extends Model {
         //获取当前用户近期的会议
         $uid = session('S_USER_INFO.UID');
         $meeting_info = $meeting_mod->alias('meeting')
-                ->join('__MEETING_CALLMAN__ callman on callman.meeting_id = meeting.meeting_id')
+                ->join('__MEETING_PARTICIPANTS__ callman on callman.meeting_id = meeting.meeting_id')
                 ->where(array(
                     'meeting.meeting_date' => array('between', array($start_time, $end_time)),
-                    'callman.uid' => $uid
+                    'callman.meeting_participants' => $uid
                 ))
                 ->select();
+//        echo $meeting_mod->getLastSql();die;
         return $meeting_info;
     }
-
+    /**
+     *  获取会议添加中的 台帐管理人列表
+     * @author lishuaijie
+     * @return array  拥有内部 台帐管理权限的用户列表
+     * @date 2016/09/27
+     */
+    public function getAccount(){
+        //103
+        $auth_mod = D('auth_group');
+        //获取所有的角色
+        $auth_info = $auth_mod->where(array('status'=>1))->select();
+        $group_info = array();
+        if(empty($auth_info)){
+            return array();
+        }
+        foreach($auth_info as $val){
+            $rules_info = explode(',', $val['rules']);
+            if(in_array('103', $rules_info)){
+                $group_info[] = $val['id'];
+            }
+        }
+        if(empty($group_info)){
+            return array();
+        }
+        $group_id = implode(',', $group_info);
+        $user_group_mod = D('auth_group_access');
+        $user_info = $user_group_mod->where(array('group_id'=>array('in',$group_id)))->getField('uid',true);
+        if(empty($user_info)){
+            return array();
+        }
+        //根据角色获取用户id
+        $user_id = implode(',', $user_info);
+        $user_list = D('member')->where(array('state'=>1,'uid'=>array('in',$user_id)))->select();
+        return $user_list;
+    }
+    /**
+     *  给台帐管理人发送邮件
+     * @param $meeting_id 会议id $name Description
+     * @author lishuaijie
+     * @return true/false Description
+     */
+    public function sendMeetingEmail($meeting_id){
+        $meeting_info = D('meeting')->alias('meet')
+                ->join('__MEMBER__ member ON meet.meeting_ledger_re_person = member.uid')
+                ->where(array('meet.meeting_id',$meeting_id))
+                ->find();
+        $str = $meeting_info['name']." ，您好：".$meeting_info['meeting_name']."会议于".$meeting_info['meeting_date']."已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
+        return sendMail($meeting_info['email'], '台帐通知', $str);
+    }
 }

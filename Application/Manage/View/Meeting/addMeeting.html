@@ -100,7 +100,7 @@
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
                         <div class="person-content clear">
-                            <foreach name="meeting_info.meeting_participants" key="$key" item="item">
+                            <foreach name="meeting_info.meeting_participants" key="key" item="item">
                                 <div class="person fl"><input type="hidden" name="meeting[meeting_participants][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                             </foreach>
                             <foreach name="meeting_info.meeting_participants_value" key="$key" item="item">
@@ -341,14 +341,12 @@
             <tr>
                 <td class="cap"> <span class="rq">*</span>台账整理人：</td>
                 <td colspan="2">
-                    <select name='meeting[meeting_ledger_re_person]' class="selectItem">
-                        <option value="-100">其他</option>
-                        <option value="1">张三</option>
-                        <option value="2">赵四</option>
+                    <select name='meeting[meeting_ledger_re_person]' class="selectItem" id='account'>
+                        <option value="-100">请选择</option>
+                        <foreach name='account_info' item='item'>
+                            <option value="{$item.uid}" <if condition='$item.uid eq $meeting_info.meeting_ledger_re_person '>selected=true </if> >{$item.name}</option>
+                        </foreach>
                     </select>
-                    <input type="button" class="btn btn-r btn-xl button addLedgerRePerson" value="添加">
-                    <input type="text" class="hide hide-input" >
-                    <div class="person-content clear"></div>
                 </td>
 
             </tr>
@@ -361,7 +359,7 @@
         </table>
         <div class="text-center">
             <input  type="hidden" name="meeting_id" value="{$meeting_info.meeting_id}">
-            <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
+            <input class="btn btn-red mr10 submit" type="submit" id="meetingSub" value="提交"/>
             <input class="btn ml10 button btn-normal" type="button" value="取消"/>
         </div>
     </form>
@@ -472,9 +470,15 @@
             var _this = $(this);
             addPerson(_this, "请填写记录整理人！");
         });
-        $(".addLedgerRePerson").on("click", function () {
-            var _this = $(this);
-            addPerson(_this, "请填写台账整理人！");
+      
+       $("#meetingSub").on("click",function(){
+            if($.trim($("[name=meeting\\[meeting_name\\]]").val() == "")){
+                $.dialog.alert("请填写会议名称！");
+                return false;
+            }else if($("#account").val() == "-100"){
+                $.dialog.alert("请选择台账整理人！");
+                return false;
+            }
         });
 
 

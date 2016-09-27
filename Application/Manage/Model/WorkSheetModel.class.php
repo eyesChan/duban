@@ -93,7 +93,7 @@ class WorkSheetModel  extends Model{
     public function listMeeting(){
         $meeting = M('meeting')
                 ->field('meeting_id,meeting_name')
-                ->where('meeting_delete = 1')
+                ->where('meeting_state = 1')
                 ->order('meeting_id desc')
                 ->select();
         return $meeting;

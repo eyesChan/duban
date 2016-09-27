@@ -29,7 +29,27 @@ class MeetingController extends AdminController {
      *  显示个人日程会议记录
      */
     public function index() {
-
+        //根据开始、结束日期计算日历信息生成数组
+        $start_time = date('Y-m-01');
+        $year = date('Y');
+        $month = date('m');
+        $m_info = array(1, 3, 5, 7, 8, 10, 12);
+        if (in_array($start_time, $m_info)) {
+            $end_time = date('Y-m-31');
+        } else {
+            $end_time = date('Y-m-30');
+        }
+        if ($month == 2) {
+            if ($year % 4 == 0 && $year % 100 !== 0 || $year % 400 == 0) {
+                $end_time = date('Y-m-29');
+            } else {
+                $end_time = date('Y-m-28');
+            }
+        }
+        $week = $this->meeting_model->getDate($start_time,$end_time);
+        $meeting_info = $this->meeting_model->getMeetingByMonth($start_time,$end_time);
+        $this->assign('meeting_info', $meeting_info);
+        $this->assign('week', $week);
         $this->display();
     }
 
@@ -209,14 +229,12 @@ class MeetingController extends AdminController {
         $this->meeting_model->startTrans();
         $meeting_save_flag = $this->meeting_model->where(array('meeting_id' => $meeting_id))->save(array('meeting_state' => 0));
         $work_order_info = $work_mod->where(array('worksheet_relate_meeting' => $meeting_id, 'worksheet_detele' => 1))->getField('worksheet_id', true);
-        echo $work_mod->getLastSql();die;
-        var_dump($work_order_info);die;
-        $work_order_id = implode(',', $work_order_info);
         if (empty($work_order_info)) {
-            $this->meeting_model->rollback();
-            $this->ajaxReturn(C('COMMON.ERROR_EDIT'));
+            $work_save_flag = true;
+        } else {
+            $work_order_id = implode(',', $work_order_info);
+            $work_save_flag = $work_mod->where(array('worksheet_id' => array('in', $work_order_id)))->save(array('worksheet_detele' => 0));
         }
-        $work_save_flag = $work_mod->where(array('worksheet_id' => array('in', $work_order_id)))->save(array('worksheet_detele' => 0));
         if ($meeting_save_flag !== false && $work_save_flag !== false) {
             $this->meeting_model->commit();
             $this->ajaxReturn(C('COMMON.SUCCESS_EDIT'));

@@ -223,7 +223,7 @@
             <tr>
                 <td class="cap">餐饮安排：</td>
                 <td>
-                    <input type="text" class="input-text text" name="meeting[meeting_food_drink]" value="{$meeting_info.meeting_food_drink}">
+                    {$meeting_info.meeting_food_drink}
                     <!--                    <select data='meeting[meeting_food_drink]' class="selectItem">
                                             <foreach name="user_info" item="item">
                                                 <option value="{$item.uid}">{$item.name}</option>
@@ -290,7 +290,7 @@
             </tr>
         </table>
         <div class="text-center">
-            <input class="btn btn-red mr10 submit" type="button" value="返回"/>
+            <input class="btn btn-red mr10 submit" type="button" onclick='backMeeting()' value="返回"/>
         </div>
     <script type="text/javascript">
         $(".selectItem").each(function () {
@@ -403,6 +403,10 @@
             var _this = $(this);
             addPerson(_this, "请填写台账整理人！");
         });
+        //返回
+        function backMeeting(){
+            location.href='{:U(selectMeeting)}'
+        }
 
 
     </script>

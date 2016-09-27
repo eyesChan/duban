@@ -72,11 +72,12 @@ class LedgerMeetingController extends AdminController {
     public function addLedger() {
          $data = I();
          if(!empty($data)){
+             P($data);die;
              $result = $this->ledger_meeting->addLedger($data);
               if ($result['code'] == 200) {
                     $this->success($result['status'], U('LedgerMeeting/index'));
                 } else {
-                    $this->success($result['status'], U('LedgerMeeting/addLedger'));
+                    $this->error($result['status'], U('LedgerMeeting/addLedger'));
                 }
          }
         $this->display();
@@ -116,7 +117,7 @@ class LedgerMeetingController extends AdminController {
                 if ($result['code'] == 200) {
                        $this->success($result['status'], U('LedgerMeeting/index'));
                   }else{
-                       $this->success($result['status'], U('LedgerMeeting/addLedger'));
+                       $this->success($result['status'], U('LedgerMeeting/saveLedger?led_meeting_id='.$data['led_meeting_id']));
                 }
             }
          }       
@@ -142,7 +143,7 @@ class LedgerMeetingController extends AdminController {
      /**
      * 文档导出
      * @author huang gang
-     * @date 2016/09/22
+     * @date 2016/09/26
      * @return 跳转页面 Description
      *  
      */
@@ -193,6 +194,31 @@ class LedgerMeetingController extends AdminController {
                         '改进建议',
                 );
             getExcel($headArr, $work);
+    }
+    /*
+     * 导入页面
+     * 
+     */
+    public function importExcel(){
+        
+        $this->display('importLedger');
+    }
+    
+     /*
+      * 导入
+      */
+    public function importLedgerMeeting(){
+        $param = $_FILES['filename'];
+        $files = $this->ledger_meeting->normalUpload($param);
+        $fileName = $files['info']['filename']['savename'];
+        $resute = importExcel('Public/2016-09-27/'.$fileName,$column=null);
+         $result = $this->ledger_meeting->addsLedger($resute);
+         P($result);DIE;
+              if ($result['code'] == 200) {
+                    $this->success($result['status'], U('LedgerMeeting/index'));
+                } else {
+                    $this->error($result['status'], U('LedgerMeeting/addLedger'));
+                }
     }
 }
 

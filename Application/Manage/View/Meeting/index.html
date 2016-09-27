@@ -2,81 +2,60 @@
 <block name="title"><title>会议日程安排</title></block>
 
 <block name="right">
-<css href="__PUBLIC__/css/meeting.css"/>
-	    <div class="tb1 jxssp container-padding">
-	        <table class="tbl tbl-list">	          
-	            <thead>
-	            <tr>
-	                <th>星期一</th>
-	                <th>星期二</th>
-	                <th>星期三</th>
-	                <th>星期四</th>
-	                <th>星期五</th>
-	                <th>星期六</th>
-	                <th>星期日</th>
-	            </tr>
-	            </thead> 
-	        <tbody class="meeting-plan">	
-	        	<tr>
-	        		<td>
-	        			<div class="text-al ml10">27</div>
-	        			<div class="text-al ml10">
-	        				<span></span>xxx会议</div>
-	        			<div class="text-al ml10"><span></span>xxx会议</div>
-	        			<div class="text-al ml10"><span></span>xxx会议</div>
-	        		</td>
-	        		<td>
-	        			<div class="text-al ml10">27</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        		</td>
-	        		<td>
-	        			<div class="text-al ml10">27</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        		</td>
-	        		<td>
-	        			<div class="text-al ml10">27</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        		</td>
-	        		<td>
-	        			<div class="text-al ml10">27</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        		</td>
-	        		<td>
-	        			<div class="text-al ml10">27</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        		</td>
-	        		<td>
-	        			<div class="text-al ml10">27</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        			<div>xxx会议</div>
-	        		</td>
-	        	</tr>
+    <css href="__PUBLIC__/css/meeting.css"/>
+    <div class="tb1 jxssp container-padding">
+        <table class="tbl tbl-list">	          
+            <thead>
+                <tr>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                    <th>星期六</th>
+                    <th>星期日</th>
+                </tr>
+            </thead> 
+            <tbody class="meeting-plan">	
+            <foreach name='week' item='item'>
+                <tr>
+                <foreach name='item' item='val'>
+                    <td>
+                    <notempty name='val'>
 
-	        </tbody>
-	        </table>
-	            <div class="pagination fr">
-	                {$page}
+                        <div class="text-al ml10">{$val}</div>
+                        <div class="text-al judgeMeeting">
+                        <foreach name='meeting_info' item='meet'>
+                            <if  condition='$meet.meeting_date eq $val '>
+                                <div class="text-al mt10 ml10"><span></span>{$meet.meeting_name}</div>
+                            </if>
+                        </foreach>
+                    </notempty>
 
-	            </div>
+                    </td>
+                </foreach>
+                </tr>
+            </foreach>
 
-	        </div>
-	    </div>	
-     <script type="text/javascript">
-	    	var rightBtn = '<input class="btn btn-a mr10 submit rightBtn" type="button" onclick="openNew()" value="创建会议"/>';
-	    	$(rightBtn).appendTo(".location");
-                function openNew(){
-                    location.href = '{:U(addMeeting)}';
-                }
-	    </script> 
+            </tbody>
+        </table>
+        <div class="pagination fr">
+            {$page}
+
+        </div>
+
+    </div>
+</div>	
+<script type="text/javascript">
+    var rightBtn = '<input class="btn btn-a mr10 submit rightBtn" type="button" onclick="openNew()" value="创建会议"/>';
+    $(rightBtn).appendTo(".location");
+    function openNew() {
+        location.href = '{:U(addMeeting)}';
+    }
+    $(".judgeMeeting").each(function(){
+        if($.trim($(this).html()) !== ""){
+            $(this).parent().addClass("haveMeeting");
+        }
+    });
+</script> 
 </block>

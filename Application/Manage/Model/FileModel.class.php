@@ -62,8 +62,8 @@ class FileModel  extends Model{
     }
     
     /*
-     * @ahthor huanggang
      * 对文件大小及类型进行判断
+     * @ahthor huanggang
      * @Date    2016/09/22
      * @return object 返回true或false
      */
@@ -82,8 +82,8 @@ class FileModel  extends Model{
         }
     }
     /*
-     * @ahthor huanggang
      * 统计数量
+     * @ahthor huanggang
      * @Date    2016/09/22
      * @return object 数据数量
      * 
@@ -99,7 +99,7 @@ class FileModel  extends Model{
     /**
      * 分页查询操作
      * @Date    2016/09/23
-     * @author huanggang
+     * @author  huanggang
      * @param array $where 查询条件
      * @param int 查询开始位置
      * @param int 查询条数
@@ -120,7 +120,7 @@ class FileModel  extends Model{
     /*
      * 撤回
      * @Date    2016/09/22
-     * @author huanggang
+     * @author  huanggang
      * @param $doc_id 撤回条件
      * @return 返回处理数据
      */
@@ -170,7 +170,7 @@ class FileModel  extends Model{
      * 导出execl 查询
      * @Date    2016/09/23
      * @author huanggang
-     * @author array data 组合要到导出的数据
+     * @return array data 组合要到导出的数据
      */
     public function getExecl($param){
         foreach($param as $k => $v){
@@ -187,9 +187,9 @@ class FileModel  extends Model{
          return $data;
     }
   /*
+   * 获取导出数据的可见范围及权限
    * @author huanggang
    * @Date    2016/09/23
-   * 获取导出数据的可见范围及权限
    * @param  $config_id 查询条件
    * @return 返回查询的数据
    */

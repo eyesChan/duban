@@ -73,7 +73,6 @@ label{margin-right: 10px;}
 .btn-b:hover{color:#fff;background: #e86d4c;cursor: pointer;}
 .btn-c:hover{background: #1855b0;}
 a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
-.rightBtn{position: absolute;top: 1px; right:1px;}
 a.button{line-height: 30px;}
 .collapse-btn{position: relative;text-align: center;}
 .collapse-arrow{display:none;position:absolute;bottom:-10px;right:14px;z-index:1;width:0;height:0;border-width:10px 9px 0;border-color: #e7542c transparent transparent;border-style: solid dashed dashed;}

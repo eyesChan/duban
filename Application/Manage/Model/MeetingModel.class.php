@@ -26,6 +26,7 @@ class MeetingModel extends Model {
      */
     public function addMeeting($data, $meeting_id = false) {
         $user_mod = D('member');
+
         if (!empty($data)) {
             //召集人-手输
             if ($data['meeting_callman']['value']) {
@@ -33,11 +34,19 @@ class MeetingModel extends Model {
                 unset($data['meeting_callman']['value']);
             }
             //召集人
+
             $data['meeting_callman'] = implode($data['meeting_callman'], ',');
             //召集人系统用户名称
-            $user_name_info = $user_mod->where("uid in ($data[meeting_callman]) and status = 1")->getField('name', true);
-            $callman_name = implode(',', $user_name_info);
-            $data['meeting_callman_name'] = $callman_name;
+            if (!empty($data['meeting_callman'])) {
+                $user_name_info = $user_mod->where("uid in ($data[meeting_callman]) and status = 1")->getField('name', true);
+                $callman_name = implode(',', $user_name_info);
+                $data['meeting_callman_name'] = $callman_name;
+                //关联表信息
+                $callman_info = explode(',', $data['meeting_callman']);
+            }
+
+
+
 
             //主持人-手输
             if ($data['meeting_moderator']['value']) {
@@ -47,13 +56,17 @@ class MeetingModel extends Model {
             //主持人
             $data['meeting_moderator'] = implode($data['meeting_moderator'], ',');
 
+
             //参会人员-手输
             if ($data['meeting_participants']['value']) {
                 $data['meeting_participants_value'] = implode($data['meeting_participants']['value'], ',');
                 unset($data['meeting_participants']['value']);
             }
             //参会人员
+            //关联表信息
+            $meeting_participants_info = $data['meeting_participants'];
             $data['meeting_participants'] = implode($data['meeting_participants'], ',');
+
 
             //会议撰写人-手输
             if ($data['meeting_writeperson']['value']) {
@@ -86,7 +99,6 @@ class MeetingModel extends Model {
 //            }
 //            //餐饮安排负责人
 //            $data['meeting_food_drink'] = implode($data['meeting_food_drink'], ',');
-
             //会场整理人-手输
             if ($data['meeting_clean_person']['value']) {
                 $data['meeting_clean_person_value'] = implode($data['meeting_clean_person']['value'], ',');
@@ -122,14 +134,58 @@ class MeetingModel extends Model {
             }
             if (!empty($meeting_id)) {
                 $add_flag = D('meeting')->where(array('meeting_id' => $meeting_id))->save($data);
+                $this->meetingCallman($meeting_id, $callman_info);
+                $this->meetingParticipants($meeting_id, $meeting_participants_info);
             } else {
                 $add_flag = D('meeting')->add($data);
+                $this->meetingCallman($add_flag, $callman_info);
+                $this->meetingParticipants($add_flag, $meeting_participants_info);
             }
             if ($add_flag !== false) {
                 return $add_flag;
             }
         }
         return false;
+    }
+
+    /**
+     * 添加会议 召集人关联表
+     * @param meeting_id 会议id
+     * @param callman_info 召集人id
+     * @return true/false Description
+     * @anthor lishuaijie
+     * @date 2016/09/27
+     */
+    public function meetingCallman($meeting_id, $callman_info) {
+        $meeting_callman_mod = D('meeting_callman');
+        //更新之前先删除
+        $meeting_callman_mod->where(array('meeting_id' => $meeting_id))->delete();
+        if (!empty($callman_info)) {
+            foreach ($callman_info as $val) {
+                $meeting_callman_mod->add(array('meeting_id' => $meeting_id, 'uid' => $val));
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 添加会议 参会人员关联表
+     * @param meeting_id 会议id
+     * @param $meeting_participants_info 参会人id
+     * @return true/false Description
+     * @anthor lishuaijie
+     * @date 2016/09/27
+     */
+    public function meetingParticipants($meeting_id, $meeting_participants_info) {
+        $meeting_participants_mod = D('meeting_participants');
+        //更新之前先删除
+        $meeting_participants_mod->where(array('meeting_id' => $meeting_id))->delete();
+        if (!empty($meeting_participants_info)) {
+            foreach ($meeting_participants_info as $val) {
+                $meeting_participants_mod->add(array('meeting_id' => $meeting_id, 'meeting_participants' => $val));
+            }
+        }
+        return true;
     }
 
     /**
@@ -155,7 +211,7 @@ class MeetingModel extends Model {
                 $sql = ' meeting_callman_value like "' . $searchInfo['meeting_callman'] . '" or  meeting_callman_name like "%' . $searchInfo['meeting_callman'] . '%"';
             }
         }
-        if(empty($sql)){
+        if (empty($sql)) {
             $sql = '1=1';
         }
         $meeting_info = D('meeting')
@@ -165,7 +221,7 @@ class MeetingModel extends Model {
                 ->order('meeting_id desc')
                 ->limit($start, $length)
                 ->select();
-            return $meeting_info;
+        return $meeting_info;
     }
 
     /**
@@ -191,7 +247,7 @@ class MeetingModel extends Model {
                 $sql = ' meeting_callman_value like "' . $searchInfo['meeting_callman'] . '" or  meeting_callman_name like "%' . $searchInfo['meeting_callman'] . '%"';
             }
         }
-        if(empty($sql)){
+        if (empty($sql)) {
             $sql = '1=1';
         }
         $meeting_count = D('meeting')
@@ -216,7 +272,8 @@ class MeetingModel extends Model {
             $meeting_callman = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_callman'])))->getField('uid,name', true);
             $meeting_info['meeting_callman'] = $meeting_callman;
             //召集人手写
-            $meeting_info['meeting_callman_value'] = explode(',', $meeting_info['meeting_callman_value']);
+            if (!empty($meeting_info['meeting_callman_value']))
+                $meeting_info['meeting_callman_value'] = explode(',', $meeting_info['meeting_callman_value']);
         }
 
         if (!empty($meeting_info['meeting_moderator'])) {
@@ -224,14 +281,16 @@ class MeetingModel extends Model {
             $meeting_moderator = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_moderator'])))->getField('uid,name', true);
             $meeting_info['meeting_moderator'] = $meeting_moderator;
             //会议主持人 手输 meeting_moderator
-            $meeting_info['meeting_moderator_value'] = explode(',', $meeting_info['meeting_moderator_value']);
+            if (!empty($meeting_info['meeting_moderator_value']))
+                $meeting_info['meeting_moderator_value'] = explode(',', $meeting_info['meeting_moderator_value']);
         }
         if (!empty($meeting_info['meeting_participants'])) {
             //参会人员 
             $meeting_participants = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_participants'])))->getField('uid,name', true);
             $meeting_info['meeting_participants'] = $meeting_participants;
             //参会人员 手输 meeting_participants_value
-            $meeting_info['meeting_participants_value'] = explode(',', $meeting_info['meeting_participants_value']);
+            if (!empty($meeting_info['meeting_participants_value']))
+                $meeting_info['meeting_participants_value'] = explode(',', $meeting_info['meeting_participants_value']);
         }
 
         if (!empty($meeting_info['meeting_writeperson'])) {
@@ -239,7 +298,8 @@ class MeetingModel extends Model {
             $meeting_writeperson = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_writeperson'])))->getField('uid,name', true);
             $meeting_info['meeting_writeperson'] = $meeting_writeperson;
             //会议通知 撰写人 手输 meeting_writeperson
-            $meeting_info['meeting_writeperson_value'] = explode(',', $meeting_info['meeting_writeperson_value']);
+            if (!empty($meeting_info['meeting_writeperson_value']))
+                $meeting_info['meeting_writeperson_value'] = explode(',', $meeting_info['meeting_writeperson_value']);
         }
 
         if (!empty($meeting_info['meeting_material_madeperson'])) {
@@ -247,7 +307,8 @@ class MeetingModel extends Model {
             $meeting_material_madeperson = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_material_madeperson'])))->getField('uid,name', true);
             $meeting_info['meeting_material_madeperson'] = $meeting_material_madeperson;
             //物料准备人 手输 meeting_material_madeperson
-            $meeting_info['meeting_material_madeperson_value'] = explode(',', $meeting_info['meeting_material_madeperson_value']);
+            if (!empty($meeting_info['meeting_material_madeperson_value']))
+                $meeting_info['meeting_material_madeperson_value'] = explode(',', $meeting_info['meeting_material_madeperson_value']);
         }
 
         if (!empty($meeting_info['meeting_venue_arrangeperson'])) {
@@ -255,14 +316,16 @@ class MeetingModel extends Model {
             $meeting_venue_arrangeperson = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_venue_arrangeperson'])))->getField('uid,name', true);
             $meeting_info['meeting_venue_arrangeperson'] = $meeting_venue_arrangeperson;
             //会场调试布置人 手输 meeting_material_madeperson
-            $meeting_info['meeting_venue_arrangeperson_value'] = explode(',', $meeting_info['meeting_venue_arrangeperson_value']);
+            if (!empty($meeting_info['meeting_venue_arrangeperson_value']))
+                $meeting_info['meeting_venue_arrangeperson_value'] = explode(',', $meeting_info['meeting_venue_arrangeperson_value']);
         }
         if (!empty($meeting_info['meeting_vedio'])) {
             //会议摄影摄像 meeting_vedio 
             $meeting_vedio = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_vedio'])))->getField('uid,name', true);
             $meeting_info['meeting_vedio'] = $meeting_vedio;
             //会场调试布置人 手输 meeting_vedio
-            $meeting_info['meeting_vedio_value'] = explode(',', $meeting_info['meeting_vedio_value']);
+            if (!empty($meeting_info['meeting_vedio_value']))
+                $meeting_info['meeting_vedio_value'] = explode(',', $meeting_info['meeting_vedio_value']);
         }
 //                if (!empty($meeting_info['meeting_food_drink'])) {
 //                    //餐饮安排 meeting_food_drink 
@@ -277,24 +340,78 @@ class MeetingModel extends Model {
             $meeting_clean_person = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_clean_person'])))->getField('uid,name', true);
             $meeting_info['meeting_clean_person'] = $meeting_clean_person;
             //会场整理人 手输 meeting_clean_person
-            $meeting_info['meeting_clean_person_value'] = explode(',', $meeting_info['meeting_clean_person_value']);
+            if (!empty($meeting_info['meeting_clean_person_value']))
+                $meeting_info['meeting_clean_person_value'] = explode(',', $meeting_info['meeting_clean_person_value']);
         }
         if (!empty($meeting_info['meeting_record_person'])) {
             //记录整理人 meeting_record_person 
             $meeting_record_person = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_record_person'])))->getField('uid,name', true);
             $meeting_info['meeting_record_person'] = $meeting_record_person;
             //会场整理人 手输 meeting_clean_person
-            $meeting_info['meeting_record_person_value'] = explode(',', $meeting_info['meeting_record_person_value']);
+            if (!empty($meeting_info['meeting_record_person_value']))
+                $meeting_info['meeting_record_person_value'] = explode(',', $meeting_info['meeting_record_person_value']);
         }
-        if(!empty($meeting_info['meeting_annexes_url'])){
+        if (!empty($meeting_info['meeting_annexes_url'])) {
             $config_info = C();
-            if($config_info['OPEN_FTP'] ==1 ){
+            if ($config_info['OPEN_FTP'] == 1) {
                 $url = C('FTP_VISIT_PATH');
-            }else{
+            } else {
                 $url = C('FTP_VISIT_PATH');
             }
             $meeting_info['meeting_annexes_url'] = $url . $meeting_info['meeting_annexes_url'];
         }
+        return $meeting_info;
+    }
+
+    /**
+     * 计算当前月天数 和日期
+     * @author lishuaijie
+     * @return array 当前月时间
+     * @date 2016/09/27
+     */
+    public function getDate($start_time,$end_time) {
+        $dt_start = strtotime($start_time);
+        $dt_end = strtotime($end_time);
+        $days = round(($dt_end - $dt_start) / 3600 / 24);
+        $first_day = date('w', $dt_start) == 0 ? 7 : date('w', $dt_start);
+        do {
+            $date[] = date('Y-m-d', $dt_start);
+        } while (($dt_start += 86400) <= $dt_end);
+        $temp_days = $first_day + $days;
+        $weeksInMonth = ceil($temp_days / 7);
+        $counter = 0;
+        $week = array();
+        for ($j = 0; $j < $weeksInMonth; $j++) {
+            for ($i = 1; $i <= 7; $i++) {
+                $w = date('w', strtotime($date[$counter])) == 0 ? 7 : date('w', strtotime($date[$counter]));
+                if ($i == $w) {
+                    $week [$j] [$i] = $date[$counter];
+                    $counter ++;
+                } else {
+                    $week [$j] [$i] = '';
+                }
+            }
+        }
+        return $week;
+    }
+
+    /**
+     *  获取当前系统用户当前月的会议
+     * @author lishuaijie
+     * @return array 当前月会议列表 Description
+     * @date 2016/09/27
+     */
+    public function getMeetingByMonth($start_time,$end_time) {
+        $meeting_mod = D('meeting');
+        //获取当前用户近期的会议
+        $uid = session('S_USER_INFO.UID');
+        $meeting_info = $meeting_mod->alias('meeting')
+                ->join('__MEETING_CALLMAN__ callman on callman.meeting_id = meeting.meeting_id')
+                ->where(array(
+                    'meeting.meeting_date' => array('between', array($start_time, $end_time)),
+                    'callman.uid' => $uid
+                ))
+                ->select();
         return $meeting_info;
     }
 

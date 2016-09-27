@@ -472,7 +472,10 @@
         });
       
        $("#meetingSub").on("click",function(){
-            if($("#account").val() == "-100"){
+            if($.trim($("[name=meeting\\[meeting_name\\]]").val() == "")){
+                $.dialog.alert("请填写会议名称！");
+                return false;
+            }else if($("#account").val() == "-100"){
                 $.dialog.alert("请选择台账整理人！");
                 return false;
             }

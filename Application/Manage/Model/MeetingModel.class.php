@@ -208,7 +208,6 @@ class MeetingModel extends Model {
         }
         $meeting_info = D('meeting')
                 ->where($where)
-                ->field('meeting_id,meeting_name,meeting_type,meeting_date,meeting_place,meeting_moderator,meeting_moderator_value')
                 ->where($sql)
                 ->order('meeting_id desc')
                 ->limit($start, $length)

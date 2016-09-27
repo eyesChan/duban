@@ -155,6 +155,9 @@ class MeetingModel extends Model {
                 $sql = ' meeting_callman_value like "' . $searchInfo['meeting_callman'] . '" or  meeting_callman_name like "%' . $searchInfo['meeting_callman'] . '%"';
             }
         }
+        if(empty($sql)){
+            $sql = '1=1';
+        }
         $meeting_info = D('meeting')
                 ->where($where)
                 ->field('meeting_id,meeting_name,meeting_type,meeting_date,meeting_place,meeting_moderator,meeting_moderator_value')
@@ -162,7 +165,7 @@ class MeetingModel extends Model {
                 ->order('meeting_id desc')
                 ->limit($start, $length)
                 ->select();
-        return $meeting_info;
+            return $meeting_info;
     }
 
     /**
@@ -187,6 +190,9 @@ class MeetingModel extends Model {
             if (!empty($searchInfo['meeting_callman'])) {
                 $sql = ' meeting_callman_value like "' . $searchInfo['meeting_callman'] . '" or  meeting_callman_name like "%' . $searchInfo['meeting_callman'] . '%"';
             }
+        }
+        if(empty($sql)){
+            $sql = '1=1';
         }
         $meeting_count = D('meeting')
                 ->where($where)

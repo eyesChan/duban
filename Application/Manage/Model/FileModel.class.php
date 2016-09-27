@@ -10,8 +10,7 @@ namespace Manage\Model;
 use Think\Model;
 
 /**
- * Description of WorkOrderModel
- *
+ * Description of FileModel
  * @author huanggang
  * @Date    2016/09/22
  */
@@ -21,7 +20,6 @@ class FileModel  extends Model{
 
     /*
     * 文档添加
-    * 
     * @ahthor huanggang
     * @param string $param['doc_name']; 文档名称
     * @param string $param['doc_dept_id']; 发布部门id
@@ -62,8 +60,33 @@ class FileModel  extends Model{
                 return C('COMMON.ERROR_EDIT');
             } 
     }
+    
     /*
+     * @ahthor huanggang
+     * 对文件大小及类型进行判断
+     * @Date    2016/09/22
+     * @return object 返回true或false
+     */
+
+    public function fileSize($size) {
+        if ($size['file']['size'] <= C('FILE_DOC.FILE_SIZE') && $size['file']['size'] <= C('FTP_COVER.FILE_SIZE')) {
+            $doc_upload_file = end(explode('.', $size['file']['name']));
+            $doc_upload_img = end(explode('.', $size['file1']['name']));
+            if (in_array($doc_upload_file, C('FILE_DOC.ALLOW_FILE')) && in_array($doc_upload_img, C('FILE_COVER.ALLOW_FILE'))) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    /*
+     * @ahthor huanggang
      * 统计数量
+     * @Date    2016/09/22
+     * @return object 数据数量
+     * 
      */
     public function getFileDocCount($where) {
         $count = M('doc')
@@ -75,7 +98,7 @@ class FileModel  extends Model{
     }
     /**
      * 分页查询操作
-     * 
+     * @Date    2016/09/23
      * @author huanggang
      * @param array $where 查询条件
      * @param int 查询开始位置
@@ -96,18 +119,26 @@ class FileModel  extends Model{
     
     /*
      * 撤回
+     * @Date    2016/09/22
+     * @author huanggang
+     * @param $doc_id 撤回条件
+     * @return 返回处理数据
      */
-    public function delFiledoc($doc_id){
+    public function delFileDoc($doc_id){
         $docfile = M('doc');
         $res_delete=$docfile-> where('doc_id='.$doc_id)->setField('doc_status','0');
         return $res_delete;
       
     }
     
-   /*
-    * 编辑状态查询
+    /*
+     * 编辑状态查询
+     * @Date    2016/09/23
+     * @author huanggang
+     * @param $doc_id 查询条件
+     * @return 返回查询的数据
     */
-    public function saveFiledoc($doc_id){
+    public function saveFileDoc($doc_id){
         $docfile = M('doc');
         $list = $docfile
               ->join('db_member on db_doc.doc_pub_person = db_member.uid')
@@ -117,10 +148,15 @@ class FileModel  extends Model{
         return $list;
     }
     
- /*
-  * 编辑文档
-  */
-    public function updateFiledoc($data,$doc_id){
+    /*
+     * 编辑文档
+     * @Date    2016/09/22
+     * @author huanggang
+     * @param array $data 修改后的数据
+     * @param $doc_id 修改条件
+     * @return object 修改成功或失败
+     */
+    public function updateFileDoc($data,$doc_id){
         $docfile = M('doc');
         $res = $docfile->where("doc_id =".$doc_id)->save($data);
         if($res){
@@ -132,7 +168,9 @@ class FileModel  extends Model{
     
      /*
      * 导出execl 查询
-     * @author $data
+     * @Date    2016/09/23
+     * @author huanggang
+     * @author array data 组合要到导出的数据
      */
     public function getExecl($param){
         foreach($param as $k => $v){
@@ -142,16 +180,20 @@ class FileModel  extends Model{
             $data[$k]['doc_pub_date']=$v['doc_pub_date'];
             $data[$k]['doc_start_date']=$v['doc_start_date'];
             $data[$k]['doc_end_date']=$v['doc_end_date'];
-            $data[$k]['doc_root_view']=$this->getRootview($v['doc_root_view']);
-            $data[$k]['doc_root_do']=$this->getRootview($v['doc_root_do']);
+            $data[$k]['doc_root_view']=$this->getRootView($v['doc_root_view']);
+            $data[$k]['doc_root_do']=$this->getRootView($v['doc_root_do']);
             $data[$k]['doc_beizhu']=$v['doc_beizhu'];
         }
          return $data;
     }
   /*
+   * @author huanggang
+   * @Date    2016/09/23
    * 获取导出数据的可见范围及权限
+   * @param  $config_id 查询条件
+   * @return 返回查询的数据
    */
-    public function  getRootview($config_id){
+    public function  getRootView($config_id){
          $work = M('config_system')
               ->field('config_descripion')
               ->where("config_id = $config_id")

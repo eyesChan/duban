@@ -192,8 +192,37 @@ class MeetingController extends AdminController {
         $meeting_info['meeting_form'] = $config_mod
                 ->where(array('config_key' => 'meeting_form', 'config_value' => $meeting_info['meeting_form']))
                 ->getField('config_descripion');
-        $this->assign('meeting_info',$meeting_info);
+        $this->assign('meeting_info', $meeting_info);
         $this->display();
+    }
+
+    /**
+     * 删除会议
+     * @param meeting_id 会议id 
+     * @author lishuaijie
+     * @return true/false Description
+     * @date 2016/09/26
+     */
+    public function delMeeting() {
+        $meeting_id = I('meeting_id');
+        $work_mod = D('worksheet');
+        $this->meeting_model->startTrans();
+        $meeting_save_flag = $this->meeting_model->where(array('meeting_id' => $meeting_id))->save(array('meeting_state' => 0));
+        $work_order_info = $work_mod->where(array('worksheet_relate_meeting' => $meeting_id, 'worksheet_detele' => 1))->getField('worksheet_id', true);
+        echo $work_mod->getLastSql();die;
+        var_dump($work_order_info);die;
+        $work_order_id = implode(',', $work_order_info);
+        if (empty($work_order_info)) {
+            $this->meeting_model->rollback();
+            $this->ajaxReturn(C('COMMON.ERROR_EDIT'));
+        }
+        $work_save_flag = $work_mod->where(array('worksheet_id' => array('in', $work_order_id)))->save(array('worksheet_detele' => 0));
+        if ($meeting_save_flag !== false && $work_save_flag !== false) {
+            $this->meeting_model->commit();
+            $this->ajaxReturn(C('COMMON.SUCCESS_EDIT'));
+        }
+        $this->meeting_model->rollback();
+        $this->ajaxReturn(C('COMMON.ERROR_EDIT'));
     }
 
 }

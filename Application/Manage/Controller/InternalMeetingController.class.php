@@ -18,7 +18,7 @@ class InternalMeetingController extends AdminController {
     public function __construct() {
         parent::__construct();
     
-        $this->mod_worksheet = D('InternalMeeting');
+        $this->mod_internalmeeting = D('InternalMeeting');
     }
          /**
      * 对数组进行转义
@@ -39,10 +39,9 @@ class InternalMeetingController extends AdminController {
             $this->exportExecl($param);
         }else{
         //处理查询条件：操作人姓名、IP地址、模块名称、操作内容、开始时间 结束时间 
-        $param['worksheet_name'] != '' ? $where['worksheet_name'] = array('like', '%' . $param['worksheet_name'] . '%') : '';
-        $param['meeting_name'] != '' ? $where['meeting_name'] = array('like', '%' . $param['meeting_name'] . '%') : '';
-        $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-        $param['worksheet_start_date'] != '' ? $where['worksheet_start_date'] = array('like', '%' . $param['worksheet_start_date'] . '%') : '';
+        $param['internal_name'] != '' ? $where['internal_name'] = array('like', '%' . $param['internal_name'] . '%') : '';
+        $param['username'] != '' ? $where['username'] = array('like', '%' . $param['username'] . '%') : '';
+        $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
         
         if (!empty($param['begin_time']) && empty($param['end_time'])) {
             $where['time'] = array('EGT', $param['begin_time'] . ' 00:00:00');
@@ -57,10 +56,10 @@ class InternalMeetingController extends AdminController {
         
         $where = $this->escape($where);
      
-        //$count = $this->mod_worksheet->getWorkOrderCount($where);
+        $count = $this->mod_worksheet->getInternalCount($where);
         
         $page = new \Think\Page($count, 10);
-        //$list = $this->mod_worksheet->getList($where, $page->firstRow, $page->listRows);
+        $list = $this->mod_worksheet->getList($where, $page->firstRow, $page->listRows);
         foreach ($param as $key => $val) {
             $page->parameter[$key] = $val;
         }
@@ -71,14 +70,25 @@ class InternalMeetingController extends AdminController {
         $this->display();
         }
     }
+    /*
+     * 添加
+     */
     public function add(){
         if(IS_POST){
-            p($_POST);
-            die;
+         
             $param = I('post.');
-            $this->mod_worksheet->addInternal($param);
+            $this->mod_internalmeeting->addInternal($param);
         }
         $this->display();  
+    }
+    /*
+     * 查看
+     */
+    public function details(){
+        $id = I('get.id');
+        $oneData = $this->mod_internalmeeting->getOneInternalMeeting($id);
+        $this->assing('onedata',$oneData);
+        $this->display();
     }
 }
 

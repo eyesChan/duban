@@ -90,18 +90,7 @@ class WorkOrderController extends AdminController {
         $param['worksheet_name'] != '' ? $where['worksheet_name'] = array('like', '%' . $param['worksheet_name'] . '%') : '';
         $param['meeting_name'] != '' ? $where['meeting_name'] = array('like', '%' . $param['meeting_name'] . '%') : '';
         $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-        $param['worksheet_start_date'] != '' ? $where['worksheet_start_date'] = array('like', '%' . $param['worksheet_start_date'] . '%') : '';
-        
-        if (!empty($param['begin_time']) && empty($param['end_time'])) {
-            $where['time'] = array('EGT', $param['begin_time'] . ' 00:00:00');
-        }
-        if (empty($param['begin_time']) && !empty($param['end_time'])) {
-            $where['time'] = array('ELT', $param['end_time'] . ' 23:59:59');
-        }
-        if (!empty($param['begin_time']) && !empty($param['end_time'])) {
-            $where['time'] = array('BETWEEN', array($param['begin_time'] . ' 00:00:00', $param['end_time'] . ' 23:59:59'));
-        }
-         
+        $param['worksheet_start_date'] != '' ? $where['worksheet_start_date'] = array('eq', $param['worksheet_start_date']) : '';
         
         $where = $this->escape($where);
      
@@ -145,47 +134,14 @@ class WorkOrderController extends AdminController {
                 $result = $this->mod_worksheet->saveWork($param);
                 if($result['code'] == 200){
                     $this->success($result['status'], '/Manage/WorkOrder/index');
+                    
                 }else{
                     $this->success($result['status'], '/Manage/WorkOrder/index');
                 }
             }
         }
     }
-   
-    /*
-     * 工作单废弃
-     * @author Hui Xiao
-     * @param string $condition
-     * @return object 跳转或显示页面
 
-    public function voidWork(){
-        if(IS_GET){
-            $param = I('get.id');
-            if(!empty($param)){
-                $workorder = $this->mod_worksheet->selectWork($param);
-                $this->assign('workorder',$workorder);
-                $this->display('void');
-            }else{
-                $result['status'] = C('COMMON.ERROR_EDIT');
-                $this->success($result['status']);
-            }
-        }
-        if(IS_POST){
-            $param = I('post.');
-            if(empty($param['worksheet_abandoned_reason'])){
-                $result['status'] = C('COMMON.ERROR_EDIT');
-                $this->success($result['status']);
-            }else{
-                $result = $this->mod_worksheet->abandonedWork($param);
-                if($result['code'] == 200){
-                    $this->success($result['status'], '/Manage/WorkOrder/listWork');
-                }else{
-                     $this->error($result['status'], '/Manage/WorkOrder/addWork');
-                }
-            }
-        }
-    }
-*/
     
     /*
      * 督办发送邮件
@@ -229,9 +185,8 @@ class WorkOrderController extends AdminController {
                         '工作单状态',
                         '挂起/废弃原因',
                         '工作单描述'
-            );
+        );
         getExcel($headArr, $work);
-
-        
+  
     }
 }

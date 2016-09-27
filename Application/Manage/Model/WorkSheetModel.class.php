@@ -61,12 +61,15 @@ class WorkSheetModel  extends Model{
             if($msg_sys_data){
                 $res = $order->add($msg_sys_data);
                 if (FALSE === $res) {
+                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 1);
                     return C('COMMON.ERROR_EDIT');
                 } else {
+                     writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
                     return C('COMMON.SUCCESS_EDIT');
                 }  
             }
         }else{
+                writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
                 return C('COMMON.ERROR_EDIT');
         }
     }
@@ -74,6 +77,7 @@ class WorkSheetModel  extends Model{
      * 统计数量
      */
      public function getWorkOrderCount($where) {
+        $where['worksheet_detele'] = 1;
         $count = D('worksheet')
                 ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
                 ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
@@ -106,6 +110,7 @@ class WorkSheetModel  extends Model{
      */
     public function getList($where, $first_rows, $list_rows) {
       $order = M('worksheet');
+      $where['worksheet_detele'] = 1;
       $list = $order
               ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
               ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
@@ -125,6 +130,7 @@ class WorkSheetModel  extends Model{
      */
     
     public function selectWork($param){
+        $where['worksheet_detele'] = 1;
         $work = D('worksheet')
               ->field('name,worksheet_state,worksheet_id,worksheet_end_date,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state,meeting_name,worksheet_abandoned_reason,worksheet_describe')
               ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
@@ -151,32 +157,14 @@ class WorkSheetModel  extends Model{
         $data['worksheet_abandoned_reason'] = $param['worksheet_abandoned_reason'];
         $res = $order->where("worksheet_id = $work_id")->save($data);
         if($res){
+            writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 1);
             return C('COMMON.SUCCESS_EDIT');
         }else{
+            writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 0);
             return C('COMMON.ERROR_EDIT');
         } 
     }
-    
-    /*
-     * 工作单废弃修改
-     * @author xiaohui
-     * @param int 工作单号
-     * @param string 废弃原因
-     * @return array 成功返回
-     *  
-    public function abandonedWork($param){
-        $order = M('worksheet');
-        $data['worksheet_abandoned_reason'] = $param['abandoned_reason'];
-        $data['worksheet_state'] = 3;
-        $work_id = $param['worksheet_id'];
-        $res = $order->where("worksheet_id = $work_id")->save($data);
-        if($res){
-            return C('COMMON.SUCCESS_EDIT');
-        }else{
-            return C('COMMON.ERROR_EDIT');
-        } 
-    }
-*/   
+      
     /*
      * 计算单个工单几天和每天%
      * @author xiaohui
@@ -292,6 +280,7 @@ class WorkSheetModel  extends Model{
         $param['worksheet_rule_person'] != '' ? $where['worksheet_rule_person'] = array('like', '%' . $param['worksheet_rule_person'] . '%') : '';
         $param['worksheet_start_date'] != '' ? $where['worksheet_start_date'] = array('like', '%' . $param['worksheet_start_date'] . '%') : '';
         $order = M('worksheet');
+        $where['worksheet_detele'] = 1;
         $list = $order
             ->field('worksheet_name,meeting_name,worksheet_creat_person,worksheet_rule_person,worksheet_start_date,worksheet_end_date,worksheet_state,worksheet_abandoned_reason,worksheet_describe')
             ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')

@@ -18,7 +18,6 @@ use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
 class FileController extends AdminController {
 
     private $filedoc;
-
     /*
      * 添加文档
      * @author huang gang
@@ -45,10 +44,11 @@ class FileController extends AdminController {
         return $param;
     }
     /**
+     * 显示文档发布列表
      * @author huang gang
      * @date 2016/09/21
      * @return 跳转页面 Description
-     *  显示文档发布列表
+     *  
      */
     public function index() {
         $param = I();
@@ -64,7 +64,7 @@ class FileController extends AdminController {
         $where['doc_status'] = array('EQ', '1');
         $where = $this->escape($where);
         $count = $this->filedoc->getFileDocCount($where);
-        $page = new \Think\Page($count, 5);
+        $page = new \Think\Page($count, 10);
         $list = $this->filedoc->getList($where, $page->firstRow, $page->listRows);
         foreach ($param as $key => $val) {
             $page->parameter[$key] = $val;
@@ -85,16 +85,17 @@ class FileController extends AdminController {
     }
 
     /**
+     * 文档添加
      * @author huang gang
      * @date 2016/09/22
      * @return 跳转页面 Description
-     *  文档添加
+     *  
      */
     public function addFile() {
         $data = I();
         if (!empty($data)) {
             if (!empty($_FILES)) {
-                $size = $this->filedoc->filesize($_FILES);
+                $size = $this->filedoc->fileSize($_FILES);
                 if (!empty($size)) {
                     $upload_obj = new MeetingUplod();
                     $config_info = C();
@@ -139,29 +140,31 @@ class FileController extends AdminController {
     }
 
     /**
+     * 文档撤回
      * @author huang gang
      * @date 2016/09/22
      * @return 跳转页面 Description
-     *  文档撤回
+     *  
      */
     public function delFile() {
         $doc_id = I('doc_id');
-        $result = $this->filedoc->delFiledoc($doc_id);
+        $result = $this->filedoc->delFileDoc($doc_id);
       //  writeOperationLog('文档管理撤回', 0);
         $this->ajaxReturn($result);
     }
     
    /**
+     *  文档编辑
      * @author huang gang
      * @date 2016/09/22
      * @return 跳转页面 Description
-     *  文档编辑
+     *  
      */
     
     public function  saveFile(){
         if(IS_GET){
         $doc_id=I('doc_id');
-        $result = $this->filedoc->saveFiledoc($doc_id);
+        $result = $this->filedoc->saveFileDoc($doc_id);
         $this->assign('list', $result);
          //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');
@@ -181,7 +184,7 @@ class FileController extends AdminController {
             $data = I();
              if (!empty($data)) {
                 if (!empty($_FILES)) {
-                    $size = $this->filedoc->filesize($_FILES);
+                    $size = $this->filedoc->fileSize($_FILES);
                     if (!empty($size)) {
                         $upload_obj = new MeetingUplod();
                         $config_info = C();
@@ -198,7 +201,7 @@ class FileController extends AdminController {
                         if ($result['code'] == 100) {
                             $this->error($result['status'],U('File/index'));
                         }
-                        $result = $this->filedoc->updateFiledoc($data,$data['doc_id']);
+                        $result = $this->filedoc->updateFileDoc($data,$data['doc_id']);
                         if ($result['code'] == 200) {
                             $this->success($result['status'],U('File/index'));
                         }else {
@@ -213,10 +216,11 @@ class FileController extends AdminController {
     }
     
     /**
+     * 文档导出
      * @author huang gang
      * @date 2016/09/22
      * @return 跳转页面 Description
-     *  文档导出
+     *  
      */
     public function exportFile(){
         $export_file =I('export_file');

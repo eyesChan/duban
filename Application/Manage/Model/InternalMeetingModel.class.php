@@ -18,9 +18,9 @@ use Think\Model;
 class InternalMeetingModel  extends Model{
     
     protected $trueTableName = 'db_internalmeeting';
-    /*
+    
     public function addInternal($param){
-       
+    $internal = M('internalmeeting');
     $data['internal_name'] = $param['internal_name'];
     $data['internal_assigned_person'] = $param['internal_assigned_person'];
     $data['internal_assigned_date'] =$param['internal_assigned_date'];
@@ -28,7 +28,7 @@ class InternalMeetingModel  extends Model{
     $data['internal_meeting_name'] =$param['internal_meeting_name'];
     $data['internal_meeting_date'] = $param['internal_meeting_date'];
     $data['internal_meeting_place'] = $param['internal_meeting_place'];
-    $data['internal_meeting_form'] =$param['internal_meeting_form']
+    $data['internal_meeting_form'] =$param['internal_meeting_form'];
     $data['internal_meeting_type'] =$param['internal_meeting_type'];
     $data['internal_meeting_level'] =$param['internal_meeting_level'];
     $data['internal_meeting_dense'] =$param['internal_meeting_dense'];
@@ -55,7 +55,8 @@ class InternalMeetingModel  extends Model{
     $data['internal_get_meeting_person'] = $param['internal_get_meeting_person'];
     $data['internal_print_person'] =$param['internal_print_person'];
     $data['internal_bai_person'] = $param['internal_bai_person'];
-    $data['internal_bai_person'] = $param['internal_bai_person'];
+    $data['internal_bei_person'] = $param['internal_bei_person'];
+    $data['internal_beiban'] = $param['internal_beiban'];
     $data['internal_hui_person'] = $param['internal_hui_person'];
     $data['internal_cehua_person'] = $param['internal_cehua_person'];
     $data['internal_cevideo_person'] = $param['internal_cevideo_person'];
@@ -71,6 +72,54 @@ class InternalMeetingModel  extends Model{
     $data['internal_meeting_speed'] =$param['internal_meeting_speed'];
     $data['internal_file_person'] =$param['internal_file_person'];
     $data['internal_proposal'] =$param['internal_proposal'];
+    $data['internal_file_time'] = $param['internal_notice_stop_date'];
+    $data['internal_username'] = 1;
+    $internal->add($data);
     }
-*/
+     /*
+     * 统计数量
+     */
+     public function getInternalCount($where) {
+        
+        $count = D('internalmeeting')
+                
+                ->where($where)->count();
+        return $count;
+    }
+  
+    
+    /**
+     * 分页查询操作
+     * 
+     * @author xiaohui
+     * @param array $where 查询条件
+     * @param int 查询开始位置
+     * @param int 查询条数
+     * @return array 成功返回列表
+     */
+    public function getList($where, $first_rows, $list_rows) {
+      $order = M('internalmeeting');
+      
+      $list = $order
+              ->where($where)
+              ->limit($first_rows, $list_rows)
+              ->order('internal_id desc')
+              ->select();
+      return $list;
+    }
+    
+    /*
+     * 查询单个内部会议
+     * @author xiaohui
+     * @return array 成功返回列表
+     */
+    
+    public function getOneInternalMeeting($id){
+        
+        $internal = D('internalmeeting')
+              ->where("internal_id = $id")
+              ->find();
+        return $internal;
+    }
+    
 }

@@ -16,7 +16,12 @@ return array(
         'FILE_SIZE' =>524288,
         'FILE_PATH' => 'filecover/', //临时存储路径
         'ALLOW_FILE'=>array('jpg','png'),
-    ),   
+    ),  
+    'FILE_MEETING' => array(//会议相关文件上传
+    'FILE_SIZE' => 3145728,
+    'FILE_PATH' => 'internalMeeting/', //临时存储路径
+    'ALLOW_FILE'=>array('xlsx','xls'),
+    ),
 );
 
 

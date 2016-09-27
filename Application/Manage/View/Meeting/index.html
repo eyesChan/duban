@@ -24,10 +24,10 @@
                     <notempty name='val'>
 
                         <div class="text-al ml10">{$val}</div>
-                        <div class="text-al ml10">
+                        <div class="text-al judgeMeeting">
                         <foreach name='meeting_info' item='meet'>
                             <if  condition='$meet.meeting_date eq $val '>
-                                <div class="text-al ml10"><span></span>{$meet.meeting_name}</div>
+                                <div class="text-al mt10 ml10"><span></span>{$meet.meeting_name}</div>
                             </if>
                         </foreach>
                     </notempty>
@@ -52,5 +52,10 @@
     function openNew() {
         location.href = '{:U(addMeeting)}';
     }
+    $(".judgeMeeting").each(function(){
+        if($.trim($(this).html()) !== ""){
+            $(this).parent().addClass("haveMeeting");
+        }
+    });
 </script> 
 </block>

@@ -1,6 +1,16 @@
+.meeting-plan td {
+	height: 100px;
+}
+.haveMeeting {
+	background: #CCFF99;
+}
 .meeting-plan td div {
-	width: 120px;
+	width: 100%;
+	text-align: center;
 	line-height: 16px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
 }
 .meeting-plan td div span {
 	width: 10px;
@@ -24,4 +34,14 @@
 	border: 1px solid #ededed;
 	width: 80px;
 	height: 26px;
+}
+.exportBtn {
+	position: absolute;
+	top: 1px; 
+	right: 1px;
+}
+.rightBtn {
+	position: absolute;
+	top: 1px;
+	right:105px;
 }

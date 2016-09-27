@@ -1,15 +1,16 @@
 <?php
 
 namespace Manage\Model;
+
 use Think\Model;
 
 /**
- *签约仪式台账管理模型类，负责查询列表数据、根据消息ID获取单条数据、生成查询条件、添加入库、编辑入库、删除动作
+ * 签约仪式台账管理模型类，负责查询列表数据、根据消息ID获取单条数据、生成查询条件、添加入库、编辑入库、删除动作
  *
  * @author chengyayu
  */
-class CeremoneyAccountModel extends Model{
-    
+class CeremoneyAccountModel extends Model {
+
     protected $trueTableName = 'db_ceremoney_account';
     protected $_validate = array();
 
@@ -19,7 +20,7 @@ class CeremoneyAccountModel extends Model{
             array('dept_id', 'require', C('EXPENSERULECHECK.DEPT_ID_REQUIRE')),
         );
     }
-    
+
     /**
      * 获取列表所需数据
      * 
@@ -29,7 +30,7 @@ class CeremoneyAccountModel extends Model{
     public function getDataForList($params) {
 
         $arr_for_list = array();
-        
+
         $where = $this->makeWhereForSearch($params);
         $page = $params['p'];
         $arr_for_list['ceremoney_account'] = $this->where($where)
@@ -45,7 +46,7 @@ class CeremoneyAccountModel extends Model{
 
         return $arr_for_list;
     }
-    
+
     /**
      * 获取单条数据信息
      * 
@@ -56,10 +57,10 @@ class CeremoneyAccountModel extends Model{
 
         $where['ca_id'] = $ca_id;
         $res = $this->where($where)->find();
-        
+
         return $res;
     }
-    
+
     /**
      * 获取查询条件数组
      * 
@@ -70,7 +71,7 @@ class CeremoneyAccountModel extends Model{
 
         $where = array();
 
-        $where['ca_status'] = 1;//排除‘已删除状态’
+        $where['ca_status'] = 1; //排除‘已删除状态’
         if (!empty($params['ca_name'])) {
             $where['ca_name'] = array('LIKE', "%" . $params['ca_name'] . "%");
         }
@@ -78,12 +79,12 @@ class CeremoneyAccountModel extends Model{
             $where['ca_host'] = array('LIKE', "%" . $params['ca_host'] . "%");
         }
         if (!empty($params['ca_time'])) {
-            $where['ca_time'] = date('Y-m-d',strtotime($params['ca_time']));
+            $where['ca_time'] = date('Y-m-d', strtotime($params['ca_time']));
         }
 
         return $where;
     }
-    
+
     /**
      * 添加入库
      * 
@@ -158,4 +159,21 @@ class CeremoneyAccountModel extends Model{
             return C('COMMON.ERROR_DEL');
         }
     }
+
+    /**
+     * 导出excel
+     * 
+     * @return array
+     */
+    public function getExecl() {
+        
+        $data_ca = $this->select();
+        $count = count($data_ca);
+        for ($i = 0; $i <= $count; $i++) {
+            unset($data_ca[$i]['ca_id']);
+            unset($data_ca[$i]['ca_status']);
+        }
+        return $data_ca;
+    }
+
 }

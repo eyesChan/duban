@@ -144,7 +144,7 @@ class PresentationController extends AdminController {
      * 
      * 文稿台账编辑
      * @author huang gang
-     * @date 2016/09/26
+     * @date 2016/09/27
      * @return 跳转页面 Description
      */
     public function savePresent(){
@@ -188,7 +188,7 @@ class PresentationController extends AdminController {
     /*
      * 文稿台账删除
      * @author huang gang
-     * @date 2016/09/26
+     * @date 2016/09/27
      * @return 跳转页面 Description
      */
     public function delPresent(){
@@ -201,4 +201,107 @@ class PresentationController extends AdminController {
         }
     
     }
-}
+     /**
+     * 集团模块文档导出
+     * @author huang gang
+     * @date 2016/09/27
+     * @return 跳转页面 Description
+     *  
+     */
+    public function exportPresent(){
+        $data=I();
+        $work = $this->presentation->getExecl($data); 
+        $headArr = array('序号', 
+                        '文稿规范名称', 
+                        '工作来源	',  
+                        '交办日期	',  
+                        '完成日期	',  
+                        '文稿类型	', 
+                        '文稿形式	', 
+                        '优先级别	',  
+                        '工作难度	', 
+                        '责任人',    
+                        '工作状态' ,  
+                        '拟稿人',    
+                        '拟稿时长	',  
+                        '拟稿字数	',  
+                        '核稿人',   
+                        '核稿时长	',  
+                        '修改字数	',  
+                        '核稿评价	',  
+                        '核稿人',
+                        '核稿时长	',
+                        '修改字数	',
+                        '核稿评价	',
+                        '核稿人',
+                        '核稿时长	',
+                        '修改字数	',
+                        '核稿评价	',
+                        '中心评价	',
+                        '超时次数	', 
+                        '硬伤次数	',
+                        '呈报日期	', 
+                        '审批方式	', 
+                        '审批进展	',
+                        '发文方式	', 
+                        '发文日期	', 
+                        '存档情况	', 
+                        '存档时间	', 
+                        '存档地址', 
+                );
+            getExcel($headArr, $work);
+                            
+      }
+      
+      /**
+     * 公司模块文档导出
+     * @author huang gang
+     * @date 2016/09/27
+     * @return 跳转页面 Description
+     *  
+     */
+    public function exportPresents(){
+        $data=I();
+        $work = $this->presentation->getExecls($data); 
+        $headArr = array('序号', 
+                        '文稿规范名称', 
+                        '工作来源	',  
+                        '交办日期	',  
+                        '完成日期	',  
+                        '文稿类型	', 
+                        '文稿形式	', 
+                        '优先级别	',  
+                        '工作难度	', 
+                        '责任人',    
+                        '工作状态' ,  
+                        '拟稿人',    
+                        '拟稿时长	',  
+                        '拟稿字数	',  
+                        '核稿人',   
+                        '核稿时长	',  
+                        '修改字数	',  
+                        '核稿评价	',  
+                        '核稿人',
+                        '核稿时长	',
+                        '修改字数	',
+                        '核稿评价	',
+                        '核稿人',
+                        '核稿时长	',
+                        '修改字数	',
+                        '核稿评价	',
+                        '中心评价	',
+                        '超时次数	', 
+                        '硬伤次数	',
+                        '呈报日期	', 
+                        '审批方式	', 
+                        '审批进展	',
+                        '发文方式	', 
+                        '发文日期	', 
+                        '存档情况	', 
+                        '存档时间	', 
+                        '存档地址', 
+                );
+            getExcel($headArr, $work);
+                            
+      }
+    }         

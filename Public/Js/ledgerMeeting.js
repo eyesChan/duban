@@ -8,8 +8,8 @@
 $('#export').click(function(){
    var  led_meeting_name = $('#led_meeting_name').val();
    var  led_meeting_host = $('#led_meeting_host').val();
-   var  date8 = $('#date8').val();
-   $.post('/Manage/LedgerMeeting/exportLedgerMeeting',{led_meeting_name:led_meeting_name,led_meeting_host:led_meeting_host,date8:date8},function(obj){
+   var  led_meeting_date = $('#date8').val();
+   $.post('/Manage/LedgerMeeting/exportLedgerMeeting',{led_meeting_name:led_meeting_name,led_meeting_host:led_meeting_host,led_meeting_date:led_meeting_date},function(obj){
    })
    
 })

@@ -5,12 +5,22 @@
                 
         }
 
-//$('#export').click(function(){
-//   var  led_meeting_name = $('#led_meeting_name').val();
-//   var  led_meeting_host = $('#led_meeting_host').val();
-//   var  date8 = $('#date8').val();
-//   $.post('/Manage/LedgerMeeting/exportLedgerMeeting',{led_meeting_name:led_meeting_name,led_meeting_host:led_meeting_host,date8:date8},function(obj){
-//   })
-//   
-//})
+$('#export').click(function(){
+   
+   var  db_pre_name = $('#db_pre_name').val();
+   var  db_assign_name = $('#db_assign_name').val();
+   var  db_assign_date = $('#date8').val();
+   $.post('/Manage/Presentation/exportPresent',{db_pre_name:db_pre_name,db_assign_name:db_assign_name,db_assign_date:db_assign_date},function(obj){
+   });
+   
+})
+$('#export1').click(function(){
+   
+   var  db_pre_name = $('#db_pre_name').val();
+   var  db_assign_name = $('#db_assign_name').val();
+   var  db_assign_date = $('#date8').val();
+   $.post('/Manage/Presentation/exportPresents',{db_pre_name:db_pre_name,db_assign_name:db_assign_name,db_assign_date:db_assign_date},function(obj){
+   });
+   
+})
 

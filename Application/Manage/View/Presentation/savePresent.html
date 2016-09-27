@@ -55,7 +55,7 @@
                 <td>
                    <select name='db_pre_type'>
                         <foreach item='item' name='pre_type'>
-                                 <option <if condition="$list['db_pre_type'] eq $item.config_id ">selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
+                                 <option <if condition="$list['db_pre_type'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
                         </foreach>
                    </select>
                 </td>
@@ -63,7 +63,7 @@
                 <td>
                       <select name='db_pre_form'>
                            <foreach item='item' name='pre_form'>
-                               <option <if condition="$list['db_pre_form'] eq $item.config_id ">selected</if>  value="{$item.config_id}">{$item.config_descripion}</option>
+                               <option <if condition="$list['db_pre_form'] eq $item.config_descripion ">selected</if>  value="{$item.config_descripion}">{$item.config_descripion}</option>
                            </foreach>
                     </select>
               </td>
@@ -97,7 +97,7 @@
                 <td colspan='3'>
                       <select name='db_pre_status'>
                             <foreach item='item' name='work_status'>
-                                 <option <if condition="$list['db_pre_status'] eq $item.config_id ">selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
+                                 <option <if condition="$list['db_pre_status'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
                             </foreach>
                     </select>
                 </td>
@@ -301,7 +301,7 @@
                 <td>
                      <select name='db_examin_mode'>
                              <foreach item='item' name='exa_mode'>
-                                <option <if condition="$list['db_examin_mode'] eq $item.config_id ">selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
+                                <option <if condition="$list['db_examin_mode'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
                            </foreach>
                     </select>
                 </td>
@@ -309,7 +309,7 @@
                 <td>
                      <select name='db_examin_progress'>
                            <foreach item='item' name='exa_mode'>
-                                <option <if condition="$list['db_examin_progress'] eq $item.config_id ">selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
+                                <option <if condition="$list['db_examin_progress'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
                            </foreach>
                     </select>
                 </td>
@@ -322,7 +322,7 @@
                  <td>
                      <select name="db_despatch_mode">
                         <foreach item='item' name='dis_mode'>
-                                <option <if condition="$list['db_despatch_mode'] eq $item.config_id ">selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
+                                <option <if condition="$list['db_despatch_mode'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>

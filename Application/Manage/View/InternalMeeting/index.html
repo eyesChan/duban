@@ -53,56 +53,22 @@
 	        <tbody>	
                     <foreach name="list" item="item">
 	        	<tr>
-                            <td>{$item.worksheet_name}</td>
-                            <td>{$item.meeting_name}</td>
-                            <td>{$item.name}</td>
-                            <td>{$item.worksheet_start_date|substr=0,10}</td>
-                            <td>{$item.worksheet_end_date|substr=0,10}</td>      
-                            <td>{$item.worksheet_state}</td>
+                            <td>{$item.internal_id}</td>
+                            <td>{$item.internal_name}</td>
+                            <td>{$item.internal_meeting_type}</td>
+                            <td>{$item.internal_meeting_start_date|substr=0,10}</td>
+                            <td>{$item.internal_host}</td>      
+                            <td>{$item.internal_meeting_place}</td>
+                           
                             <td>
-                                <if condition="$item.worksheet_state eq '未启动' ">
-                                <div class="Bars"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                    <elseif condition="$item.worksheet_state eq '正常'" />
-                                <div class="Bara"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                    <elseif condition="$item.worksheet_state eq '挂起'" />
-                                <div class="Barb"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                    <elseif condition="$item.worksheet_state eq '延迟'" />
-                                <div class="Barc"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                 <elseif condition="$item.worksheet_state eq '废弃'" />
-                                <div class="Bard"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                     <else />
-                                     
-                                 </if>
-                            </td>
-                            <td>
-                                <a class="" title="查看" href="{:U('details?id='.$item['worksheet_id'])}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="查看">
+                                <a class="" title="详情" href="{:U('details?id='.$item['internal_id'])}">
+                                    <input type="button" class="btn btn-c btn-xl button" value="详情">
                                 </a>
-                                <a class="" title="编辑" href="{:U('save?id='.$item['worksheet_id'])}">
+                                <a class="" title="编辑" href="{:U('save?id='.$item['internal_id'])}">
                                     <input type="button" class="btn btn-c btn-xl button" value="编辑">
                                 </a>
-                                <a class="" title="督办" href="{:U('sendEmail?id='.$item['worksheet_id'])}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="督办">
+                                <a class="" title="删除" href="{:U('detele?id='.$item['internal_id'])}">
+                                    <input type="button" class="btn btn-c btn-xl button" value="删除">
                                 </a>
                             </td>
 	        	</tr>

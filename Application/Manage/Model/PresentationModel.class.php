@@ -100,36 +100,36 @@ class PresentationModel  extends Model{
      * @Date    2016/09/27
      * @author huanggang
      * @param array $data 修改后的数据
-     * @param $led_meeting_id 修改条件
+     * @param $pre_id 修改条件
      * @return object 修改成功或失败 
      */
-//    public function savePresent($data,$led_meeting_id){
-//        $led_meeting = M('led_meeting');
-//        $res = $led_meeting->where("led_meeting_id =".$led_meeting_id)->save($data);
-//       if($res){
-//            return C('COMMON.SUCCESS_EDIT');
-//        }else{
-//            return C('COMMON.ERROR_EDIT');
-//        }      
-//    }
+    public function savePresent($data,$pre_id){
+        $led_presentation = M('led_presentation');
+        $res = $led_presentation->where("db_pre_id =".$pre_id)->save($data);
+       if($res){
+            return C('COMMON.SUCCESS_EDIT');
+        }else{
+            return C('COMMON.ERROR_EDIT');
+        }      
+    }
     
     /*
      * 
      * 删除操作
      * @Date    2016/09/27
      * @author  huanggang
-     * @param $led_meeting_id 删除条件
+     * @param $pre_id 删除条件
      * @return object 删除成功或失败
      */
-//    public function delPresent($led_meeting_id){
-//        $led_meeting = M('led_meeting');
-//        $res = $led_meeting->where("led_meeting_id =".$led_meeting_id)->setField('led_status','1');
-//       if($res){
-//            return C('COMMON.SUCCESS_DEL');
-//        }else{
-//            return C('COMMON.ERROR_DEL');
-//        }      
-//    }
+    public function delPresent($pre_id){
+        $led_presentation = M('led_presentation');
+        $res = $led_presentation->where("db_pre_id =".$pre_id)->setField('pre_status','1');
+       if($res){
+            return C('COMMON.SUCCESS_DEL');
+        }else{
+            return C('COMMON.ERROR_DEL');
+        }      
+    }
     
       /*
      * 导出execl 查询

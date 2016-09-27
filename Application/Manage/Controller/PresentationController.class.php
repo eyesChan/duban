@@ -119,7 +119,7 @@ class PresentationController extends AdminController {
         $pre_id = I('db_pre_id');
         $result = $this->presentation->detailsPresent($pre_id);
         $this->assign('list', $result);
-            //文稿类型 
+        //文稿类型 
         $pre_type = getConfigInfo('doc_pre_type');
         $this->assign('pre_type', $pre_type);
         //发布方式
@@ -149,19 +149,37 @@ class PresentationController extends AdminController {
      */
     public function savePresent(){
          if(IS_GET){
-             $led_meeting_id = I('led_meeting_id');
-             $result = $this->ledger_meeting->detailsLedger($led_meeting_id);
-             $this->assign('list', $result);
-             $this->display();
+            $pre_id = I('db_pre_id');
+            $result = $this->presentation->detailsPresent($pre_id);
+            $this->assign('list', $result);
+                 //文稿类型 
+            $pre_type = getConfigInfo('doc_pre_type');
+            $this->assign('pre_type', $pre_type);
+            //发布方式
+            $dis_mode = getConfigInfo('doc_dis_mode');
+            $this->assign('dis_mode', $dis_mode);
+             //文稿形式
+            $pre_form = getConfigInfo('doc_pre_form');
+            $this->assign('pre_form', $pre_form);
+             //工作状态
+            $work_status = getConfigInfo('doc_work_status');
+            $this->assign('work_status', $work_status);
+             //审批方式
+            $exa_mode = getConfigInfo('doc_exa_mode');
+            $this->assign('exa_mode', $exa_mode);
+             //用户信息
+            $user_name = $this->presentation->getUser();
+            $this->assign('user_name', $user_name);
+            $this->display();
          }
          if(IS_POST){
              $data=I();
              if(!empty($data)){
-                $result = $this->ledger_meeting->saveLedger($data,$data['led_meeting_id']);
+                $result = $this->presentation->savePresent($data,$data['db_pre_id']);
                 if ($result['code'] == 200) {
-                       $this->success($result['status'], U('LedgerMeeting/index'));
+                       $this->success($result['status'], U('Presentation/index'));
                   }else{
-                       $this->success($result['status'], U('LedgerMeeting/addLedger'));
+                       $this->success($result['status'], U('Presentation/savePresent?db_pre_id='.$data['db_pre_id']));
                 }
             }
          }       
@@ -174,12 +192,12 @@ class PresentationController extends AdminController {
      * @return 跳转页面 Description
      */
     public function delPresent(){
-        $led_meeting_id = I('led_meeting_id');
-        $result = $this->ledger_meeting->delLedger($led_meeting_id);
+        $db_pre_id = I('db_pre_id');
+        $result = $this->presentation->delPresent($db_pre_id);
         if ($result['code'] == 200) {
-             $this->success($result['status'], U('LedgerMeeting/index'));
+             $this->success($result['status'], U('Presentation/index'));
           }else{
-             $this->success($result['status'], U('LedgerMeeting/index'));
+             $this->success($result['status'], U('Presentation/index'));
         }
     
     }

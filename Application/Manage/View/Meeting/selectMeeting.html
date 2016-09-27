@@ -100,14 +100,15 @@
         }
         //删除会议
         function delMeeting(id){
-        $.post('/Manage/Meeting/delMeeting', {meeting_id:id}, function(obj){
-        if (obj.code == 200){
-        alert('删除成功');
-        location.href = '{:U(selectMeeting)}'
-        } else{
-        alert('删除失败');
-        }
-        })
+
+            $.post('/Manage/Meeting/delMeeting', {meeting_id:id}, function(obj){
+                if (obj.code == 200){
+                alert('删除成功');
+                location.href = '{:U(selectMeeting)}'
+                } else{
+                alert('删除失败');
+                }
+            })
         }
         //会议导出
         function importMeeting(){

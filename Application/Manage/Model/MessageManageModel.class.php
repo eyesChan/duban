@@ -119,8 +119,10 @@ class MessageManageModel extends Model {
         if ($msg_sys_data) {
             $res_add = $this->add($msg_sys_data);
             if (FALSE === $res_add) {
+                writeOperationLog('添加“' . $data['msg_sys_title'] . '”系统消息', 0);
                 return C('COMMON.ERROR_ADD');
             } else {
+                writeOperationLog('添加“' . $data['msg_sys_title'] . '”系统消息', 1);
                 return C('COMMON.SUCCESS_ADD');
             }
         } else {
@@ -146,8 +148,10 @@ class MessageManageModel extends Model {
             $where['msg_sys_id'] = $msg_sys_data['msg_sys_id'];
             $res_update = $this->where($where)->save($msg_sys_data);
             if (FALSE === $res_update) {
+                writeOperationLog('修改“' . $data['msg_sys_title'] . '”系统消息', 0);
                 return C('COMMON.ERROR_EDIT');
             } else {
+                writeOperationLog('修改“' . $data['msg_sys_title'] . '”系统消息', 1);
                 return C('COMMON.SUCCESS_EDIT');
             }
         } else {
@@ -167,10 +171,13 @@ class MessageManageModel extends Model {
         $msg_sys_data = array();
         $msg_sys_data['msg_sys_id'] = $msg_sys_id;
         $msg_sys_data['msg_sys_status'] = 4; //删除状态
+        $msg_sys_data['msg_sys_title'] = $this->where("msg_sys_id = $msg_sys_id")->getField('msg_sys_title');
         $res_delete = $this->save($msg_sys_data);
         if ($res_delete == 1) {
+            writeOperationLog('删除“' . $msg_sys_data['msg_sys_title'] . '”系统消息', 1);
             return C('COMMON.DEL_SUCCESS');
         } else {
+            writeOperationLog('删除“' . $msg_sys_data['msg_sys_title'] . '”系统消息', 0);
             return C('COMMON.DEL_ERROR');
         }
     }

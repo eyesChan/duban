@@ -151,8 +151,10 @@ class ConfigManageModel extends Model {
         if ($config_sys_data) {
             $res_add = $this->add($config_sys_data);
             if (FALSE === $res_add) {
+                writeOperationLog('添加“' . $data['config_system']['config_descripion'] . '”系统参数', 0);
                 return C('COMMON.ERROR_ADD');
             } else {
+                writeOperationLog('添加“' . $data['config_system']['config_descripion'] . '”系统参数', 1);
                 return C('COMMON.SUCCESS_ADD');
             }
         } else {
@@ -179,8 +181,10 @@ class ConfigManageModel extends Model {
             $where['config_id'] = $config_sys_data['config_id'];
             $res_update = $this->where($where)->save($config_sys_data);
             if (FALSE === $res_update) {
+                writeOperationLog('编辑“' . $data['config_descripion'] . '”系统参数', 0);
                 return C('COMMON.ERROR_EDIT');
             } else {
+                writeOperationLog('编辑“' . $data['config_descripion'] . '”系统参数', 1);
                 return C('COMMON.SUCCESS_EDIT');
             }
         } else {
@@ -200,10 +204,13 @@ class ConfigManageModel extends Model {
         $config_data = array();
         $config_data['config_id'] = $config_id;
         $config_data['config_status'] = 3; //删除状态
+        $config_data['config_descripion'] = $this->where("config_id = $config_id")->getField('config_descripion');
         $res_delete = $this->save($config_data);
         if ($res_delete == 1) {
+            writeOperationLog('删除“' . $config_data['config_descripion'] . '”系统参数', 1);
             return C('COMMON.DEL_SUCCESS');
         } else {
+            writeOperationLog('删除“' . $config_data['config_descripion'] . '”系统参数', 0);
             return C('COMMON.DEL_ERROR');
         }
     }

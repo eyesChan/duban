@@ -46,8 +46,8 @@ class MeetingController extends AdminController {
                 $end_time = date('Y-m-28');
             }
         }
-        $week = $this->meeting_model->getDate($start_time,$end_time);
-        $meeting_info = $this->meeting_model->getMeetingByMonth($start_time,$end_time);
+        $week = $this->meeting_model->getDate($start_time, $end_time);
+        $meeting_info = $this->meeting_model->getMeetingByMonth($start_time, $end_time);
         $this->assign('meeting_info', $meeting_info);
         $this->assign('week', $week);
         $this->display();
@@ -82,6 +82,8 @@ class MeetingController extends AdminController {
             $add_flag = $this->meeting_model->addMeeting($data);
             $lang_info = C('COMMON');
             if ($add_flag) {
+                $this->meeting_model->sendMeetingEmail($add_flag);
+
                 writeOperationLog('添加“' . $data['meeting_name'] . '”会议', 1);
                 $this->success($lang_info['SUCCESS_ADD']['status'], U('selectMeeting'));
             }
@@ -91,7 +93,8 @@ class MeetingController extends AdminController {
         }
         $user_info = $upload_obj->getUserInfo();
         $this->assign('user_info', $user_info);
-
+        //获取台帐管理员
+        $account_info = $this->meeting_model->getAccount();
         //会议类型
         $meeting_type_info = getConfigInfo('meeting_type');
         $this->assign('type_info', $meeting_type_info);
@@ -101,6 +104,8 @@ class MeetingController extends AdminController {
         //会议形式
         $meeting_form_info = getConfigInfo('meeting_form');
         $this->assign('form_info', $meeting_form_info);
+        //台帐管理员
+        $this->assign('account_info', $account_info);
         $this->display();
     }
 
@@ -162,6 +167,9 @@ class MeetingController extends AdminController {
             $this->assign('form_info', $meeting_form_info);
             $meeting_info['file_name'] = pathinfo($meeting_info['meeting_annexes_url'])['filename'];
             $this->assign('meeting_info', $meeting_info);
+            //获取台帐管理员
+            $account_info = $this->meeting_model->getAccount();
+            $this->assign('account_info', $account_info);
             $this->display('addMeeting');
         } else {
             if (!empty($_FILES['file']['name'])) {
@@ -180,8 +188,11 @@ class MeetingController extends AdminController {
             }
             $save_flag = $this->meeting_model->addMeeting($meeting_info, $meeting_id);
             if ($save_flag !== false) {
+                $this->meeting_model->sendMeetingEmail($meeting_id);
+                writeOperationLog('修改“' . $meeting_info['meeting_name'] . '”会议', 1);
                 $this->success(C('COMMON.SUCCESS_EDIT')['status'], U('/Manage/Meeting/selectMeeting'));
             } else {
+                writeOperationLog('修改“' . $meeting_info['meeting_name'] . '”会议', 0);
                 $this->error(C('COMMON.ERROR_EDIT.status')['status'], U('/Manage/Meeting/selectMeeting'));
             }
         }
@@ -212,6 +223,7 @@ class MeetingController extends AdminController {
         $meeting_info['meeting_form'] = $config_mod
                 ->where(array('config_key' => 'meeting_form', 'config_value' => $meeting_info['meeting_form']))
                 ->getField('config_descripion');
+        $meeting_info['meeting_ledger_re_person'] = D('member')->where(array('uid' => $meeting_info['meeting_ledger_re_person']))->getField('name');
         $this->assign('meeting_info', $meeting_info);
         $this->display();
     }
@@ -237,9 +249,13 @@ class MeetingController extends AdminController {
         }
         if ($meeting_save_flag !== false && $work_save_flag !== false) {
             $this->meeting_model->commit();
+            writeOperationLog('删除“' . $meeting_info['meeting_name'] . '”会议', 1);
+
             $this->ajaxReturn(C('COMMON.SUCCESS_EDIT'));
         }
         $this->meeting_model->rollback();
+        writeOperationLog('删除“' . $meeting_info['meeting_name'] . '”会议', 0);
+
         $this->ajaxReturn(C('COMMON.ERROR_EDIT'));
     }
 

@@ -117,9 +117,12 @@ class MeetingController extends AdminController {
      */
     public function selectMeeting() {
         $searchInfo = I();
+        if(I('hiddenform') == 1){
+            $this->getExcel($searchInfo);
+        }
         $config_mod = D('config_system');
         $count = $this->meeting_model->selectMeetingCount($searchInfo);
-        $page = new \Think\Page($count, 3); // 实例化分页类 传入总记录数和每页显示的记录数
+        $page = new \Think\Page($count, 10); // 实例化分页类 传入总记录数和每页显示的记录数
         $meeting_info = $this->meeting_model->selectMeeting($searchInfo, $page->firstRow, $page->listRows);
         //会议主持人 重新赋值
         foreach ($meeting_info as $key => $val) {
@@ -257,6 +260,57 @@ class MeetingController extends AdminController {
         writeOperationLog('删除“' . $meeting_info['meeting_name'] . '”会议', 0);
 
         $this->ajaxReturn(C('COMMON.ERROR_EDIT'));
+    }
+    /**
+     * 导出excel
+     * @param 查询参数 $name Description
+     * @author lishuaijie
+     * @return true/false Description
+     * @date 2016/09/17
+     */
+    public function getExcel($data){
+        $meeting_info = $this->meeting_model->selectMeeting($data, 0, 10000);
+        $header = array(
+            '序号','会议名称','会议类型', '会议级别','召集人','主持人', '参会人员',
+            '会议形式',
+            '参会规模',
+            '会议日期',
+            '会议时刻',
+            '会议地点',
+            '交办日期',
+            '会议时长',
+            '会议通知拟写',
+            '通知发出日期',
+            '通知时刻',
+            '会议材料收集',
+            '收集时间',
+            '材料提交时间',
+            '物料准备',
+            '会场布置与调试',
+            '测试日期',
+            '测试时间',
+            '问题明细',
+            '是否解决',
+            '现场保障',
+            '问题明细',
+            '是否解决',
+            '会议摄影摄像',
+            '会议结束日期',
+            '会议结束时刻',
+            '餐饮安排',
+            '会场整理人',
+            '相关文字',
+            '整理人',
+            '台账整理人',
+            
+            
+            
+            
+            
+            );
+        foreach($meeting_info as $key=>$val){
+            
+        }
     }
 
 }

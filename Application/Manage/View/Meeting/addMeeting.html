@@ -359,7 +359,7 @@
         </table>
         <div class="text-center">
             <input  type="hidden" name="meeting_id" value="{$meeting_info.meeting_id}">
-            <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
+            <input class="btn btn-red mr10 submit" type="submit" id="meetingSub" value="提交"/>
             <input class="btn ml10 button btn-normal" type="button" value="取消"/>
         </div>
     </form>
@@ -470,9 +470,12 @@
             var _this = $(this);
             addPerson(_this, "请填写记录整理人！");
         });
-        $(".addLedgerRePerson").on("click", function () {
-            var _this = $(this);
-            addPerson(_this, "请填写台账整理人！");
+      
+       $("#meetingSub").on("click",function(){
+            if($("#account").val() == "-100"){
+                $.dialog.alert("请选择台账整理人！");
+                return false;
+            }
         });
 
 

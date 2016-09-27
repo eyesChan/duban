@@ -174,7 +174,112 @@ class PresentationModel  extends Model{
          //去除不需要的键值
          foreach($data as $k => $v){
              unset($data[$k]['pre_status']);
+             unset($data[$k]['db_assign_dapart']);
          }
          return $data;
+    }
+    
+      /**
+     *  普通文件上传
+     * @param file_size 文件大小
+     * @param file_path 文件路径
+     * @param allow_file 允许格式
+     * @author huang gang
+     * @return array
+     * @date 16/09/27
+     */
+    public function normalUpload($param = array()) {
+        if (empty($param)) {
+            $result = C('COMMON.PARAMTER_ERROR');
+            return $result;
+        }
+        $upload = new \Think\Upload(); // 实例化上传类
+        $upload->maxSize = $param['FILE_SIZE']; // 设置附件上传大小
+        $upload->exts = $param['ALLOW_FILE']; // 设置附件上传类型
+        $upload->rootPath = C('FILE_ROOT_PATH'); // 设置附件上传根目录
+        $upload->savePath = $param['FILE_PATH']; // 设置附件上传（子）目录
+        if (file_exists($upload->rootPath)) {
+            chmod($upload->rootPath, '0777');
+        }
+        // 上传文件 
+        $info = $upload->upload();
+        if (!$info) {// 上传错误提示错误信息
+            $this->error($upload->getError());
+            return C('COMMON.UPLOAD_ERROR');
+        } else {// 上传成功 获取上传文件信息
+            $result = C('COMMON.UPLOAD_SUCCESS');
+            $result['info'] = $info; 
+            $result['rootPath'] = $upload->rootPath;
+            return $result;
+        }
+    }
+    /*
+    * 文稿批量创建
+    * @Date    2016/09/27
+    * @ahthor huanggang
+    * @return object 添加成功或失败
+    */
+     public function addsPresent($param){
+            $led_meeting = M('led_meeting');
+            $data=array();
+            $res=array('led_meeting_date',
+                        'led_meeting_place',
+                        'led_meeting_name',
+                        'led_meeting_guest',
+                        'led_meeting_leader',
+                        'led_meeting_host',
+                        'led_meeting_dense',
+                        'led_meeting_cloth',
+                        'led_meeting_person',
+                        'led_meeting_length',
+                        'led_argenda_name',
+                        'led_argenda_name',
+                        'led_argenda_status',
+                        'led_notice',
+                        'led_notice_ready',
+                        'led_notice_service',
+                        'led_men_ready',
+                        'led_men_name',
+                        'led_men_visiter',
+                        'led_mater_com',
+                        'led_mater_pen',
+                        'led_mater_phone',
+                        'led_mater_propa',
+                        'led_gift_date',
+                        'led_matter_card',
+                        'led_matter_trail',
+                        'led_matter_frame',
+                        'led_venue_layout',
+                        'led_venue_test',
+                        'led_venue_audio',
+                        'led_rece_guarantee',
+                        'led_rece_name',
+                        'led_scene_name',
+                        'led_scene_inter',
+                        'led_scene_error',
+                        'led_scene_fenxi',
+                        'led_end_name',
+                        'led_end_summary',
+                        'led_end_date',
+                        'led_file_name',
+                        'led_file_danwei',
+                        'led_file_address',
+                        'led_meeting_proposal'
+                
+                );
+              //  return $res;
+            //去除不需要的键值
+           foreach($param as $key => $v){
+               foreach ($v as $k => $v1){
+                   $data[$res[$k]]=$v1;
+               }
+               $a[$key]=$data;
+             }  
+             return $a;
+//            if($res){
+//                return C('COMMON.SUCCESS_EDIT');
+//            }else{
+//                return C('COMMON.ERROR_EDIT');
+//            } 
     }
 }

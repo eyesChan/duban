@@ -264,44 +264,97 @@ class PresentationController extends AdminController {
         $data=I();
         $work = $this->presentation->getExecls($data); 
         $headArr = array('序号', 
-                        '文稿规范名称', 
-                        '工作来源	',  
-                        '交办日期	',  
-                        '完成日期	',  
-                        '文稿类型	', 
-                        '文稿形式	', 
-                        '优先级别	',  
-                        '工作难度	', 
-                        '责任人',    
-                        '工作状态' ,  
-                        '拟稿人',    
-                        '拟稿时长	',  
-                        '拟稿字数	',  
-                        '核稿人',   
-                        '核稿时长	',  
-                        '修改字数	',  
-                        '核稿评价	',  
-                        '核稿人',
-                        '核稿时长	',
-                        '修改字数	',
-                        '核稿评价	',
-                        '核稿人',
-                        '核稿时长	',
-                        '修改字数	',
-                        '核稿评价	',
-                        '中心评价	',
-                        '超时次数	', 
-                        '硬伤次数	',
-                        '呈报日期	', 
-                        '审批方式	', 
-                        '审批进展	',
-                        '发文方式	', 
-                        '发文日期	', 
-                        '存档情况	', 
-                        '存档时间	', 
-                        '存档地址', 
+            '文稿规范名称',
+            '工作来源',
+            '交办人',
+            '部门职务',
+            '交办日期',
+            '交办时间',
+            '完成日期',
+            '完成时间',
+            '文稿类型',
+            '文稿形式',
+            '优先级别',
+            '工作难度',
+            '责任人',
+            '工作状态',
+            '拟稿人',
+            '完成日期',
+            '完成时间',
+            '拟稿时长',
+            '拟稿字数',
+            '核稿人',
+            '完成日期',
+            '完成时间',
+            '核稿时长',
+            '核稿字数',
+            '修改字数',
+            '核稿评价',
+            '核稿人',
+            '完成日期',
+            '完成时间',
+            '核稿时长',
+            '核稿字数',
+            '修改字数',
+            '核稿评价',
+            '核稿人',
+            '完成日期',
+            '完成时间',
+            '核稿时长',
+            '核稿字数',
+            '修改字数',
+            '核稿评价',
+            '中心评价',
+            '超时次数',
+            '硬伤次数',
+            '呈报日期',
+            '呈报时间',
+            '审批方式',
+            '审批进展',
+            '发文方式',
+            '发布人',
+            '发文日期',
+            '发文时间',
+            '存档人',
+            '存档情况',
+            '存档时间',
+            '存档地址',
+            '印章全称',
+            '用印份数',
+            '备注'
                 );
             getExcel($headArr, $work);
                             
       }
+      
+    /*
+     * 导入页面
+     * @author huang gang
+     * @date 2016/09/27
+     * @return 跳转页面 Description
+     */
+    public function importExcel(){
+        
+        $this->display('importPresent');
+    }
+    
+     /*
+      * 导入
+      * @author huang gang
+      * @date 2016/09/27
+      * @return 跳转页面 Description
+      */
+    public function importPresent(){
+        $param = $_FILES['filename'];
+        $files = $this->presentation->normalUpload($param);
+        $fileName = $files['info']['filename']['savename'];
+        $resute = importExcel('Public/2016-09-27/'.$fileName,$column=null);
+         $result = $this->presentation->addsPresent($resute);
+         P($result);DIE;
+              if ($result['code'] == 200) {
+                    $this->success($result['status'], U('LedgerMeeting/index'));
+                } else {
+                    $this->error($result['status'], U('LedgerMeeting/importExcel'));
+                }
+    }
     }         

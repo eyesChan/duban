@@ -117,7 +117,7 @@ class MeetingController extends AdminController {
      */
     public function selectMeeting() {
         $searchInfo = I();
-        if(I('hiddenform') == 1){
+        if (I('hiddenform') == 1) {
             $this->getExcel($searchInfo);
         }
         $config_mod = D('config_system');
@@ -261,6 +261,7 @@ class MeetingController extends AdminController {
 
         $this->ajaxReturn(C('COMMON.ERROR_EDIT'));
     }
+
     /**
      * 导出excel
      * @param 查询参数 $name Description
@@ -268,49 +269,93 @@ class MeetingController extends AdminController {
      * @return true/false Description
      * @date 2016/09/17
      */
-    public function getExcel($data){
-        $meeting_info = $this->meeting_model->selectMeeting($data, 0, 10000);
+    public function getExcel($info) {
+        $user_mod = D('member');
+
+        $meeting_info = $this->meeting_model->selectMeeting($info, 0, 10000);
         $header = array(
-            '序号','会议名称','会议类型', '会议级别','召集人','主持人', '参会人员',
-            '会议形式',
-            '参会规模',
-            '会议日期',
-            '会议时刻',
-            '会议地点',
-            '交办日期',
-            '会议时长',
-            '会议通知拟写',
-            '通知发出日期',
-            '通知时刻',
-            '会议材料收集',
-            '收集时间',
-            '材料提交时间',
-            '物料准备',
-            '会场布置与调试',
-            '测试日期',
-            '测试时间',
-            '问题明细',
-            '是否解决',
-            '现场保障',
-            '问题明细',
-            '是否解决',
-            '会议摄影摄像',
-            '会议结束日期',
-            '会议结束时刻',
-            '餐饮安排',
-            '会场整理人',
-            '相关文字',
-            '整理人',
+            '序号', '会议名称', '会议类型', '会议级别', '召集人', '主持人', '参会人员', '会议形式', '参会规模',
+            '会议日期', '会议时刻', '会议地点', '交办日期', '会议时长', '会议通知拟写', '通知发出日期', '通知时刻', '会议材料收集',
+            '收集时间', '材料提交时间', '物料准备', '会场布置与调试', '测试日期', '测试时间', '问题明细', '是否解决', '现场保障',
+            '会议摄影摄像', '会议结束日期', '会议结束时刻', '餐饮安排', '会场整理人', '相关文字', '整理人',
             '台账整理人',
-            
-            
-            
-            
-            
-            );
-        foreach($meeting_info as $key=>$val){
-            
+        );
+        $config_mod = D('config_system');
+        $list = array();
+        foreach ($meeting_info as $key => $val) {
+            $data['序号'] = $key + 1;
+            $data['会议名称'] = $val['meeting_name'];
+            $data['会议类型'] = $config_mod->where(array('config_key' => 'meeting_type', 'config_value' => $val['meeting_type']))->getField('config_descripion');
+            $data['会议级别'] = $config_mod->where(array('config_key' => 'meeting_level', 'config_value' => $val['meeting_level']))->getField('config_descripion');
+
+            //召集人
+            if (!empty($val['meeting_callman_name'])) {
+                $callman = explode(',', $val['meeting_callman_name']);
+            }
+            if (!empty($val['meeting_callman_value'])) {
+                $callman1 = explode(',', $val['meeting_callman_value']);
+            }
+            if (!empty($callman)) {
+                $callman_info = $callman;
+            }
+            if (!empty($callman1)) {
+                $callman_info = $callman1;
+            }
+            if (!empty($callman) && !empty($callman1)) {
+                $callman_info = array_merge($callman, $callman1);
+            }
+
+            $data['召集人'] = implode(',', $callman_info);
+            //会议主持人
+            $meeting_moderator_name = $this->meeting_model->dealtData($val, 'meeting_moderator');
+            $data['主持人'] = $meeting_moderator_name;
+            //参会人员
+            $meeting_participants_name = $this->meeting_model->dealtData($val, 'meeting_participants');
+            $data['参会人员'] = $meeting_participants_name;
+            $data['会议形式'] = $config_mod->where(array('config_key' => 'meeting_form', 'config_value' => $val['meeting_form']))->getField('config_descripion');
+            $data['参会规模'] = $val['meeting_scale'];
+            $data['会议日期'] = $val['meeting_date'];
+            $data['会议时刻'] = $val['meeting_time'];
+            $data['会议地点'] = $val['meeting_place'];
+
+
+            $data['交办日期'] = $val['meeting_assigned_date'];
+            $data['会议时长'] = $val['meeting_timelong'];
+            $data['会议通知拟写'] = $this->meeting_model->dealtData($val, 'meeting_writeperson');
+            $data['通知发出日期'] = $val['meeting_sendnotice_date'];
+            $data['通知时刻'] = $val['meeting_notice_date'];
+            $data['会议材料收集'] = $val['meeting_material_collect_person'];
+            $data['收集时间'] = $val['meeting_material_collect_date'];
+            $data['材料提交时间'] = $val['meeting_material_send_date'];
+            $data['物料准备'] = $this->meeting_model->dealtData($val, 'meeting_material_madeperson');
+            $data['会场布置与调试'] = $this->meeting_model->dealtData($val, 'meeting_venue_arrangeperson');
+            $data['测试日期'] = $val['meeting_try_date'];
+            $data['测试时间'] = $val['meeting_try_time'];
+            $data['问题明细'] = $val['meeting_qusetion_detail'];
+            if ($val['meeting_fix_state'] == 1) {
+                $state = '解决';
+            }
+            if ($val['meeting_fix_state'] == 2) {
+                $state = '未解决';
+            }
+            if ($val['meeting_fix_state'] == 3) {
+                $state = '处理中';
+            }
+            $data['是否解决'] = $state;
+            $data['现场保障'] = '';
+            $data['会议摄影摄像'] = $this->meeting_model->dealtData($val, 'meeting_vedio');
+            $data['会议结束日期'] = $val['meeting_end_date'];
+            $data['会议结束时刻'] = $val['meeting_end_time'];
+            $data['餐饮安排'] = $this->meeting_model->dealtData($val, 'meeting_food_drink');
+            $data['会场整理人'] = $this->meeting_model->dealtData($val, 'meeting_clean_person');
+            $data['相关文字'] = $val['meeting_content'];
+            $data['整理人'] = $this->meeting_model->dealtData($val, 'meeting_record_person');
+            $data['台账整理人'] = $user_mod->where('uid = ' . $val['meeting_ledger_re_person'])->getField('name');
+            $list[] = $data;
         }
+        getExcel($header, $list);
     }
+
+
 
 }

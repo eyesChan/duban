@@ -196,8 +196,10 @@ class LedgerMeetingController extends AdminController {
             getExcel($headArr, $work);
     }
     /*
-     * 导入页面
-     * 
+     *  导入页面
+     *  @author huang gang
+     *  @date 2016/09/27
+     *  @return 跳转页面 Description
      */
     public function importExcel(){
         
@@ -206,6 +208,9 @@ class LedgerMeetingController extends AdminController {
     
      /*
       * 导入
+      *@author huang gang
+      *@date 2016/09/27
+      *@return 跳转页面 Description
       */
     public function importLedgerMeeting(){
         $param = $_FILES['filename'];
@@ -217,7 +222,7 @@ class LedgerMeetingController extends AdminController {
               if ($result['code'] == 200) {
                     $this->success($result['status'], U('LedgerMeeting/index'));
                 } else {
-                    $this->error($result['status'], U('LedgerMeeting/addLedger'));
+                    $this->error($result['status'], U('LedgerMeeting/importExcel'));
                 }
     }
 }

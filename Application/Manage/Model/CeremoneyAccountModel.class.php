@@ -256,7 +256,7 @@ class CeremoneyAccountModel extends Model {
             return C('COMMON.IMPORT_ERROR');
         } else {
             $model->commit();
-            writeOperationLog('删除“' . 'excel表格' . '”', 1);
+            writeOperationLog('导入“' . 'excel表格' . '”', 1);
             return C('COMMON.IMPORT_SUCCESS');
             
         }

@@ -317,8 +317,6 @@ class MeetingController extends AdminController {
             $data['会议日期'] = $val['meeting_date'];
             $data['会议时刻'] = $val['meeting_time'];
             $data['会议地点'] = $val['meeting_place'];
-
-
             $data['交办日期'] = $val['meeting_assigned_date'];
             $data['会议时长'] = $val['meeting_timelong'];
             $data['会议通知拟写'] = $this->meeting_model->dealtData($val, 'meeting_writeperson');
@@ -356,6 +354,27 @@ class MeetingController extends AdminController {
         getExcel($header, $list);
     }
 
+    /**
+     * 导入会议记录 excel
+     * @author lishuaijie
+     * @return true/false Description
+     * @date 2016/09/28
+     */
+    public function importExcel() {
+        if (!empty($_FILES['file']['name'])) {
+            $upload_obj = new MeetingUplod();
+            $config_info = C();
+            $file_config = $config_info['FILE_IMPORT_EXCEL'];
+            $info = $upload_obj->importExcel($file_config);
+            $path = $info['rootPath'] . $info['info']['file']['savepath'] . $info['info']['file']['savename'];
+            echo $path;
+            die;
+            $list = importExcel($path, null);
+            P($list);
+        }
 
+
+        $this->display();
+    }
 
 }

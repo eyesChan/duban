@@ -88,7 +88,7 @@
                 <td>
                       <select name='db_pre_person'>
                             <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_pre_person'] eq $item.uid ">selected</if> value="{$item.uid}">{$item.name}</option>
+                                 <option <if condition="$list['db_pre_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -109,7 +109,7 @@
                 <td >
                     <select name='db_draft_person'>
                              <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_draft_person'] eq $item.uid ">selected</if> value="{$item.uid}">{$item.name}</option>
+                                 <option <if condition="$list['db_draft_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
                            </foreach>          
                     </select>
                 </td>
@@ -138,7 +138,7 @@
                 <td >
                     <select name='db_orgin_person'>
                             <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_orgin_person'] eq $item.uid">selected</if> value="{$item.uid}">{$item.name}</option>
+                                 <option <if condition="$list['db_orgin_person'] eq $item.name">selected</if> value="{$item.name}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -181,7 +181,7 @@
                 <td >
                     <select name='db_orgin2_person'>
                            <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_orgin2_person'] eq $item.uid ">selected</if> value="{$item.uid}">{$item.name}</option>
+                                 <option <if condition="$list['db_orgin2_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -225,7 +225,7 @@
                 <td >
                     <select name='db_orgin3_person'>
                           <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_orgin3_person'] eq $item.uid ">selected</if> value="{$item.uid}">{$item.name}</option>
+                                 <option <if condition="$list['db_orgin3_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>

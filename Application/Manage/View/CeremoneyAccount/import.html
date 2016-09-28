@@ -1,0 +1,19 @@
+<extend name="Public:base" />
+<block name="title"><title>会议创建</title></block>
+<block name="right">
+    <form action="{:U(addFile)}" method='post' class="mt20" id="productManage" enctype="multipart/form-data">
+        <table class="tbl">
+            <tr>
+                <td class="cap">上传附件：</td>
+                <td colspan="1">
+                    <input type="file" class="input-text text" name="filename">
+                </td>
+            </tr>
+        </table>
+        <div class="text-center">
+            <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
+            <input class="btn ml10 button btn-normal" type="button" value="取消" onclick="javascript:history.back(-1)" />
+        </div>
+    </form>
+
+</block>

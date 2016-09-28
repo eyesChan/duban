@@ -139,7 +139,7 @@ class CeremoneyAccountController extends AdminController {
             '准备录音笔',
             '准备麦克风',
             '准备宣传材料',
-            
+            '准备签约文本',
             '准备签约笔',
             '准备签约音乐',
             '准备香槟',
@@ -173,4 +173,25 @@ class CeremoneyAccountController extends AdminController {
         getExcel($headArr, $data_ca);
     }
 
+    /**
+     * 导入excel
+     */
+    public function importExcel(){
+        
+        $this->display('import');
+    }
+    
+    /*
+     * 上传文件，读取文件数据，插入数据库
+     */
+    public function addFile(){
+        
+        $mod_upload = new CommonApi\MeetingUpload();
+        $param = $_FILES['filename'];
+        $files = $mod_upload->normalUpload($param);
+        $fileName = $files['rootPath'].$files['info']['filename']['savepath'].$files['info']['filename']['savename'];
+        $data = importExcel($fileName);
+        $this->mod_ceremoney_account->import($data);
+      
+    }
 }

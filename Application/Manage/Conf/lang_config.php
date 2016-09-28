@@ -73,6 +73,22 @@ return array(
 	    'code' => 200,
 	    'status' => '撤回成功'
 	),
+        'IMPORT_ERROR' => array(
+	    'code' => 100,
+	    'status' => '导入失败'
+	),
+	'IMPORT_SUCCESS' => array(
+	    'code' => 200,
+	    'status' => '导入成功'
+	),
+        'EXPORT_ERROR' => array(
+	    'code' => 100,
+	    'status' => '导出失败'
+	),
+	'EXPORT_SUCCESS' => array(
+	    'code' => 200,
+	    'status' => '导出成功'
+	),
     ),
     /* 用户相关提示 */
     'USER' => array(

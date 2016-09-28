@@ -104,7 +104,7 @@ class CeremoneyAccountController extends AdminController {
      * 导出excel
      */
     public function makeExcel() {
-        
+
         $data_ca = $this->mod_ceremoney_account->getExecl();
 
         $headArr = array(
@@ -118,7 +118,6 @@ class CeremoneyAccountController extends AdminController {
             '签约领导',
             '参会人员',
             '密级',
-            
             '着装',
             '保障人员',
             '保障时长',
@@ -129,7 +128,6 @@ class CeremoneyAccountController extends AdminController {
             '发送会议通知',
             '通知材料准备',
             '通知服务单位保障',
-            
             '准备会议议程',
             '准备领导讲话稿',
             '准备来访人简历',
@@ -150,7 +148,6 @@ class CeremoneyAccountController extends AdminController {
             '制作KT板',
             '准备桌牌',
             '准备静帧画面',
-            
             '准备易拉宝',
             '完成场地布置',
             '完成背景板搭建',
@@ -161,7 +158,6 @@ class CeremoneyAccountController extends AdminController {
             '保障人员',
             '传译人员',
             '是否差错',
-            
             '原因分析',
             '拟写今日海航',
             '发文时间',
@@ -176,22 +172,23 @@ class CeremoneyAccountController extends AdminController {
     /**
      * 导入excel
      */
-    public function importExcel(){
-        
-        $this->display('import');
+    public function importExcel() {
+
+        if (!empty($_FILES['filename'])) {
+            $mod_upload = new CommonApi\MeetingUpload();
+            $param = $_FILES['filename'];
+            $files = $mod_upload->normalUpload($param);
+            $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
+            $data = importExcel($fileName);
+            $res_info_import = $this->mod_ceremoney_account->import($data);
+            if ($res_info_import['code'] == 200) {
+                $this->success($res_info_import['status'], U('CeremoneyAccount/index'));
+            } else {
+                $this->error($res_info_import['status'], U('CeremoneyAccount/index'));
+            }
+        } else {
+            $this->display('import');
+        }
     }
-    
-    /*
-     * 上传文件，读取文件数据，插入数据库
-     */
-    public function addFile(){
-        
-        $mod_upload = new CommonApi\MeetingUpload();
-        $param = $_FILES['filename'];
-        $files = $mod_upload->normalUpload($param);
-        $fileName = $files['rootPath'].$files['info']['filename']['savepath'].$files['info']['filename']['savename'];
-        $data = importExcel($fileName);
-        $this->mod_ceremoney_account->import($data);
-      
-    }
+
 }

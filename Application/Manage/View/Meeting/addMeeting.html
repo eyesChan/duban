@@ -472,7 +472,7 @@
         });
       
        $("#meetingSub").on("click",function(){
-            if($.trim($("[name=meeting\\[meeting_name\\]]").val() == "")){
+            if($.trim($("[name=meeting\\[meeting_name\\]]").val()) == ""){
                 $.dialog.alert("请填写会议名称！");
                 return false;
             }else if($("#account").val() == "-100"){

@@ -379,7 +379,7 @@ class MeetingController extends AdminController {
             $upload_obj = new MeetingUplod();
             $config_info = C();
             $file_config = $config_info['FILE_IMPORT_EXCEL'];
-            $info = $upload_obj->importExcel($file_config);
+            $info = $upload_obj->normalUpload($file_config);
             $path = $info['rootPath'] . $info['info']['file']['savepath'] . $info['info']['file']['savename'];
             $list = importExcel($path, 'AH');
             if(!empty($list) && $list['code'] != 100){
@@ -387,9 +387,13 @@ class MeetingController extends AdminController {
             }else{
                 $this->error($list['msg'],U('/Manage/Meeting/selectMeeting'));
             }
+            if($import_flag['code'] !==100){
+                $this->success($import_flag['status'],U('/Manage/Meeting/Selecting'));
+                return true;
+            }
+             $this->error($import_flag['status'],U('/Manage/Meeting/Selecting'));
+             return true;
         }
-
-
         $this->display();
     }
 

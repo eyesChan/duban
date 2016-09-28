@@ -167,33 +167,4 @@ class MeetingUpload extends \Think\Controller {
             return $user_info;
         }
     }
-    /**
-     * 文件导入
-     * @param $param 文件配置
-     * @author lishuaijie
-     * @return info 上传 文件信息
-     * @date 2016/09/28
-     */
-    public function importExcel($param){
-        $upload = new \Think\Upload(); // 实例化上传类
-        $upload->maxSize = $param['FILE_SIZE']; // 设置附件上传大小
-        $upload->exts = $param['ALLOW_FILE']; // 设置附件上传类型
-        $upload->rootPath = C('FILE_ROOT_PATH'); // 设置附件上传根目录
-        $upload->savePath = $param['FILE_PATH']; // 设置附件上传（子）目录
-        if (file_exists($upload->rootPath)) {
-            chmod($upload->rootPath, '0777');
-        }
-        // 上传文件 
-        $info = $upload->upload();
-        if (!$info) {// 上传错误提示错误信息
-            $this->error($upload->getError());
-            return C('COMMON.UPLOAD_ERROR');
-        } else {// 上传成功 获取上传文件信息
-            $result = C('COMMON.UPLOAD_SUCCESS');
-            $result['info'] = $info; 
-            $result['rootPath'] = $upload->rootPath;
-            return $result;
-        }
-    }
-    
 }

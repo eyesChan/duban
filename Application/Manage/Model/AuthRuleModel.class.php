@@ -72,7 +72,8 @@ class AuthRuleModel extends Model {
         if ($param['level'] == 1) {
             $level_p = 0;
         } else {
-            $level_p = D('AuthRule')->field('level')->where('id = ' . $param['level'])->find();
+            $map['id'] = $param['level'];
+            $level_p = D('AuthRule')->where($map)->getField('level');
         }
 
         $arr['level'] = intval($level_p) + 1;

@@ -40,7 +40,6 @@ class FileController extends AdminController {
         foreach ($param as $k => $val) {
             $param[$k] = str_replace("_", "\_", $val);
         }
-
         return $param;
     }
     /**
@@ -116,7 +115,7 @@ class FileController extends AdminController {
                     if ($result['code'] == 200) {
                         $this->success($result['status'], U('File/index'));
                     } else {
-                        $this->success($result['status'], U('File/addFile'));
+                        $this->error($result['status'], U('File/addFile'));
                     }
                 } else {
                     $this->error(C('DOCFILE.SZIE_TYPE'), U('File/addFile'));
@@ -149,8 +148,11 @@ class FileController extends AdminController {
     public function delFile() {
         $doc_id = I('doc_id');
         $result = $this->filedoc->delFileDoc($doc_id);
-      //  writeOperationLog('文档管理撤回', 0);
-        $this->ajaxReturn($result);
+        if ($result['code'] == 200) {
+            $this->success($result['status'],U('File/index'));
+        }else {
+            $this->success($result['status'], U('File/index'));
+        }
     }
     
    /**
@@ -238,5 +240,6 @@ class FileController extends AdminController {
                         '备注'
                 );
             getExcel($headArr, $work);
+   
     }
 }

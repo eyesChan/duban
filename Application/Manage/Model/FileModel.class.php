@@ -55,8 +55,10 @@ class FileModel  extends Model{
             $data['doc_status'] = 1 ; //$param['doc_status'];
             $res = $docfile->add($data);
             if($res){
+                writeOperationLog('添加' . $param['doc_name'] . '”文档', 1);
                 return C('COMMON.SUCCESS_EDIT');
             }else{
+                writeOperationLog('添加' . $param['doc_name'] . '”文档', 0);
                 return C('COMMON.ERROR_EDIT');
             } 
     }
@@ -73,11 +75,14 @@ class FileModel  extends Model{
             $doc_upload_file = end(explode('.', $size['file']['name']));
             $doc_upload_img = end(explode('.', $size['file1']['name']));
             if (in_array($doc_upload_file, C('FILE_DOC.ALLOW_FILE')) && in_array($doc_upload_img, C('FILE_COVER.ALLOW_FILE'))) {
+                writeOperationLog('上传文件成功',1);
                 return true;
             } else {
+                writeOperationLog('上传文件失败',0);
                 return false;
             }
         } else {
+            writeOperationLog('上传文件失败',0);
             return false;
         }
     }
@@ -127,8 +132,14 @@ class FileModel  extends Model{
     public function delFileDoc($doc_id){
         $docfile = M('doc');
         $res_delete=$docfile-> where('doc_id='.$doc_id)->setField('doc_status','0');
-        return $res_delete;
-      
+        $doc_name=$docfile-> where('doc_id='.$doc_id)->getField('doc_name');
+         if($res_delete){
+             writeOperationLog('撤回' . $doc_name . '”文档', 1); 
+            return C('COMMON.DOCDEL_SUCCESS');
+        }else{
+            writeOperationLog('撤回' . $doc_name . '”文档', 0); 
+            return C('COMMON.DOCDEL_ERROR');
+        }    
     }
     
     /*
@@ -160,8 +171,10 @@ class FileModel  extends Model{
         $docfile = M('doc');
         $res = $docfile->where("doc_id =".$doc_id)->save($data);
         if($res){
+            writeOperationLog('编辑' . $data['doc_name'] . '”文档', 1);
             return C('COMMON.SUCCESS_EDIT');
         }else{
+            writeOperationLog('编辑' . $data['doc_name'] . '”文档', 0);
             return C('COMMON.ERROR_EDIT');
         } 
     }

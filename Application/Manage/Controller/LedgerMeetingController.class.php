@@ -16,7 +16,7 @@ use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
  */
 class LedgerMeetingController extends AdminController {
     
-    private $ledger_meeting;
+    public $ledger_meeting;
     public function __construct() {
         parent::__construct();
         $this->ledger_meeting = D('LedgerMeeting');
@@ -51,7 +51,7 @@ class LedgerMeetingController extends AdminController {
         $where['led_status'] = array('EQ', '0');
         $where = $this->escape($where);
         $count = $this->ledger_meeting->getLedgerCount($where);
-        $page = new \Think\Page($count, 5);
+        $page = new \Think\Page($count, 10);
         $list = $this->ledger_meeting->getLedgerList($where, $page->firstRow, $page->listRows);
         foreach ($param as $key => $val) {
             $page->parameter[$key] = $val;
@@ -72,7 +72,6 @@ class LedgerMeetingController extends AdminController {
     public function addLedger() {
          $data = I();
          if(!empty($data)){
-             P($data);die;
              $result = $this->ledger_meeting->addLedger($data);
               if ($result['code'] == 200) {
                     $this->success($result['status'], U('LedgerMeeting/index'));
@@ -117,7 +116,7 @@ class LedgerMeetingController extends AdminController {
                 if ($result['code'] == 200) {
                        $this->success($result['status'], U('LedgerMeeting/index'));
                   }else{
-                       $this->success($result['status'], U('LedgerMeeting/saveLedger?led_meeting_id='.$data['led_meeting_id']));
+                       $this->error($result['status'], U('LedgerMeeting/saveLedger?led_meeting_id='.$data['led_meeting_id']));
                 }
             }
          }       
@@ -135,7 +134,7 @@ class LedgerMeetingController extends AdminController {
         if ($result['code'] == 200) {
              $this->success($result['status'], U('LedgerMeeting/index'));
           }else{
-             $this->success($result['status'], U('LedgerMeeting/index'));
+             $this->error($result['status'], U('LedgerMeeting/index'));
         }
     
     }
@@ -150,48 +149,12 @@ class LedgerMeetingController extends AdminController {
     public function exportLedgerMeeting(){
         $data=I();
         $work = $this->ledger_meeting->getExecl($data); 
-        $headArr = array('时间',
-                        '地点',
-                        '会谈名称',
-                        '宾客',
-                        '出席领导',
-                        '主持人',
-                        '密级',
-                        '着装',
-                        '保障人员',
-                        '保障时长',
-                        '议程责任人',
-                        '议程报批情况',
-                        '发送会议通知',
-                        '通知材料准备',
-                        '通知服务单位保障',
-                        '准备会议议程',
-                        '准备背景材料',
-                        '准备来访人简历',
-                        '准备电脑',
-                        '准备录音笔',
-                        '准备麦克风',
-                        '准备宣传材料',
-                        '礼品',
-                        '准备桌牌',
-                        '准备宣传片',
-                        '准备静帧画面',
-                        '完成场地布置',
-                        '测试话筒',
-                        '测试音频',
-                        '通知接待保障',
-                        '接待责任人',
-                        '保障人员',
-                        '传译人员',
-                        '差错',
-                        '原因分析',
-                        '拟写今日海航',
-                        '拟写会谈纪要',
-                        '发文时间',
-                        '责任人',
-                        '交接单位',
-                        '存档地址',
-                        '改进建议',
+        $headArr = array('时间','地点','会谈名称','宾客','出席领导','主持人','密级','着装','保障人员','保障时长',
+                        '议程责任人','议程报批情况','发送会议通知','通知材料准备','通知服务单位保障','准备会议议程',
+                        '准备背景材料','准备来访人简历','准备电脑','准备录音笔','准备麦克风','准备宣传材料','礼品',
+                        '准备桌牌','准备宣传片','准备静帧画面','完成场地布置','测试话筒','测试音频','通知接待保障',
+                        '接待责任人','保障人员','传译人员','差错','原因分析','拟写今日海航','拟写会谈纪要','发文时间',
+                        '责任人','交接单位','存档地址','改进建议',
                 );
             getExcel($headArr, $work);
     }
@@ -216,12 +179,13 @@ class LedgerMeetingController extends AdminController {
         $param = $_FILES['filename'];
         $files = $this->ledger_meeting->normalUpload($param);
         $fileName = $files['info']['filename']['savename'];
-        $resute = importExcel('Public/2016-09-27/'.$fileName,$column=null);
+        $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
          $result = $this->ledger_meeting->addsLedger($resute);
-         P($result);DIE;
               if ($result['code'] == 200) {
+                   writeOperationLog('批量导入会谈会见台账', 1);
                     $this->success($result['status'], U('LedgerMeeting/index'));
                 } else {
+                    writeOperationLog('批量导入会谈会见台账', 0);
                     $this->error($result['status'], U('LedgerMeeting/importExcel'));
                 }
     }

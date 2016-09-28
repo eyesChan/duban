@@ -65,6 +65,14 @@ return array(
             'code'=>200,
             'status'=>'上传成功'
         ),
+        'DOCDEL_ERROR' => array(
+	    'code' => 100,
+	    'status' => '撤回失败'
+	),
+	'DOCDEL_SUCCESS' => array(
+	    'code' => 200,
+	    'status' => '撤回成功'
+	),
     ),
     /* 用户相关提示 */
     'USER' => array(
@@ -122,12 +130,5 @@ return array(
 	'MENU_NUM_EXIST' => '模块编码,已存在',
 	'CHILD_EXIST' => '存在子模块，不允许删除',
     ),
-    
-    //文档管理提示
-    'DOCFILE' => array(
-	'DOCDEL_SUCCESS' => '撤回成功',
-	'DOCDEL_ERROR' => '撤回失败',
-        'SZIE_TYPE' => '类型或者大小不符合',
-        
-    ),
+
 );

@@ -40,10 +40,9 @@ class InternalMeetingController extends AdminController {
         }else{
         //处理查询条件：操作人姓名、IP地址、模块名称、操作内容、开始时间 结束时间 
         $param['internal_name'] != '' ? $where['internal_name'] = array('like', '%' . $param['internal_name'] . '%') : '';
-        $param['username'] != '' ? $where['username'] = array('like', '%' . $param['username'] . '%') : '';
-        $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
+        $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
+        $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array( $param['internal_meeting_date'] ) : '';
 
-        
         $where = $this->escape($where);
      
         $count = $this->mod_internalmeeting->getInternalCount($where);
@@ -67,7 +66,12 @@ class InternalMeetingController extends AdminController {
         if(IS_POST){
          
             $param = I('post.');
-            $this->mod_internalmeeting->addInternal($param);
+            $result = $this->mod_internalmeeting->addInternal($param);
+            if ($result['code'] == 200) {
+               $this->success($result['status'], U('InternalMeeting/index'));
+            }else{
+               $this->success($result['status'], U('InternalMeeting/index'));
+            }
         }
         $this->display();  
     }
@@ -84,10 +88,20 @@ class InternalMeetingController extends AdminController {
      * 编辑
      */
     public function save(){
-        $id = I('get.id');
-        $oneData = $this->mod_internalmeeting->getOneInternalMeeting($id);
-        $this->assign('onedata',$oneData);
-        $this->display();
+        if(IS_POST){
+            $param = I('post.');
+            $result = $this->mod_internalmeeting->saveInternal($param);
+            if ($result['code'] == 200) {
+               $this->success($result['status'], U('InternalMeeting/index'));
+            }else{
+               $this->success($result['status'], U('InternalMeeting/index'));
+            }
+        }else{
+            $id = I('get.id');
+            $oneData = $this->mod_internalmeeting->getOneInternalMeeting($id);
+            $this->assign('onedata',$oneData);
+            $this->display();
+        }
     }
     /*
      * 公司导出execl
@@ -212,16 +226,36 @@ class InternalMeetingController extends AdminController {
         getExcel($headArr, $internal);  
 
     }
+    /*
+     * 导入
+     */
     public function importExcel(){
         
         $this->display('import');
     }
+    /*
+     * 导入
+     */
     public function addFile(){
         $param = $_FILES['filename'];
         $files = $this->mod_internalmeeting->normalUpload($param);
-        $fileName = $files['info']['filename']['savename'];
-        $resute = importExcel('Public/2016-09-27/'.$fileName,$column=null);
-        p($resute);
+        
+        $fileName = $files['rootPath'].$files['info']['filename']['savepath'].$files['info']['filename']['savename'];
+        $data = importExcel($fileName);
+        $this->mod_internalmeeting->import($data);
+        
+      
+    }
+    /*
+     * 删除
+     */
+    public function delete($id){
+        $result = $this->mod_internalmeeting->deleteInternal($id);
+        if ($result['code'] == 200) {
+             $this->success($result['status'], U('InternalMeeting/index'));
+          }else{
+             $this->success($result['status'], U('InternalMeeting/index'));
+        }
     }
 }
 

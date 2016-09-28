@@ -28,6 +28,11 @@ return array(
         'FILE_PATH' => 'meeting_import/',
         'ALLOW_FILE' => array('xlsx', 'xls'),
     ),
+    'FILE_INTERNALMEETING_EXCEL' => array(//模板导入
+        'FILE_SIZE' => 3145728,
+        'FILE_PATH' => 'internalmeeting_import/',
+        'ALLOW_FILE' => array('xlsx', 'xls'),
+    ),
 );
 
 

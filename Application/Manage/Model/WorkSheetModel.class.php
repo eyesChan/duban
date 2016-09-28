@@ -50,18 +50,18 @@ class WorkSheetModel  extends Model{
             $data['worksheet_start_date'] = $param['start_time'];
             $data['worksheet_end_date'] = $param['stop_time'];
             $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
-            $data['worksheet_rule_person'] = $param['personliable'];
+            $data['worksheet_rule_person'] = implode(',',$param['undefined']);
             $data['worksheet_describe'] = $param['worksheet_describe'];
             $data['worksheet_done_persent'] = 0;
             $data['worksheet_state'] = $workDay['state'];
-            $data['worksheet_detele'] = 0;
+            $data['worksheet_detele'] = 1;
             $data['worksheet_date'] = $workDay['days'];
             $data['worksheet_parcent_day'] = $workDay['parcent'];
             $msg_sys_data = $this->create($data);
             if($msg_sys_data){
                 $res = $order->add($msg_sys_data);
                 if (FALSE === $res) {
-                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 1);
+                   writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 1);
                     return C('COMMON.ERROR_EDIT');
                 } else {
                      writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
@@ -137,6 +137,13 @@ class WorkSheetModel  extends Model{
               ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
               ->where("worksheet_id = $param")
               ->find();
+        
+        $user = $work['worksheet_rule_person'];
+        $where['uid']=array("in",$user);
+        $users = D('member')->field('name')->where($where)->select();
+        foreach($users as $key=>$val){
+            $work['username'] .="," .$val['name']; 
+        }
         return $work;
     }
     
@@ -296,6 +303,9 @@ class WorkSheetModel  extends Model{
     public function getUser(){
         return D('member')->field('email,name,uid')->where('status = 1')->select();
     }
+    /*
+     * 发送邮件
+     */
     public function userPerson($param){
         $work = $this->selectWork($param);
         $user = $work['worksheet_rule_person'];

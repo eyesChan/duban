@@ -1,5 +1,5 @@
 <extend name="Public:base" />
-<block name="title"><title>会议创建</title></block>
+<block name="title"><title>工作单创建</title></block>
 <block name="right">
     <form action="{:U(add)}" method='post' class="mt20" id="productManage">
         <table class="tbl">
@@ -42,7 +42,7 @@
             <tr>
                 <td class="cap">工作单负责人：</td>
                 <td>
-                     <select name="personliable" class="selectItem">
+                     <select name="meeting[meeting_callman]" class="selectItem">
                         
                     <foreach name="user" item="item">
                         <option value="{$item.uid}">{$item.name}</option>
@@ -53,17 +53,7 @@
                     <div class="person-content clear"></div>
                 </td>
                 
-                <!--<td>
-                     <select name="personliable" class="selectItem">
-                    <foreach name="user" item="item">
-                        <option value="{$item.uid}">{$item.name}</option>
-                    </foreach>
-                    </select>
-                    <input type="button" class="btn btn-r btn-xl button addPrincipal" value="添加">
-                    <input type="text" class="hide hide-input" >
-                    <div class="person-content clear"></div>
-                </td>
-              --> 
+
             </tr>
             <tr>
                 <td class="cap">工作单描述：</td>
@@ -94,7 +84,15 @@
             }
         });
         function getHtml(text, uid, selectName) {
-            var html = "";
+            
+                  var html = "";
+            if (uid == '-100') {
+                selectName = selectName + '[value][]';
+                uid = text;
+            } else {
+                selectName = selectName + '[]';
+
+            }
             html += '<div class="person fl">';
             html += '<input type="hidden" name=' + selectName + ' value="' + uid + '">';
             html += '<span>' + text + '</span>';

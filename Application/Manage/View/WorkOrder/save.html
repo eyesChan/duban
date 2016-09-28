@@ -20,7 +20,11 @@
                 </td>
                  <td class="cap">工作单负责人：</td>
                 <td>
-                   <input type="text" class="input-text text" name="worksheet_rule_person" value="{$workorder['username']}">
+                    <if condition="$state eq '100'">
+                    <input type="text" class="input-text text" name="worksheet_rule_person" value="{$workorder['username']}">
+                    <else/> 
+                    <input type="text" class="input-text text" readonly="true" name="worksheet_rule_person" value="{$workorder['username']}">
+                    </if>
                 </td>
              
             </tr>  

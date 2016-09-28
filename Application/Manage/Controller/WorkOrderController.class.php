@@ -69,6 +69,7 @@ class WorkOrderController extends AdminController {
                     $this->success($result['status'], '/Manage/WorkOrder/add');
                 }
             }
+            return true;
         }
         $this->assign('meeting',$meeting);
         $this->assign('user',$user);
@@ -93,7 +94,6 @@ class WorkOrderController extends AdminController {
         $param['worksheet_start_date'] != '' ? $where['worksheet_start_date'] = array('eq', $param['worksheet_start_date']) : '';
         
         $where = $this->escape($where);
-     
         $count = $this->mod_worksheet->getWorkOrderCount($where);
         
         $page = new \Think\Page($count, 10);
@@ -120,6 +120,10 @@ class WorkOrderController extends AdminController {
             $param = I('get.id');
             if(!empty($param)){
                 $workorder = $this->mod_worksheet->selectWork($param);
+                if($workorder['worksheet_creat_person'] == session('S_USER_INFO.UID')){
+                    $state = 100;
+                    $this->assign('state',$state);
+                }
                 $this->assign('workorder',$workorder);
                 $this->display('save');
             }else{
@@ -139,6 +143,7 @@ class WorkOrderController extends AdminController {
                     $this->success($result['status'], '/Manage/WorkOrder/index');
                 }
             }
+            return true;
         }
     }
 
@@ -177,14 +182,13 @@ class WorkOrderController extends AdminController {
        
         $work = $this->mod_worksheet->getExecl($param);
         $headArr = array('工作单名称',
-                        '关联会议名称',
-                        '工作单创建人',
-                        '工作单负责人',
-                        '开始时间',
-                        '结束时间',
-                        '工作单状态',
-                        '挂起/废弃原因',
-                        '工作单描述'
+                        '关联会议',
+                        '负责人',
+                        '最后时间',
+                        '工作单描述',
+                        '状态',
+                        '原因',
+                        '进度'
         );
         getExcel($headArr, $work);
   

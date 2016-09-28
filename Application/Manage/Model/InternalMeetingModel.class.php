@@ -133,6 +133,7 @@ class InternalMeetingModel  extends Model{
         $count = count($internal);
         for($i=0; $i<=$count; $i++){
             unset($internal[$i]['internal_username']);
+            unset($internal[$i]['internal_delete']);
         }
         return $internal;
     }
@@ -140,12 +141,13 @@ class InternalMeetingModel  extends Model{
      * 导出execl
      */
     public function groupExecl(){
-        $internal = D('internalmeeting')->select();
+        $internal = D('internalmeeting')->limit('11,3')->select();
         $count = count($internal);
         for($i=0; $i<=$count; $i++){
             unset($internal[$i]['internal_username']);
             unset($internal[$i]['internal_meeting_level']);
             unset($internal[$i]['internal_notice_start_time']);
+            unset($internal[$i]['internal_delete']);
         }
         return $internal;
     }
@@ -191,62 +193,63 @@ class InternalMeetingModel  extends Model{
     public function import($data){
     $internal = M('internalmeeting');
     $count = count($data);
-    for($i=1;$i<=$count;$i++){
-
-            $data['internal_name'] = $data[$i][1];
-            $data['internal_assigned_person'] = $data[$i][2];
-            $data['internal_assigned_date'] =$data[$i][3];
-            $data['internal_responsible_person'] = $data[$i][4];
-            $data['internal_meeting_name'] =$data[$i][5];
-            $data['internal_meeting_date'] = $data[$i][6];
-            $data['internal_meeting_place'] = $data[$i][7];
-            $data['internal_meeting_form'] =$data[$i][8];
-            $data['internal_meeting_type'] =$data[$i][9];
-            $data['internal_meeting_level'] =$data[$i][10];
-            $data['internal_meeting_dense'] =$data[$i][11];
-            $data['internal_call_man'] =$data[$i][12];
-            $data['internal_host'] =$data[$i][13];
-            $data['internal_participants'] = $data[$i][14];
-            $data['internal_work_ren'] =$data[$i][15];
-            $data['internal_meeting_arrange'] = $data[$i][16];
-            $data['internal_meeting_start_date'] = $data[$i][17];
-            $data['internal_meeting_stop_date'] = $data[$i][18];
-            $data['internal_meeting_responsible_person'] = $data[$i][19];
-            $data['internal_reserve_name'] =$data[$i][20];
-            $data['internal_meeting_bao_state'] =$data[$i][21];
-            $data['internal_send_meeting_notice'] = $data[$i][22];
-            $data['internal_notice_ready'] =$data[$i][23];
-            $data['internal_notice_company'] = $data[$i][24];
-            $data['internal_material_person'] = $data[$i][25];
-            $data['internal_notice_start_date'] = $data[$i][26];
-            $data['internal_notice_start_time'] = $data[$i][27];
-            $data['internal_notice_stop_date'] = $data[$i][28];
-            $data['internal_notice_stop_time'] = $data[$i][29];
-            $data['internal_misdeed'] = $data[$i][30];
-            $data['internal_misdeed_type'] =$data[$i][31];
-            $data['internal_get_meeting_person'] = $data[$i][32];
-            $data['internal_print_person'] =$data[$i][33];
-            $data['internal_bai_person'] = $data[$i][34];
-            $data['internal_bei_person'] = $data[$i][35];
-            $data['internal_beiban'] = $data[$i][36];
-            $data['internal_hui_person'] = $data[$i][37];
-            $data['internal_cehua_person'] = $data[$i][38];
-            $data['internal_cevideo_person'] = $data[$i][39];
-            $data['internal_cemp_person'] =$data[$i][40];
-            $data['internal_cefan_person'] = $data[$i][41];
-            $data['internal_recorder_person'] = $data[$i][42];
-            $data['internal_ready_person'] =$data[$i][43];
-            $data['internal_whether_problem'] =$data[$i][44];
-            $data['internal_problem_type'] =$data[$i][45];
-            $data['internal_summary_person'] = $data[$i][46];
-            $data['internal_summary_speed'] = $data[$i][47];
-            $data['internal_whether_issued'] = $data[$i][48];
-            $data['internal_meeting_speed'] =$data[$i][49];
-            $data['internal_file_person'] =$data[$i][50];
-            $data['internal_proposal'] =$data[$i][51];
-            $data['internal_file_time'] = $data[$i][52];
-            $data['internal_username'] = session('S_USER_INFO.UID');
-            $internal->add($data);
+    for($i=0;$i<$count;$i++){
+            
+            $info['internal_name'] = $data[$i][1];
+            $info['internal_assigned_person'] = $data[$i][2];
+            $info['internal_assigned_date'] =$data[$i][3];
+            $info['internal_responsible_person'] = $data[$i][4];
+            $info['internal_meeting_name'] =$data[$i][5];
+            $info['internal_meeting_date'] = $data[$i][6];
+            $info['internal_meeting_place'] = $data[$i][7];
+            $info['internal_meeting_form'] =$data[$i][8];
+            $info['internal_meeting_type'] =$data[$i][9];
+            $info['internal_meeting_level'] =$data[$i][10];
+            $info['internal_meeting_dense'] =$data[$i][11];
+            $info['internal_call_man'] =$data[$i][12];
+            $info['internal_host'] =$data[$i][13];
+            $info['internal_participants'] = $data[$i][14];
+            $info['internal_work_ren'] =$data[$i][15];
+            $info['internal_meeting_arrange'] = $data[$i][16];
+            $info['internal_meeting_start_date'] = $data[$i][17];
+            $info['internal_meeting_stop_date'] = $data[$i][18];
+            $info['internal_meeting_responsible_person'] = $data[$i][19];
+            $info['internal_reserve_name'] =$data[$i][20];
+            $info['internal_meeting_bao_state'] =$data[$i][21];
+            $info['internal_send_meeting_notice'] = $data[$i][22];
+            $info['internal_notice_ready'] =$data[$i][23];
+            $info['internal_notice_company'] = $data[$i][24];
+            $info['internal_material_person'] = $data[$i][25];
+            $info['internal_notice_start_date'] = $data[$i][26];
+            $info['internal_notice_start_time'] = $data[$i][27];
+            $info['internal_notice_stop_date'] = $data[$i][28];
+            $info['internal_notice_stop_time'] = $data[$i][29];
+            $info['internal_misdeed'] = $data[$i][30];
+            $info['internal_misdeed_type'] =$data[$i][31];
+            $info['internal_get_meeting_person'] = $data[$i][32];
+            $info['internal_print_person'] =$data[$i][33];
+            $info['internal_bai_person'] = $data[$i][34];
+            $info['internal_bei_person'] = $data[$i][35];
+            $info['internal_beiban'] = $data[$i][36];
+            $info['internal_hui_person'] = $data[$i][37];
+            $info['internal_cehua_person'] = $data[$i][38];
+            $info['internal_cevideo_person'] = $data[$i][39];
+            $info['internal_cemp_person'] =$data[$i][40];
+            $info['internal_cefan_person'] = $data[$i][41];
+            $info['internal_recorder_person'] = $data[$i][42];
+            $info['internal_ready_person'] =$data[$i][43];
+            $info['internal_whether_problem'] =$data[$i][44];
+            $info['internal_problem_type'] =$data[$i][45];
+            $info['internal_summary_person'] = $data[$i][46];
+            $info['internal_summary_speed'] = $data[$i][47];
+            $info['internal_whether_issued'] = $data[$i][48];
+            $info['internal_meeting_speed'] =$data[$i][49];
+            $info['internal_file_person'] =$data[$i][50];
+            $info['internal_proposal'] =$data[$i][51];
+            $info['internal_file_time'] = $data[$i][52];
+            $info['internal_username'] = session('S_USER_INFO.UID');
+        
+            $internal->add($info);
             
     }
     }

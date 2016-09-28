@@ -41,10 +41,10 @@ class InternalMeetingController extends AdminController {
         //处理查询条件：操作人姓名、IP地址、模块名称、操作内容、开始时间 结束时间 
         $param['internal_name'] != '' ? $where['internal_name'] = array('like', '%' . $param['internal_name'] . '%') : '';
         $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-        $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array( $param['internal_meeting_date'] ) : '';
-
+        //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('eq', $param['internal_meeting_date']) : '';
+        $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
         $where = $this->escape($where);
-     
+        
         $count = $this->mod_internalmeeting->getInternalCount($where);
         
         $page = new \Think\Page($count, 10);
@@ -182,6 +182,7 @@ class InternalMeetingController extends AdminController {
                         '会议地点',
                         '会议形式',
                         '会议类型',
+                        '会议密集',
                         '召集人',
                         '主持人',
                         '参会人员',

@@ -132,7 +132,7 @@ class WorkSheetModel  extends Model{
     public function selectWork($param){
         $where['worksheet_detele'] = 1;
         $work = D('worksheet')
-              ->field('name,worksheet_state,worksheet_id,worksheet_end_date,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state,meeting_name,worksheet_abandoned_reason,worksheet_describe')
+              ->field('name,worksheet_state,worksheet_id,worksheet_end_date,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state,meeting_name,worksheet_abandoned_reason,worksheet_describe,worksheet_creat_person')
               ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
               ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
               ->where("worksheet_id = $param")
@@ -258,7 +258,7 @@ class WorkSheetModel  extends Model{
                 }
             }
             if($val['worksheet_state'] == "正常"){
-                if($val['worksheet_done_persent'] <= $val['worksheet_parcent_day']*$val['worksheet_date']){
+                if($val['worksheet_done_persent'] >= $val['worksheet_parcent_day']*$val['worksheet_date']){
                     $state = "正常";
                     $this->saveOneOrder($val['worksheet_id'],$state);
                 }else{
@@ -289,8 +289,9 @@ class WorkSheetModel  extends Model{
         $order = M('worksheet');
         $where['worksheet_detele'] = 1;
         $list = $order
-            ->field('worksheet_name,meeting_name,worksheet_creat_person,worksheet_rule_person,worksheet_start_date,worksheet_end_date,worksheet_state,worksheet_abandoned_reason,worksheet_describe')
+            ->field('worksheet_name,meeting_name,name,worksheet_end_date,worksheet_describe,worksheet_state,worksheet_abandoned_reason,worksheet_done_persent')
             ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
+            ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
             ->where($where)
             ->order('worksheet_id desc')
             ->select();

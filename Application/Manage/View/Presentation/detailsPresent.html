@@ -1,5 +1,5 @@
 <extend name="Public:base"/>
-<block name="title"><title>会谈会见台账创建</title></block>
+<block name="title"><title>文稿台账详情</title></block>
 
 <block name="right"> <br> <br>
         <table class="tbl">
@@ -53,52 +53,46 @@
                 <td class="cap">文稿类型：</td>
                 <td>
                    <select name='db_pre_type' readonly="true">
-                        <foreach item='item' name='pre_type'>
-                                 <option <if condition="$list['db_pre_type'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
-                        </foreach>
+                       
+                                 <option  value="{$list.db_pre_type}">{$list.db_pre_type}</option>
                    </select>
                 </td>
                 <td class="cap">文稿形式：</td>
                 <td>
                       <select name='db_pre_form'>
-                           <foreach item='item' name='pre_form'>
-                               <option <if condition="$list['db_pre_form'] eq $item.config_descripion ">selected</if>  value="{$item.config_descripion}">{$item.config_descripion}</option>
-                           </foreach>
+                   
+                               <option  value="{$list.db_pre_form}">{$list.db_pre_form}</option>
+                  
                     </select>
               </td>
                 <td class="cap">优先级：</td>
                 <td colspan='3'>
                      <select name='db_pre_first'>
-                            <option <if condition="$list['db_pre_first'] eq '最优' ">selected</if> value="最优">最优</option>
-                            <option <if condition="$list['db_pre_first'] eq '优' ">selected</if> value="优">优</option>
-                            <option <if condition="$list['db_pre_first'] eq '普通' ">selected</if> value="普通">普通</option>         
+                            <option  value="{$list.db_pre_first}">{$list.db_pre_first}</option>
                     </select>
                </td>
             </tr>
             <tr>
                 <td class="cap">工作难度：</td>
                 <td >
-                      <select name='db_pre_diff'>
-                            <option <if condition="$list['db_pre_diff'] eq '难' ">selected</if> value="难">难</option>
-                            <option <if condition="$list['db_pre_diff'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_pre_diff'] eq '易' ">selected</if> value="易">易</option>                          
+                    <select name='db_pre_diff'>
+                            <option  value="{$list.db_pre_diff}">{$list.db_pre_diff}</option>
                     </select>
                 </td>
                 <td class="cap">责任人：</td>
                 <td>
-                      <select name='db_pre_person'>
-                            <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_pre_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
-                           </foreach>
+                   
+                    <select name='db_pre_person'>
+                            <option  value="{$list.db_pre_person}">{$list.db_pre_person}</option>
                     </select>
                 </td>
                 <td class="cap">工作状态：</td>
                 <td colspan='3'>
-                      <select name='db_pre_status'>
-                            <foreach item='item' name='work_status'>
-                                 <option <if condition="$list['db_pre_status'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
-                            </foreach>
+                 
+                          <select name='db_pre_status'>
+                            <option  value="{$list.db_pre_status}">{$list.db_pre_status}</option>
                     </select>
+                    
                 </td>
             </tr>
         </table>
@@ -108,9 +102,7 @@
                  <td class="cap">拟稿人：</td>
                 <td >
                     <select name='db_draft_person'>
-                             <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_draft_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
-                           </foreach>          
+                            <option  value="{$list.db_draft_person}">{$list.db_draft_person}</option>
                     </select>
                 </td>
                <td class="cap">完成日期：</td>
@@ -136,10 +128,8 @@
              <tr>
                  <td class="cap">核稿人：</td>
                 <td >
-                    <select name='db_orgin_person'>
-                            <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_orgin_person'] eq $item.name">selected</if> value="{$item.name}">{$item.name}</option>
-                           </foreach>
+                         <select name='db_orgin_person'>
+                            <option  value="{$list.db_orgin_person}">{$list.db_orgin_person}</option>
                     </select>
                 </td>
                <td class="cap">完成日期：</td>
@@ -166,11 +156,9 @@
                 </td>
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
-                    <select name='db_orgin_eval'>
-                            <option <if condition="$list['db_orgin_eval'] eq '优' ">selected</if> value=优>优</option>
-                            <option <if condition="$list['db_orgin_eval'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_orgin_eval'] eq '差' ">selected</if> value="差">差</option>    
-                      </select>
+                     <select name='db_orgin_eval'>
+                            <option  value="{$list.db_orgin_eval}">{$list.db_orgin_eval}</option>
+                    </select>
                  </td>
              </tr>
         </table>   
@@ -180,9 +168,7 @@
                  <td class="cap">核稿人：</td>
                 <td >
                     <select name='db_orgin2_person'>
-                           <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_orgin2_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
-                           </foreach>
+                            <option  value="{$list.db_orgin2_person}">{$list.db_orgin2_person}</option>
                     </select>
                 </td>
                <td class="cap">完成日期：</td>
@@ -209,12 +195,9 @@
                 </td>
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
-                <select name='db_orgin2_eval'>
-                        <option <if condition="$list['db_orgin2_eval'] eq '优' ">selected</if> value=优>优</option>
-                        <option <if condition="$list['db_orgin2_eval'] eq '中' ">selected</if> value="中">中</option>
-                        <option <if condition="$list['db_orgin2_eval'] eq '差' ">selected</if> value="差">差</option>    
-                    
-                 </select> 
+                    <select name='db_orgin2_eval'>
+                            <option  value="{$list.db_orgin2_eval}">{$list.db_orgin2_eval}</option>
+                    </select>
                 </td>
              </tr>
         </table>
@@ -224,9 +207,7 @@
                  <td class="cap">核稿人：</td>
                 <td >
                     <select name='db_orgin3_person'>
-                          <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_orgin3_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
-                           </foreach>
+                            <option  value="{$list.db_orgin3_person}">{$list.db_orgin3_person}</option>
                     </select>
                 </td>
                <td class="cap">完成日期：</td>
@@ -253,12 +234,9 @@
                 </td>
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
-                      <select name='db_orgin3_eval'>
-                           <option <if condition="$list['db_orgin3_eval'] eq '优' ">selected</if> value=优>优</option>
-                            <option <if condition="$list['db_orgin3_eval'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_orgin3_eval'] eq '差' ">selected</if> value="差">差</option>    
-                    
-                      </select>
+                    <select name='db_orgin3_eval'>
+                            <option  value="{$list.db_orgin3_eval}">{$list.db_orgin3_eval}</option>
+                    </select>
                 </td>
              </tr>
         </table>
@@ -269,11 +247,8 @@
                  <td class="cap">中心评价：</td>
                 <td>
                      <select name='db_evaluate'>
-                          <option <if condition="$list['db_evaluate'] eq '优' ">selected</if> value=优>优</option>
-                            <option <if condition="$list['db_evaluate'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_evaluate'] eq '差' ">selected</if> value="差">差</option>    
-                    
-                      </select>
+                            <option  value="{$list.db_evaluate}">{$list.db_evaluate}</option>
+                    </select>
                 </td>
                  <td class="cap">超时次数：</td>
                 <td>
@@ -298,18 +273,14 @@
                 </td>
                  <td class="cap">审批方式：</td>
                 <td>
-                     <select name='db_examin_mode'>
-                             <foreach item='item' name='exa_mode'>
-                                <option <if condition="$list['db_examin_mode'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
-                           </foreach>
+                      <select name='db_examin_mode'>
+                            <option  value="{$list.db_examin_mode}">{$list.db_examin_mode}</option>
                     </select>
                 </td>
                  <td class="cap">审批进展：</td>
                 <td>
                      <select name='db_examin_progress'>
-                           <foreach item='item' name='exa_mode'>
-                                <option <if condition="$list['db_examin_progress'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
-                           </foreach>
+                            <option  value="{$list.db_examin_progress}">{$list.db_examin_progress}</option>
                     </select>
                 </td>
              </tr>       
@@ -319,10 +290,8 @@
             <tr>
                  <td class="cap">发文方式：</td>
                  <td>
-                     <select name="db_despatch_mode">
-                        <foreach item='item' name='dis_mode'>
-                                <option <if condition="$list['db_despatch_mode'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
-                        </foreach>
+                      <select name='db_despatch_mode'>
+                            <option  value="{$list.db_despatch_mode}">{$list.db_despatch_mode}</option>
                     </select>
                 </td>
                  <td class="cap">发布人：</td>
@@ -348,11 +317,10 @@
                 </td>
                  <td class="cap">存档情况：</td>
                 <td>
-                     <select name='db_file_status'>
-                            <option <if condition="$list['db_file_status'] eq '完成' ">selected</if> value="完成">完成</option>
-                            <option <if condition="$list['db_file_status'] eq '部分完成' ">selected</if> value="部分完成">部分完成</option>
-                            <option <if condition="$list['db_file_status'] eq '不存档' ">selected</if> value="不存档">不存档</option>
-                     </select>
+            
+                      <select name='db_file_status'>
+                            <option  value="{$list.db_file_status}">{$list.db_file_status}</option>
+                    </select>
                 </td>
                  <td class="cap">存档时间：</td>
                 <td>

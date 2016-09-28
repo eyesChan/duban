@@ -10,7 +10,7 @@ namespace Manage\Controller;
 use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
 
 /**
- *  Description   文档管理
+ *  Description   文稿台账管理
  *  @author       huanggang <gang.huang2@pactera.com>
  *  Date          2016/09/20
  */
@@ -18,7 +18,7 @@ class PresentationController extends AdminController {
 
     private $presentation;
     /*
-     * 添加文档
+     * 添加文稿台账
      * @author huang gang
      * @param string $verify_code
      * @return object 跳转或显示页面
@@ -43,7 +43,7 @@ class PresentationController extends AdminController {
         return $param;
     }
     /**
-     * 显示会谈会见台账列表
+     * 显示文稿台账列表
      * @author huang gang
      * @date 2016/09/27
      * @return 跳转页面 Description
@@ -59,7 +59,7 @@ class PresentationController extends AdminController {
         $where['pre_status'] = array('EQ', '0');
         $where = $this->escape($where);
         $count = $this->presentation->getPresentCount($where);
-        $page = new \Think\Page($count, 5);
+        $page = new \Think\Page($count, 10);
         $list = $this->presentation->getPresentList($where, $page->firstRow, $page->listRows);
         foreach ($param as $key => $val) {
             $page->parameter[$key] = $val;
@@ -85,7 +85,7 @@ class PresentationController extends AdminController {
               if ($result['code'] == 200) {
                     $this->success($result['status'], U('Presentation/index'));
                 } else {
-                    $this->success($result['status'],U('Presentation/addPresent'));
+                    $this->error($result['status'],U('Presentation/addPresent'));
                 }
          }
          //文稿类型 
@@ -179,7 +179,7 @@ class PresentationController extends AdminController {
                 if ($result['code'] == 200) {
                        $this->success($result['status'], U('Presentation/index'));
                   }else{
-                       $this->success($result['status'], U('Presentation/savePresent?db_pre_id='.$data['db_pre_id']));
+                       $this->error($result['status'], U('Presentation/savePresent?db_pre_id='.$data['db_pre_id']));
                 }
             }
          }       
@@ -197,7 +197,7 @@ class PresentationController extends AdminController {
         if ($result['code'] == 200) {
              $this->success($result['status'], U('Presentation/index'));
           }else{
-             $this->success($result['status'], U('Presentation/index'));
+             $this->error($result['status'], U('Presentation/index'));
         }
     
     }
@@ -211,43 +211,11 @@ class PresentationController extends AdminController {
     public function exportPresent(){
         $data=I();
         $work = $this->presentation->getExecl($data); 
-        $headArr = array('序号', 
-                        '文稿规范名称', 
-                        '工作来源	',  
-                        '交办日期	',  
-                        '完成日期	',  
-                        '文稿类型	', 
-                        '文稿形式	', 
-                        '优先级别	',  
-                        '工作难度	', 
-                        '责任人',    
-                        '工作状态' ,  
-                        '拟稿人',    
-                        '拟稿时长	',  
-                        '拟稿字数	',  
-                        '核稿人',   
-                        '核稿时长	',  
-                        '修改字数	',  
-                        '核稿评价	',  
-                        '核稿人',
-                        '核稿时长	',
-                        '修改字数	',
-                        '核稿评价	',
-                        '核稿人',
-                        '核稿时长	',
-                        '修改字数	',
-                        '核稿评价	',
-                        '中心评价	',
-                        '超时次数	', 
-                        '硬伤次数	',
-                        '呈报日期	', 
-                        '审批方式	', 
-                        '审批进展	',
-                        '发文方式	', 
-                        '发文日期	', 
-                        '存档情况	', 
-                        '存档时间	', 
-                        '存档地址', 
+        $headArr = array('序号', '文稿规范名称', '工作来源',  '交办日期',  '完成日期','文稿类型	', '文稿形式', 
+                        '优先级别	', '工作难度', '责任人','工作状态','拟稿人','拟稿时长','拟稿字数',  
+                        '核稿人', '核稿时长', '修改字数', '核稿评价', '核稿人','核稿时长','修改字数','核稿评价',
+                        '核稿人','核稿时长	','修改字数','核稿评价','中心评价','超时次数	','硬伤次数','呈报日期', 
+                        '审批方式	', '审批进展', '发文方式', '发文日期', '存档情况', '存档时间', '存档地址', 
                 );
             getExcel($headArr, $work);
                             
@@ -263,65 +231,13 @@ class PresentationController extends AdminController {
     public function exportPresents(){
         $data=I();
         $work = $this->presentation->getExecls($data); 
-        $headArr = array('序号', 
-            '文稿规范名称',
-            '工作来源',
-            '交办人',
-            '部门职务',
-            '交办日期',
-            '交办时间',
-            '完成日期',
-            '完成时间',
-            '文稿类型',
-            '文稿形式',
-            '优先级别',
-            '工作难度',
-            '责任人',
-            '工作状态',
-            '拟稿人',
-            '完成日期',
-            '完成时间',
-            '拟稿时长',
-            '拟稿字数',
-            '核稿人',
-            '完成日期',
-            '完成时间',
-            '核稿时长',
-            '核稿字数',
-            '修改字数',
-            '核稿评价',
-            '核稿人',
-            '完成日期',
-            '完成时间',
-            '核稿时长',
-            '核稿字数',
-            '修改字数',
-            '核稿评价',
-            '核稿人',
-            '完成日期',
-            '完成时间',
-            '核稿时长',
-            '核稿字数',
-            '修改字数',
-            '核稿评价',
-            '中心评价',
-            '超时次数',
-            '硬伤次数',
-            '呈报日期',
-            '呈报时间',
-            '审批方式',
-            '审批进展',
-            '发文方式',
-            '发布人',
-            '发文日期',
-            '发文时间',
-            '存档人',
-            '存档情况',
-            '存档时间',
-            '存档地址',
-            '印章全称',
-            '用印份数',
-            '备注'
+        $headArr = array('序号', '文稿规范名称','工作来源','交办人','部门职务','交办日期','交办时间',
+            '完成日期','完成时间','文稿类型','文稿形式','优先级别','工作难度','责任人','工作状态',
+            '拟稿人','完成日期','完成时间','拟稿时长','拟稿字数','核稿人','完成日期','完成时间','核稿时长',
+            '核稿字数','修改字数','核稿评价','核稿人','完成日期','完成时间','核稿时长','核稿字数','修改字数',
+            '核稿评价','核稿人','完成日期','完成时间','核稿时长','核稿字数','修改字数','核稿评价','中心评价',
+            '超时次数','硬伤次数','呈报日期','呈报时间','审批方式','审批进展','发文方式','发布人','发文日期','发文时间',
+            '存档人','存档情况','存档时间','存档地址','印章全称','用印份数','备注'
                 );
             getExcel($headArr, $work);
                             
@@ -339,22 +255,24 @@ class PresentationController extends AdminController {
     }
     
      /*
-      * 导入
+      * 导入数据
       * @author huang gang
       * @date 2016/09/27
       * @return 跳转页面 Description
       */
     public function importPresent(){
         $param = $_FILES['filename'];
-        $files = $this->presentation->normalUpload($param);
+        $upload_obj = new MeetingUplod();
+        $files = $upload_obj->normalUpload($param);
         $fileName = $files['info']['filename']['savename'];
-        $resute = importExcel('Public/2016-09-27/'.$fileName,$column=null);
-         $result = $this->presentation->addsPresent($resute);
-         P($result);DIE;
+        $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
+        $result = $this->presentation->addsPresent($resute);
               if ($result['code'] == 200) {
-                    $this->success($result['status'], U('LedgerMeeting/index'));
+                   writeOperationLog('批量导入文稿台账', 1);
+                    $this->success($result['status'], U('Presentation/index'));
                 } else {
-                    $this->error($result['status'], U('LedgerMeeting/importExcel'));
+                    writeOperationLog('批量导入文稿台账', 0);
+                    $this->error($result['status'], U('Presentation/importExcel'));
                 }
     }
     }         

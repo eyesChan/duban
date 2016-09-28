@@ -1,0 +1,24 @@
+<extend name="Public:base" />
+<block name="title"><title>海航督办管理系统</title></block>
+<block name="right">
+    <css href="__PUBLIC__/css/messageManage.css"/>
+    <div class="role-padding container-padding" style="padding-top: 40px;">
+        <div class="jxssp tb1">
+            <table class="tbl tbl-list">
+                <thead>
+                    <tr>
+                        <th>系统消息标题</th>
+                        <th>消息发布时间</th>
+                    </tr>
+                </thead>
+                <foreach name="list" item="item">
+                    <tr>
+                        <td><a href="{:U('showDetail',array('msg_sys_id'=>$item['msg_sys_id']))}">{$item['msg_sys_title']}</a></td>
+                        <td>{$item['msg_sys_creattime']}</td>
+                    </tr>
+                </foreach>
+            </table>
+<!--            <div><a class="more-notice" href="{:U('showList')}"> 更多>> </a></div>-->
+        </div>
+    </div>
+</block>

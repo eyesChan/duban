@@ -59,7 +59,7 @@
                                 <td>{$item.db_pre_name}</td>
                                 <td>{$item.db_assign_name}</td>
                                 <td>{$item.db_assign_date}</td>
-                                <td>{$item.name}</td>
+                                <td>{$item.db_draft_person}</td>
                                 <td>{$item.db_despatch_date}</td> 
                                 <td>
                                     <a href="{:U('detailsPresent?db_pre_id='.$item['db_pre_id'])}"> 
@@ -68,9 +68,9 @@
                                     <a href="{:U('savePresent?db_pre_id='.$item['db_pre_id'])}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 
-                                    <a href="{:U('delPresent?db_pre_id='.$item['db_pre_id'])}"> 
-                                        <input type="button" value="删除" class="btn btn-r btn-xl button">
-                                    </a> 
+                                   
+                                        <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.db_pre_id}')">
+                                 
                                 </td>
 	        	</tr>
                     </foreach>
@@ -82,5 +82,18 @@
             </div>
         </div> 
     <js href="__PUBLIC__/Js/presentation.js"/>
+    <script>
+    
+         //删除操作
+        function withdraw(id) {
+            $.dialog({
+                title: '提示信息', content: '确认删除吗？', ok: function () {
+                    location.href = "delPresent/db_pre_id/" + id;
+                },
+                cancel: function () {
+                }
+            });
+        }
+        </script>
 </block>
 

@@ -177,7 +177,8 @@ class LedgerMeetingController extends AdminController {
       */
     public function importLedgerMeeting(){
         $param = $_FILES['filename'];
-        $files = $this->ledger_meeting->normalUpload($param);
+        $upload_obj = new MeetingUplod();
+        $files = $upload_obj->normalUpload($param);
         $fileName = $files['info']['filename']['savename'];
         $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
          $result = $this->ledger_meeting->addsLedger($resute);

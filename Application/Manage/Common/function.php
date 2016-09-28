@@ -399,19 +399,19 @@ function getUserField($uid, $field) {
  * @author lishuaijie
  * 
  */
-function importExcel($fileName,$column=null) {
+function importExcel($fileName, $column = null) {
     if (!file_exists($fileName)) {
-	exit("not found ".$fileName);
+        exit("not found " . $fileName);
     }
     $fileInfo = pathinfo($fileName);
     $extension = $fileInfo['extension'];
-    if($extension == 'xls'){
+    if ($extension == 'xls') {
         $str = "Excel5";
-    }else{
-         $str = "Excel2007";
+    } else {
+        $str = "Excel2007";
     }
 
- 
+
     //导入PHPExcel类库，因为PHPExcel没有用命名空间，只能inport导入
     import("Org.Util.PHPExcel.PHPExcel");
     import("Org.Util.PHPExcel.PHPExcel.Reader.Excel5");
@@ -420,27 +420,27 @@ function importExcel($fileName,$column=null) {
     // xls Excel5 xlsx Excel2007
     $reader = PHPExcel_IOFactory::createReader($str); //设置以Excel5格式(Excel97-2003工作簿)
     $PHPExcel = $reader->load($fileName); // 载入excel文件
-    
+
     $sheet = $PHPExcel->getSheet(0); // 读取第一個工作表
     $highestRow = $sheet->getHighestRow(); // 取得总行数
     $highestColumm = $sheet->getHighestColumn(); // 取得总列数
-    if(!empty($column)){
-        if($highestColumm != $column){
-            $result = array('msg'=>'模板错误','code'=>100);
+    if (!empty($column)) {
+        if ($highestColumm != $column) {
+            $result = array('msg' => '模板错误', 'code' => 100);
             return $result;
         }
-        
     }
     /** 循环读取每个单元格的数据 */
     for ($row = 2; $row <= $highestRow; $row++) {//行数是以第1行开始
         $info = array();
-        for ($column = 'A'; $column <= $highestColumm; $column++) {//列数是以A列开始
-            $info[] = $sheet->getCell($column . $row)->getValue();
+        for ($i = 'A'; $i <= 'Z'; $i++) {
+            $info[] = $sheet->getCell($i . $row)->getValue();
+            if ($i == $highestColumm) {
+                break;
+            }
         }
         $dataset[] = $info;
     }
 
     return $dataset;
 }
-
- 

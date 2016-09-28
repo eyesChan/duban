@@ -6,11 +6,11 @@
              <tr>
                  <td class="cap">文档规范名称：</td>
                 <td >
-                   <input type="text" name='db_pre_name' value="{$list.db_pre_name}" class="input-text text">
+                   <input type="text" readonly="true" name='db_pre_name' value="{$list.db_pre_name}" class="input-text text">
                 </td>
                <td class="cap">工作来源：</td>
                 <td>
-                   <input type="text" name='db_pre_work' value="{$list.db_pre_work}" class="input-text text">
+                   <input type="text" readonly="true" name='db_pre_work' value="{$list.db_pre_work}" class="input-text text">
                 </td>
             </tr>
         </table>
@@ -20,39 +20,39 @@
             <tr>
                 <td class="cap">交办人：</td>
                 <td >
-                      <input type="text" name='db_assign_name' value="{$list.db_assign_name}" class="input-text text">
+                      <input type="text" readonly="true" name='db_assign_name' value="{$list.db_assign_name}" class="input-text text">
                 </td>
                 <td class="cap">部门：</td>
                 <td > 
-                     <input type="text" name='db_assign_dapart' value="{$list.db_assign_dapart}" class="input-text text">
+                     <input type="text" readonly="true" name='db_assign_dapart' value="{$list.db_assign_dapart}" class="input-text text">
                 </td>
                  <td class="cap">职务：</td>
                 <td colspan='3'>
-                     <input type="text" name='db_assign_post' value="{$list.db_assign_post}" class="input-text text">
+                     <input type="text" readonly="true" name='db_assign_post' value="{$list.db_assign_post}" class="input-text text">
                 </td>
             </tr> 
              <tr>
                 <td class="cap">交办日期：</td>
                 <td>
-                     <input type="text" name='db_assign_date' id="date2"  value="{$list.db_assign_date}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                     <input type="text" readonly="true" name='db_assign_date'   value="{$list.db_assign_date}" class="input-text text">
                 </td>
                 <td class="cap">交办时间：</td>
                 <td>
-                     <input type="text" name='db_assign_time' class="input-text text" id="date1"  value="{$list.db_assign_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl">
+                     <input type="text" readonly="true" name='db_assign_time' class="input-text text"  value="{$list.db_assign_time}" class="input-text text">
                 </td>
                  <td class="cap">完成日期：</td>
                 <td>
-                     <input type="text" name='db_complete_date' id="date21"  value="{$list.db_complete_date}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                     <input type="text" readonly="true" name='db_complete_date' id="date21"  value="{$list.db_complete_date}" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                   <input type="text" name='db_complete_time' value="{$list.db_complete_time}" id='date3' onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl">
+                   <input type="text" readonly="true" name='db_complete_time' value="{$list.db_complete_time}" id='date3' class="input-text text">
                 </td>
             </tr>  
             <tr>
                 <td class="cap">文稿类型：</td>
                 <td>
-                   <select name='db_pre_type'>
+                   <select name='db_pre_type' readonly="true">
                         <foreach item='item' name='pre_type'>
                                  <option <if condition="$list['db_pre_type'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
                         </foreach>
@@ -115,19 +115,19 @@
                 </td>
                <td class="cap">完成日期：</td>
                 <td>
-                   <input type="text" name='db_draft_date' value="{$list.db_draft_date}" id="date4" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                   <input type="text" name='db_draft_date'readonly="true" value="{$list.db_draft_date}" id="date4" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                   <input type="text" name='db_draft_time'  value="{$list.db_draft_time}" id='date5' onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl">
+                   <input type="text" name='db_draft_time' readonly="true"  value="{$list.db_draft_time}" id='date5' class="input-text text">
                 </td>
                  <td class="cap">拟稿时长：</td>
                 <td>
-                   <input type="text" name='db_draft_length' value="{$list.db_draft_length}" class="input-text text">
+                   <input type="text" name='db_draft_length' readonly="true" value="{$list.db_draft_length}" class="input-text text">
                 </td>
                  <td class="cap">拟稿字数：</td>
                 <td>
-                   <input type="text" name='db_draft_num' value="{$list.db_draft_num}" class="input-text text">
+                   <input type="text" name='db_draft_num' readonly="true" value="{$list.db_draft_num}" class="input-text text">
                 </td>
             </tr>
         </table>
@@ -144,25 +144,25 @@
                 </td>
                <td class="cap">完成日期：</td>
                 <td>
-                   <input type="text" name='db_orgin_date' value="{$list.db_orgin_date}" id="date6" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                   <input type="text" readonly="true" name='db_orgin_date' value="{$list.db_orgin_date}" id="date6" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                   <input type="text" name='db_orgin_time'  value="{$list.db_orgin_time}" id='date7' onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl">
+                   <input type="text" readonly="true" name='db_orgin_time'  value="{$list.db_orgin_time}" id='date7' class="input-text text">
                 </td>
                  <td class="cap">核稿时长：</td>
                 <td>
-                   <input type="text" name='db_orgin_length' value="{$list.db_orgin_length}" class="input-text text">
+                   <input type="text" readonly="true" name='db_orgin_length' value="{$list.db_orgin_length}" class="input-text text">
                 </td>
              </tr>
              <tr>
                  <td class="cap">核稿字数：</td>
                 <td>
-                   <input type="text" name='db_orgin_num' value="{$list.db_orgin_num}" class="input-text text">
+                   <input type="text" readonly="true" name='db_orgin_num' value="{$list.db_orgin_num}" class="input-text text">
                 </td>
                  <td class="cap">修改字数：</td>
                 <td>
-                   <input type="text" name='db_update_num' value="{$list.db_update_num}" class="input-text text">
+                   <input type="text" readonly="true" name='db_update_num' value="{$list.db_update_num}" class="input-text text">
                 </td>
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
@@ -187,25 +187,25 @@
                 </td>
                <td class="cap">完成日期：</td>
                 <td>
-                   <input type="text" name='db_orgin2_date' value="{$list.db_orgin2_date}" id="date8" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                   <input type="text" readonly="true" name='db_orgin2_date' value="{$list.db_orgin2_date}" id="date8" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                   <input type="text" name='db_orgin2_time'  value="{$list.db_orgin2_time}" id='date9' onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl">
+                   <input type="text" readonly="true" name='db_orgin2_time'  value="{$list.db_orgin2_time}" id='date9' class="input-text text">
                 </td>
                  <td class="cap">核稿时长：</td>
                 <td>
-                   <input type="text" name='db_orgin2_length' value="{$list.db_orgin2_length}" class="input-text text">
+                   <input type="text" readonly="true" name='db_orgin2_length' value="{$list.db_orgin2_length}" class="input-text text">
                 </td>
              </tr>
              <tr>
                  <td class="cap">核稿字数：</td>
                 <td>
-                   <input type="text" name='db_orgin2_num'  value="{$list.db_orgin2_num}" class="input-text text">
+                   <input type="text" readonly="true" name='db_orgin2_num'  value="{$list.db_orgin2_num}" class="input-text text">
                 </td>
                  <td class="cap">修改字数：</td>
                 <td>
-                   <input type="text" name='db_update2_num' value="{$list.db_update2_num}" class="input-text text">
+                   <input type="text" readonly="true" name='db_update2_num' value="{$list.db_update2_num}" class="input-text text">
                 </td>
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
@@ -231,25 +231,25 @@
                 </td>
                <td class="cap">完成日期：</td>
                 <td>
-                   <input type="text" name='db_orgin3_date' value="{$list.db_orgin3_date}" id="date10" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                   <input type="text" readonly="true" name='db_orgin3_date' value="{$list.db_orgin3_date}" id="date10" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                   <input type="text" name='db_orgin3_time' value="{$list.db_orgin3_time}"  id='date11' onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl">
+                   <input type="text" readonly="true" name='db_orgin3_time' value="{$list.db_orgin3_time}"  id='date11' class="input-text text">
                 </td>
                  <td class="cap">核稿时长：</td>
                 <td>
-                   <input type="text" name='db_orgin3_length' value="{$list.db_orgin3_length}" class="input-text text">
+                   <input type="text" readonly="true" name='db_orgin3_length' value="{$list.db_orgin3_length}" class="input-text text">
                 </td>
              </tr>
              <tr>
                  <td class="cap">核稿字数：</td>
                 <td>
-                   <input type="text" name='db_orgin3_num' value="{$list.db_orgin3_num}" class="input-text text">
+                   <input type="text" readonly="true" name='db_orgin3_num' value="{$list.db_orgin3_num}" class="input-text text">
                 </td>
                  <td class="cap">修改字数：</td>
                 <td>
-                   <input type="text" name='db_update3_num' value="{$list.db_update3_num}" class="input-text text">
+                   <input type="text" readonly="true" name='db_update3_num' value="{$list.db_update3_num}" class="input-text text">
                 </td>
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
@@ -277,11 +277,11 @@
                 </td>
                  <td class="cap">超时次数：</td>
                 <td>
-                    <input type="text" name='db_overtime_num' value="{$list.db_overtime_num}" class="input-text text" >
+                    <input type="text" readonly="true" name='db_overtime_num' value="{$list.db_overtime_num}" class="input-text text" >
                 </td>
                  <td class="cap">硬伤次数：</td>
                 <td>
-                    <input type="text" name='db_mishap_num' value="{$list.db_mishap_num}" class="input-text text" >
+                    <input type="text" readonly="true" name='db_mishap_num' value="{$list.db_mishap_num}" class="input-text text" >
                 </td>
              </tr>
         </table>
@@ -290,11 +290,11 @@
               <tr>
                  <td class="cap">呈报日期：</td>
                 <td>
-                    <input type="text" name='db_examin_date' value="{$list.db_examin_date}" id="date12" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl" >
+                    <input type="text" readonly="true" name='db_examin_date' value="{$list.db_examin_date}" id="date12" class="input-text text" >
                 </td>
                  <td class="cap">呈报时间：</td>
                 <td>
-                    <input type="text" name='db_examin_time' value="{$list.db_examin_time}"  id='date13' onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" >
+                    <input type="text" readonly="true" name='db_examin_time' value="{$list.db_examin_time}"  id='date13' class="input-text text" >
                 </td>
                  <td class="cap">审批方式：</td>
                 <td>
@@ -327,15 +327,15 @@
                 </td>
                  <td class="cap">发布人：</td>
                 <td>
-                    <input type="text" name='db_despatch_person' value="{$list.db_despatch_person}" class="input-text text"  > 
+                    <input type="text" readonly="true" name='db_despatch_person' value="{$list.db_despatch_person}" class="input-text text"  > 
                 </td>
                  <td class="cap">发布日期：</td>
                 <td>
-                    <input type="text" name='db_despatch_date' value="{$list.db_despatch_date}" id="date14" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl" >
+                    <input type="text" readonly="true" name='db_despatch_date' value="{$list.db_despatch_date}" id="date14" class="input-text text" >
                 </td>
                   <td class="cap">发布时间：</td>
                 <td>
-                    <input type="text" name='db_despatch_time'  value="{$list.db_despatch_time}" id='date15' onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" >
+                    <input type="text" readonly="true" name='db_despatch_time'  value="{$list.db_despatch_time}" id='date15' class="input-text text" >
                 </td>
              </tr>
         </table>
@@ -344,7 +344,7 @@
              <tr>
                  <td class="cap">存档人：</td>
                 <td>
-                    <input type="text" name='db_file_person' value="{$list.db_file_person}" class="input-text text"  >
+                    <input type="text" readonly="true" name='db_file_person' value="{$list.db_file_person}" class="input-text text"  >
                 </td>
                  <td class="cap">存档情况：</td>
                 <td>
@@ -356,11 +356,11 @@
                 </td>
                  <td class="cap">存档时间：</td>
                 <td>
-                    <input type="text" name='db_file_date' value="{$list.db_file_date}" id="date16" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    <input type="text" readonly="true" name='db_file_date' value="{$list.db_file_date}" id="date16" class="input-text text">
                 </td>
                  <td class="cap">存档地址：</td>
                 <td>
-                    <input type="text" name='db_file_address' value="{$list.db_file_address}" class="input-text text" >
+                    <input type="text" readonly="true" name='db_file_address' value="{$list.db_file_address}" class="input-text text" >
                 </td>
              </tr>
         </table>
@@ -369,11 +369,11 @@
              <tr>
                  <td class="cap">用印全称：</td>
                 <td>
-                    <input type="text" name='db_india_name' value="{$list.db_india_name}" class="input-text text" >
+                    <input type="text" readonly="true" name='db_india_name' value="{$list.db_india_name}" class="input-text text" >
                 </td>
                  <td class="cap">用印份数：</td>
                 <td>
-                    <input type="text" name='db_india_num' value="{$list.db_india_num}" class="input-text text" >
+                    <input type="text" readonly="true" name='db_india_num' value="{$list.db_india_num}" class="input-text text" >
                 </td>            
              </tr>
         </table>
@@ -381,7 +381,7 @@
              <caption>备注</caption>
              <tr>          
                 <td>
-                 <textarea class="textarea" name="db_pre_beizhu" placeholder="备注内容:">{$list.db_pre_beizhu}</textarea>
+                 <textarea class="textarea" name="db_pre_beizhu" readonly="true">{$list.db_pre_beizhu}</textarea>
                 </td>
             </tr>
         </table>

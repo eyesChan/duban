@@ -1,0 +1,24 @@
+<extend name="Public:base" />
+<block name="title"><title>会议记录导入</title></block>
+
+<block name="right">
+    <form action='{:U(importExcel)}'  method='post' enctype="multipart/form-data">
+        <table class="tbl">
+            <colgroup>
+                <col width="30%">
+                <col width="70%">
+            </colgroup>
+
+            <caption>会议记录导入</caption>
+            <tr>
+                <td class="cap"><span class="rq">*</span>上传附件：</td>
+                <td>
+                   <input type='file' name='file'>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align='center'><input class="btn btn-red mr10 submit" type="submit" value="保存"></td>
+            </tr>
+        </table>
+    </form>
+</block>

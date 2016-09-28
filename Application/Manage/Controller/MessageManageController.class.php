@@ -1,6 +1,7 @@
 <?php
 
 namespace Manage\Controller;
+
 use Manage\Controller\AdminController;
 
 /**
@@ -16,7 +17,7 @@ class MessageManageController extends AdminController {
         parent::__construct();
         $this->mod_message_manage = D('MessageManage');
     }
-    
+
     /**
      * 查询列表展示
      * 
@@ -26,7 +27,7 @@ class MessageManageController extends AdminController {
      * @return object 跳转或显示页面
      */
     public function index() {
-            
+
         $params = I('param.');
         $data_for_search = $this->mod_message_manage->getDataForSearch();
         $data_for_list = $this->mod_message_manage->getDataForList($params);
@@ -34,10 +35,10 @@ class MessageManageController extends AdminController {
         $this->assign('list', $data_for_list['msg_sys']);
         $this->assign('page', $data_for_list['page_show']);
         $this->assign('remember_search', $params);
-        $this->assign('s_number', 1);//初始序号
+        $this->assign('s_number', 1); //初始序号
         $this->display();
     }
-    
+
     /**
      * 添加
      */
@@ -68,7 +69,7 @@ class MessageManageController extends AdminController {
             $this->display('edit');
         }
     }
-    
+
     /**
      * 修改状态
      * 
@@ -76,21 +77,42 @@ class MessageManageController extends AdminController {
      * @param string $msg_sys_status 修改后状态值
      * @return object json对象
      */
-    public function changeStatus(){
-        
+    public function changeStatus() {
+
         $params = I('param.');
         $res_info_edit = $this->mod_message_manage->doEdit($params);
         $this->ajaxReturn($res_info_edit);
     }
-    
+
     /**
      * 删除（修改状态为４）
      */
-    public function delete(){
-        
+    public function delete() {
+
         $msg_sys_id = I('msg_sys_id');
         $res_info_delete = $this->mod_message_manage->doDelete($msg_sys_id);
         $this->ajaxReturn($res_info_delete);
+    }
+
+    /**
+     * 系统消息前台显示列表
+     */
+    public function showList() {
+        
+        $data = $this->mod_message_manage->getDataForShowList();
+        $this->assign('list', $data);
+        $this->display('showlist');
+    }
+
+    /**
+     * 系统消息前台显示详情
+     */
+    public function showDetail() {
+        
+        $msg_sys_id = I('param.msg_sys_id');
+        $data = $this->mod_message_manage->getDataForShowDetail($msg_sys_id);
+        $this->assign('info', $data);
+        $this->display('showdetail');
     }
 
 }

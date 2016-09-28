@@ -3,6 +3,7 @@ return array(
     /* 数据库配置 */
     'DB_TYPE' => 'mysql', // 数据库类型
     'DB_HOST' => '192.168.5.66', // 服务器地址
+    //'DB_HOST' => 'localhost', // 服务器地址
     'DB_NAME' => 'duban', // 数据库名
     'DB_USER' => 'root', // 用户名
     'DB_PWD' => 'root', // 密码
@@ -16,7 +17,7 @@ return array(
     /* 超级管理员id */
     'ADMINISTRATOR' => array(1),
     /* 不需要控制的权限 */
-    'NO__AUTH' => array('Manage/Login/index', 'Manage/Login/logout','Manage/Index/index', 'Manage/Ucenter/modifyPsd'),
+    'NO__AUTH' => array('Manage/Login/index', 'Manage/Login/logout','Manage/Index/index', 'Manage/Ucenter/modifyPsd','Manage/MessageManage/showList','Manage/MessageManage/showDetail'),
 
     /* 加密串 */
     'ENCRYPT_STR' => 'kindergarten201607',

@@ -1,6 +1,7 @@
 <?php
 
 namespace Manage\Model;
+
 use Think\Model;
 
 /**
@@ -30,12 +31,12 @@ class MessageManageModel extends Model {
 
         $mod_config_system = M('config_system');
         $where['config_key'] = 'msg_sys_status';
-        $where['config_value'] = array('NEQ',4);//排除‘已删除’状态
+        $where['config_value'] = array('NEQ', 4); //排除‘已删除’状态
         $arr_for_search['msg_sys_type'] = $mod_config_system->where($where)->select();
 
         return $arr_for_search;
     }
-    
+
     /**
      * 获取列表所需数据
      * 
@@ -44,6 +45,7 @@ class MessageManageModel extends Model {
      */
     public function getDataForList($params) {
 
+        $this->checkAndResetStatus();
         $arr_for_list = array();
 
         $where = $this->makeWhereForSearch($params);
@@ -92,7 +94,7 @@ class MessageManageModel extends Model {
         if (isset($params['msg_sys_status']) && ($params['msg_sys_status'] != '')) {
             $where['msg_sys_status'] = $params['msg_sys_status'];
         } else {
-            $where['msg_sys_status'] = array('NEQ',4);
+            $where['msg_sys_status'] = array('NEQ', 4);
         }
         if (!empty($params['msg_sys_title'])) {
             $where['msg_sys_title'] = array('LIKE', "%" . $params['msg_sys_title'] . "%");
@@ -182,4 +184,44 @@ class MessageManageModel extends Model {
         }
     }
 
+    /**
+     * 每次查询前，批量验证并修改失效状态
+     */
+    public function checkAndResetStatus() {
+        //3=>已失效状态;4=>已删除状态
+        $today = date('Y-m-d');
+        $arr_id = $this->where("(msg_sys_status != 4 ) AND (msg_sys_status != 3 ) AND (msg_sys_endtime < '$today')")->getField('msg_sys_id', TRUE);
+        if (count($arr_id) > 0) {
+            $str_id = implode(',', $arr_id);
+            $map['msg_sys_id'] = array('IN', $str_id);
+            $this->where($map)->setField('msg_sys_status', 3);
+        }
+    }
+
+    /**
+     * 获取前台显示系统消息列表所需数据
+     * 
+     * @return array
+     */
+    public function getDataForShowList() {
+        
+        $this->checkAndResetStatus();
+        $where['msg_sys_status'] = 1;//已发布状态
+        $data = $this->where($where)->getField('msg_sys_id,msg_sys_title,msg_sys_creattime',TRUE);
+        
+        return $data;
+    }
+
+    /**
+     * 获取前台显示系统消息详情所需数据
+     * 
+     * @return array
+     */
+    public function getDataForShowDetail($msg_sys_id) {
+        
+        $where['msg_sys_id'] = $msg_sys_id;
+        $data = $this->where($where)->find();
+        
+        return $data;
+    }
 }

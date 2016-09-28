@@ -18,7 +18,6 @@ class UcenterController extends AdminController {
         $this->model = new UserModel();
     }
 
-
     /**
      * 修改密码
      * @param array $param 接受的数据
@@ -29,7 +28,7 @@ class UcenterController extends AdminController {
         $param = I('get.');
         if (empty($param['old_password'])) {
             $this->display();
-                        exit();
+            exit();
         }
         $old_password = md5(md5($param['old_password']));
         $info = $this->model->field('uid,password')->find(UID);
@@ -58,5 +57,4 @@ class UcenterController extends AdminController {
             writeOperationLog('修改“' . $user_name . '”用户密码', 0);
         }
     }
-
 }

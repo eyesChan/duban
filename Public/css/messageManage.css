@@ -25,3 +25,17 @@
 	top: 86px;
 	left: 672px;
 }
+
+.more-notice {
+    float: right;
+    margin-top: 20px;
+}
+td.detail-l {
+    text-align: right;
+    padding-right: 20px;
+    border-right: 1px solid #ededed;
+}
+td.detail-r {
+    text-align: left;
+    padding-left: 20px;
+}

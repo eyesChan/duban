@@ -360,7 +360,7 @@ class MeetingModel extends Model {
      * @return array 当前月时间
      * @date 2016/09/27
      */
-    public function getDate($start_time,$end_time) {
+    public function getDate($start_time, $end_time) {
         $dt_start = strtotime($start_time);
         $dt_end = strtotime($end_time);
         $days = round(($dt_end - $dt_start) / 3600 / 24);
@@ -392,7 +392,7 @@ class MeetingModel extends Model {
      * @return array 当前月会议列表 Description
      * @date 2016/09/27
      */
-    public function getMeetingByMonth($start_time,$end_time) {
+    public function getMeetingByMonth($start_time, $end_time) {
         $meeting_mod = D('meeting');
         //获取当前用户近期的会议
         $uid = session('S_USER_INFO.UID');
@@ -406,53 +406,87 @@ class MeetingModel extends Model {
 //        echo $meeting_mod->getLastSql();die;
         return $meeting_info;
     }
+
     /**
      *  获取会议添加中的 台帐管理人列表
      * @author lishuaijie
      * @return array  拥有内部 台帐管理权限的用户列表
      * @date 2016/09/27
      */
-    public function getAccount(){
+    public function getAccount() {
         //103
         $auth_mod = D('auth_group');
         //获取所有的角色
-        $auth_info = $auth_mod->where(array('status'=>1))->select();
+        $auth_info = $auth_mod->where(array('status' => 1))->select();
         $group_info = array();
-        if(empty($auth_info)){
+        if (empty($auth_info)) {
             return array();
         }
-        foreach($auth_info as $val){
+        foreach ($auth_info as $val) {
             $rules_info = explode(',', $val['rules']);
-            if(in_array('103', $rules_info)){
+            if (in_array('103', $rules_info)) {
                 $group_info[] = $val['id'];
             }
         }
-        if(empty($group_info)){
+        if (empty($group_info)) {
             return array();
         }
         $group_id = implode(',', $group_info);
         $user_group_mod = D('auth_group_access');
-        $user_info = $user_group_mod->where(array('group_id'=>array('in',$group_id)))->getField('uid',true);
-        if(empty($user_info)){
+        $user_info = $user_group_mod->where(array('group_id' => array('in', $group_id)))->getField('uid', true);
+        if (empty($user_info)) {
             return array();
         }
         //根据角色获取用户id
         $user_id = implode(',', $user_info);
-        $user_list = D('member')->where(array('state'=>1,'uid'=>array('in',$user_id)))->select();
+        $user_list = D('member')->where(array('state' => 1, 'uid' => array('in', $user_id)))->select();
         return $user_list;
     }
+
     /**
      *  给台帐管理人发送邮件
      * @param $meeting_id 会议id $name Description
      * @author lishuaijie
      * @return true/false Description
      */
-    public function sendMeetingEmail($meeting_id){
+    public function sendMeetingEmail($meeting_id) {
         $meeting_info = D('meeting')->alias('meet')
                 ->join('__MEMBER__ member ON meet.meeting_ledger_re_person = member.uid')
-                ->where(array('meet.meeting_id',$meeting_id))
+                ->where(array('meet.meeting_id', $meeting_id))
                 ->find();
-        $str = $meeting_info['name']." ，您好：".$meeting_info['meeting_name']."会议于".$meeting_info['meeting_date']."已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
+        $str = $meeting_info['name'] . " ，您好：" . $meeting_info['meeting_name'] . "会议于" . $meeting_info['meeting_date'] . "已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
         return sendMail($meeting_info['email'], '台帐通知', $str);
     }
+
+    /**
+     * 处理到导出数据
+     * @param $key $name Description
+     * @author lishuaijie
+     * @date 2016/09/27
+     * @return array Description
+     */
+    public function dealtData($val, $key) {
+        $user_mod = D('member');
+        if (!empty($val[$key])) {
+            $meeting_moderator_name = $user_mod->where('uid in (' . $val[$key] . ')')->getField('name', true);
+        }
+        $key1 = $key . '_value';
+        if (!empty($val[$key1])) {
+            $meeting_moderator_name1 = explode(',', $val[$key1]);
+        }
+        if (!empty($meeting_moderator_name)) {
+            $$meeting_moderator_info = $meeting_moderator_name;
+        }
+        if (!empty($meeting_moderator_name1)) {
+            $meeting_moderator_info = $meeting_moderator_name1;
+        }
+        if (!empty($meeting_moderator_name) && !empty($meeting_moderator_name1)) {
+            $$meeting_moderator_info = array_merge($$meeting_moderator_name, $meeting_moderator_name1);
+        }
+        if (!empty($$meeting_moderator_info)) {
+            return implode(',', $$meeting_moderator_info);
+        }
+        return '';
+    }
+
 }

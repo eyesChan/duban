@@ -105,7 +105,7 @@ a.button{line-height: 30px;}
 
 /* 打印样式  */
 
- .tbl .tb-cap td{padding:0 20px;border:1px solid #ededed!important;font-weight:bold;font-size:14px;text-align:left;line-height:30px;color:#4972bf;background: #f5f7f7 url(../images/bg-caption.jpg) no-repeat;}
+ .tbl .tb-cap td{padding:0 20px;border:1px solid #ededed!important;font-weight:bold;font-size:14px;text-align:left;line-height:30px;color:#4972bf;background: #f5f7f7;}
 .tbl .tb-label td{height: 33px;line-height: 33px;text-align: center; color: #30519c;background: #f2f5fa;border-top:1px solid #ededed;}
 .tbl .tb-label td:first-child{border-left: 1px solid #ededed;}
 .tbl .tb-label td:last-child{border-right: 1px solid #ededed;}

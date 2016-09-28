@@ -61,6 +61,7 @@ class ModuleController extends AdminController {
                     writeOperationLog('添加“' . $menu_name . '”模块', 0);
                     $this->error(C('COMMON.ADD_ERROR'));
             }
+            return true;
         }
         $this->display();
     }

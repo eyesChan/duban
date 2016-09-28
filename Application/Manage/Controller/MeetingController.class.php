@@ -86,10 +86,13 @@ class MeetingController extends AdminController {
 
                 writeOperationLog('添加“' . $data['meeting_name'] . '”会议', 1);
                 $this->success($lang_info['SUCCESS_ADD']['status'], U('selectMeeting'));
-            }
+                return true;
+            }       
+            
             writeOperationLog('添加“' . $data['meeting_name'] . '”会议', 0);
 
             $this->error($lang_info['ERROR_ADD']['status'], U('selectMeeting'));
+            return true;
         }
         $user_info = $upload_obj->getUserInfo();
         $this->assign('user_info', $user_info);
@@ -277,7 +280,7 @@ class MeetingController extends AdminController {
             '序号', '会议名称', '会议类型', '会议级别', '召集人', '主持人', '参会人员', '会议形式', '参会规模',
             '会议日期', '会议时刻', '会议地点', '交办日期', '会议时长', '会议通知拟写', '通知发出日期', '通知时刻', '会议材料收集',
             '收集时间', '材料提交时间', '物料准备', '会场布置与调试', '测试日期', '测试时间', '问题明细', '是否解决', '现场保障',
-            '会议摄影摄像', '会议结束日期', '会议结束时刻', '餐饮安排', '会场整理人', '相关文字', '整理人',
+            '问题明细','是否解决','会议摄影摄像', '会议结束日期', '会议结束时刻', '餐饮安排', '会场整理人', '相关文字', '整理人',
             '台账整理人',
         );
         $config_mod = D('config_system');
@@ -340,7 +343,18 @@ class MeetingController extends AdminController {
                 $state = '处理中';
             }
             $data['是否解决'] = $state;
-            $data['现场保障'] = '';
+            $data['现场保障'] = $this->meeting_model->dealtData($val, 'meeting_site_protection');
+            $data['问题明细'] = $val['meeting_site_qusetion_detail'];
+            if ($val['meeting_site_state'] == 1) {
+                $state = '解决';
+            }
+            if ($val['meeting_site_state'] == 2) {
+                $state = '未解决';
+            }
+            if ($val['meeting_site_state'] == 3) {
+                $state = '处理中';
+            }
+            $data['是否解决'] = $state;
             $data['会议摄影摄像'] = $this->meeting_model->dealtData($val, 'meeting_vedio');
             $data['会议结束日期'] = $val['meeting_end_date'];
             $data['会议结束时刻'] = $val['meeting_end_time'];
@@ -367,10 +381,12 @@ class MeetingController extends AdminController {
             $file_config = $config_info['FILE_IMPORT_EXCEL'];
             $info = $upload_obj->importExcel($file_config);
             $path = $info['rootPath'] . $info['info']['file']['savepath'] . $info['info']['file']['savename'];
-            echo $path;
-            die;
-            $list = importExcel($path, null);
-            P($list);
+            $list = importExcel($path, 'AH');
+            if(!empty($list) && $list['code'] != 100){
+                $import_flag = $this->meeting_model->meetingImport($list);
+            }else{
+                $this->error($list['msg'],U('/Manage/Meeting/selectMeeting'));
+            }
         }
 
 

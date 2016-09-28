@@ -119,24 +119,6 @@ class PresentationController extends AdminController {
         $pre_id = I('db_pre_id');
         $result = $this->presentation->detailsPresent($pre_id);
         $this->assign('list', $result);
-        //文稿类型 
-        $pre_type = getConfigInfo('doc_pre_type');
-        $this->assign('pre_type', $pre_type);
-        //发布方式
-        $dis_mode = getConfigInfo('doc_dis_mode');
-        $this->assign('dis_mode', $dis_mode);
-         //文稿形式
-        $pre_form = getConfigInfo('doc_pre_form');
-        $this->assign('pre_form', $pre_form);
-         //工作状态
-        $work_status = getConfigInfo('doc_work_status');
-        $this->assign('work_status', $work_status);
-         //审批方式
-        $exa_mode = getConfigInfo('doc_exa_mode');
-        $this->assign('exa_mode', $exa_mode);
-         //用户信息
-        $user_name = $this->presentation->getUser();
-        $this->assign('user_name', $user_name);
         $this->display();
     }
     

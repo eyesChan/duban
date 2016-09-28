@@ -20,7 +20,7 @@
                     <td colspan="6">
                         <div class="wrap-btns">
                             <input class="btn btn-red mr10 submit" type="submit" value="查询"/>
-                            <input class="btn btn-red mr10 submit" type="submit" value="导入"/>
+                            <input class="btn btn-red mr10 submit" type="button" onclick='importExcel()' value="导入"/>
                         </div>
                     </td>
                 </tr>        
@@ -112,9 +112,13 @@
         }
         //会议导出
         function importMeeting(){
-        $("#hiddenform").val(1);
-        $("#execlid").submit();
-        $("#hiddenform").val(0);
+            $("#hiddenform").val(1);
+            $("#execlid").submit();
+            $("#hiddenform").val(0);
+        }
+        //会议导入
+        function importExcel(){
+            location.href='{:U(importExcel)}'
         }
 
     </script> 

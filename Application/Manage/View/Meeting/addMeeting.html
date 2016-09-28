@@ -51,13 +51,13 @@
                     <input type="button" class="btn btn-r btn-xl button addCallman" value="添加">
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
-                            <foreach name="meeting_info.meeting_callman" key="$key" item="item">
-                                <div class="person fl"><input type="hidden" name="meeting[meeting_callman][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
-                            </foreach>
-                     
-                            <foreach name="meeting_info.meeting_callman_value" key="$key" item="item">
-                                <div class="person fl"><input type="hidden" name="meeting[meeting_callman][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
-                            </foreach>
+                        <foreach name="meeting_info.meeting_callman" key="$key" item="item">
+                            <div class="person fl"><input type="hidden" name="meeting[meeting_callman][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                        </foreach>
+
+                        <foreach name="meeting_info.meeting_callman_value" key="$key" item="item">
+                            <div class="person fl"><input type="hidden" name="meeting[meeting_callman][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                        </foreach>
                     </div>
                 </td>
                 <td class="cap">主持人：</td>
@@ -247,6 +247,43 @@
                     </select>
                 </td>
             </tr>
+            <!--现场保障-->
+            <tr>
+                <td class="cap">现场保障人：</td>
+                <td>
+                    <select data='meeting[meeting_site_protection]' class="selectItem">
+                        <foreach name="user_info" item="item">
+                            <option value="{$item.uid}">{$item.name}</option>
+                        </foreach>
+                    </select>
+                    <input type="button" class="btn btn-r btn-xl button addMeetingVedio" value="添加">
+                    <input type="text" class="hide hide-input" >
+                    <div class="person-content clear">
+                        <foreach name="meeting_info.meeting_site_protection" key="$key" item="item">
+                            <div class="person fl"><input type="hidden" name="meeting[meeting_site_protection][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
+                        </foreach>
+                        <foreach name="meeting_info.meeting_site_protection_value" key="$key" item="item">
+                            <div class="person fl"><input type="hidden" name="meeting[meeting_site_protection][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
+                        </foreach>
+
+                    </div>
+
+
+                </td>
+                <td class="cap">问题明细：</td>
+                <td>
+                    <input type="text" name='meeting[meeting_site_qusetion_detail]' value="{$meeting_info.meeting_site_qusetion_detail}" class="input-text text">
+                </td>
+                <td class="cap">解决状态：</td>
+                <td>
+                    <select name='meeting[meeting_site_state]' >
+                        <option value='1' <if condition="$meeting_info.meeting_site_state eq 1">selected=true</if> >解决</option>
+                        <option value='2' <if condition="$meeting_info.meeting_site_state eq 2">selected=true</if> >未解决</option>
+                        <option value='3' <if condition="$meeting_info.meeting_site_state eq 3">selected=true</if> >处理中</option>
+                    </select>
+                </td>
+            </tr>
+
             <tr>
                 <td class="cap">会议摄影摄像：</td>
                 <td>
@@ -470,12 +507,12 @@
             var _this = $(this);
             addPerson(_this, "请填写记录整理人！");
         });
-      
-       $("#meetingSub").on("click",function(){
-            if($.trim($("[name=meeting\\[meeting_name\\]]").val()) == ""){
+
+        $("#meetingSub").on("click", function () {
+            if ($.trim($("[name=meeting\\[meeting_name\\]]").val()) == "") {
                 $.dialog.alert("请填写会议名称！");
                 return false;
-            }else if($("#account").val() == "-100"){
+            } else if ($("#account").val() == "-100") {
                 $.dialog.alert("请选择台账整理人！");
                 return false;
             }

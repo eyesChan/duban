@@ -420,7 +420,6 @@ function importExcel($fileName, $column = null) {
     // xls Excel5 xlsx Excel2007
     $reader = PHPExcel_IOFactory::createReader($str); //设置以Excel5格式(Excel97-2003工作簿)
     $PHPExcel = $reader->load($fileName); // 载入excel文件
-
     $sheet = $PHPExcel->getSheet(0); // 读取第一個工作表
     $highestRow = $sheet->getHighestRow(); // 取得总行数
     $highestColumm = $sheet->getHighestColumn(); // 取得总列数

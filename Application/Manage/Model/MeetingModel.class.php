@@ -112,8 +112,18 @@ class MeetingModel extends Model {
                 $data['meeting_vedio_value'] = implode($data['meeting_vedio']['value'], ',');
                 unset($data['meeting_vedio']['value']);
             }
+
             //会议摄影摄像
             $data['meeting_vedio'] = implode($data['meeting_vedio'], ',');
+            
+             //现场保证人-手输
+            if ($data['meeting_site_protection']['value']) {
+                $data['meeting_site_protection_value'] = implode($data['meeting_site_protection']['value'], ',');
+                unset($data['meeting_site_protection']['value']);
+            }
+
+            //现场保证人
+            $data['meeting_site_protection'] = implode($data['meeting_site_protection'], ',');
 
             //会议记录
             $data['meeting_content'] = trim($data['meeting_content']);
@@ -342,6 +352,17 @@ class MeetingModel extends Model {
             if (!empty($meeting_info['meeting_record_person_value']))
                 $meeting_info['meeting_record_person_value'] = explode(',', $meeting_info['meeting_record_person_value']);
         }
+        //现场保证人
+        
+         if (!empty($meeting_info['meeting_site_protection'])) {
+            //记录整理人 meeting_site_protection 
+            $meeting_record_person = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_site_protection'])))->getField('uid,name', true);
+            $meeting_info['meeting_site_protection'] = $meeting_record_person;
+            //会场整理人 手输 meeting_site_protection
+            if (!empty($meeting_info['meeting_site_protection_value']))
+                $meeting_info['meeting_site_protection_value'] = explode(',', $meeting_info['meeting_site_protection_value']);
+        }
+        
         if (!empty($meeting_info['meeting_annexes_url'])) {
             $config_info = C();
             if ($config_info['OPEN_FTP'] == 1) {
@@ -487,6 +508,49 @@ class MeetingModel extends Model {
             return implode(',', $$meeting_moderator_info);
         }
         return '';
+    }
+
+    /**
+     *  会议导入
+     * @param $data excel导入内容
+     * @author lishuaijei
+     * @return true/false Description
+     * @date 2016/09/28
+     */
+    public function meetingImport($data) {
+        $config_mod = D('config_system');
+        $meeting_mod = D('meeting');
+        $user_mod = D('member');
+        $meeting_mod->startTrans();
+        $meeting_flag = 1;
+        foreach ($data as $key => $val) {
+            if (!$val[1]) {
+                $info['meeting_name'] = $val[1]; //会议名称
+            }
+            if (!empty($val[2])) {
+                $type = $config_mod->where(array('config_key' => 'meeting_type', 'config_descripion' => trim($val[2])))->find();
+                $info['meeting_type'] = '';
+                if (!empty($type)) {
+                    $info['meeting_type'] = $type['config_value']; //会议类型
+                }
+            }
+            if (!empty($val[3])) {
+                $level = $config_mod->where(array('config_key' => 'meeting_level', 'config_descripion' => trim($val[3])))->find();
+                $info['meeting_leve'] = '';
+                if (!empty($level)) {
+                    $info['meeting_leve'] = $level['config_value']; //会议级别
+                }
+            }
+            //召集人
+            if (!empty($val[4])) {
+                $callman_info = array();
+                $callman_value_info = array();
+                $excel_callman_info = explode(',', $val[4]);
+                foreach($excel_callman_info as $val){
+                    $user_exis = $user_mod->where(array('name'=>$val))->select();
+                }
+            }
+        }
     }
 
 }

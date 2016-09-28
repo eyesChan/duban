@@ -196,6 +196,36 @@
                          <if condition="$meeting_info.meeting_fix_state eq 3">处理中</if>  
                 </td>
             </tr>
+            
+              <!--现场保障-->
+            <tr>
+                <td class="cap">现场保障人：</td>
+                <td>
+                    <div class="person-content clear">
+                        <foreach name="meeting_info.meeting_site_protection" key="$key" item="item">
+                            <div class="person fl"><span>{$item}</span></div><br/>
+                        </foreach>
+                        <foreach name="meeting_info.meeting_site_protection_value" key="$key" item="item">
+                            <div class="person fl"><span>{$item}</span></div><br/>
+                        </foreach>
+
+                    </div>
+
+
+                </td>
+                <td class="cap">问题明细：</td>
+                <td>
+                    {$meeting_info.meeting_site_qusetion_detail}
+                </td>
+                <td class="cap">解决状态：</td>
+                <td>
+                        <if condition="$meeting_info.meeting_site_state eq 1">解决</if> 
+                        <if condition="$meeting_info.meeting_site_state eq 2">未解决</if> 
+                        <if condition="$meeting_info.meeting_site_state eq 3">处理中</if> 
+                </td>
+            </tr>
+
+            
             <tr>
                 <td class="cap">会议摄影摄像：</td>
                 <td>

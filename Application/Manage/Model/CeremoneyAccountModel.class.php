@@ -166,7 +166,7 @@ class CeremoneyAccountModel extends Model {
      * @return array
      */
     public function getExecl() {
-        
+
         $data_ca = $this->select();
         $count = count($data_ca);
         for ($i = 0; $i <= $count; $i++) {
@@ -174,6 +174,92 @@ class CeremoneyAccountModel extends Model {
             unset($data_ca[$i]['ca_status']);
         }
         return $data_ca;
+    }
+
+    /**
+     * 导入
+     * 
+     * @param array $data
+     */
+    public function import($data) {
+        $count = count($data);
+        $flag = 0;
+        $model = new Model();
+        $model->startTrans();
+        for ($i = 0; $i < $count; $i++) {
+            $param['ca_time'] = $data[$i][0];
+            $param['ca_address'] = $data[$i][1];
+            $param['ca_name'] = $data[$i][2];
+            $param['ca_double'] = $data[$i][3];
+            $param['ca_host'] = $data[$i][4];
+            $param['ca_say_leader'] = $data[$i][5];
+            $param['ca_zq_leader'] = $data[$i][6];
+            $param['ca_qy_leader'] = $data[$i][7];
+            $param['ca_participants'] = $data[$i][8];
+            $param['ca_security_level'] = $data[$i][9];
+            $param['ca_dress'] = $data[$i][10];
+            $param['ca_security_person'] = $data[$i][11];
+            $param['ca_security_time'] = $data[$i][12];
+            $param['ca_yc_rpperson'] = $data[$i][13];
+            $param['ca_yc_apstatus'] = $data[$i][14];
+            $param['ca_xy_rpperson'] = $data[$i][15];
+            $param['ca_xy_apstatus'] = $data[$i][16];
+            $param['ca_notice_send_meeting'] = $data[$i][17];
+            $param['ca_notice_material_prepara'] = $data[$i][18];
+            $param['ca_notice_service_unit_security'] = $data[$i][19];
+            $param['ca_ready_agenda'] = $data[$i][20];
+            $param['ca_ready_leader_saydoc'] = $data[$i][21];
+            $param['ca_ready_visitor_resume'] = $data[$i][22];
+            $param['ca_ready_host_doc'] = $data[$i][23];
+            $param['ca_ready_sign_book'] = $data[$i][24];
+            $param['ca_ready_computer'] = $data[$i][25];
+            $param['ca_ready_recorder'] = $data[$i][26];
+            $param['ca_ready_microphone'] = $data[$i][27];
+            $param['ca_ready_pub_material'] = $data[$i][28];
+            $param['ca_ready_sign_boop'] = $data[$i][29];
+            $param['ca_ready_sign_pen'] = $data[$i][30];
+            $param['ca_ready_sign_music'] = $data[$i][31];
+            $param['ca_ready_champagne'] = $data[$i][32];
+            $param['ca_ready_gift'] = $data[$i][33];
+            $param['ca_ready_table_flower'] = $data[$i][34];
+            $param['ca_ready_bg_plate'] = $data[$i][35];
+            $param['ca_make_sign_table_card'] = $data[$i][36];
+            $param['ca_make_kt_plate'] = $data[$i][37];
+            $param['ca_ready_table_card'] = $data[$i][38];
+            $param['ca_ready_frame_picture'] = $data[$i][39];
+            $param['ca_ready_role_screen'] = $data[$i][40];
+            $param['ca_do_site_layout'] = $data[$i][41];
+            $param['ca_do_bg_plate'] = $data[$i][42];
+            $param['ca_test_microphone'] = $data[$i][43];
+            $param['ca_test_audio'] = $data[$i][44];
+            $param['ca_notice_jdbz'] = $data[$i][45];
+            $param['ca_recep_person'] = $data[$i][46];
+            $param['ca_scene_security_person'] = $data[$i][47];
+            $param['ca_translation_person'] = $data[$i][48];
+            $param['ca_error'] = $data[$i][49];
+            $param['ca_error_resaon'] = $data[$i][50];
+            $param['ca_make_today_hh'] = $data[$i][51];
+            $param['ca_pub_date'] = $data[$i][52];
+            $param['ca_store_doc_person'] = $data[$i][53];
+            $param['ca_transfer_unit'] = $data[$i][54];
+            $param['ca_store_doc_address'] = $data[$i][55];
+            $param['ca_improve_suggestion'] = $data[$i][56];
+            $param['ca_status'] = 1; //正常状态
+            $res_add = $this->add($param);
+            if ($res_add === FALSE) {
+                $flag = $flag - 1;
+            }
+        }
+        if ($flag < 0) {
+            $model->rollback();
+            writeOperationLog('导入“' . 'excel表格' . '”', 0);
+            return C('COMMON.IMPORT_ERROR');
+        } else {
+            $model->commit();
+            writeOperationLog('导入“' . 'excel表格' . '”', 1);
+            return C('COMMON.IMPORT_SUCCESS');
+            
+        }
     }
 
 }

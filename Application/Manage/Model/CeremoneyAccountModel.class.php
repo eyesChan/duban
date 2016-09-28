@@ -166,7 +166,7 @@ class CeremoneyAccountModel extends Model {
      * @return array
      */
     public function getExecl() {
-        
+
         $data_ca = $this->select();
         $count = count($data_ca);
         for ($i = 0; $i <= $count; $i++) {
@@ -174,6 +174,76 @@ class CeremoneyAccountModel extends Model {
             unset($data_ca[$i]['ca_status']);
         }
         return $data_ca;
+    }
+
+    /**
+     * 导入
+     * 
+     * @param array $data
+     */
+    public function import($data) {
+        $count = count($data);
+        for ($i = 0; $i < $count; $i++) {
+            $data['ca_time'] = $data[$i][0];
+            $data['ca_address'] = $data[$i][1];
+            $data['ca_name'] = $data[$i][2];
+            $data['ca_double'] = $data[$i][3];
+            $data['ca_host'] = $data[$i][4];
+            $data['ca_say_leader'] = $data[$i][5];
+            $data['ca_zq_leader'] = $data[$i][6];
+            $data['ca_qy_leader'] = $data[$i][7];
+            $data['ca_participants'] = $data[$i][8];
+            $data['ca_security_level'] = $data[$i][9];
+            $data['ca_dress'] = $data[$i][10];
+            $data['ca_security_person'] = $data[$i][11];
+            $data['ca_security_time'] = $data[$i][12];
+            $data['ca_yc_rpperson'] = $data[$i][13];
+            $data['ca_yc_apstatus'] = $data[$i][14];
+            $data['ca_xy_rpperson'] = $data[$i][15];
+            $data['ca_xy_apstatus'] = $data[$i][16];
+            $data['ca_notice_send_meeting'] = $data[$i][17];
+            $data['ca_notice_material_prepara'] = $data[$i][18];
+            $data['ca_notice_service_unit_security'] = $data[$i][19];
+            $data['ca_ready_agenda'] = $data[$i][20];
+            $data['ca_ready_leader_saydoc'] = $data[$i][21];
+            $data['ca_ready_visitor_resume'] = $data[$i][22];
+            $data['ca_ready_host_doc'] = $data[$i][23];
+            $data['ca_ready_sign_book'] = $data[$i][24];
+            $data['ca_ready_computer'] = $data[$i][25];
+            $data['ca_ready_recorder'] = $data[$i][26];
+            $data['ca_ready_microphone'] = $data[$i][27];
+            $data['ca_ready_pub_material'] = $data[$i][28];
+            $data['ca_ready_sign_boop'] = $data[$i][29];
+            $data['ca_ready_sign_pen'] = $data[$i][30];
+            $data['ca_ready_sign_music'] = $data[$i][31];
+            $data['ca_ready_champagne'] = $data[$i][32];
+            $data['ca_ready_gift'] = $data[$i][33];
+            $data['ca_ready_table_flower'] = $data[$i][34];
+            $data['ca_ready_bg_plate'] = $data[$i][35];
+            $data['ca_make_sign_table_card'] = $data[$i][36];
+            $data['ca_make_kt_plate'] = $data[$i][37];
+            $data['ca_ready_table_card'] = $data[$i][38];
+            $data['ca_ready_frame_picture'] = $data[$i][39];
+            $data['ca_ready_role_screen'] = $data[$i][40];
+            $data['ca_do_site_layout'] = $data[$i][41];
+            $data['ca_do_bg_plate'] = $data[$i][42];
+            $data['ca_test_microphone'] = $data[$i][43];
+            $data['ca_test_audio'] = $data[$i][44];
+            $data['ca_notice_jdbz'] = $data[$i][45];
+            $data['ca_recep_person'] = $data[$i][46];
+            $data['ca_scene_security_person'] = $data[$i][47];
+            $data['ca_translation_person'] = $data[$i][48];
+            $data['ca_error'] = $data[$i][49];
+            $data['ca_error_resaon'] = $data[$i][50];
+            $data['ca_make_today_hh'] = $data[$i][51];
+            $data['ca_pub_date'] = $data[$i][52];
+            $data['ca_store_doc_person'] = $data[$i][53];
+            $data['ca_transfer_unit'] = $data[$i][54];
+            $data['ca_store_doc_address'] = $data[$i][55];
+            $data['ca_improve_suggestion'] = $data[$i][56];
+            $data['ca_status'] = 1; //正常状态
+            $this->add($data);
+        }
     }
 
 }

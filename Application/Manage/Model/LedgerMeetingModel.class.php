@@ -28,8 +28,10 @@ class LedgerMeetingModel  extends Model{
             $led_meeting = M('led_meeting');
             $res = $led_meeting->add($param);
             if($res){
+                 writeOperationLog('添加“' . $param['led_meeting_name'] . '”会谈会见台账', 1);
                 return C('COMMON.SUCCESS_EDIT');
             }else{
+                 writeOperationLog('添加“' . $param['led_meeting_name'] . '”会谈会见台账', 0);
                 return C('COMMON.ERROR_EDIT');
             } 
     }
@@ -93,8 +95,10 @@ class LedgerMeetingModel  extends Model{
         $led_meeting = M('led_meeting');
         $res = $led_meeting->where("led_meeting_id =".$led_meeting_id)->save($data);
        if($res){
+           writeOperationLog('修改“' . $data['led_meeting_name'] . '”会谈会见台账', 1);
             return C('COMMON.SUCCESS_EDIT');
         }else{
+            writeOperationLog('修改“' . $data['led_meeting_name'] . '”会谈会见台账', 0);
             return C('COMMON.ERROR_EDIT');
         }      
     }
@@ -110,9 +114,12 @@ class LedgerMeetingModel  extends Model{
     public function delLedger($led_meeting_id){
         $led_meeting = M('led_meeting');
         $res = $led_meeting->where("led_meeting_id =".$led_meeting_id)->setField('led_status','1');
+        $led_meeting_name=$led_meeting->where("led_meeting_id =".$led_meeting_id)->getField('led_meeting_name');
        if($res){
+           writeOperationLog('删除“' . $led_meeting_name. '”会谈会见台账', 1);
             return C('COMMON.SUCCESS_DEL');
         }else{
+            writeOperationLog('删除“' . $led_meeting_name . '”会谈会见台账', 0);
             return C('COMMON.ERROR_DEL');
         }      
     }
@@ -186,9 +193,10 @@ class LedgerMeetingModel  extends Model{
      public function addsLedger($param){
             $led_meeting = M('led_meeting');
             $data=array();
-            $res=array('led_meeting_date',
-                        'led_meeting_place',
+            $res=array(
+                        'led_meeting_date',
                         'led_meeting_name',
+                        'led_meeting_place',
                         'led_meeting_guest',
                         'led_meeting_leader',
                         'led_meeting_host',
@@ -196,7 +204,6 @@ class LedgerMeetingModel  extends Model{
                         'led_meeting_cloth',
                         'led_meeting_person',
                         'led_meeting_length',
-                        'led_argenda_name',
                         'led_argenda_name',
                         'led_argenda_status',
                         'led_notice',
@@ -231,19 +238,17 @@ class LedgerMeetingModel  extends Model{
                         'led_meeting_proposal'
                 
                 );
-              //  return $res;
-            //去除不需要的键值
            foreach($param as $key => $v){
                foreach ($v as $k => $v1){
                    $data[$res[$k]]=$v1;
                }
                $a[$key]=$data;
+                $res = $led_meeting->add($data);
              }  
-             return $a;
-//            if($res){
-//                return C('COMMON.SUCCESS_EDIT');
-//            }else{
-//                return C('COMMON.ERROR_EDIT');
-//            } 
+            if($res){  
+                return C('COMMON.SUCCESS_EDIT');
+            }else{        
+                return C('COMMON.ERROR_EDIT');
+            } 
     }
 }

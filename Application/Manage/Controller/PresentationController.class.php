@@ -262,7 +262,8 @@ class PresentationController extends AdminController {
       */
     public function importPresent(){
         $param = $_FILES['filename'];
-        $files = $this->presentation->normalUpload($param);
+        $upload_obj = new MeetingUplod();
+        $files = $upload_obj->normalUpload($param);
         $fileName = $files['info']['filename']['savename'];
         $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
         $result = $this->presentation->addsPresent($resute);

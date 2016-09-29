@@ -1,5 +1,5 @@
 <extend name="Public:base" />
-<block name="title"><title>会议创建</title></block>
+<block name="title"><title>内部会议台账列表</title></block>
 <block name="right">
 
 <div class="container-padding">
@@ -56,7 +56,7 @@
 	        <tbody>	
                     <foreach name="list" item="item">
 	        	<tr>
-                            <td>{$item.internal_id}</td>
+                            <td>{$s_number++}</td>
                             <td>{$item.internal_name}</td>
                             <td>{$item.internal_meeting_type}</td>
                             <td>{$item.internal_meeting_date|substr=0,10}</td>

@@ -1,5 +1,5 @@
 <extend name="Public:base" />
-<block name="title"><title>文档创建</title></block>
+<block name="title"><title>内部会议台账创建</title></block>
  
 <block name="right">
     <form action="{:U(add)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
@@ -331,7 +331,7 @@
                 </td>
                  <td class="cap">归档日期：</td>
                 <td>
-                    <input type="text" name='internal_notice_stop_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
+                    <input type="text" name='internal_file_time' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
                 </td>
                
              </tr>
@@ -344,7 +344,7 @@
                  <textarea class="textarea" name="internal_proposal"></textarea>
                 </td>
             </tr>
-    
+            <input name="internal_username" type="hidden" value="{$uid}"/> 
         <div class="text-center">
  
           <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>

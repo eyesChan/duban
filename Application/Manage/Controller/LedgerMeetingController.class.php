@@ -72,12 +72,12 @@ class LedgerMeetingController extends AdminController {
     public function addLedger() {
          $data = I();
          if(!empty($data)){
-             $result = $this->ledger_meeting->addLedger($data);
-              if ($result['code'] == 200) {
-                    $this->success($result['status'], U('LedgerMeeting/index'));
-                } else {
-                    $this->error($result['status'], U('LedgerMeeting/addLedger'));
-                }
+            $result = $this->ledger_meeting->addLedger($data);
+            if($result['code'] == 200) {
+                $this->success($result['status'], U('LedgerMeeting/index'));
+            }else{
+                $this->error($result['status'], U('LedgerMeeting/addLedger'));
+            }
          }
         $this->display();
     }
@@ -103,23 +103,23 @@ class LedgerMeetingController extends AdminController {
      * @return 跳转页面 Description
      */
     public function saveLedger(){
-         if(IS_GET){
-             $led_meeting_id = I('led_meeting_id');
-             $result = $this->ledger_meeting->detailsLedger($led_meeting_id);
-             $this->assign('list', $result);
-             $this->display();
-         }
-         if(IS_POST){
-             $data=I();
-             if(!empty($data)){
+        if(IS_GET){
+            $led_meeting_id = I('led_meeting_id');
+            $result = $this->ledger_meeting->detailsLedger($led_meeting_id);
+            $this->assign('list', $result);
+            $this->display();
+        }
+        if(IS_POST){
+            $data=I();
+            if(!empty($data)){
                 $result = $this->ledger_meeting->saveLedger($data,$data['led_meeting_id']);
                 if ($result['code'] == 200) {
-                       $this->success($result['status'], U('LedgerMeeting/index'));
-                  }else{
-                       $this->error($result['status'], U('LedgerMeeting/saveLedger?led_meeting_id='.$data['led_meeting_id']));
+                    $this->success($result['status'], U('LedgerMeeting/index'));
+                }else{
+                    $this->error($result['status'], U('LedgerMeeting/saveLedger?led_meeting_id='.$data['led_meeting_id']));
                 }
             }
-         }       
+        }       
     }
     
     /*
@@ -131,12 +131,11 @@ class LedgerMeetingController extends AdminController {
     public function delLedger(){
         $led_meeting_id = I('led_meeting_id');
         $result = $this->ledger_meeting->delLedger($led_meeting_id);
-        if ($result['code'] == 200) {
-             $this->success($result['status'], U('LedgerMeeting/index'));
-          }else{
-             $this->error($result['status'], U('LedgerMeeting/index'));
-        }
-    
+        if ($result['code'] == 200){
+            $this->success($result['status'], U('LedgerMeeting/index'));
+        }else{
+            $this->error($result['status'], U('LedgerMeeting/index'));
+        }    
     }
     
      /**
@@ -156,7 +155,7 @@ class LedgerMeetingController extends AdminController {
                         '接待责任人','保障人员','传译人员','差错','原因分析','拟写今日海航','拟写会谈纪要','发文时间',
                         '责任人','交接单位','存档地址','改进建议',
                 );
-            getExcel($headArr, $work);
+        getExcel($headArr, $work);
     }
     /*
      *  导入页面
@@ -167,8 +166,7 @@ class LedgerMeetingController extends AdminController {
     public function importExcel(){
         
         $this->display('importLedger');
-    }
-    
+    }    
      /*
       * 导入
       *@author huang gang
@@ -181,14 +179,14 @@ class LedgerMeetingController extends AdminController {
         $files = $upload_obj->normalUpload($param);
         $fileName = $files['info']['filename']['savename'];
         $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
-         $result = $this->ledger_meeting->addsLedger($resute);
-              if ($result['code'] == 200) {
-                   writeOperationLog('批量导入会谈会见台账', 1);
-                    $this->success($result['status'], U('LedgerMeeting/index'));
-                } else {
-                    writeOperationLog('批量导入会谈会见台账', 0);
-                    $this->error($result['status'], U('LedgerMeeting/importExcel'));
-                }
+        $result = $this->ledger_meeting->addsLedger($resute);
+        if($result['code'] == 200) {
+            writeOperationLog('批量导入会谈会见台账', 1);
+            $this->success($result['status'], U('LedgerMeeting/index'));
+        }else{
+            writeOperationLog('批量导入会谈会见台账', 0);
+            $this->error($result['status'], U('LedgerMeeting/importExcel'));
+        }
     }
 }
 

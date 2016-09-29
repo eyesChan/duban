@@ -8,7 +8,7 @@ return array(
         'FTP_SYSTEM' => '1', //1 linux 2 windows 
         'FTP_ROOT_PATH' => '/home/ftp/',
     ),
-    'FTP_VISIT_PATH' => 'http://www.ftp.com:8888/', //ftp浏览器访问路径
+    'FTP_VISIT_PATH' => 'http://www.ftp.com/', //ftp浏览器访问路径
     'FTP_WRITE_PATH' => 'http://192.168.5.66:8888/',
     'FTP_MEETING' => array(//会议相关
         'FILE_SIZE' => 3145728,
@@ -39,7 +39,6 @@ return array(
         'FILE_PATH' => 'src/', //临时存储路径
         'PATH' => 'filedoc/',
         'ALLOW_FILE' => array('xlsx', 'xls', 'doc', 'pdf', 'jpeg','jpg','png'),
-        'ROOT_PATH' => 'duban/', //web server 指定项目路径 注意'/'
     ),
 );
 

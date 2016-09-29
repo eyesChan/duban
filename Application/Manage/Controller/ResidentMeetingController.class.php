@@ -19,6 +19,7 @@ class ResidentMeetingController extends AdminController {
     private $resident;
     public function __construct() {
         parent::__construct();
+
         $this->resident = D('ResidentMeeting');
     }
 
@@ -29,8 +30,9 @@ class ResidentMeetingController extends AdminController {
      */
     public function escape($param) {
         foreach ($param as $k => $val) {
-           $param[$k] = str_replace("_", "\_", $val);
+            $param[$k] = str_replace("_", "\_", $val);
         }
+
         return $param;
     }
     /**
@@ -59,6 +61,7 @@ class ResidentMeetingController extends AdminController {
         $this->assign('list', $list);
         $this->assign('page', $show);
         $this->assign('param', $param);
+       
         $this->display();
     }
     
@@ -69,15 +72,15 @@ class ResidentMeetingController extends AdminController {
      * @return 跳转页面 Description
      */
     public function addResident() {
-        $data = I();
-        if(!empty($data)){
-            $result = $this->resident->addResident($data);
-            if($result['code'] == 200){
-                $this->success($result['status'], U('ResidentMeeting/index'));
-            }else{
-                $this->error($result['status'],U('ResidentMeeting/addResident'));
-            }
-        }
+         $data = I();
+         if(!empty($data)){
+             $result = $this->resident->addResident($data);
+              if ($result['code'] == 200) {
+                    $this->success($result['status'], U('ResidentMeeting/index'));
+                } else {
+                    $this->error($result['status'],U('ResidentMeeting/addResident'));
+                }
+         }
         $this->display();
     }
     
@@ -102,23 +105,23 @@ class ResidentMeetingController extends AdminController {
      * @return 跳转页面 Description
      */
     public function saveResident(){
-        if(IS_GET){
-            $resident_id = I('resident_id');
-            $result = $this->resident->detailsResident($resident_id);
-            $this->assign('list', $result);
-            $this->display();
-        }
-        if(IS_POST){
-            $data=I();
-            if(!empty($data)){
+         if(IS_GET){
+             $resident_id = I('resident_id');
+             $result = $this->resident->detailsResident($resident_id);
+             $this->assign('list', $result);
+             $this->display();
+         }
+         if(IS_POST){
+             $data=I();
+             if(!empty($data)){
                 $result = $this->resident->saveResident($data,$data['resident_id']);
-                if($result['code'] == 200){
-                    $this->success($result['status'], U('ResidentMeeting/index'));
-                }else{
-                    $this->error($result['status'], U('ResidentMeeting/saveResident?resident_id='.$data['resident_id']));
+                if ($result['code'] == 200) {
+                       $this->success($result['status'], U('ResidentMeeting/index'));
+                  }else{
+                       $this->error($result['status'], U('ResidentMeeting/saveResident?resident_id='.$data['resident_id']));
                 }
             }
-        }       
+         }       
     }
     
     /*
@@ -130,10 +133,10 @@ class ResidentMeetingController extends AdminController {
     public function delResident(){
         $resident_id = I('resident_id');
         $result = $this->resident->delResident($resident_id);
-        if($result['code'] == 200) {
-            $this->success($result['status'], U('ResidentMeeting/index'));
-        }else{
-            $this->error($result['status'], U('ResidentMeeting/index'));
+        if ($result['code'] == 200) {
+             $this->success($result['status'], U('ResidentMeeting/index'));
+          }else{
+             $this->error($result['status'], U('ResidentMeeting/index'));
         }
     
     }
@@ -147,12 +150,26 @@ class ResidentMeetingController extends AdminController {
     public function exportResident(){
         $data=I();
         $work = $this->resident->getExecl($data); 
-        $headArr = array('地区','国家','省份/城市','更新周期','收集时间','数据时间跨度',
-                        '责任人','汇总单位','收集通知拟写人','通知是否审批','通知审核人',
-                        '汇总联系人','通知下发日期','是否提交审核','当前节点','是否存档',
-                        '存档日期','存档地址',
+        $headArr = array(   '地区',
+                            '国家',
+                            '省份/城市',
+                            '更新周期',
+                            '收集时间',
+                            '数据时间跨度',
+                            '责任人',
+                            '汇总单位',
+                            '收集通知拟写人',
+                            '通知是否审批',
+                            '通知审核人',
+                            '汇总联系人',
+                            '通知下发日期',
+                            '是否提交审核',
+                            '当前节点',
+                            '是否存档',
+                            '存档日期',
+                            '存档地址',
             );
-        getExcel($headArr, $work);
+            getExcel($headArr, $work);
                             
       }
       
@@ -181,12 +198,12 @@ class ResidentMeetingController extends AdminController {
         $fileName = $files['info']['filename']['savename'];
         $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
         $result = $this->resident->addsResident($resute);
-        if ($result['code'] == 200) {
-            writeOperationLog('批量导入驻各地发展情况台账', 1);
-            $this->success($result['status'], U('ResidentMeeting/index'));
-        }else{
-            writeOperationLog('批量导入驻各地发展情况台账', 0);
-            $this->error($result['status'], U('ResidentMeeting/importExcel'));
-        }
+              if ($result['code'] == 200) {
+                   writeOperationLog('批量导入驻各地发展情况台账', 1);
+                    $this->success($result['status'], U('ResidentMeeting/index'));
+                } else {
+                    writeOperationLog('批量导入驻各地发展情况台账', 0);
+                    $this->error($result['status'], U('ResidentMeeting/importExcel'));
+                }
     }
 }         

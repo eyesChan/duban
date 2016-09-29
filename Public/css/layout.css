@@ -56,7 +56,6 @@ select{height: 28px;padding: 1px 0; color: #404040;border: 1px solid #ededed;}
 .full-sum em{color:#1855b0;font-style: normal;}
 .wrap-table .notice{padding:0 12px;font-size: 12px;}
 .wrap-table-a {margin: 30px auto 0;width: 100%;}
-label{margin-right: 10px;}
 .increase,.decrease{position: relative;z-index: 0;display:inline-block;width:14px;height:14px;overflow: hidden;}
 /* 表格结束 */
 
@@ -85,7 +84,7 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
 .tbl .operate-row{padding:12px 66px;}
 .operate-row .btn{width:80px;padding:0;margin:0 20px;}
 /* 分页 */
-.pagination{ width:100%; margin:20px 0 10px 0; }
+.pagination{ margin:20px 0 10px 0; }
 .pagination .page-input {width: 20px;border: 1px solid #ededed;}
 .pagination-go {cursor: pointer;width: 30px; height: 20px;line-height: 20px;background: #1855b0;border: none;color: #fff;margin: 0 10px;}
 .pagination ul{ vertical-align:bottom; text-align:center; }
@@ -130,7 +129,7 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
 .long { width: 490px !important;}
 .short{width:213px;}
 .shorter{width:140px;}
-
+.prompt{position: absolute;background: #fff;border: 1px solid #ededed;padding: 5px 10px;}
 .btn {
   -moz-user-select: none;
   background-image: none;
@@ -265,7 +264,8 @@ td.right{
     margin-left:20px;
 }
 .jxssp td input[type="checkbox"]{
-    margin:0 5px 0 30px;
+    margin-left: -5px;
+    margin-right: 14px;
 }
 
 .jxssp td select{

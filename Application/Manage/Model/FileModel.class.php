@@ -38,32 +38,34 @@ class FileModel  extends Model{
     */
     
     public function addFile($param){
-        $docfile = M('doc');
-        $data['doc_name'] = $param['doc_name'];
-        $data['doc_dept_id'] = $param['doc_dept_id'];
-        $data['doc_pub_person'] = session('S_USER_INFO.UID'); //$param['doc_pub_person'];
-        $data['doc_pub_date'] = date('Y-m-d'); //$param['doc_pub_date'];
-        $data['doc_pub_type'] = $param['doc_pub_type'];
-        $data['doc_start_date'] = $param['doc_start_date'];
-        $data['doc_end_date'] = $param['doc_end_date'];
-        $data['doc_root_view'] = $param['doc_root_view'];
-        $data['doc_root_do'] = $param['doc_root_do'];
-        $data['doc_upload_file_url'] = $param['doc_upload_file_url'];
-        $data['doc_upload_img_url'] =$param['doc_upload_img_url'];
-        $data['doc_beizhu'] = $param['doc_beizhu'];
-        $data['doc_status'] = 1 ; //$param['doc_status'];
-        if(in_array('',$data)){
-            writeOperationLog('添加的数据为空', 0);
-            return C('COMMON.ERROR_EDIT');
-        }
-        $res = $docfile->add($data);
-        if($res){
-            writeOperationLog('添加' . $param['doc_name'] . '”文档', 1);
-            return C('COMMON.SUCCESS_EDIT');
-        }else{
-            writeOperationLog('添加' . $param['doc_name'] . '”文档', 0);
-            return C('COMMON.ERROR_EDIT');
-        } 
+
+            $docfile = M('doc');
+            $data['doc_name'] = $param['doc_name'];
+            $data['doc_dept_id'] = $param['doc_dept_id'];
+            $data['doc_pub_person'] = session('S_USER_INFO.UID'); //$param['doc_pub_person'];
+            $data['doc_pub_date'] = date('Y-m-d'); //$param['doc_pub_date'];
+            $data['doc_pub_type'] = $param['doc_pub_type'];
+            $data['doc_start_date'] = $param['doc_start_date'];
+            $data['doc_end_date'] = $param['doc_end_date'];
+            $data['doc_root_view'] = $param['doc_root_view'];
+            $data['doc_root_do'] = $param['doc_root_do'];
+            $data['doc_upload_file_url'] = $param['doc_upload_file_url'];
+            $data['doc_upload_img_url'] =$param['doc_upload_img_url'];
+            $data['doc_beizhu'] = $param['doc_beizhu'];
+            $data['doc_status'] = 1 ; //$param['doc_status'];
+            
+            if(in_array('',$data)){
+                writeOperationLog('添加的数据为空', 0);
+                return C('COMMON.ERROR_EDIT');
+            }
+            $res = $docfile->add($data);
+            if($res){
+                writeOperationLog('添加' . $param['doc_name'] . '”文档', 1);
+                return C('COMMON.SUCCESS_EDIT');
+            }else{
+                writeOperationLog('添加' . $param['doc_name'] . '”文档', 0);
+                return C('COMMON.ERROR_EDIT');
+            } 
     }
     
     /*
@@ -72,6 +74,7 @@ class FileModel  extends Model{
      * @Date    2016/09/22
      * @return object 返回true或false
      */
+
     public function fileSize($size) {
         if ($size['file']['size'] <= C('FILE_DOC.FILE_SIZE') && $size['file']['size'] <= C('FTP_COVER.FILE_SIZE')) {
             $doc_upload_file = end(explode('.', $size['file']['name']));
@@ -79,11 +82,11 @@ class FileModel  extends Model{
             if (in_array($doc_upload_file, C('FILE_DOC.ALLOW_FILE')) && in_array($doc_upload_img, C('FILE_COVER.ALLOW_FILE'))) {
                 writeOperationLog('上传文件成功',1);
                 return true;
-            }else{
+            } else {
                 writeOperationLog('上传文件失败',0);
                 return false;
             }
-        }else{
+        } else {
             writeOperationLog('上传文件失败',0);
             return false;
         }
@@ -97,10 +100,10 @@ class FileModel  extends Model{
      */
     public function getFileDocCount($where) {
         $count = M('doc')
-               ->join('db_member on db_doc.doc_pub_person = db_member.uid')
-               ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
-               ->where($where)
-               ->count();
+                ->join('db_member on db_doc.doc_pub_person = db_member.uid')
+                ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+                ->where($where)
+                ->count();
         return $count;
     }
     /**
@@ -113,17 +116,18 @@ class FileModel  extends Model{
      * @return array 成功返回列表
      */
     public function getList($where, $first_rows, $list_rows) {
-        $docfile = M('doc');
-        $list = $docfile
+      $docfile = M('doc');
+      $list = $docfile
               ->join('db_member on db_doc.doc_pub_person = db_member.uid')
               ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
               ->where($where) 
               ->limit($first_rows, $list_rows)
               ->order('doc_id desc')
               ->select();
-        return $list;
+      return $list;
     }
-    /**
+    
+    /*
      * 撤回
      * @Date    2016/09/22
      * @author  huanggang
@@ -135,14 +139,15 @@ class FileModel  extends Model{
         $res_delete=$docfile-> where('doc_id='.$doc_id)->setField('doc_status','0');
         $doc_name=$docfile-> where('doc_id='.$doc_id)->getField('doc_name');
          if($res_delete){
-            writeOperationLog('撤回' . $doc_name . '”文档', 1); 
+             writeOperationLog('撤回' . $doc_name . '”文档', 1); 
             return C('COMMON.DOCDEL_SUCCESS');
         }else{
             writeOperationLog('撤回' . $doc_name . '”文档', 0); 
             return C('COMMON.DOCDEL_ERROR');
         }    
     }
-    /**
+    
+    /*
      * 编辑状态查询
      * @Date    2016/09/23
      * @author huanggang
@@ -197,7 +202,7 @@ class FileModel  extends Model{
             $data[$k]['doc_root_do']=$this->getRootView($v['doc_root_do']);
             $data[$k]['doc_beizhu']=$v['doc_beizhu'];
         }
-        return $data;
+         return $data;
     }
   /*
    * 获取导出数据的可见范围及权限
@@ -207,7 +212,7 @@ class FileModel  extends Model{
    * @return 返回查询的数据
    */
     public function  getRootView($config_id){
-        $work = M('config_system')
+         $work = M('config_system')
               ->field('config_descripion')
               ->where("config_id = $config_id")
               ->find();   

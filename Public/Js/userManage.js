@@ -3,7 +3,7 @@
  */
 //批量删除
 function delAll() {
-    if (!$(".checkbox-normal").hasClass("checkbox-checked")) {
+    if (!$(".singleSelect").is(":checked")) {
         $.dialog({
             title: '提示信息', content: '请选择要删除的用户！'
         });
@@ -16,7 +16,12 @@ function delAll() {
                     del_id += ',';
                 });
                 del_id = del_id.substring(0, del_id.length - 1);
-                location.href = "/Manage/User/delUser/uid/" + del_id;
+                $(".batch-prompt").show().children('span').html('删除成功！');
+                setTimeout(function(){
+                    $(".batch-prompt").hide();
+                    location.href = "/Manage/User/delUser/uid/" + del_id;
+                },2000)
+                
             },
             cancel: function () {
                 this.close();
@@ -31,15 +36,16 @@ function singleReset(del_id) {
         url: "/Manage/User/resetPwd/uid/" + del_id,
         data: "uid=" + del_id,
         success: function (data) {
-            checkAuth(data);
-            var dataJson = JSON.parse(data);
-            if (dataJson.code == 200) {
-                $(".single-pwd-pro").show().children("span").html(dataJson.status);
+            // checkAuth(data);
+            // var dataJson = JSON.parse(data);
+            console.log(data.code)
+            if (data.code == 200) {
+                $(".single-pwd-pro").show().children("span").html("重置密码成功！");
                 setTimeout(function () {
                     $(".single-pwd-pro").hide();
                 }, 1000);
             } else {
-                $(".single-pwd-pro").show().children("span").html(dataJson.status);
+                $(".single-pwd-pro").show().children("span").html("重置密码成功！");
                 setTimeout(function () {
                     $(".single-pwd-pro").hide();
                 }, 1000);
@@ -115,14 +121,17 @@ $(".username-input").on("blur", function () {
     $.ajax({
         type: "get",
         url: "/Manage/User/checkNickName",
+        // async: false,
         data: {"uid": uId, "nickname": uVal},
         success: function (data) {
-            var dataJson = JSON.parse(data);
-            if (dataJson.code == 100) {
+           
+            // var dataJson = JSON.parse(data);
+             console.log(data.status);
+            if (data.code == 100) {
                 if (!$(".error-message").hasClass("show")) {
-                    $(".error-message").addClass("show").removeClass("hide").html(dataJson.status);
+                    $(".error-message").addClass("show").removeClass("hide").html(data.status);
                 }
-                return false;
+               
             }
         }
     });

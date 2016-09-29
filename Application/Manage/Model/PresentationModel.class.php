@@ -25,19 +25,19 @@ class PresentationModel  extends Model{
   * @return object 添加成功或失败
   */
      public function addPresent($param){
-        if(in_array('',$param)){
-            writeOperationLog('添加的数据为空', 0);
-            return C('COMMON.ERROR_EDIT');
-        }
-        $led_presentation = M('led_presentation');
-        $res = $led_presentation->add($param);
-        if($res){
-             writeOperationLog('添加“' . $param['db_pre_name'] . '”文稿台账', 1);
-            return C('COMMON.SUCCESS_EDIT');
-        }else{
-             writeOperationLog('添加“' . $param['db_pre_name'] . '”文稿台账', 0);
-            return C('COMMON.ERROR_EDIT');
-        } 
+            if(in_array('',$param)){
+                writeOperationLog('添加的数据为空', 0);
+                return C('COMMON.ERROR_EDIT');
+            }
+            $led_presentation = M('led_presentation');
+            $res = $led_presentation->add($param);
+            if($res){
+                 writeOperationLog('添加“' . $param['db_pre_name'] . '”文稿台账', 1);
+                return C('COMMON.SUCCESS_EDIT');
+            }else{
+                 writeOperationLog('添加“' . $param['db_pre_name'] . '”文稿台账', 0);
+                return C('COMMON.ERROR_EDIT');
+            } 
     }
     
      /*
@@ -75,14 +75,13 @@ class PresentationModel  extends Model{
      * @return array 成功返回列表
      */
     public function getPresentList($where, $first_rows, $list_rows) {
-        $led_presentation = M('led_presentation');
-        $list = $led_presentation
+      $led_presentation = M('led_presentation');
+      $list = $led_presentation
               ->field('db_pre_id,db_pre_name,db_assign_name,db_assign_date,db_draft_person,db_despatch_date')
               ->where($where) 
               ->limit($first_rows, $list_rows)
-              ->order('db_pre_id desc')
               ->select();
-        return $list;
+      return $list;
     }
     
     
@@ -98,7 +97,7 @@ class PresentationModel  extends Model{
         $list = $led_presentation
                 ->where("db_pre_id= $pre_id") 
                 ->find();
-        return $list; 
+      return $list; 
     }
     
     /*
@@ -112,12 +111,12 @@ class PresentationModel  extends Model{
     public function savePresent($data,$pre_id){
         $led_presentation = M('led_presentation');
         $res = $led_presentation->where("db_pre_id =".$pre_id)->save($data);
-        if($res){
-             writeOperationLog('修改“' . $data['db_pre_name'] . '”文稿台账', 1);
-             return C('COMMON.SUCCESS_EDIT');
+       if($res){
+            writeOperationLog('修改“' . $data['db_pre_name'] . '”文稿台账', 1);
+            return C('COMMON.SUCCESS_EDIT');
         }else{
              writeOperationLog('修改“' . $data['db_pre_name'] . '”文稿台账', 0);
-             return C('COMMON.ERROR_EDIT');
+            return C('COMMON.ERROR_EDIT');
         }      
     }
     
@@ -133,8 +132,8 @@ class PresentationModel  extends Model{
         $led_presentation = M('led_presentation');
         $res = $led_presentation->where("db_pre_id =".$pre_id)->setField('pre_status','1');
         $db_pre_name= $led_presentation->where("db_pre_id =".$pre_id)->getField('db_pre_name');
-        if($res){
-            writeOperationLog('删除“' . $db_pre_name . '”文稿台账', 1);
+       if($res){
+           writeOperationLog('删除“' . $db_pre_name . '”文稿台账', 1);
             return C('COMMON.SUCCESS_DEL');
         }else{
             writeOperationLog('删除“' . $db_pre_name . '”文稿台账', 0);
@@ -159,14 +158,13 @@ class PresentationModel  extends Model{
         $led_presentation = M('led_presentation');
         $data = $led_presentation
               ->field('db_pre_id,db_pre_name,db_pre_work,db_assign_date,db_complete_time,db_pre_type,db_pre_form,db_pre_first,db_pre_diff,db_pre_person,db_pre_status,db_draft_person,db_draft_length,db_draft_num,db_orgin_person,db_orgin_length,db_orgin_num,db_orgin_eval,db_orgin2_person,db_orgin2_length,db_orgin2_num,db_orgin2_eval,db_orgin3_person,db_orgin3_length,db_orgin3_num,db_orgin3_eval,db_evaluate,db_overtime_num,db_overtime_num,db_mishap_num,db_examin_date,db_examin_mode,db_examin_progress,db_despatch_mode,db_despatch_date,db_file_status,db_file_date,db_file_address')
-              ->where($where)
-              ->order('db_pre_id desc')
+              ->where($where) 
               ->select();
         //去除不需要的键值
-        foreach($data as $k => $v){     
+         foreach($data as $k => $v){     
              $data[$k]['db_pre_id']=$k+1;
-        }
-        return $data;
+         }
+         return $data;
     }
     
      /*
@@ -186,15 +184,14 @@ class PresentationModel  extends Model{
         $led_presentation = M('led_presentation');
         $data = $led_presentation
                 ->where($where) 
-                ->order('db_pre_id desc')
                 ->select();
          //去除不需要的键值
-        foreach($data as $k => $v){
-            unset($data[$k]['pre_status']);
-            $data[$k]['db_pre_id']=$k+1;
-            unset($data[$k]['db_assign_dapart']);
-        }
-        return $data;
+         foreach($data as $k => $v){
+             unset($data[$k]['pre_status']);
+             $data[$k]['db_pre_id']=$k+1;
+             unset($data[$k]['db_assign_dapart']);
+         }
+         return $data;
     }
     
     /*
@@ -204,37 +201,39 @@ class PresentationModel  extends Model{
     * @return object 添加成功或失败
     */
      public function addsPresent($param){
-        $led_presentation = M('led_presentation');
-        $data=array();
-        $res=array( 'db_pre_id','db_pre_name','db_pre_work', 'db_assign_name', 'db_assign_dapart',
-                    'db_assign_post','db_assign_date', 'db_assign_time', 'db_complete_date', 'db_complete_time', 
-                    'db_pre_type','db_pre_form','db_pre_first','db_pre_diff','db_pre_person','db_pre_status','db_draft_person',
-                    'db_draft_date','db_draft_time', 'db_draft_length', 'db_draft_num','db_orgin_person','db_orgin_date',
-                    'db_orgin_time', 'db_orgin_length', 'db_orgin_num','db_update_num',  'db_orgin_eval', 'db_orgin2_person',
-                    'db_orgin2_date','db_orgin2_time', 'db_orgin2_length', 'db_orgin2_num','db_update2_num', 'db_orgin2_eval',
-                    'db_orgin3_person','db_orgin3_date', 'db_orgin3_time', 'db_orgin3_length', 'db_orgin3_num','db_update3_num', 
-                    'db_orgin3_eval','db_evaluate','db_overtime_num', 'db_mishap_num', 'db_examin_date', 'db_examin_time', 
-                    'db_examin_mode','db_examin_progress','db_despatch_mode','db_despatch_person', 'db_despatch_date', 
-                    'db_despatch_time', 'db_file_person', 'db_file_status','db_file_date', 
-                    'db_file_address', 'db_india_name', 'db_india_num',  'db_pre_beizhu'
-        ); 
+            $led_presentation = M('led_presentation');
+            $data=array();
+            $res=array( 'db_pre_id','db_pre_name','db_pre_work', 'db_assign_name', 'db_assign_dapart',
+                        'db_assign_post','db_assign_date', 'db_assign_time', 'db_complete_date', 'db_complete_time', 
+                        'db_pre_type','db_pre_form','db_pre_first','db_pre_diff','db_pre_person','db_pre_status','db_draft_person',
+                        'db_draft_date','db_draft_time', 'db_draft_length', 'db_draft_num','db_orgin_person','db_orgin_date',
+                        'db_orgin_time', 'db_orgin_length', 'db_orgin_num','db_update_num',  'db_orgin_eval', 'db_orgin2_person',
+                        'db_orgin2_date','db_orgin2_time', 'db_orgin2_length', 'db_orgin2_num','db_update2_num', 'db_orgin2_eval',
+                        'db_orgin3_person','db_orgin3_date', 'db_orgin3_time', 'db_orgin3_length', 'db_orgin3_num','db_update3_num', 
+                        'db_orgin3_eval','db_evaluate','db_overtime_num', 'db_mishap_num', 'db_examin_date', 'db_examin_time', 
+                        'db_examin_mode','db_examin_progress','db_despatch_mode','db_despatch_person', 'db_despatch_date', 
+                        'db_despatch_time', 'db_file_person', 'db_file_status','db_file_date', 
+                        'db_file_address', 'db_india_name', 'db_india_num',  'db_pre_beizhu'
+                ); 
             
-        foreach($param as $key => $v){
-            foreach ($v as $k => $v1){
-                $data[$res[$k]]=$v1;
-            }
-            //去掉不需要的值
-            unset($data['db_pre_id']);
-            $param[$key]=$data;
-        }  
-        foreach($param as $key => $v){
-            $res = $led_presentation->add($v);
-        } 
-        if($res){
-            return C('COMMON.SUCCESS_EDIT');
-        }else{
-            return C('COMMON.ERROR_EDIT');
-        } 
+            foreach($param as $key => $v){
+                foreach ($v as $k => $v1){
+                    $data[$res[$k]]=$v1;
+                }
+                //去掉不需要的值
+                unset($data['db_pre_id']);
+                $param[$key]=$data;
+            }  
+            
+            foreach($param as $key => $v){
+                $res = $led_presentation->add($v);
+            } 
+             
+            if($res){
+                return C('COMMON.SUCCESS_EDIT');
+            }else{
+                return C('COMMON.ERROR_EDIT');
+            } 
     }
     
 }

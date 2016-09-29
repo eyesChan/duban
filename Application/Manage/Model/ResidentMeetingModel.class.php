@@ -11,16 +11,16 @@ use Think\Model;
 
 /**
  * Description of LedgerMeetingModel
- *
+ * 驻各地发展情况台账管理
  * @author huanggang
- * @Date    2016/09/28
+ * @Date    2016/09/29
  */
 class ResidentMeetingModel  extends Model{
     
     protected $trueTableName = 'db_resident_meeting';
  /*
-  * 文稿台账创建
-  * @Date    2016/09/28
+  * 驻各地发展情况创建
+  * @Date    2016/09/29
   * @ahthor huanggang
   * @return object 添加成功或失败
   */
@@ -39,7 +39,7 @@ class ResidentMeetingModel  extends Model{
     /*
      * 统计数量
      * @ahthor huanggang
-     * @Date    2016/09/28
+     * @Date    2016/09/29
      * @return object 数据数量
      */
     public function getResidentCount($where) {
@@ -50,7 +50,7 @@ class ResidentMeetingModel  extends Model{
     }
     /**
      * 分页查询操作
-     * @Date    2016/09/28
+     * @Date    2016/09/29
      * @author huanggang
      * @param array $where 查询条件
      * @param int 查询开始位置
@@ -70,9 +70,9 @@ class ResidentMeetingModel  extends Model{
     
     /*
      * 页面详情及编辑查询
-     * @Date    2016/09/28
+     * @Date    2016/09/29
      * @author  huanggang
-     * @param $pre_id 查询条件
+     * @param $resident_id 查询条件
      * @return 返回处理数据
      */
     public function detailsResident($resident_id){
@@ -85,7 +85,7 @@ class ResidentMeetingModel  extends Model{
     
     /*
      * 编辑操作
-     * @Date    2016/09/27
+     * @Date    2016/09/29
      * @author huanggang
      * @param array $data 修改后的数据
      * @param $resident_id 修改条件
@@ -106,7 +106,7 @@ class ResidentMeetingModel  extends Model{
     /*
      * 
      * 删除操作
-     * @Date    2016/09/28
+     * @Date    2016/09/29
      * @author  huanggang
      * @param $resident_id 删除条件
      * @return object 删除成功或失败
@@ -125,8 +125,8 @@ class ResidentMeetingModel  extends Model{
     }
     
      /*
-     * 导出集团execl 查询
-     * @Date    2016/09/28
+     * 导出execl 查询
+     * @Date    2016/09/29
      * @author huanggang
      * @author array data 组合要到导出的数据
      */
@@ -151,8 +151,8 @@ class ResidentMeetingModel  extends Model{
     }
   
     /*
-    * 文稿批量创建
-    * @Date    2016/09/27
+    * 驻各地发展情况批量创建
+    * @Date    2016/09/29
     * @ahthor huanggang
     * @return object 添加成功或失败
     */

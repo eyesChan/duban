@@ -18,13 +18,6 @@ use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
 class FileController extends AdminController {
 
     private $filedoc;
-    /*
-     * 添加文档
-     * @author huang gang
-     * @param string $verify_code
-     * @return object 跳转或显示页面
-     */
-
     public function __construct() {
         parent::__construct();
 

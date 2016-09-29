@@ -10,20 +10,13 @@ namespace Manage\Controller;
 use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
 
 /**
- *  Description   文稿台账管理
+ *  Description   驻各地发展情况台账管理
  *  @author       huanggang <gang.huang2@pactera.com>
  *  Date          2016/09/20
  */
 class ResidentMeetingController extends AdminController {
 
     private $resident;
-    /*
-     * 添加文稿台账
-     * @author huang gang
-     * @param string $verify_code
-     * @return object 跳转或显示页面
-     */
-
     public function __construct() {
         parent::__construct();
 
@@ -43,7 +36,7 @@ class ResidentMeetingController extends AdminController {
         return $param;
     }
     /**
-     * 显示文稿台账列表
+     * 显示驻各地发展情况台账列表
      * @author huang gang
      * @date 2016/09/27
      * @return 跳转页面 Description
@@ -73,9 +66,9 @@ class ResidentMeetingController extends AdminController {
     }
     
      /**
-     * 文稿台账创建
+     * 驻各地发展情况台账创建
      * @author huang gang
-     * @date 2016/09/27
+     * @date 2016/09/28
      * @return 跳转页面 Description
      */
     public function addResident() {
@@ -92,9 +85,9 @@ class ResidentMeetingController extends AdminController {
     }
     
     /*
-     * 文稿台账详情
+     * 驻各地发展情况台账详情
      * @author huang gang
-     * @date 2016/09/27
+     * @date 2016/09/28
      * @return 跳转页面 Description
      */
     public function detailsResident(){
@@ -106,9 +99,9 @@ class ResidentMeetingController extends AdminController {
     
     /*
      * 
-     * 文稿台账编辑
+     * 驻各地发展情况台账编辑
      * @author huang gang
-     * @date 2016/09/27
+     * @date 2016/09/29
      * @return 跳转页面 Description
      */
     public function saveResident(){
@@ -134,7 +127,7 @@ class ResidentMeetingController extends AdminController {
     /*
      * 驻各地发展情况台账删除
      * @author huang gang
-     * @date 2016/09/28
+     * @date 2016/09/29
      * @return 跳转页面 Description
      */
     public function delResident(){
@@ -182,9 +175,9 @@ class ResidentMeetingController extends AdminController {
       
       
     /*
-     * 导入页面
+     * 驻各地发展情况台账导入页面
      * @author huang gang
-     * @date 2016/09/28
+     * @date 2016/09/29
      * @return 跳转页面 Description
      */
     public function importExcel(){
@@ -195,7 +188,7 @@ class ResidentMeetingController extends AdminController {
      /*
       * 导入数据
       * @author huang gang
-      * @date 2016/09/28
+      * @date 2016/09/29
       * @return 跳转页面 Description
       */
     public function importResident(){

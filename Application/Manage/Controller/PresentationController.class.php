@@ -17,13 +17,6 @@ use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
 class PresentationController extends AdminController {
 
     private $presentation;
-    /*
-     * 添加文稿台账
-     * @author huang gang
-     * @param string $verify_code
-     * @return object 跳转或显示页面
-     */
-
     public function __construct() {
         parent::__construct();
 

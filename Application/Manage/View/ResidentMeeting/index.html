@@ -1,5 +1,5 @@
 <extend name="Public:base"/>
-<block name="title"><title>会谈会见列表</title></block>
+<block name="title"><title>文稿台账列表</title></block>
 <block name="right">
     <css href="__PUBLIC__/css/meeting.css"/>
     <div class="role-padding container-padding">     
@@ -7,30 +7,28 @@
             <form method="post" action="{:U(index)}">
                 <table class="tbl">
                     <tr>
-                        <td class="cap">会谈名称:</td>
-                        <td> <input class="input-text" type="text" name="led_meeting_name" id="led_meeting_name" value="{$param['led_meeting_name']}"></td>
-                        <td class="cap">主持人：</td>
-                        <td><input class="input-text" type="text" name="led_meeting_host" id="led_meeting_host" value="{$param['led_meeting_host']}"></td>
-                        <td class="cap">时间：</td>
-                         <td><input type="text" name='led_meeting_date' id="date8" value="{$param['led_meeting_date']}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>                   
+                        <td class="cap">国家:</td>
+                        <td> <input class="input-text" type="text" name="resident_country" id="resident_country" value="{$param['resident_country']}"></td>
+                        <td class="cap">责任人：</td>
+                        <td><input class="input-text" type="text" name="resident_person" id="resident_person" value="{$param['resident_person']}"></td>
+                        <td class="cap">收集时间：</td>
+                         <td><input type="text" name='resident_collect_time' id="date8" value="{$param['resident_collect_time']}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>                   
                         <td>
                              <input class="btn btn-r btn-xl button" type="submit" value="查询"/>
                         </td>
                         <td>
-                            <a href="{:U('exportLedgerMeeting')}"><input class="btn btn-r btn-xl button" type="button" value="导出" id="export"/></a>
+                          <a href="{:U('exportResident')}"><input class="btn btn-r btn-xl button" type="button" value="导出" id="export"/></a>
                         </td>
                         <td>
-                             <a class="tb-detail f-fr mr30" title="导入" href="{:U('importExcel')}">
+                              <a class="tb-detail f-fr mr30" title="导入" href="{:U('importExcel')}">
                                     <input type="button" class="btn btn-c btn-xl button" value="导入">
                                 </a>
                         </td>
-                        
                          </tr> 
                        
                 </table>
             </form>
              <table class="tbl tbl-list">
-	            <caption>文档列表</caption>
 	            <colgroup>
                             <col width="9%">
                             <col width="13%">
@@ -41,31 +39,33 @@
 	            </colgroup>
 	            <thead>
 	            <tr>
-                                <th>序号</th>
-                                <th>会谈名称</th>
-                                <th>时间</th>
-                                <th>主持人</th>
-                                <th>会议地点</th>              
+                                <th>国家</th>
+                                <th>城市</th>
+                                <th>收集时间</th>
+                                <th>责任人</th>
+                                <th>存档日期</th>              
                                 <th>操作</th>
                             </tr>
 	            </thead>	        
 	        <tbody>	
            
-                    <foreach name="list" item="item" key="k">
+                    <foreach name="list" item="item">
 	        	<tr>
-                                <td>{$k+1}</td>
-                                <td>{$item.led_meeting_name}</td>
-                                <td>{$item.led_meeting_date}</td>
-                                <td>{$item.led_meeting_host}</td>
-                                <td>{$item.led_meeting_place}</td> 
+                                <td>{$item.resident_country}</td>
+                                <td>{$item.resident_province}</td>
+                                <td>{$item.resident_collect_time}</td>
+                                <td>{$item.resident_person}</td>
+                                <td>{$item.resident_file_time}</td> 
                                 <td>
-                                    <a href="{:U('detailsLedger?led_meeting_id='.$item['led_meeting_id'])}"> 
+                                    <a href="{:U('detailsResident?resident_id='.$item['resident_id'])}"> 
                                         <input type="button" value="详情" class="btn btn-r btn-xl button">
                                     </a> 
-                                    <a href="{:U('saveLedger?led_meeting_id='.$item['led_meeting_id'])}"> 
+                                    <a href="{:U('saveResident?resident_id='.$item['resident_id'])}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 
-                                        <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.led_meeting_id}')">
+                                   
+                                        <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.resident_id}')">
+                                 
                                 </td>
 	        	</tr>
                     </foreach>
@@ -76,14 +76,14 @@
                 {$page}
             </div>
         </div> 
-    <js href="__PUBLIC__/Js/ledgerMeeting.js"/>
-     <script>
+    <js href="__PUBLIC__/Js/resident.js"/>
+    <script>
     
          //删除操作
         function withdraw(id) {
             $.dialog({
                 title: '提示信息', content: '确认删除吗？', ok: function () {
-                    location.href = "delLedger/led_meeting_id/" + id;
+                    location.href = "delResident/resident_id/" + id;
                 },
                 cancel: function () {
                 }

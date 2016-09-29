@@ -169,15 +169,18 @@ class LedgerMeetingModel  extends Model{
                         'led_scene_inter','led_scene_error','led_scene_fenxi','led_end_name','led_end_summary',
                         'led_end_date','led_file_name','led_file_danwei','led_file_address','led_meeting_proposal',
                 );
-           foreach($param as $key => $v){
-               foreach ($v as $k => $v1){
-                   $data[$res[$k]]=$v1;
-               }
-               $param[$key]=$data;
-             }  
-             foreach($param as $key => $v){
+
+            foreach($param as $key => $v){
+                foreach ($v as $k => $v1){
+                    $data[$res[$k]]=$v1;
+                }       
+                $param[$key]=$data;
+            }  
+            
+            foreach($param as $key => $v){
                 $res = $led_meeting->add($v);
-             }  
+            } 
+            
             if($res){  
                 return C('COMMON.SUCCESS_EDIT');
             }else{        

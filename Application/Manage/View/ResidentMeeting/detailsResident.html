@@ -1,0 +1,110 @@
+<extend name="Public:base"/>
+<block name="title"><title>创建驻各地发展情况台账</title></block>
+
+<block name="right"><br><br>
+      <table class="tbl">
+            <caption>基本信息</caption>
+          
+            <tr>
+                <td class="cap">地区：</td>
+                <td >
+                      <input type="text" readonly="true" name='resident_region' value="{$list.resident_region}" class="input-text text">
+                </td>
+                <td class="cap">国家：</td>
+                <td > 
+                     <input type="text" readonly="true" name='resident_country' value="{$list.resident_country}" class="input-text text">
+                </td>
+                 <td class="cap">省份/城市：</td>
+                <td>
+                     <input type="text" readonly="true" name='resident_province' value="{$list.resident_province}" class="input-text text">
+                </td>
+                <td class="cap">更新周期：</td>
+                <td>
+                     <input type="text" readonly="true" name='resident_update_time' value="{$list.resident_update_time}" class="input-text text">
+                </td>
+            </tr> 
+             <tr>
+                <td class="cap">收集时间：</td>
+                <td>
+                     <input type="text" readonly="true" name='resident_collect_time' value="{$list.resident_collect_time}" class="input-text text" >
+                </td>
+                <td class="cap">数据时间跨度：</td>
+                <td>
+                     <input type="text" readonly="true" name='resident_date_time' value="{$list.resident_date_time}" class="input-text text">
+                </td>
+                 <td class="cap">责任人：</td>
+                <td>
+                     <input type="text" readonly="true" name='resident_person' value="{$list.resident_region}" class="input-text text">
+                </td>
+                 <td class="cap">汇总单位：</td>
+                <td>
+                   <input type="text" readonly="true" name='resident_summary' value="{$list.resident_summary}"  class="input-text text">
+                </td>
+            </tr>  
+        </table>
+        <table class="tbl">
+          <caption>数据收集</caption>           
+             <tr>
+               <td class="cap">收集通知拟写人：</td>
+                <td>
+                   <input type="text" readonly="true" name='resident_collect_person' value="{$list.resident_collect_person}"  class="input-text text">
+                </td>
+                 <td class="cap">通知是否批准：</td>
+                <td>
+                   <input type="text" readonly="true" name='resident_approve'  value="{$list.resident_approve}"  class="input-text text">
+                </td>
+                 <td class="cap">通知审批人：</td>
+                <td>
+                   <input type="text" readonly="true" name='resident_examine_person' value="{$list.resident_examine_person}" class="input-text text">
+                </td>
+                 <td class="cap">汇总联系人：</td>
+                <td>
+                   <input type="text" readonly="true" name='resident_contact_person' value="{$list.resident_contact_person}" class="input-text text">
+                </td>
+             </tr>
+             <tr>
+                 <td class="cap">通知下发日期：</td>
+                 <td colspan="8">
+                   <input type="text" readonly="true" name='resident_notice_time' value="{$list.resident_notice_time}" class="input-text text" >
+                </td> 
+             </tr>
+        </table>   
+         <table class="tbl">
+          <caption>文稿审核</caption>           
+             <tr>
+                
+               <td class="cap">是否提交审核：</td>
+                <td>
+                   <input type="text" readonly="true" value="{$list.resident_whether_submit}"  name='resident_whether_submit' class="input-text text">
+                </td>
+                 <td class="cap">当前节点：</td>
+                <td>
+                   <input type="text" readonly="true" value="{$list.resident_node}" name='resident_node'   class="input-text text">
+                </td>
+             </tr>
+        </table>
+         <table class="tbl">
+          <caption>存档情况</caption>           
+             <tr>
+                
+               <td class="cap">是否存档：</td>
+                <td>
+                   <input type="text" value="{$list.resident_whether_file}" readonly="true" name='resident_whether_file'  class="input-text text">
+                </td>
+                 <td class="cap">存档日期：</td>
+                <td>
+                   <input type="text" value="{$list.resident_file_time}" readonly="true" name='resident_file_time' class="input-text text">
+                </td>
+                
+             </tr>
+             <tr>
+               <td class="cap">存档地址：</td>
+               <td colspan="5">
+                   <input type="text" value="{$list.resident_file_address}" readonly="true" name='resident_file_address' class="input-text text">
+                </td>
+             </tr>
+        </table>
+          <div class="text-center">
+                    <input type="button" value="返回" class="btn btn-r btn-xl button" onclick="javascript:history.back(-1)">     
+    	</div>
+</block>

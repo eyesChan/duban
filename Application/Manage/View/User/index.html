@@ -77,13 +77,19 @@
                         <a class="fl cz-btn common-operate-btn mr5 common-green-btn" onclick='singleReset({$item.uid})' href="javascript:;">
                             <input type="button" class="btn btn-c btn-xl button" value="重置密码"></a>
 
-                        <a class="fl operate-btn mr5" title="删除" onclick='singleDel({$item.uid})'>
+                        <a class="fl operate-btn mr5" onclick='singleDel({$item.uid})'>
                             <input type="button" class="operate-span-del btn btn-c btn-xl button" value="删除">
                         </a>
-                        <a class="fl operate-btn mr5" title="编辑" href="{:U('saveUser',array('uid'=>$item[uid],'p'=>$p))}">
+                        <a class="fl operate-btn mr5" href="{:U('saveUser',array('uid'=>$item[uid],'p'=>$p))}">
                             <input type="button" class="operate-span-edit btn btn-c btn-xl button" value="编辑">
                         </a>
-
+                        <a href="{:U('disableUser',array('uid'=>$item[uid],'p'=>$p))}">
+                            <if condition='$item.status eq 1'>
+                                <input type="button" class="operate-span-edit btn btn-c btn-xl button" value="禁用">
+                            <else/>
+                                <input type="button" class="operate-span-edit btn btn-c btn-xl button" value="启用">
+                            </if>
+                        </a>
                     </td>
                     </tr>
                 </foreach>

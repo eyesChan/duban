@@ -115,8 +115,8 @@ class MeetingModel extends Model {
 
             //会议摄影摄像
             $data['meeting_vedio'] = implode($data['meeting_vedio'], ',');
-            
-             //现场保证人-手输
+
+            //现场保证人-手输
             if ($data['meeting_site_protection']['value']) {
                 $data['meeting_site_protection_value'] = implode($data['meeting_site_protection']['value'], ',');
                 unset($data['meeting_site_protection']['value']);
@@ -353,8 +353,8 @@ class MeetingModel extends Model {
                 $meeting_info['meeting_record_person_value'] = explode(',', $meeting_info['meeting_record_person_value']);
         }
         //现场保证人
-        
-         if (!empty($meeting_info['meeting_site_protection'])) {
+
+        if (!empty($meeting_info['meeting_site_protection'])) {
             //记录整理人 meeting_site_protection 
             $meeting_record_person = $user_mod->where(array('uid' => array('in', $meeting_info['meeting_site_protection'])))->getField('uid,name', true);
             $meeting_info['meeting_site_protection'] = $meeting_record_person;
@@ -362,7 +362,7 @@ class MeetingModel extends Model {
             if (!empty($meeting_info['meeting_site_protection_value']))
                 $meeting_info['meeting_site_protection_value'] = explode(',', $meeting_info['meeting_site_protection_value']);
         }
-        
+
         if (!empty($meeting_info['meeting_annexes_url'])) {
             $config_info = C();
             if ($config_info['OPEN_FTP'] == 1) {
@@ -543,13 +543,180 @@ class MeetingModel extends Model {
             }
             //召集人
             if (!empty($val[4])) {
-                $callman_info = array();
-                $callman_value_info = array();
-                $excel_callman_info = explode(',', $val[4]);
-                foreach($excel_callman_info as $val){
-                    $user_exis = $user_mod->where(array('name'=>$val))->select();
+                $info['meeting_callman_name'] = $val[4];
+                $info['meeting_callman_value'] = $val[4];
+            }
+            //主持人
+            if (!empty($val[5])) {
+                $info['meeting_moderator_value'] = $val[5];
+            }
+
+            //参会人员
+            if (!empty($val[6])) {
+                $info['meeting_participants_value'] = $val[6];
+            }
+            //会议形式
+            if (!empty($val[7])) {
+                $form = $config_mod->where(array('config_key' => 'meeting_form', 'config_descripion' => trim($val[7])))->find();
+                if (!empty($form)) {
+                    $info['meeting_form'] = $form['config_value'];
                 }
             }
+            //参会规模
+            if (!empty($val[8])) {
+                $info['meeting_scale'] = $val[8];
+            }
+            //会议日期
+            if (!empty($val[9])) {
+                $info['meeting_date'] = $val[9];
+            }
+            //会议时刻
+            if (!empty($val[10])) {
+                $info['meeting_time'] = $val[10];
+            }
+            //会议地点
+            if (!empty($val[11])) {
+                $info['meeting_place'] = $val[11];
+            }
+            //交办日期
+            if (!empty($val[12])) {
+                $info['meeting_assigned_date'] = $val[12];
+            }
+            //会议时长
+            if (!empty($val[13])) {
+                $info['meeting_timelong'] = $val[13];
+            }
+            //会议撰写人
+            if (!empty($val[14])) {
+                $info['meeting_writeperson_value'] = $val[14];
+            }
+            //通知发出日期
+            if (!empty($val[15])) {
+                $info['meeting_sendnotice_date'] = $val[15];
+            }
+            //通知发出时刻
+            if (!empty($val[16])) {
+                $info['meeting_notice_date'] = $val[16];
+            }
+            //会议材料收集
+            if (!empty($val[17])) {
+                $info['meeting_material_collect_person'] = $val[17];
+            }
+            //收集时间
+            if (!empty($val[18])) {
+                $info['meeting_material_collect_person'] = $val[18];
+            }
+            //材料提交时间
+            if (!empty($val[19])) {
+                $info['meeting_material_send_date'] = $val[19];
+            }
+            //物料准备
+            if (!empty($val[20])) {
+                $info['meeting_material_madeperson_value'] = $val[20];
+            }
+            //会场布置与调试
+            if (!empty($val[21])) {
+                $info['meeting_venue_arrangeperson_value'] = $val[21];
+            }
+            //测试日期
+            if (!empty($val[22])) {
+                $info['meeting_try_date'] = $val[22];
+            }
+            //测试时间
+            if (!empty($val[23])) {
+                $info['meeting_try_time'] = $val[23];
+            }
+            //问题明细
+            if (!empty($val[24])) {
+                $info['meeting_qusetion_detail'] = $val[24];
+            }
+            //是否解决
+            if (!empty($val[25])) {
+                if ($val[25] == '解决') {
+                    $fix_state = 1;
+                }
+                if ($val[25] == '未解决') {
+                    $fix_state = 2;
+                }
+                if ($val[25] == '处理中') {
+                    $fix_state = 3;
+                }
+                $info['meeting_fix_state'] = $fix_state;
+            }
+            //现场保障
+            if (!empty($val[26])) {
+                $info['meeting_site_protection_value'] = $val[26];
+            }
+            //问题明细
+            if (!empty($val[27])) {
+                $info['meeting_site_qusetion_detail'] = $val[27];
+            }
+            //是否解决
+            if (!empty($val[28])) {
+                if ($val[28] == '解决') {
+                    $site_state = 1;
+                }
+                if ($val[28] == '未解决') {
+                    $site_state = 2;
+                }
+                if ($val[28] == '处理中') {
+                    $site_state = 3;
+                }
+                $info['meeting_site_state'] = $fix_state;
+            }
+            //会议摄影摄像
+            if (!empty($val[29])) {
+                $info['meeting_vedio_value'] = $val[29];
+            }
+            //会议结束日期
+            if (!empty($val[30])) {
+                $info['meeting_end_date'] = $val[30];
+            }
+            //会议结束时刻
+            if (!empty($val[31])) {
+                $info['meeting_end_time'] = $val[31];
+            }
+            //餐饮安排
+            if (!empty($val[32])) {
+                $info['meeting_food_drink_value'] = $val[32];
+            }
+            //会场整理人
+            if (!empty($val[33])) {
+                $info['meeting_clean_person_value'] = $val[33];
+            }
+            //记录整理人
+            if (!empty($val[34])) {
+                $info['meeting_record_person'] = $val[34];
+            }
+            //相关文字
+            if (!empty($val[35])) {
+                $info['meeting_content'] = $val[35];
+            }
+            //台帐管理人
+            if(!empty($val[37])){
+                $user_info = $user_mod->where(array('name'=>trim($val[37])))->find();
+                if(!empty($user_info)){
+                    $info['meeting_ledger_re_person'] = $user_info['uid'];
+                }else{
+                    $meeting_flag = 0;
+                    break;
+                }
+            }
+            $info['meeting_state'] = 1;
+            $sava_flag = $meeting_mod->add($info);
+            if(!$sava_flag){
+                $meeting_flag = 0;
+                break;
+            }
+        }
+        if(!$meeting_flag){
+            $error_info = C('IMPORT_ERROR');
+            $meeting_mod->rollback();
+            return $error_info;
+        }else{
+            $success_info = C('IMPORT_SUCCESS');
+            $meeting_mod->comment();
+            return $success_info;
         }
     }
 

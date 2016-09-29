@@ -173,8 +173,10 @@ class LedgerMeetingModel  extends Model{
                foreach ($v as $k => $v1){
                    $data[$res[$k]]=$v1;
                }
-               $a[$key]=$data;
-                $res = $led_meeting->add($data);
+               $param[$key]=$data;
+             }  
+             foreach($param as $key => $v){
+                $res = $led_meeting->add($v);
              }  
             if($res){  
                 return C('COMMON.SUCCESS_EDIT');

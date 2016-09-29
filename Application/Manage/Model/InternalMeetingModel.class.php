@@ -129,7 +129,7 @@ class InternalMeetingModel  extends Model{
      * 导出公司execl
      */
     public function getExecl(){
-        $internal = D('internalmeeting')->select();
+        $internal = D('internalmeeting')->limit('11,3')->select();
         $count = count($internal);
         for($i=0; $i<=$count; $i++){
             unset($internal[$i]['internal_username']);
@@ -191,9 +191,13 @@ class InternalMeetingModel  extends Model{
      * 导入
      */
     public function import($data){
-    $internal = M('internalmeeting');
-    $count = count($data);
-    for($i=0;$i<$count;$i++){
+        $count = count($data);
+        $flag = 0;
+        $model = new Model();
+        $model->startTrans();
+        $internal = M('internalmeeting');
+
+        for($i=0;$i<$count;$i++){
             
             $info['internal_name'] = $data[$i][1];
             $info['internal_assigned_person'] = $data[$i][2];
@@ -249,9 +253,22 @@ class InternalMeetingModel  extends Model{
             $info['internal_file_time'] = $data[$i][52];
             $info['internal_username'] = session('S_USER_INFO.UID');
         
-            $internal->add($info);
+            $res_add = $internal->add($info);
+             if ($res_add === FALSE) {
+                $flag = $flag - 1;
+            }
+        }
+        if ($flag < 0) {
+            $model->rollback();
+            writeOperationLog('导入“' . 'excel表格' . '”', 0);
+            return C('COMMON.IMPORT_ERROR');
+        } else {
+            $model->commit();
+            writeOperationLog('导入“' . 'excel表格' . '”', 1);
+            return C('COMMON.IMPORT_SUCCESS');
             
-    }
+        }
+            
     }
     /*
      * 修改

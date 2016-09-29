@@ -192,7 +192,7 @@ class PresentationModel  extends Model{
     * @return object 添加成功或失败
     */
      public function addsPresent($param){
-          $led_presentation = M('led_presentation');
+            $led_presentation = M('led_presentation');
             $data=array();
             $res=array( 'db_pre_id','db_pre_name','db_pre_work', 'db_assign_name', 'db_assign_dapart',
                         'db_assign_post','db_assign_date', 'db_assign_time', 'db_complete_date', 'db_complete_time', 
@@ -205,18 +205,21 @@ class PresentationModel  extends Model{
                         'db_examin_mode','db_examin_progress','db_despatch_mode','db_despatch_person', 'db_despatch_date', 
                         'db_despatch_time', 'db_file_person', 'db_file_status','db_file_date', 
                         'db_file_address', 'db_india_name', 'db_india_num',  'db_pre_beizhu'
-                );        
-              foreach($param as $key => $v){
-               foreach ($v as $k => $v1){
-                   $data[$res[$k]]=$v1;
-               }
-               //去除不需要的键值
-               unset($data['db_pre_id']);
-               $param[$key]=$data;
-             }  
-             foreach($param as $key => $v){
-                 $res = $led_presentation->add($v);
-             }  
+                ); 
+            
+            foreach($param as $key => $v){
+                foreach ($v as $k => $v1){
+                    $data[$res[$k]]=$v1;
+                }
+                //去掉不需要的值
+                unset($data['db_pre_id']);
+                $param[$key]=$data;
+            }  
+            
+            foreach($param as $key => $v){
+                $res = $led_presentation->add($v);
+            } 
+             
             if($res){
                 return C('COMMON.SUCCESS_EDIT');
             }else{

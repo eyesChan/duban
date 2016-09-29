@@ -60,6 +60,7 @@ class InternalMeetingController extends AdminController {
             $this->assign('list', $list);
             $this->assign('page', $show);
             $this->assign('param', $param);
+            $this->assign('s_number', 1); //初始序号
             $this->display();
         }
     }
@@ -78,7 +79,11 @@ class InternalMeetingController extends AdminController {
             } else {
                 $this->success($result['status'], U('InternalMeeting/index'));
             }
+            return true;
         }
+
+        $uid = session('S_USER_INFO.UID');
+        $this->assign('uid', $uid);
         $this->display();
     }
 
@@ -112,6 +117,7 @@ class InternalMeetingController extends AdminController {
             $this->assign('onedata', $oneData);
             $this->display();
         }
+        return true;
     }
 
     /*
@@ -254,14 +260,13 @@ class InternalMeetingController extends AdminController {
             $res_info_import = $this->mod_internalmeeting->import($data);
             if ($res_info_import['code'] == 200) {
                 $this->success($res_info_import['status'], U('InternalMeeting/index'));
+                unlink($fileName);
             } else {
                 $this->error($res_info_import['status'], U('InternalMeeting/index'));
             }
-        
-        }else{
+        } else {
             $this->display('import');
         }
-       
     }
 
     /*

@@ -702,6 +702,7 @@ class MeetingModel extends Model {
                     break;
                 }
             }
+            $info['meeting_state'] = 1;
             $sava_flag = $meeting_mod->add($info);
             if(!$sava_flag){
                 $meeting_flag = 0;

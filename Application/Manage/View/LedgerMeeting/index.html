@@ -51,9 +51,9 @@
 	            </thead>	        
 	        <tbody>	
            
-                    <foreach name="list" item="item">
+                    <foreach name="list" item="item" key="k">
 	        	<tr>
-                                <td>{$item.led_meeting_id}</td>
+                                <td>{$k+1}</td>
                                 <td>{$item.led_meeting_name}</td>
                                 <td>{$item.led_meeting_date}</td>
                                 <td>{$item.led_meeting_host}</td>

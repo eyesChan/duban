@@ -14,12 +14,18 @@ td.detail-r {
 .index-page {
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
+	position: relative;
+	
 }
 .meeting-content {
-	width: 680px;
+	width: 600px;
 	height: 490px;
-	margin: 80px auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -245px;
+	margin-left: -300px;
+	/*margin: 50px auto;*/
 }
 .inner-box {
 	width: 260px;

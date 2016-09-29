@@ -56,7 +56,6 @@ select{height: 28px;padding: 1px 0; color: #404040;border: 1px solid #ededed;}
 .full-sum em{color:#1855b0;font-style: normal;}
 .wrap-table .notice{padding:0 12px;font-size: 12px;}
 .wrap-table-a {margin: 30px auto 0;width: 100%;}
-label{margin-right: 10px;}
 .increase,.decrease{position: relative;z-index: 0;display:inline-block;width:14px;height:14px;overflow: hidden;}
 /* 表格结束 */
 
@@ -73,18 +72,19 @@ label{margin-right: 10px;}
 .btn-b:hover{color:#fff;background: #e86d4c;cursor: pointer;}
 .btn-c:hover{background: #1855b0;}
 a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
-a.button{line-height: 30px;}
+.tbl a.button{height: 26px; line-height: 28px;}
+.tbl a.submit{width: 68px;}
 .collapse-btn{position: relative;text-align: center;}
 .collapse-arrow{display:none;position:absolute;bottom:-10px;right:14px;z-index:1;width:0;height:0;border-width:10px 9px 0;border-color: #e7542c transparent transparent;border-style: solid dashed dashed;}
 .collapse-btn.hover .collapse-arrow{dispay: block;border-color: #e86d4c transparent transparent;}
 /* 按钮结束 */
 .wrap-btns {width: 100%;text-align: center;}
 .wrap-btns .btn{padding:0 30px;margin:0 5px;}
-.tbl .btn-a{min-width: 80px;}
+.tbl .btn-a{width: 80px;}
 .tbl .operate-row{padding:12px 66px;}
 .operate-row .btn{width:80px;padding:0;margin:0 20px;}
 /* 分页 */
-.pagination{ width:100%; margin:20px 0 10px 0; }
+.pagination{ margin:20px 0 10px 0; }
 .pagination .page-input {width: 20px;border: 1px solid #ededed;}
 .pagination-go {cursor: pointer;width: 30px; height: 20px;line-height: 20px;background: #1855b0;border: none;color: #fff;margin: 0 10px;}
 .pagination ul{ vertical-align:bottom; text-align:center; }
@@ -129,7 +129,7 @@ a.button{line-height: 30px;}
 .long { width: 490px !important;}
 .short{width:213px;}
 .shorter{width:140px;}
-
+.prompt{position: absolute;background: #fff;border: 1px solid #ededed;padding: 5px 10px;}
 .btn {
   -moz-user-select: none;
   background-image: none;
@@ -264,7 +264,8 @@ td.right{
     margin-left:20px;
 }
 .jxssp td input[type="checkbox"]{
-    margin:0 5px 0 30px;
+    margin-left: -5px;
+    margin-right: 14px;
 }
 
 .jxssp td select{

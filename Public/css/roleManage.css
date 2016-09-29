@@ -1,4 +1,7 @@
 /*角色管理css*/
+#allSelect {
+    margin-right: 5px;
+}
 .tb1 .r-from #rn {
     height: 70px;
     background: #fff;

@@ -73,14 +73,15 @@ label{margin-right: 10px;}
 .btn-b:hover{color:#fff;background: #e86d4c;cursor: pointer;}
 .btn-c:hover{background: #1855b0;}
 a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
-a.button{line-height: 30px;}
+.tbl a.button{height: 26px; line-height: 28px;}
+.tbl a.submit{width: 68px;}
 .collapse-btn{position: relative;text-align: center;}
 .collapse-arrow{display:none;position:absolute;bottom:-10px;right:14px;z-index:1;width:0;height:0;border-width:10px 9px 0;border-color: #e7542c transparent transparent;border-style: solid dashed dashed;}
 .collapse-btn.hover .collapse-arrow{dispay: block;border-color: #e86d4c transparent transparent;}
 /* 按钮结束 */
 .wrap-btns {width: 100%;text-align: center;}
 .wrap-btns .btn{padding:0 30px;margin:0 5px;}
-.tbl .btn-a{min-width: 80px;}
+.tbl .btn-a{width: 80px;}
 .tbl .operate-row{padding:12px 66px;}
 .operate-row .btn{width:80px;padding:0;margin:0 20px;}
 /* 分页 */

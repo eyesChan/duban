@@ -1,5 +1,5 @@
 <extend name="Public:base"/>
-<block name="title"><title>会谈会见台账创建</title></block>
+<block name="title"><title>文稿台账创建</title></block>
 
 <block name="right">
     <form action="{:U(addPresent)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
@@ -386,7 +386,7 @@
         <div class="text-center">
 
 	      <input class="btn btn-red mr10 submit productSubmit" type="submit" value="保存"/>
-	      <input class="btn ml10 button btn-normal" type="reset" value="取消"/>
+	      <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
     	</div>
     </form>
 </block>

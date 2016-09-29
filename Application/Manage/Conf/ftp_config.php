@@ -19,12 +19,12 @@ return array(
     ),
     'FIP_DOC' => array(//文档附件文件上传
         'FILE_SIZE' => 20971520,
-        'FILE_PATH' => 'filedoc/', //临时存储路径
+        'FILE_PATH' => 'src/', //临时存储路径
         'ALLOW_FILE' => array('xlsx', 'xls', 'doc', 'pdf', 'jpeg'),
     ),
     'FTP_COVER' => array(//文档附件封面文件上传
         'FILE_SIZE' => 524288,
-        'FILE_PATH' => 'filecover/', //临时存储路径
+        'FILE_PATH' => 'src/', //临时存储路径
         'ALLOW_FILE' => array('jpg', 'png'),
     ),
     'FTP_MEETING_EXCEL' => array(//会议记录导入
@@ -33,6 +33,12 @@ return array(
         'ALLOW_FILE' => array('xlsx', 'xls'),
         'PATH' => 'meeting_import/',
         'ROOT_PATH' => 'duban/', //web server 指定项目路径 注意'/'
+    ),
+    'FIP_PUB_DOC' => array(//文档上传的类型
+        'FILE_SIZE' => 20971520,
+        'FILE_PATH' => 'src/', //临时存储路径
+        'PATH' => 'filedoc/',
+        'ALLOW_FILE' => array('xlsx', 'xls', 'doc', 'pdf', 'jpeg','jpg','png'),
     ),
 );
 

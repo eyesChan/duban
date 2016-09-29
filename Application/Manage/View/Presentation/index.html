@@ -88,7 +88,7 @@
         function withdraw(id) {
             $.dialog({
                 title: '提示信息', content: '确认删除吗？', ok: function () {
-                    location.href = "delPresent/db_pre_id/" + id;
+                    location.href = '{:U("/Manage/Presentation/delPresent/db_pre_id/' + id + '")}';
                 },
                 cancel: function () {
                 }

@@ -420,8 +420,9 @@ class MeetingModel extends Model {
         $meeting_info = $meeting_mod->alias('meeting')
                 ->join('__MEETING_PARTICIPANTS__ callman on callman.meeting_id = meeting.meeting_id')
                 ->where(array(
-                    'meeting.meeting_date' => array('between', array($start_time, $end_time)),
-                    'callman.meeting_participants' => $uid
+                    'meeting.meeting_date' => array('between', array($start_time, $end_time,)),
+                    'callman.meeting_participants' => $uid,
+                    'meeting_state' => 1
                 ))
                 ->select();
 //        echo $meeting_mod->getLastSql();die;

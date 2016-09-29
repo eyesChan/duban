@@ -76,6 +76,13 @@
                         <a class="fl btn btn-c btn-xl button mr5" onclick='singleDel({$item.uid})'>删除</a>
                         <a class="fl btn btn-c btn-xl button mr5" href="{:U('saveUser',array('uid'=>$item[uid],'p'=>$p))}">编辑</a>
 
+                        <a class="btn btn-c btn-xl button fl" href="{:U('disableUser',array('uid'=>$item[uid],'p'=>$p))}" style="margin-top: 5px;">
+                            <if condition='$item.status eq 1'>
+                                禁用
+                            <else/>
+                                启用
+                            </if>
+                        </a>
                     </td>
                     </tr>
                 </foreach>

@@ -93,14 +93,16 @@ class FileController extends AdminController {
                     $config_info = C();
                     //判断上传方式
                     if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
-                        $file_config = $config_info['FTP_DOC'];
+                        $file_config = $config_info['FIP_PUB_DOC'];
                         $result = $upload_obj->ftpUpload($file_config);
+                        $data['doc_upload_file_url'] = $result['file']['path'];
+                        $data['doc_upload_img_url'] = $result['file1']['path'];
                     } else { //普通上传
-                        $file_config = $config_info['FILE_DOC'];
+                        $file_config = $config_info['FILE_PUB_DOC'];
                         $result = $upload_obj->normalUpload($file_config);
+                        $data['doc_upload_file_url'] = $result['info']['file']['savepath'] . $result['info']['file']['savename'];
+                        $data['doc_upload_img_url'] = $result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
                     }
-                    $data['doc_upload_file_url'] = $result['info']['file']['savepath'] . $result['info']['file']['savename'];
-                    $data['doc_upload_img_url'] = $result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
                     if ($result['code'] == 100) {
                         $this->error($result['status'],U('File/index'));
                     }

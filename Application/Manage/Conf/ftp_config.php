@@ -34,6 +34,11 @@ return array(
         'PATH' => 'meeting_import/',
         'ROOT_PATH' => 'duban/', //web server 指定项目路径 注意'/'
     ),
+    'FIP_PUB_DOC' => array(//文档上传的类型
+        'FILE_SIZE' => 20971520,
+        'FILE_PATH' => 'filedoc/', //临时存储路径
+        'ALLOW_FILE' => array('xlsx', 'xls', 'doc', 'pdf', 'jpeg','jpg','png'),
+    ),
 );
 
 

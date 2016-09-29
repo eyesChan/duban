@@ -19,10 +19,8 @@ class PresentationController extends AdminController {
     private $presentation;
     public function __construct() {
         parent::__construct();
-
         $this->presentation = D('Presentation');
     }
-
     /**
      * 对数组进行转义
      * @param array 需要转义的数组
@@ -32,7 +30,6 @@ class PresentationController extends AdminController {
         foreach ($param as $k => $val) {
             $param[$k] = str_replace("_", "\_", $val);
         }
-
         return $param;
     }
     /**
@@ -61,7 +58,6 @@ class PresentationController extends AdminController {
         $this->assign('list', $list);
         $this->assign('page', $show);
         $this->assign('param', $param);
-       
         $this->display();
     }
     
@@ -72,15 +68,15 @@ class PresentationController extends AdminController {
      * @return 跳转页面 Description
      */
     public function addPresent() {
-         $data = I();
-         if(!empty($data)){
-             $result = $this->presentation->addPresent($data);
-              if ($result['code'] == 200) {
-                    $this->success($result['status'], U('Presentation/index'));
-                } else {
-                    $this->error($result['status'],U('Presentation/addPresent'));
-                }
-         }
+        $data = I();
+        if(!empty($data)){
+            $result = $this->presentation->addPresent($data);
+            if ($result['code'] == 200) {
+                $this->success($result['status'], U('Presentation/index'));
+            }else{
+                $this->error($result['status'],U('Presentation/addPresent'));
+            }
+        }
          //文稿类型 
         $pre_type = getConfigInfo('doc_pre_type');
         $this->assign('pre_type', $pre_type);
@@ -123,7 +119,7 @@ class PresentationController extends AdminController {
      * @return 跳转页面 Description
      */
     public function savePresent(){
-         if(IS_GET){
+        if(IS_GET){
             $pre_id = I('db_pre_id');
             $result = $this->presentation->detailsPresent($pre_id);
             $this->assign('list', $result);
@@ -146,18 +142,18 @@ class PresentationController extends AdminController {
             $user_name = $this->presentation->getUser();
             $this->assign('user_name', $user_name);
             $this->display();
-         }
-         if(IS_POST){
-             $data=I();
-             if(!empty($data)){
+        }
+        if(IS_POST){
+            $data=I();
+            if(!empty($data)){
                 $result = $this->presentation->savePresent($data,$data['db_pre_id']);
                 if ($result['code'] == 200) {
-                       $this->success($result['status'], U('Presentation/index'));
-                  }else{
-                       $this->error($result['status'], U('Presentation/savePresent?db_pre_id='.$data['db_pre_id']));
+                    $this->success($result['status'], U('Presentation/index'));
+                }else{
+                    $this->error($result['status'], U('Presentation/savePresent?db_pre_id='.$data['db_pre_id']));
                 }
             }
-         }       
+        }       
     }
     
     /*
@@ -170,11 +166,10 @@ class PresentationController extends AdminController {
         $db_pre_id = I('db_pre_id');
         $result = $this->presentation->delPresent($db_pre_id);
         if ($result['code'] == 200) {
-             $this->success($result['status'], U('Presentation/index'));
-          }else{
-             $this->error($result['status'], U('Presentation/index'));
-        }
-    
+            $this->success($result['status'], U('Presentation/index'));
+        }else{
+            $this->error($result['status'], U('Presentation/index'));
+        }   
     }
      /**
      * 集团模块文档导出
@@ -192,7 +187,7 @@ class PresentationController extends AdminController {
                         '核稿人','核稿时长	','修改字数','核稿评价','中心评价','超时次数	','硬伤次数','呈报日期', 
                         '审批方式	', '审批进展', '发文方式', '发文日期', '存档情况', '存档时间', '存档地址', 
                 );
-            getExcel($headArr, $work);
+        getExcel($headArr, $work);
                             
       }
       
@@ -213,10 +208,9 @@ class PresentationController extends AdminController {
             '核稿评价','核稿人','完成日期','完成时间','核稿时长','核稿字数','修改字数','核稿评价','中心评价',
             '超时次数','硬伤次数','呈报日期','呈报时间','审批方式','审批进展','发文方式','发布人','发文日期','发文时间',
             '存档人','存档情况','存档时间','存档地址','印章全称','用印份数','备注'
-                );
-            getExcel($headArr, $work);
-                            
-      }
+        );
+        getExcel($headArr, $work);                        
+    }
       
     /*
      * 导入页面
@@ -242,12 +236,12 @@ class PresentationController extends AdminController {
         $fileName = $files['info']['filename']['savename'];
         $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
         $result = $this->presentation->addsPresent($resute);
-              if ($result['code'] == 200) {
-                   writeOperationLog('批量导入文稿台账', 1);
-                    $this->success($result['status'], U('Presentation/index'));
-                } else {
-                    writeOperationLog('批量导入文稿台账', 0);
-                    $this->error($result['status'], U('Presentation/importExcel'));
-                }
-         }
-    }         
+        if ($result['code'] == 200) {
+            writeOperationLog('批量导入文稿台账', 1);
+            $this->success($result['status'], U('Presentation/index'));
+        }else{
+            writeOperationLog('批量导入文稿台账', 0);
+            $this->error($result['status'], U('Presentation/importExcel'));
+        }
+    }
+}         

@@ -1,7 +1,7 @@
 <extend name="Public:base"/>
-<block name="title"><title>会谈会见台账创建</title></block>
+<block name="title"><title>会谈会见台账详情</title></block>
 <block name="right">
-        <table class="tbl">
+        <table class="tbl"><br><br>
             <caption>会谈基本信息</caption>
           
             <tr>
@@ -240,8 +240,6 @@
             </tr>
         </table>
         <div class="text-center">
-                <a href="{:U('index')}"> 
-                    <input type="button" value="返回" class="btn btn-r btn-xl button">
-               </a>     
+                    <input type="button" value="返回" class="btn btn-r btn-xl button" onclick="javascript:history.back(-1)">  
         </div>
 </block>

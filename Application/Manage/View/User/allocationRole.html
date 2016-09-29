@@ -20,16 +20,17 @@
                         <col width="20%">
                     </colgroup>
                     <thead>
-                    <tr>
-                        <th>
-                            <label class="checkbox-default user-checkboxAll" for="allSelect"></label>
-                            <input class="hide" type="checkbox" id='allSelect'>
-                            <span class="cr">选择角色</span>
-                        </th>
-                    </tr>
+                        
                     </thead>
                     <tbody class="user-tbody">
                     <tr>
+                    <td colspan="5">
+                            <input type="checkbox" id='allSelect' onclick="allSelect()">
+                            <span class="cr">选择角色</span>
+                    </td>
+                           
+                        </tr>
+                    <tr class="no-border">
                         <volist name="group_info" key="Ukey" id="vo">
                             <td>
                                 <label class='checkbox-default checkbox-normal
@@ -52,17 +53,20 @@
 
                             </td>
 
-                            <if condition="$Ukey %5 eq 0"></tr><tr> </if>
+                            <if condition="$Ukey %5 eq 0"></tr><tr class="no-border"> </if>
 
 
                         </volist>
                     </tr>
                     </tbody>
                 </table>
-                <div>
-                    <input type="hidden" name='uid' value="{$info.uid}">
-                    <input class="btn-c btn-xl button btn btn-a fl" type="submit" name='submit' value="保存"/>
-                    <a href="{:U(index)}" class="no_disable back-a fl">返回</a>
+                <div class="wrap-btns fl">
+                    <div class="btns-middle">
+                        <input type="hidden" name='uid' value="{$info.uid}">
+                        <input class="btn-c btn-xl button btn btn-a fl" type="submit" name='submit' value="保存"/>
+                        <a href="{:U(index)}" class="no_disable back-a fl">返回</a>
+                    </div>
+                    
                 </div>
             </form>
 

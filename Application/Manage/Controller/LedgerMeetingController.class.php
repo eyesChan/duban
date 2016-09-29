@@ -16,7 +16,7 @@ use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
  */
 class LedgerMeetingController extends AdminController {
     
-    public $ledger_meeting;
+    private $ledger_meeting;
     public function __construct() {
         parent::__construct();
         $this->ledger_meeting = D('LedgerMeeting');

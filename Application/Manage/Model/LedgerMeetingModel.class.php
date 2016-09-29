@@ -26,6 +26,10 @@ class LedgerMeetingModel  extends Model{
   */
      public function addLedger($param){
             $led_meeting = M('led_meeting');
+            if(in_array('',$param)){
+                writeOperationLog('添加的数据为空', 0);
+                return C('COMMON.ERROR_EDIT');
+            }
             $res = $led_meeting->add($param);
             if($res){
                  writeOperationLog('添加“' . $param['led_meeting_name'] . '”会谈会见台账', 1);
@@ -169,13 +173,18 @@ class LedgerMeetingModel  extends Model{
                         'led_scene_inter','led_scene_error','led_scene_fenxi','led_end_name','led_end_summary',
                         'led_end_date','led_file_name','led_file_danwei','led_file_address','led_meeting_proposal',
                 );
-           foreach($param as $key => $v){
-               foreach ($v as $k => $v1){
-                   $data[$res[$k]]=$v1;
-               }
-               $a[$key]=$data;
-                $res = $led_meeting->add($data);
-             }  
+
+            foreach($param as $key => $v){
+                foreach ($v as $k => $v1){
+                    $data[$res[$k]]=$v1;
+                }       
+                $param[$key]=$data;
+            }  
+            
+            foreach($param as $key => $v){
+                $res = $led_meeting->add($v);
+            } 
+            
             if($res){  
                 return C('COMMON.SUCCESS_EDIT');
             }else{        

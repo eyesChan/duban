@@ -182,8 +182,10 @@ class CeremoneyAccountController extends AdminController {
             $data = importExcel($fileName);
             $res_info_import = $this->mod_ceremoney_account->import($data);
             if ($res_info_import['code'] == 200) {
+                unlink($fileName);
                 $this->success($res_info_import['status'], U('CeremoneyAccount/index'));
             } else {
+                unlink($fileName);
                 $this->error($res_info_import['status'], U('CeremoneyAccount/index'));
             }
         } else {

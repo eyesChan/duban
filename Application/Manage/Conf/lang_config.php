@@ -146,5 +146,8 @@ return array(
 	'MENU_NUM_EXIST' => '模块编码,已存在',
 	'CHILD_EXIST' => '存在子模块，不允许删除',
     ),
-
+  /* 文档管理提示 */
+   'DOCFILE'=>array(
+       'SZIE_TYPE'=>'文件的类型或大小不符',
+   )
 );

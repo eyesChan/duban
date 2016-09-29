@@ -1,0 +1,114 @@
+<extend name="Public:base"/>
+<block name="title"><title>驻各地发展情况台账创建</title></block>
+
+<block name="right">
+    <form action="{:U(addResident)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
+        <table class="tbl">
+            <caption>基本信息</caption>
+          
+            <tr>
+                <td class="cap">地区：</td>
+                <td >
+                      <input type="text" name='resident_region' class="input-text text">
+                </td>
+                <td class="cap">国家：</td>
+                <td > 
+                     <input type="text" name='resident_country' class="input-text text">
+                </td>
+                 <td class="cap">省份/城市：</td>
+                <td>
+                     <input type="text" name='resident_province' class="input-text text">
+                </td>
+                <td class="cap">更新周期：</td>
+                <td>
+                     <input type="text" name='resident_update_time' class="input-text text">
+                </td>
+            </tr> 
+             <tr>
+                <td class="cap">收集时间：</td>
+                <td>
+                     <input type="text" name='resident_collect_time' id="date2"  onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                </td>
+                <td class="cap">数据时间跨度：</td>
+                <td>
+                     <input type="text" name='resident_date_time'  class="input-text text">
+                </td>
+                 <td class="cap">责任人：</td>
+                <td>
+                     <input type="text" name='resident_person' class="input-text text">
+                </td>
+                 <td class="cap">汇总单位：</td>
+                <td>
+                   <input type="text" name='resident_summary'  class="input-text text">
+                </td>
+            </tr>  
+        </table>
+        <table class="tbl">
+          <caption>数据收集</caption>           
+             <tr>
+               <td class="cap">收集通知拟写人：</td>
+                <td>
+                   <input type="text" name='resident_collect_person' id="date6" class="input-text text">
+                </td>
+                 <td class="cap">通知是否批准：</td>
+                <td>
+                   <input type="text" name='resident_approve'  id='date7' class="input-text text">
+                </td>
+                 <td class="cap">通知审批人：</td>
+                <td>
+                   <input type="text" name='resident_examine_person' class="input-text text">
+                </td>
+                 <td class="cap">汇总联系人：</td>
+                <td>
+                   <input type="text" name='resident_contact_person' class="input-text text">
+                </td>
+             </tr>
+             <tr>
+                 <td class="cap">通知下发日期：</td>
+                 <td colspan="8">
+                   <input type="text" name='resident_notice_time' onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                </td> 
+             </tr>
+        </table>   
+         <table class="tbl">
+          <caption>文稿审核</caption>           
+             <tr>
+                
+               <td class="cap">是否提交审核：</td>
+                <td>
+                   <input type="text" name='resident_whether_submit' class="input-text text">
+                </td>
+                 <td class="cap">当前节点：</td>
+                <td>
+                   <input type="text" name='resident_node'   class="input-text text">
+                </td>
+             </tr>
+        </table>
+         <table class="tbl">
+          <caption>存档情况</caption>           
+             <tr>
+                
+               <td class="cap">是否存档：</td>
+                <td>
+                   <input type="text" name='resident_whether_file'  class="input-text text">
+                </td>
+                 <td class="cap">存档日期：</td>
+                <td>
+                   <input type="text" name='resident_file_time'  onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                </td>
+                
+             </tr>
+             <tr>
+               <td class="cap">存档地址：</td>
+               <td colspan="5">
+                   <input type="text" name='resident_file_address' class="input-text text">
+                </td>
+             </tr>
+        </table>
+        <div class="text-center">
+
+	      <input class="btn btn-red mr10 submit productSubmit" type="submit" value="保存"/>
+	      <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
+    	</div>
+    </form>
+</block>

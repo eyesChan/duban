@@ -110,7 +110,7 @@ class MessageManageController extends AdminController {
     public function showDetail() {
         
         $msg_sys_id = I('param.msg_sys_id');
-        $data = $this->mod_message_manage->getDataForShowDetail($msg_sys_id);
+        $data = $this->mod_message_manage->getDataById($msg_sys_id);
         $this->assign('info', $data);
         $this->display('showdetail');
     }

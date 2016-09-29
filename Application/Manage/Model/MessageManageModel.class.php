@@ -211,17 +211,4 @@ class MessageManageModel extends Model {
         
         return $data;
     }
-
-    /**
-     * 获取前台显示系统消息详情所需数据
-     * 
-     * @return array
-     */
-    public function getDataForShowDetail($msg_sys_id) {
-        
-        $where['msg_sys_id'] = $msg_sys_id;
-        $data = $this->where($where)->find();
-        
-        return $data;
-    }
 }

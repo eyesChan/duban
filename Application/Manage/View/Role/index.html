@@ -1,6 +1,6 @@
 <extend name="Public:base" />
 
-<block name="title"><title>海航会议督办系统</title></block>
+<block name="title"><title>角色列表</title></block>
 <block name="right">
     <css href="__PUBLIC__/css/roleManage.css"/>
     <div class="role-padding">
@@ -15,9 +15,7 @@
                     <td colspan="2">
                         <div class="text-center">
                             <input class="btn btn-a submit" type="submit" value="筛选"/>
-                            <a href="{:U(add,array('p'=>$p))}">
-                                <input type="button" class="btn btn-a submit" value="新增"/>
-                            </a>
+                            <a href="{:U(add,array('p'=>$p))}" class="btn btn-a submit button">新增</a>
                         </div>
                     </td>
                 </tr>
@@ -34,7 +32,7 @@
                     <thead>
                         <tr>
                             <th>
-                                <input type='checkbox' name='cbox' id="allSelect" >序号</th>
+                                <input type='checkbox' name='cbox' id="allSelect">序号</th>
                             <th>角色名称</th>
                             <th>描述</th>
                             <th>操作</th>
@@ -49,7 +47,7 @@
                                 <input  type="checkbox" name="childrenBox[]" class="singleSelect">{$key +1}
                         <else />
                         <label class="checkbox-normal diy-checkbox-normal checkbox-default  diy-checkbox" for="singleSelect{$v['id']}"></label>
-                        <input id="singleSelect{$v['id']}" type='checkbox' class="singleSelect" name='cbox[]' value="{$v['id']}">{$key +1}
+                         <input id="singleSelect{$v['id']}" type="checkbox" value="{$v['id']}" name="childrenBox[]" class="singleSelect">{$key +1}
                         </in>
 
                         </td>
@@ -59,12 +57,9 @@
                         <td class="role-row-td"></td>
                         <else />
                         <td class="role-row-td">
-                            <a class="role-link-btn common-blue-btn mr5" href="{:U('Role/authorizeRole',array('id'=>$v['id'],'p'=>$p))}">
-                                <input type="button" class="btn btn-c btn-xl button" value="角色授权"></a>
-                            <a class="role-ediit operate-btn" title="编辑" href="{:U('Role/edit',array('id'=>$v['id'],'p'=>$p))}">
-                                <input type="button" class="operate-span-edit btn btn-c btn-xl button" value="编辑">
-                            </a>
-                            <a onclick='singleDel({$v['id']})'  class="role-delete operate-btn" title="删除" ><input type="button" class="operate-span-del btn btn-c btn-xl button" value="删除">
+                            <a class="btn btn-c btn-xl button mr5" href="{:U('Role/authorizeRole',array('id'=>$v['id'],'p'=>$p))}">角色授权</a>
+                            <a class="btn btn-c btn-xl button  mr5" href="{:U('Role/edit',array('id'=>$v['id'],'p'=>$p))}">编辑</a>
+                            <a onclick='singleDel({$v['id']})'  class="btn btn-c btn-xl button" >删除</a>
                                 </td>
                                 </in>
                                 </tr>

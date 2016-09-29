@@ -440,6 +440,10 @@ function importExcel($fileName, $column = null) {
         }
         $dataset[] = $info;
     }
-
+     //过滤为空的数组
+    foreach($dataset as $key => $v){
+        $dataset[$key]=array_filter($v);
+    }  
+    $dataset= array_filter($dataset);
     return $dataset;
 }

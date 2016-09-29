@@ -1,5 +1,5 @@
 <extend name="Public:base" />
-<block name="title"><title>海航督办管理系统</title></block>
+<block name="title"><title>系统消息详情</title></block>
 <block name="right">
     <css href="__PUBLIC__/css/messageManage.css"/>
     <div class="role-padding container-padding" style="padding-top: 40px;">
@@ -19,7 +19,8 @@
                 </tr>
                 <tr>
                     <td class="detail-l">消息内容</td>
-                    <td class="detail-r content1">{$info['msg_sys_content']}</td></tr>
+                    <td class="detail-r">{$info['msg_sys_content']}</td>
+                </tr>
                 <tr>
                     <td class="detail-l">消息发布时间</td>
                     <td class="detail-r">{$info['msg_sys_creattime']}</td>
@@ -27,10 +28,4 @@
             </table>
         </div>
     </div>
-    <script>
-        var content1 = $(".content1").html();
-        console.log(content1);
-        $(".content1").html("");
-        $(content1).appendTo(".content1");
-    </script>
 </block>

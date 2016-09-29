@@ -63,8 +63,8 @@ class FileController extends AdminController {
         }
         //数组转换为字符串
         $export_file=  json_encode($list);
-        $export_file= base64_encode($export_file);
-        $this->assign('export_file',$export_file);
+        $export_files= base64_encode($export_file);
+        $this->assign('export_file',$export_files);
         $show = $page->show();
         $this->assign('list', $list);
         $this->assign('page', $show);

@@ -53,6 +53,11 @@ class FileModel  extends Model{
             $data['doc_upload_img_url'] =$param['doc_upload_img_url'];
             $data['doc_beizhu'] = $param['doc_beizhu'];
             $data['doc_status'] = 1 ; //$param['doc_status'];
+            
+            if(in_array('',$data)){
+                writeOperationLog('添加的数据为空', 0);
+                return C('COMMON.ERROR_EDIT');
+            }
             $res = $docfile->add($data);
             if($res){
                 writeOperationLog('添加' . $param['doc_name'] . '”文档', 1);

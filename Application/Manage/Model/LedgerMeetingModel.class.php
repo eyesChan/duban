@@ -26,6 +26,10 @@ class LedgerMeetingModel  extends Model{
   */
      public function addLedger($param){
             $led_meeting = M('led_meeting');
+            if(in_array('',$param)){
+                writeOperationLog('添加的数据为空', 0);
+                return C('COMMON.ERROR_EDIT');
+            }
             $res = $led_meeting->add($param);
             if($res){
                  writeOperationLog('添加“' . $param['led_meeting_name'] . '”会谈会见台账', 1);

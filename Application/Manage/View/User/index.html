@@ -16,9 +16,7 @@
                     <td colspan="2">
                         <div class="text-center">
                             <input class="btn btn-a submit" type="submit" value="筛选"/>
-                            <a href="{:U('addUser',array('uid'=>''))}">
-                                <input class="btn btn-a submit" type="button" value="新增"/>
-                            </a>
+                            <a class="btn btn-a submit button" href="{:U('addUser',array('uid'=>''))}">新增</a>
                         </div>
                     </td>
                 </tr>
@@ -49,7 +47,7 @@
                         <th>操作</th>
                     </tr>
                 </thead>
-                <div class="pwd-prompt hide single-pwd-pro">
+                <div class="pwd-prompt single-pwd-pro prompt hide">
                     <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
                     <span></span>
                 </div>
@@ -72,17 +70,11 @@
 
                     <td class="clear">
 
-                        <a class="fl gl-btn common-operate-btn mr5 common-blue-btn" href="{:U('allocationRole',array('uid'=>$item[uid],'p'=>$p))}">
-                            <input type="button" class="btn btn-c btn-xl button" value="关联角色"></a>
-                        <a class="fl cz-btn common-operate-btn mr5 common-green-btn" onclick='singleReset({$item.uid})' href="javascript:;">
-                            <input type="button" class="btn btn-c btn-xl button" value="重置密码"></a>
+                        <a class="fl btn btn-c btn-xl button mr5" href="{:U('allocationRole',array('uid'=>$item[uid],'p'=>$p))}">关联角色</a>
+                        <a class="fl btn btn-c btn-xl button mr5" onclick='singleReset({$item.uid})' href="javascript:;">重置密码</a>
 
-                        <a class="fl operate-btn mr5" title="删除" onclick='singleDel({$item.uid})'>
-                            <input type="button" class="operate-span-del btn btn-c btn-xl button" value="删除">
-                        </a>
-                        <a class="fl operate-btn mr5" title="编辑" href="{:U('saveUser',array('uid'=>$item[uid],'p'=>$p))}">
-                            <input type="button" class="operate-span-edit btn btn-c btn-xl button" value="编辑">
-                        </a>
+                        <a class="fl btn btn-c btn-xl button mr5" onclick='singleDel({$item.uid})'>删除</a>
+                        <a class="fl btn btn-c btn-xl button mr5" href="{:U('saveUser',array('uid'=>$item[uid],'p'=>$p))}">编辑</a>
 
                     </td>
                     </tr>
@@ -93,15 +85,15 @@
             </table>
             <div class="clear operate-content">
                 <div class="batch-operate fl">
-                    <div class="pwd-prompt batch-prompt hide">
+                    <div class="pwd-prompt batch-prompt prompt hide">
                         <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
                         <span></span>
                     </div>
                     批量操作：
-                    <a href="javascript:javascipt:;" onclick="delAll()" class="user-batch-del batch-del">
-                        <img src="__PUBLIC__/images/batch_del.png" alt=""/>删除</a>|
-                    <a href="javascript:;" onclick="resetAll('')" class="user-batch-reset batch-del">
-                        <img src="__PUBLIC__/images/batch_reset.png"  alt=""/>重置密码</a>
+                    <span onclick="delAll()" class="user-batch-del batch-del">
+                        <img src="__PUBLIC__/images/batch_del.png" alt=""/>删除</span>|
+                    <span onclick="resetAll('')" class="user-batch-reset batch-del">
+                        <img src="__PUBLIC__/images/batch_reset.png"  alt=""/>重置密码</span>
                 </div>
                 <div class="pagination fr">
                     {$page}

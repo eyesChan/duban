@@ -77,20 +77,6 @@ class FileModel  extends Model{
      */
 
     public function fileSize($size,$mark) {
-//        if ($size['file']['size'] <= C('FILE_DOC.FILE_SIZE') && $size['file']['size'] <= C('FTP_COVER.FILE_SIZE')) {
-//            $doc_upload_file = end(explode('.', $size['file']['name']));
-//            $doc_upload_img = end(explode('.', $size['file1']['name']));
-//            if (in_array($doc_upload_file, C('FILE_DOC.ALLOW_FILE')) && in_array($doc_upload_img, C('FILE_COVER.ALLOW_FILE'))) {
-//                writeOperationLog('上传文件成功',1);
-//                return true;
-//            } else {
-//                writeOperationLog('上传文件失败',0);
-//                return false;
-//            }
-//        } else {
-//            writeOperationLog('上传文件失败',0);
-//            return false;
-//        }
         if($mark==0){
             if ($size['file']['size'] <= C('FILE_DOC.FILE_SIZE') && $size['file']['size'] <= C('FTP_COVER.FILE_SIZE')) {
                 $doc_upload_file = end(explode('.', $size['file']['name']));

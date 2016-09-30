@@ -86,7 +86,7 @@ class FileController extends AdminController {
     public function addFile() {
         $data = I();
         if (!empty($data)) {
-            if (!empty($_FILES)) {
+            if (!empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])) {
                 $size = $this->filedoc->fileSize($_FILES,0);
                 if (!empty($size)) {
                     $res['file_type']='FILE_PUB_DOC';
@@ -105,6 +105,8 @@ class FileController extends AdminController {
                 } else {
                     $this->error(C('DOCFILE.SZIE_TYPE'), U('File/addFile'));
                 }
+            }else{
+                 $this->error(C('DOCFILE.FILE_DOC'), U('File/addFile'));
             }
         }
 

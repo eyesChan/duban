@@ -175,6 +175,8 @@ class WorkSheetModel  extends Model{
     /*
      * 计算单个工单几天和每天%
      * @author xiaohui
+     * $start 开始时间
+     * $stop 结束时间
      */
     public function workDay($start,$stop){
      
@@ -189,13 +191,21 @@ class WorkSheetModel  extends Model{
         $catime = strtotime($start);
         if($catime > $time){
             $workDay['state'] = "未启动";
-        }else{
+        }
+        elseif($catime < $time-80000){
+            $workDay['state'] = "延迟";
+        }
+        else{
             $workDay['state'] = "正常";
         }
         return $workDay;
     }
     /*
      * 判断当前状态
+     * @state 是废弃和挂起
+     * @$id 工作单id
+     * @parcent 完成工作比
+     * 
      */
     public function workState($state,$id,$parcent){
         if($parcent == "100" || $parcent == "100%"){
@@ -207,8 +217,18 @@ class WorkSheetModel  extends Model{
                     ->where("worksheet_id = $id")
                     ->find();
             if($state == '0'){
-                $states = $work['worksheet_state'];
-                return $states;
+                $time = time();
+                $starttime = strtotime($work['worksheet_start_date']);
+                $cation =  $time - $starttime;
+                $day = floor($cation/3600/24);
+                $surplus = $day * $work['worksheet_parcent_day'];
+                if($parcent >= $surplus){
+                    $states = "正常";
+                    return $states;
+                }else{
+                    $states = "延迟";
+                    return $states;
+                }   
             }
 
             elseif($state == '1' || $state == '2'){
@@ -216,12 +236,11 @@ class WorkSheetModel  extends Model{
                 $stoptime = strtotime($work['worksheet_end_date']);
                 $starttime = strtotime($work['worksheet_start_date']);
                 if($stoptime > $time){
-                    $cation = $stoptime - $time;
-                    $day = floor($timeiff/3600/24);
+                    $cation =  $time - $starttime;
+                    $day = floor($cation/3600/24);
                     $surplus = $day * $work['worksheet_parcent_day'];
                     $sum = $surplus + $work['worksheet_done_persent'];
-                    if($starttime > $time){
-                        
+                    if($starttime > $time){        
                         $states="未启动";
                         return $states;
                     }else{
@@ -262,7 +281,7 @@ class WorkSheetModel  extends Model{
                     $state = "正常";
                     $this->saveOneOrder($val['worksheet_id'],$state);
                 }else{
-                    $state = "延期";
+                    $state = "延迟";
                     $this->saveOneOrder($val['worksheet_id'],$state);
                 }
             }

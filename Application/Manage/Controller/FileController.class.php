@@ -187,7 +187,7 @@ class FileController extends AdminController {
                 if ($result['code'] == 200) {
                     $this->success($result['status'],U('File/index'));
                 }else {
-                    $this->success($result['status'], U('File/saveFile?doc_id='.$data['doc_id']));
+                    $this->error($result['status'], U('File/saveFile?doc_id='.$data['doc_id']));
                 }
             }
         }       

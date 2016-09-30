@@ -78,7 +78,11 @@
              <tr>
                  <td class="cap">上传文档：</td>
                 <td colspan='2'>
-                    <input type="file" name='file' > 文档大小不能超过20M
+                    <input type="file" name='file' >
+                     <if condition="$list.doc_upload_file_url ">
+                        <a href="{$list.doc_upload_file_url}">{$list.doc_upload_file_name}</a>
+                    </if>
+                    文档大小不能超过20M
                 </td>
              </tr>
         </table>
@@ -89,7 +93,11 @@
              <tr>
                <td class="cap">上传图片：</td>
                 <td colspan='2'>
-                   <input type="file" name='file1' >图片支持JPG、大小不能超过0.5M
+                   <input type="file" name='file1' >
+                    <if condition="$list.doc_upload_img_url ">
+                        <a href="{$list.doc_upload_img_url}">{$list.doc_upload_img_name}</a>
+                    </if>
+                   图片支持JPG、大小不能超过0.5M
                 </td>
             </tr>
         </table>

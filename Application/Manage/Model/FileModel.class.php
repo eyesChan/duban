@@ -161,6 +161,14 @@ class FileModel  extends Model{
               ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
               ->where('doc_id='.$doc_id)       
               ->find();
+            $config_info = C();
+            if ($config_info['OPEN_FTP'] == 1) {
+                $url = C('FTP_VISIT_PATH');
+            } else {
+                $url = C('FILE_VISIT_PATH');
+            }
+            $list['doc_upload_file_url'] = $url . $list['doc_upload_file_url'];
+            $list['doc_upload_img_url'] = $url . $list['doc_upload_img_url'];
         return $list;
     }
     /*
@@ -190,10 +198,10 @@ class FileModel  extends Model{
             $file_config = $config_info[$file_info];
             $result = $upload_obj->normalUpload($file_config);
             if(count($result['info'])==2){
-                $data[] = $result['info']['file']['savepath'] . $result['info']['file']['savename'];
-                $data[] = $result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
+                $data[] = $result['rootPath'].$result['info']['file']['savepath'] . $result['info']['file']['savename'];
+                $data[] = $result['rootPath'].$result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
             }else{
-                $data=$result['info'][$mark]['savepath'] . $result['info'][$mark]['savename'];;
+                $data=$result['rootPath'].$result['info'][$mark]['savepath'] . $result['info'][$mark]['savename'];;
             }
         }
         

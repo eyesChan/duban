@@ -196,7 +196,7 @@ class FileModel  extends Model{
         $upload_obj = new MeetingUplod();
         $config_info = C();
         //判断上传方式
-        if ($config_info['OPEN_FTP'] == '0') { //开启ftp上传
+        if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
             $file_config = $config_info[$param['ftp_type']];
             $result = $upload_obj->ftpUpload($file_config);
             if($param['mark']==0){

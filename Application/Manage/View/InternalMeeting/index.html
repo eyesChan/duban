@@ -64,10 +64,10 @@
                             <td>{$item.internal_meeting_place}</td>
                            
                             <td>
-                                <a class="" title="详情" href="{:U('details?id='.$item['internal_id'])}">
+                                <a class="" title="详情" href="{:U('InternalMeeting/details',array('id'=>$item['internal_id']))}">
                                     <input type="button" class="btn btn-c btn-xl button" value="详情">
                                 </a>
-                                <a class="" title="编辑" href="{:U('save?id='.$item['internal_id'])}">
+                                <a class="" title="编辑" href="{:U('InternalMeeting/save',array('id'=>$item['internal_id']))}">
                                     <input type="button" class="btn btn-c btn-xl button" value="编辑">
                                 </a>
                                 <a class="" title="删除">

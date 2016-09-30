@@ -86,10 +86,13 @@ class FileController extends AdminController {
     public function addFile() {
         $data = I();
         if (!empty($data)) {
-            if (!empty($_FILES)) {
+            if (!empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])) {
                 $size = $this->filedoc->fileSize($_FILES,0);
                 if (!empty($size)) {
-                    $result=$this->filedoc->saveUploadNull('FILE_PUB_DOC','FIP_PUB_DOC');
+                    $res['file_type']='FILE_PUB_DOC';
+                    $res['ftp_type']='FIP_PUB_DOC';
+                    $res['mark']=0;
+                    $result=$this->filedoc->saveUploadNull($res);
                     $data['doc_upload_file_url']=$result[0];
                     $data['doc_upload_img_url']=$result[1];
                     $result = $this->filedoc->addFile($data);
@@ -98,9 +101,12 @@ class FileController extends AdminController {
                     } else {
                         $this->error($result['status'], U('File/addFile'));
                     }
+                    return true;
                 } else {
                     $this->error(C('DOCFILE.SZIE_TYPE'), U('File/addFile'));
                 }
+            }else{
+                 $this->error(C('DOCFILE.FILE_DOC'), U('File/addFile'));
             }
         }
 
@@ -173,6 +179,7 @@ class FileController extends AdminController {
                 }else {
                     $this->error($result['status'], U('File/saveFile',array('doc_id'=>$data['doc_id'])));
                 }
+                return true;
         } 
         $doc_id=I('doc_id');
         $result = $this->filedoc->saveFileDoc($doc_id);

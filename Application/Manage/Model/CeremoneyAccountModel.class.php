@@ -171,9 +171,10 @@ class CeremoneyAccountModel extends Model {
      * 
      * @return array
      */
-    public function getExecl() {
+    public function getExecl($params) {
 
-        $data_ca = $this->select();
+        $where = $this->makeWhereForSearch($params);
+        $data_ca = $this->where($where)->select();
         $count = count($data_ca);
         for ($i = 0; $i <= $count; $i++) {
             unset($data_ca[$i]['ca_id']);

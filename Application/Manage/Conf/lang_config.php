@@ -131,6 +131,7 @@ return array(
 	'ROLE_FORMAT_ERROR' => '角色名称格式不正确!',
 	'ROLE_DESC_ERROR' => '描述格式不正确!',
 	'ROLE_IS_EXIST' => '该角色名称已被使用！',
+        'ROLE_ADD_ISHAVE' => array('code' => 102, 'status' => "角色已存在"),
 	'ROLE_DELETE_RELATION' => array('status' => 100, 'msg' => "存在已关联用户的角色，暂不能删除！"),
 	'ROLE_DELETE_RELATION1' => array('status' => 101, 'msg' => "该角色已关联用户，暂不能删除！"),
 	'ROLE_DELETE_RELATION2' => array('status' => 200),

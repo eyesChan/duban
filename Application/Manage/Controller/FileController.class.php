@@ -148,7 +148,6 @@ class FileController extends AdminController {
         if(IS_GET){
         $doc_id=I('doc_id');
         $result = $this->filedoc->saveFileDoc($doc_id);
-        //P($result);die;
         $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
         $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_url'])['filename'];
         $this->assign('list', $result);

@@ -8,7 +8,7 @@
 namespace Manage\Model;
 
 use Think\Model;
-
+use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
 /**
  * Description of FileModel
  * @author huanggang
@@ -163,7 +163,42 @@ class FileModel  extends Model{
               ->find();
         return $list;
     }
-    
+    /*
+     * 编辑文件,对文件进行判断上传
+     * @Date    2016/09/27
+     * @author huanggang
+     * @param $file_info 普通上传的数据
+     * @param $ftp_info ftp上传 的数据
+     * @param $mark 上传的标示
+     * @return array $data 返回文件存储路径的数据
+     * 
+     */
+    public function saveUploadNull($file_info,$ftp_info,$mark){
+        $upload_obj = new MeetingUplod();
+        $config_info = C();
+        //判断上传方式
+        if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
+            $file_config = $config_info[$ftp_info];
+            $result = $upload_obj->ftpUpload($file_config);
+            if(count($result)==2){
+                $data[] = $result['file']['path'];
+                $data[] = $result['file1']['path'];
+            }else{
+                $data=$result[$mark]['path'];
+            }
+        } else { //普通上传
+            $file_config = $config_info[$file_info];
+            $result = $upload_obj->normalUpload($file_config);
+            if(count($result['info'])==2){
+                $data[] = $result['info']['file']['savepath'] . $result['info']['file']['savename'];
+                $data[] = $result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
+            }else{
+                $data=$result['info'][$mark]['savepath'] . $result['info'][$mark]['savename'];;
+            }
+        }
+        
+        return $data;
+    }
     /*
      * 编辑文档
      * @Date    2016/09/22

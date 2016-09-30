@@ -368,7 +368,7 @@ class MeetingModel extends Model {
             if ($config_info['OPEN_FTP'] == 1) {
                 $url = C('FTP_VISIT_PATH');
             } else {
-                $url = C('FTP_VISIT_PATH');
+                $url = C('FILE_VISIT_PATH');
             }
             $meeting_info['meeting_annexes_url'] = $url . $meeting_info['meeting_annexes_url'];
         }
@@ -663,7 +663,7 @@ class MeetingModel extends Model {
                 if ($val[28] == '处理中') {
                     $site_state = 3;
                 }
-                $info['meeting_site_state'] = $fix_state;
+                $info['meeting_site_state'] = $site_state;
             }
             //会议摄影摄像
             if (!empty($val[29])) {

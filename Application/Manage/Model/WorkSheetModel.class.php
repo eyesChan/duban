@@ -159,7 +159,9 @@ class WorkSheetModel  extends Model{
         $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
         $data['worksheet_rule_persont'] = $param['personliable'];
         $data['worksheet_done_persent'] = $param['worksheet_done_persent']; 
-        $data['worksheet_state'] = $this->workState($param['worksheet_state'],$param['worksheet_id'],$param['worksheet_done_persent']);
+        $states = $this->workState($param['worksheet_state'],$param['worksheet_id'],$param['worksheet_done_persent']);
+        $data['worksheet_state'] = $states['state'];
+        $data['worksheet_state_id'] = $states['id'];
         $work_id = $param['worksheet_id'];
         $data['worksheet_abandoned_reason'] = $param['worksheet_abandoned_reason'];
         $res = $order->where("worksheet_id = $work_id")->save($data);
@@ -208,8 +210,11 @@ class WorkSheetModel  extends Model{
      * 
      */
     public function workState($state,$id,$parcent){
+       
+        $states = array();
         if($parcent == "100" || $parcent == "100%"){
-            $states = "办结";
+            $states['state'] = "办结";
+            $states['id'] = 1;
             return $states;
         }else{
             $work = D('worksheet')
@@ -223,10 +228,10 @@ class WorkSheetModel  extends Model{
                 $day = floor($cation/3600/24);
                 $surplus = $day * $work['worksheet_parcent_day'];
                 if($parcent >= $surplus){
-                    $states = "正常";
+                    $states['state'] = "正常";
                     return $states;
                 }else{
-                    $states = "延迟";
+                    $states['state'] = "延迟";
                     return $states;
                 }   
             }
@@ -241,26 +246,29 @@ class WorkSheetModel  extends Model{
                     $surplus = $day * $work['worksheet_parcent_day'];
                     $sum = $surplus + $work['worksheet_done_persent'];
                     if($starttime > $time){        
-                        $states="未启动";
+                        $states['state']="未启动";
+                        $states['id'] = 2;
                         return $states;
                     }else{
                         if($sum < 100){
-                            $states = "延迟";
+                            $states['state'] = "延迟";
+                            $states['id'] = 3;
                             return $states;
                         }else{
-                            $states = "正常";
+                            $states['state'] = "正常";
                             return $states;
                         }
                     }
                 }else{
-                    $states = "延迟";
+                    $states['state'] = "延迟";
                     return $states;
                 }
             }
-            else{
-                return $state;
-            }  
+            
         }
+        $states['state'] = $state;
+        $states['id'] = '4';
+        return $states;
     }
     /*
      * 分页刷新工作单状态

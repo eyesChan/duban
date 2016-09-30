@@ -64,9 +64,9 @@ class WorkOrderController extends AdminController {
             }else{
                 $result = $this->mod_worksheet->addWork($param);
                 if($result['code'] == 200){
-                    $this->success($result['status'], '/Manage/WorkOrder/index');
+                    $this->success($result['status'], U('index'));
                 }else{
-                    $this->success($result['status'], '/Manage/WorkOrder/add');
+                    $this->success($result['status'], U('index'));
                 }
             }
             return true;
@@ -130,17 +130,17 @@ class WorkOrderController extends AdminController {
                 echo json_encode(C('COMMON.ERROR_EDIT'));
             }
         }
-        if(IS_POST){
+        else{
             $param = I('post.');
             if(empty($param)){
                 echo json_encode(C('COMMON.ERROR_EDIT'));
             }else{
                 $result = $this->mod_worksheet->saveWork($param);
                 if($result['code'] == 200){
-                    $this->success($result['status'], '/Manage/WorkOrder/index');
+                    $this->success($result['status'], U('index'));
                     
                 }else{
-                    $this->success($result['status'], '/Manage/WorkOrder/index');
+                    $this->success($result['status'], U('index'));
                 }
             }
             return true;
@@ -163,10 +163,10 @@ class WorkOrderController extends AdminController {
             sendMail($val['email'],$title,$content);
             
             if($result['code'] == 200){
-                    $this->success($result['status'], '/Manage/WorkOrder/index');
+                    $this->success($result['status'], U('index'));
                     
                 }else{
-                    $this->success($result['status'], '/Manage/WorkOrder/index');
+                    $this->success($result['status'], U('index'));
                 }
         }
     } 

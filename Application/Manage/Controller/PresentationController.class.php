@@ -154,7 +154,7 @@ class PresentationController extends AdminController {
                 if ($result['code'] == 200) {
                        $this->success($result['status'], U('Presentation/index'));
                   }else{
-                       $this->error($result['status'], U('Presentation/savePresent?db_pre_id='.$data['db_pre_id']));
+                       $this->error($result['status'],U('Presentation/savePresent',array('db_pre_id'=>$data['db_pre_id'])));
                 }
             }
          }       

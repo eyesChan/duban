@@ -100,8 +100,8 @@ class FileModel  extends Model{
      */
     public function getFileDocCount($where) {
         $count = M('doc')
-                ->join('db_member on db_doc.doc_pub_person = db_member.uid')
-                ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+                ->join('__MEMBER__ on db_doc.doc_pub_person = __MEMBER__.uid')
+                ->join('__CONFIG_SYSTEM__ on db_doc.doc_pub_type = __CONFIG_SYSTEM__.config_id')
                 ->where($where)
                 ->count();
         return $count;
@@ -118,8 +118,8 @@ class FileModel  extends Model{
     public function getList($where, $first_rows, $list_rows) {
       $docfile = M('doc');
       $list = $docfile
-              ->join('db_member on db_doc.doc_pub_person = db_member.uid')
-              ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+              ->join('__MEMBER__ on db_doc.doc_pub_person = __MEMBER__.uid')
+              ->join('__CONFIG_SYSTEM__ on db_doc.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where($where) 
               ->limit($first_rows, $list_rows)
               ->order('doc_id desc')
@@ -157,10 +157,18 @@ class FileModel  extends Model{
     public function saveFileDoc($doc_id){
         $docfile = M('doc');
         $list = $docfile
-              ->join('db_member on db_doc.doc_pub_person = db_member.uid')
-              ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+              ->join('__MEMBER__ on db_doc.doc_pub_person = __MEMBER__.uid')
+              ->join('__CONFIG_SYSTEM__ on db_doc.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where('doc_id='.$doc_id)       
               ->find();
+            $config_info = C();
+            if ($config_info['OPEN_FTP'] == 1) {
+                $url = C('FTP_VISIT_PATH');
+            } else {
+                $url = C('FILE_VISIT_PATH');
+            }
+            $list['doc_upload_file_url'] = $url . $list['doc_upload_file_url'];
+            $list['doc_upload_img_url'] = $url . $list['doc_upload_img_url'];
         return $list;
     }
     /*
@@ -190,10 +198,10 @@ class FileModel  extends Model{
             $file_config = $config_info[$file_info];
             $result = $upload_obj->normalUpload($file_config);
             if(count($result['info'])==2){
-                $data[] = $result['info']['file']['savepath'] . $result['info']['file']['savename'];
-                $data[] = $result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
+                $data[] = $result['rootPath'].$result['info']['file']['savepath'] . $result['info']['file']['savename'];
+                $data[] = $result['rootPath'].$result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
             }else{
-                $data=$result['info'][$mark]['savepath'] . $result['info'][$mark]['savename'];;
+                $data=$result['rootPath'].$result['info'][$mark]['savepath'] . $result['info'][$mark]['savename'];;
             }
         }
         

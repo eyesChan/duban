@@ -148,7 +148,10 @@ class FileController extends AdminController {
         if(IS_GET){
         $doc_id=I('doc_id');
         $result = $this->filedoc->saveFileDoc($doc_id);
+        $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
+        $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_url'])['filename'];
         $this->assign('list', $result);
+        $this->assign('file_info', $file_info);
          //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');
         $this->assign('file_type', $file_type);
@@ -174,12 +177,12 @@ class FileController extends AdminController {
                        $data['doc_upload_file_url']=$result[0];
                        $data['doc_upload_img_url']=$result[1];
                     }else {
-                        $this->error(C('DOCFILE.SZIE_TYPE'), U('File/saveFile?doc_id='.$data['doc_id']));
+                        $this->error(C('DOCFILE.SZIE_TYPE'),U('File/saveFile',array('doc_id'=>$data['doc_id'])));
                     }
                    //判断文档上传,附件上传为空时的情况
                 }elseif(!empty($_FILES['file']['tmp_name'])&&empty($_FILES['file1']['tmp_name'])){
                      $data['doc_upload_file_url']=$this->filedoc->saveUploadNull('FILE_DOC','FIP_DOC','file');
-                  //判断附件上传,文档上传为空时的情况   
+                     //判断附件上传,文档上传为空时的情况   
                 }elseif(empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])){
                      $data['doc_upload_img_url']=$this->filedoc->saveUploadNull('FILE_COVER','FTP_COVER','file1');     
                 }
@@ -187,7 +190,7 @@ class FileController extends AdminController {
                 if ($result['code'] == 200) {
                     $this->success($result['status'],U('File/index'));
                 }else {
-                    $this->error($result['status'], U('File/saveFile?doc_id='.$data['doc_id']));
+                    $this->error($result['status'], U('File/saveFile',array('doc_id'=>$data['doc_id'])));
                 }
             }
         }       

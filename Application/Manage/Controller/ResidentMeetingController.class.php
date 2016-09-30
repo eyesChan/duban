@@ -118,7 +118,7 @@ class ResidentMeetingController extends AdminController {
                 if ($result['code'] == 200) {
                        $this->success($result['status'], U('ResidentMeeting/index'));
                   }else{
-                       $this->error($result['status'], U('ResidentMeeting/saveResident?resident_id='.$data['resident_id']));
+                       $this->error($result['status'], U('ResidentMeeting/saveResident',array('resident_id'=>$data['resident_id'])));
                 }
             }
          }       

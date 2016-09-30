@@ -174,11 +174,10 @@ class FileController extends AdminController {
                     $size = $this->filedoc->fileSize($_FILES);
                     if (!empty($size)) {
                        $result=$this->filedoc->saveUploadNull('FILE_PUB_DOC','FIP_PUB_DOC');
-                       P($result);die;
                        $data['doc_upload_file_url']=$result[0];
                        $data['doc_upload_img_url']=$result[1];
                     }else {
-                        $this->error(C('DOCFILE.SZIE_TYPE'), U('File/saveFile?doc_id='.$data['doc_id']));
+                        $this->error(C('DOCFILE.SZIE_TYPE'),U('File/saveFile',array('doc_id'=>$data['doc_id'])));
                     }
                    //判断文档上传,附件上传为空时的情况
                 }elseif(!empty($_FILES['file']['tmp_name'])&&empty($_FILES['file1']['tmp_name'])){
@@ -191,7 +190,7 @@ class FileController extends AdminController {
                 if ($result['code'] == 200) {
                     $this->success($result['status'],U('File/index'));
                 }else {
-                    $this->error($result['status'], U('File/saveFile?doc_id='.$data['doc_id']));
+                    $this->error($result['status'], U('File/saveFile',array('doc_id'=>$data['doc_id'])));
                 }
             }
         }       

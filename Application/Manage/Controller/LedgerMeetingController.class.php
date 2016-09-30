@@ -116,7 +116,7 @@ class LedgerMeetingController extends AdminController {
                 if ($result['code'] == 200) {
                        $this->success($result['status'], U('LedgerMeeting/index'));
                   }else{
-                       $this->error($result['status'], U('LedgerMeeting/saveLedger?led_meeting_id='.$data['led_meeting_id']));
+                       $this->error($result['status'],U('LedgerMeeting/saveLedger',array('led_meeting_id'=>$data['led_meeting_id'])));
                 }
             }
          }       

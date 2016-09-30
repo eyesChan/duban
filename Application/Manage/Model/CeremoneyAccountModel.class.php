@@ -95,6 +95,12 @@ class CeremoneyAccountModel extends Model {
 
         //后台数据验证
         $ceremoney_account_data = $this->create($data);
+        if (empty($ceremoney_account_data['ca_time'])) {
+            unset($ceremoney_account_data['ca_time']);
+        }
+        if (empty($ceremoney_account_data['ca_pub_date'])) {
+            unset($ceremoney_account_data['ca_pub_date']);
+        }
         //入库
         if ($ceremoney_account_data) {
             $res_add = $this->add($ceremoney_account_data);
@@ -258,7 +264,6 @@ class CeremoneyAccountModel extends Model {
             $model->commit();
             writeOperationLog('导入“' . 'excel表格' . '”', 1);
             return C('COMMON.IMPORT_SUCCESS');
-            
         }
     }
 

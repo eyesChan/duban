@@ -111,12 +111,12 @@ class PresentationModel  extends Model{
     public function savePresent($data,$pre_id){
         $led_presentation = M('led_presentation');
         $res = $led_presentation->where("db_pre_id =".$pre_id)->save($data);
-       if($res){
+       if(FALSE === $res){
+            writeOperationLog('修改“' . $data['db_pre_name'] . '”文稿台账', 0);
+            return C('COMMON.ERROR_EDIT');
+        }else{
             writeOperationLog('修改“' . $data['db_pre_name'] . '”文稿台账', 1);
             return C('COMMON.SUCCESS_EDIT');
-        }else{
-             writeOperationLog('修改“' . $data['db_pre_name'] . '”文稿台账', 0);
-            return C('COMMON.ERROR_EDIT');
         }      
     }
     

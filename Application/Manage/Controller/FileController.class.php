@@ -87,7 +87,7 @@ class FileController extends AdminController {
         $data = I();
         if (!empty($data)) {
             if (!empty($_FILES)) {
-                $size = $this->filedoc->fileSize($_FILES);
+                $size = $this->filedoc->fileSize($_FILES,0);
                 if (!empty($size)) {
                     $result=$this->filedoc->saveUploadNull('FILE_PUB_DOC','FIP_PUB_DOC');
                     $data['doc_upload_file_url']=$result[0];
@@ -145,7 +145,35 @@ class FileController extends AdminController {
      */
     
     public function  saveFile(){
-        if(IS_GET){
+        if(IS_POST){
+            $data = I();
+            if (!empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])) {
+                $size = $this->filedoc->fileSize($_FILES,0);
+                if($size){
+                    $res['file_type']='FILE_PUB_DOC';
+                    $res['ftp_type']='FIP_PUB_DOC';
+                    $res['mark']=0;
+                    $result=$this->filedoc->saveUploadNull($res);
+                    $data['doc_upload_file_url']=$result[0];
+                    $data['doc_upload_img_url']=$result[1];
+                    }else{
+                        $this->error(C('DOCFILE.SZIE_TYPE'),U('File/saveFile',array('doc_id'=>$data['doc_id'])));       
+                }    
+            }
+            $fileName = $this->filedoc->fileSize($_FILES,1);
+            $result=$this->filedoc->saveUploadNull($fileName);
+            if($fileName['mark']=='file'){
+                 $data['doc_upload_file_url']=$result[0];
+            }else{
+                 $data['doc_upload_file_url']=$result[1];
+            }
+            $result = $this->filedoc->updateFileDoc($data,$data['doc_id']);
+                if ($result['code'] == 200) {
+                    $this->success($result['status'],U('File/index'));
+                }else {
+                    $this->error($result['status'], U('File/saveFile',array('doc_id'=>$data['doc_id'])));
+                }
+        } 
         $doc_id=I('doc_id');
         $result = $this->filedoc->saveFileDoc($doc_id);
         $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
@@ -164,36 +192,7 @@ class FileController extends AdminController {
         //文档权限设定
         $file_authority = getConfigInfo('doc_pub_authority');
         $this->assign('file_authority', $file_authority);
-        $this->display();        
-        }
-        if(IS_POST){
-            $data = I();
-             if (!empty($data)) {
-                 //判断文件上传都不能为空时的情况
-                if (!empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])) {
-                    $size = $this->filedoc->fileSize($_FILES);
-                    if (!empty($size)) {
-                       $result=$this->filedoc->saveUploadNull('FILE_PUB_DOC','FIP_PUB_DOC');
-                       $data['doc_upload_file_url']=$result[0];
-                       $data['doc_upload_img_url']=$result[1];
-                    }else {
-                        $this->error(C('DOCFILE.SZIE_TYPE'),U('File/saveFile',array('doc_id'=>$data['doc_id'])));
-                    }
-                   //判断文档上传,附件上传为空时的情况
-                }elseif(!empty($_FILES['file']['tmp_name'])&&empty($_FILES['file1']['tmp_name'])){
-                     $data['doc_upload_file_url']=$this->filedoc->saveUploadNull('FILE_DOC','FIP_DOC','file');
-                     //判断附件上传,文档上传为空时的情况   
-                }elseif(empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])){
-                     $data['doc_upload_img_url']=$this->filedoc->saveUploadNull('FILE_COVER','FTP_COVER','file1');     
-                }
-                $result = $this->filedoc->updateFileDoc($data,$data['doc_id']);
-                if ($result['code'] == 200) {
-                    $this->success($result['status'],U('File/index'));
-                }else {
-                    $this->error($result['status'], U('File/saveFile',array('doc_id'=>$data['doc_id'])));
-                }
-            }
-        }       
+        $this->display();
     }
     
     /**

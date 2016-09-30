@@ -98,12 +98,12 @@ class ResidentMeetingModel  extends Model{
     public function saveResident($data,$resident_id){
         $resident_meeting = M('resident_meeting');
         $res = $resident_meeting->where("resident_id =".$resident_id)->save($data);
-       if($res){
+       if(FALSE === $res){
+            writeOperationLog('修改驻“' . $data['resident_region'] . '”发展情况台账', 0);
+            return C('COMMON.ERROR_EDIT');
+        }else{ 
             writeOperationLog('修改驻“' . $data['resident_region'] . '”发展情况台账', 1);
             return C('COMMON.SUCCESS_EDIT');
-        }else{
-             writeOperationLog('修改驻“' . $data['resident_region'] . '”发展情况台账', 0);
-            return C('COMMON.ERROR_EDIT');
         }      
     }
     

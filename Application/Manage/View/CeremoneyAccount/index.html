@@ -19,15 +19,9 @@
                             <div class="text-center">
                                 <input type="hidden" id="flag_search_form" name="flag_search_form" value="{$remember_search['flag_search_form']}"/>
                                 <input class="btn btn-a submit" type="submit" value="查询"/>
-                                <a href="{:U(add)}">
-                                    <input type="button" class="btn btn-a submit" value="创建"/>
-                                </a>
-                                <a href="javascript:;" onclick="makeExcel()" class="tb-detail f-fr mr30">
-                                    <input class="btn btn-r btn-xl button" type="button" value="导出"/>
-                                </a>
-                                <a  href="{:U(importExcel)}" class="tb-detail f-fr mr30">
-                                    <input class="btn btn-r btn-xl button" type="button" value="导入"/>
-                                </a>
+                                <input class="btn btn-a submit" type="button" onclick='add_ca()' value="创建"/>
+                                <input class="btn btn-r btn-xl button" type="button" onclick='makeExcel()' value="导出"/>
+                                <input class="btn btn-r btn-xl button" type="button" onclick='importExcel()' value="导入"/>
                             </div>
                         </td>
                     </tr>
@@ -63,15 +57,9 @@
                         <td>{$item.ca_host}</td>
                         <td>{$item.ca_address}</td> 
                         <td>
-                            <a href="{:U('CeremoneyAccount/detail',array('ca_id'=>$item['ca_id']))}"> 
-                                <input type="button" value="详情" class="btn btn-r btn-xl button">
-                            </a> 
-                            <a href="{:U('CeremoneyAccount/edit',array('ca_id'=>$item['ca_id']))}">
-                                <input type="button" value="编辑" class="btn btn-r btn-xl button">
-                            </a> 
-                            <a href="{:U('CeremoneyAccount/delete',array('ca_id'=>$item['ca_id']))}"> 
-                                <input type="button" value="删除" class="btn btn-r btn-xl button">
-                            </a> 
+                            <input type="button" value="详情" onclick="detail_ca({$item['ca_id']})" class="btn btn-r btn-xl button">
+                            <input type="button" value="编辑" onclick="edit_ca({$item['ca_id']})" class="btn btn-r btn-xl button">
+                            <input type="button" value="删除" onclick="del_ca({$item['ca_id']})" class="btn btn-r btn-xl button">
                         </td>
                     </tr>
                 </foreach>
@@ -83,13 +71,42 @@
         </div>
     </div> 
     <script type="text/javascript">
+        
+        //导入excel
+        function importExcel(){
+            location.href = "{:U('/Manage/CeremoneyAccount/importExcel')}"
+        }
 
         //导出excel
         function makeExcel() {
-
             $("#flag_search_form").val(1);
             $("#search_form").submit();
             $("#flag_search_form").val(0);
+        }
+        
+        //跳转详情页面
+        function add_ca(ca_id){
+            location.href = "{:U('/Manage/CeremoneyAccount/add')}"
+        }
+
+        //跳转详情页面
+        function detail_ca(ca_id){
+            location.href = "{:U('/Manage/CeremoneyAccount/detail/ca_id/" + ca_id + "')}"
+        }
+
+        //跳转编辑页面
+        function edit_ca(ca_id){
+            location.href = "{:U('/Manage/CeremoneyAccount/edit/ca_id/" + ca_id + "')}"
+        }
+
+        //删除会议
+        function del_ca(ca_id) {
+            $.dialog({
+            title: '提示信息', content: '确认删除吗？', ok: function () {
+                location.href = "{:U('/Manage/CeremoneyAccount/delete/ca_id/" + ca_id + "')}";
+            },
+            cancel: function () {}
+            });
         }
     </script> 
 </block>

@@ -32,7 +32,7 @@ class UserController {
             $result = C('USER.ERROR_USERNAME');
             writeOperationLog('“' . $nickname . '”' . $result['status'], 0);
             return $result;
-        }else if($user_info['status'] == 2){
+        } else if ($user_info['status'] == 2) {
             $result = C('USER.DISABLE_USER');
             writeOperationLog('“' . $nickname . '”' . $result['status'], 0);
             return $result;
@@ -61,10 +61,6 @@ class UserController {
         // 编辑后入库
         if ($insert_id && $insert_data) {
             $insert_data['update_time'] = date('Y-m-d H:i:s');
-            //验证nickname唯一  
-            if (!$model->checkNickName(array('nickname' => $insert_data['nickname'], 'uid' => $insert_id))) {
-                return C('USER.NICKNAME_EXISTENCE');
-            }
             //验证手机号
             if (!empty($insert_data['phone']) && !$model->isMobile($insert_data['phone']) && !ctype_space($insert_data['phone'])) {
                 return C('USER.LASK_PARAMTER');
@@ -85,8 +81,12 @@ class UserController {
             $insert_data['role_id'] = 1;
             $insert_data['status'] = 1;
             $insert_data['password'] = md5(md5(C('local_pwd')));
+            //验证nickname唯一
+            if (!$model->checkNickName(array('nickname' => $insert_data['nickname'], 'uid' => $insert_id))) {
+                return C('USER.NICKNAME_EXISTENCE');
+            }
             //验证手机号
-            if (!empty($insert_data['phone']) && !$model->isMobile($insert_data['phone'])&& !ctype_space($insert_data['phone'])) {
+            if (!empty($insert_data['phone']) && !$model->isMobile($insert_data['phone']) && !ctype_space($insert_data['phone'])) {
                 return C('USER.LASK_PARAMTER');
             }
             if (!$model->create($insert_data)) {

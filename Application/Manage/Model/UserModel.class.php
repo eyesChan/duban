@@ -76,11 +76,11 @@ class UserModel extends Model {
     public function checkNickName($data) {
         if ($data['uid']) {
             $where['nickname'] = $data['nickname'];
-            $where['uid'] = array('NEQ',$data['uid']);
+            $where['uid'] = array('NEQ', $data['uid']);
         } else {
             $where['nickname'] = $data['nickname'];
         }
-        $where['status'] = array('LT',3);
+        $where['status'] = array('LT', 3);
         $info = D('member')->where($where)->find();
         if (empty($info)) {
             return true;
@@ -118,7 +118,7 @@ class UserModel extends Model {
         if ($id) {
             return $id;
         }
-        if(empty($data)){
+        if (empty($data)) {
             return true;
         }
         return false;
@@ -134,13 +134,13 @@ class UserModel extends Model {
         $model = new UserModel();
         $del_id = $data;
         $uid_now = session('S_USER_INFO.UID');
-        $uid_info = explode( ',',$del_id);
-        if(in_array($uid_now,$uid_info)){
+        $uid_info = explode(',', $del_id);
+        if (in_array($uid_now, $uid_info)) {
             return C('USER.USER_ERROR');
         }
         $model->startTrans();
-        $where = array('uid'=>array('in',$del_id));
-        $mem_id = $model->where($where)->save(array('status'=>3));;
+        $where = array('uid' => array('in', $del_id));
+        $mem_id = $model->where($where)->save(array('status' => 3));
         //判断用户时候以分配角色
         $selec_data = D('auth_group_access')
                 ->where(array('uid' => array('in', $del_id)))
@@ -209,7 +209,7 @@ class UserModel extends Model {
                 ->join('__AUTH_GROUP_ACCESS__ A ON M.uid = A.uid')
                 ->join('__AUTH_GROUP__ G ON A.group_id = G.id')
                 ->field('M.uid,G.id,G.title,G.describe,M.nickname')
-                ->where(array('M.uid' => array('in', $data),'G.status'=>1))
+                ->where(array('M.uid' => array('in', $data), 'G.status' => 1))
                 ->order('M.uid desc')
                 ->select();
         return $role_info;
@@ -236,19 +236,18 @@ class UserModel extends Model {
      * @return $list  搜索结果
      */
     public function getData($first_rows, $list_rows, $data = '') {
-        $where['status'] = array('LT',3);
+        $where['status'] = array('LT', 3);
         if (!empty($data)) {
             if (0 != $data['status'])
                 $where['status'] = $data['status'];
             if (0 != $data['department_id'])
-            $where['department_id'] = $data['department_id'];
+                $where['department_id'] = $data['department_id'];
             if (!empty($data['name']))
-            $where['name'] = array('like',"%$data[name]%");
-            if (!empty($data['nickname']) || $data['nickname'] == 0){
+                $where['name'] = array('like', "%$data[name]%");
+            if (!empty($data['nickname']) || $data['nickname'] == 0) {
                 $data['nickname'] = str_replace("_", "\_", $data['nickname']);
-                $where['nickname'] = array('like',"%$data[nickname]%");
+                $where['nickname'] = array('like', "%$data[nickname]%");
             }
-                
         }
         $user = \D('Member');
         $list = $user->alias('M')
@@ -257,7 +256,6 @@ class UserModel extends Model {
                 ->order('M.uid desc')
                 ->select();
         return $list;
-        
     }
 
     /**
@@ -268,17 +266,17 @@ class UserModel extends Model {
      */
     public function count($data) {
         $where = array();
-            if (0 != $data['status'])
-                $where['status'] = $data[status];
-            if (0 != $data['department_id'])
-                $where['department_id'] = $data[department_id];
-            if (!empty($data['name']))
-                $where['nickname'] = array('like',"%$data[name]%");
-            if (!empty($data['nickname'])  || $data['nickname'] == 0){
-                $data['nickname'] = str_replace("_", "\_", $data['nickname']);
-                $where['nickname'] = array('like',"%$data[nickname]%");
-            }
-            $where['status'] = array('LT',3);
+        if (0 != $data['status'])
+            $where['status'] = $data[status];
+        if (0 != $data['department_id'])
+            $where['department_id'] = $data[department_id];
+        if (!empty($data['name']))
+            $where['nickname'] = array('like', "%$data[name]%");
+        if (!empty($data['nickname']) || $data['nickname'] == 0) {
+            $data['nickname'] = str_replace("_", "\_", $data['nickname']);
+            $where['nickname'] = array('like', "%$data[nickname]%");
+        }
+        $where['status'] = array('LT', 3);
         $user = \D('Member');
         $list = $user->alias('M')
                 ->where($where)
@@ -293,7 +291,7 @@ class UserModel extends Model {
      */
     public function getGroup() {
         $model = M('auth_group');
-        $list = $model->where(array('status'=>1))->order('id desc')->select();
+        $list = $model->where(array('status' => 1))->order('id desc')->select();
         return $list;
     }
 

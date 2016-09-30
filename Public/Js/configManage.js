@@ -69,7 +69,7 @@ function changeStatus(config_id, config_status) {
 //单条删除
 function singleDel(config_id) {
     $.dialog({
-        title: '提示信息', content: '确认删除该系统消息吗？', ok: function () {
+        title: '提示信息', content: '确认删除系统参数吗？', ok: function () {
             $.ajax({
                 url: "/Manage/configManage/delete/config_id/" + config_id,
                 dataType: "json",

@@ -62,10 +62,10 @@
                                 <td>{$item.db_draft_person}</td>
                                 <td>{$item.db_despatch_date}</td> 
                                 <td>
-                                    <a href="{:U('detailsPresent?db_pre_id='.$item['db_pre_id'])}"> 
+                                    <a href="{:U('detailsPresent',array('db_pre_id'=>$item['db_pre_id']))}"> 
                                         <input type="button" value="详情" class="btn btn-r btn-xl button">
                                     </a> 
-                                    <a href="{:U('savePresent?db_pre_id='.$item['db_pre_id'])}"> 
+                                    <a href="{:U('savePresent',array('db_pre_id'=>$item['db_pre_id']))}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 
                                    

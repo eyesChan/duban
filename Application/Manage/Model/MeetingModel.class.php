@@ -663,7 +663,7 @@ class MeetingModel extends Model {
                 if ($val[28] == '处理中') {
                     $site_state = 3;
                 }
-                $info['meeting_site_state'] = $fix_state;
+                $info['meeting_site_state'] = $site_state;
             }
             //会议摄影摄像
             if (!empty($val[29])) {

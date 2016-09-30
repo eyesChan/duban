@@ -71,24 +71,36 @@ class FileModel  extends Model{
     /*
      * 对文件大小及类型进行判断
      * @ahthor huanggang
+     * @param $mark  标示文件是否都为空,0为都不能为空 1为任意一个为空, 
      * @Date    2016/09/22
      * @return object 返回true或false
      */
 
-    public function fileSize($size) {
-        if ($size['file']['size'] <= C('FILE_DOC.FILE_SIZE') && $size['file']['size'] <= C('FTP_COVER.FILE_SIZE')) {
-            $doc_upload_file = end(explode('.', $size['file']['name']));
-            $doc_upload_img = end(explode('.', $size['file1']['name']));
-            if (in_array($doc_upload_file, C('FILE_DOC.ALLOW_FILE')) && in_array($doc_upload_img, C('FILE_COVER.ALLOW_FILE'))) {
+    public function fileSize($size,$mark) {
+        if($mark==0){
+            if ($size['file']['size'] <= C('FILE_DOC.FILE_SIZE') && $size['file']['size'] <= C('FTP_COVER.FILE_SIZE')) {
+                $doc_upload_file = end(explode('.', $size['file']['name']));
+                $doc_upload_img = end(explode('.', $size['file1']['name']));
+                if (in_array($doc_upload_file, C('FILE_DOC.ALLOW_FILE')) && in_array($doc_upload_img, C('FILE_COVER.ALLOW_FILE'))) {
                 writeOperationLog('上传文件成功',1);
                 return true;
-            } else {
-                writeOperationLog('上传文件失败',0);
-                return false;
+                }
             }
-        } else {
             writeOperationLog('上传文件失败',0);
             return false;
+        }else{
+            if(!empty($size['file']['tmp_name'])){
+                $data['file_type']='FILE_DOC';
+                $data['ftp_type']='FIP_DOC';
+                $data['mark']='file';
+                return $data;
+            }
+            if(!empty($size['file1']['tmp_name'])){
+                $data['file_type']='FILE_COVER';
+                $data['ftp_type']='FTP_COVER';
+                $data['mark']='file1';
+                return $data;
+            }
         }
     }
     /*
@@ -100,8 +112,8 @@ class FileModel  extends Model{
      */
     public function getFileDocCount($where) {
         $count = M('doc')
-                ->join('db_member on db_doc.doc_pub_person = db_member.uid')
-                ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+                ->join('__MEMBER__ on db_doc.doc_pub_person = __MEMBER__.uid')
+                ->join('__CONFIG_SYSTEM__ on db_doc.doc_pub_type = __CONFIG_SYSTEM__.config_id')
                 ->where($where)
                 ->count();
         return $count;
@@ -118,8 +130,8 @@ class FileModel  extends Model{
     public function getList($where, $first_rows, $list_rows) {
       $docfile = M('doc');
       $list = $docfile
-              ->join('db_member on db_doc.doc_pub_person = db_member.uid')
-              ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+              ->join('__MEMBER__ on db_doc.doc_pub_person = __MEMBER__.uid')
+              ->join('__CONFIG_SYSTEM__ on db_doc.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where($where) 
               ->limit($first_rows, $list_rows)
               ->order('doc_id desc')
@@ -157,43 +169,50 @@ class FileModel  extends Model{
     public function saveFileDoc($doc_id){
         $docfile = M('doc');
         $list = $docfile
-              ->join('db_member on db_doc.doc_pub_person = db_member.uid')
-              ->join('db_config_system on db_doc.doc_pub_type = db_config_system.config_id')
+              ->join('__MEMBER__ on db_doc.doc_pub_person = __MEMBER__.uid')
+              ->join('__CONFIG_SYSTEM__ on db_doc.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where('doc_id='.$doc_id)       
               ->find();
+            $config_info = C();
+            if ($config_info['OPEN_FTP'] == 1) {
+                $url = C('FTP_VISIT_PATH');
+            } else {
+                $url = C('FILE_VISIT_PATH');
+            }
+            $list['doc_upload_file_url'] = $url . $list['doc_upload_file_url'];
+            $list['doc_upload_img_url'] = $url . $list['doc_upload_img_url'];
         return $list;
     }
     /*
      * 编辑文件,对文件进行判断上传
      * @Date    2016/09/27
      * @author huanggang
-     * @param $file_info 普通上传的数据
-     * @param $ftp_info ftp上传 的数据
+     * @param arrary $param 上传的数据
      * @param $mark 上传的标示
      * @return array $data 返回文件存储路径的数据
      * 
      */
-    public function saveUploadNull($file_info,$ftp_info,$mark){
+    public function saveUploadNull($param){
         $upload_obj = new MeetingUplod();
         $config_info = C();
         //判断上传方式
         if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
-            $file_config = $config_info[$ftp_info];
+            $file_config = $config_info[$param['ftp_type']];
             $result = $upload_obj->ftpUpload($file_config);
-            if(count($result)==2){
+            if($param['mark']==0){
                 $data[] = $result['file']['path'];
                 $data[] = $result['file1']['path'];
             }else{
-                $data=$result[$mark]['path'];
+                $data=$result[$param['mark']]['path'];
             }
         } else { //普通上传
-            $file_config = $config_info[$file_info];
+            $file_config = $config_info[$param['file_type']];
             $result = $upload_obj->normalUpload($file_config);
-            if(count($result['info'])==2){
-                $data[] = $result['info']['file']['savepath'] . $result['info']['file']['savename'];
-                $data[] = $result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
+            if($param['mark']==0){
+                $data[] = $result['rootPath'].$result['info']['file']['savepath'] . $result['info']['file']['savename'];
+                $data[] = $result['rootPath'].$result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
             }else{
-                $data=$result['info'][$mark]['savepath'] . $result['info'][$mark]['savename'];;
+                $data=$result['rootPath'].$result['info'][$param['mark']]['savepath'] . $result['info'][$param['mark']]['savename'];;
             }
         }
         
@@ -210,12 +229,12 @@ class FileModel  extends Model{
     public function updateFileDoc($data,$doc_id){
         $docfile = M('doc');
         $res = $docfile->where("doc_id =".$doc_id)->save($data);
-        if($res){
-            writeOperationLog('编辑' . $data['doc_name'] . '”文档', 1);
-            return C('COMMON.SUCCESS_EDIT');
-        }else{
+        if(FALSE === $res){
             writeOperationLog('编辑' . $data['doc_name'] . '”文档', 0);
             return C('COMMON.ERROR_EDIT');
+        }else{
+            writeOperationLog('编辑' . $data['doc_name'] . '”文档', 1);
+            return C('COMMON.SUCCESS_EDIT');
         } 
     }
     

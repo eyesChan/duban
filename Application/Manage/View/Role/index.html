@@ -43,41 +43,39 @@
                         <tr class="role-row">
                             <td class="role-row-td">
                                 <in name="v['id']" value="$admin">
-
-                                <input  type="checkbox" name="childrenBox[]" class="singleSelect">{$key +1}
-                        <else />
-                        <label class="checkbox-normal diy-checkbox-normal checkbox-default  diy-checkbox" for="singleSelect{$v['id']}"></label>
-                         <input id="singleSelect{$v['id']}" type="checkbox" value="{$v['id']}" name="childrenBox[]" class="singleSelect">{$key +1}
-                        </in>
-
-                        </td>
-                        <td style="line-height: 20px;" class="role-row-td">{$v.title}</td>
-                        <td style="line-height: 20px;" class="role-row-td">{$v.describe}</td>
-                        <in name="v['id']" value="$admin">
-                        <td class="role-row-td"></td>
-                        <else />
-                        <td class="role-row-td">
-                            <a class="btn btn-c btn-xl button mr5" href="{:U('Role/authorizeRole',array('id'=>$v['id'],'p'=>$p))}">角色授权</a>
-                            <a class="btn btn-c btn-xl button  mr5" href="{:U('Role/edit',array('id'=>$v['id'],'p'=>$p))}">编辑</a>
-                            <a onclick='singleDel({$v['id']})'  class="btn btn-c btn-xl button" >删除</a>
-                                </td>
+                                    <input  type="checkbox" name="childrenBox[]" class="singleSelect">{$key +1}
+                                <else />
+                                    <label class="checkbox-normal diy-checkbox-normal checkbox-default  diy-checkbox" for="singleSelect{$v['id']}"></label>
+                                    <input id="singleSelect{$v['id']}" type="checkbox" value="{$v['id']}" name="childrenBox[]" class="singleSelect">{$key +1}
                                 </in>
-                                </tr>
-                                </foreach>
-                                </tbody>
-                                </table>
-                                </div>
-                                </form>
-                                <div class="batch-operate fl">
-                                    批量操作
-                                    <a href="javascript:javascipt:;" onclick="roleDelAll()" class="user-batch-del batch-del">
-                                        <img src="__PUBLIC__/images/batch_del.png" alt=""/>删除</a>
-                                </div>
-                                <div class="pagination fr">
-                                    {$page}
-                                </div>
-                                </div>
-                                </div>
-                                <js href="__PUBLIC__/Js/baseOperate.js" />
-                                <js href="__PUBLIC__/Js/roleManage.js" />
-                                </block>
+                            </td>
+                            <td style="line-height: 20px;" class="role-row-td">{$v.title}</td>
+                            <td style="line-height: 20px;" class="role-row-td">{$v.describe}</td>
+                            <in name="v['id']" value="$admin">
+                                <td class="role-row-td"></td>
+                            <else />
+                                <td class="role-row-td">
+                                    <a class="btn btn-c btn-xl button mr5" href="{:U('Role/authorizeRole',array('id'=>$v['id'],'p'=>$p))}">角色授权</a>
+                                    <a class="btn btn-c btn-xl button  mr5" href="{:U('Role/edit',array('id'=>$v['id'],'p'=>$p))}">编辑</a>
+                                    <a onclick='singleDel({$v['id']})'  class="btn btn-c btn-xl button" >删除</a>
+                                </td>
+                            </in>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        <div class="batch-operate fl">
+            批量操作
+            <a href="javascript:javascipt:;" onclick="roleDelAll()" class="user-batch-del batch-del">
+                <img src="__PUBLIC__/images/batch_del.png" alt=""/>删除</a>
+        </div>
+        <div class="pagination fr">
+            {$page}
+        </div>
+    </div>
+</div>
+<js href="__PUBLIC__/Js/baseOperate.js" />
+<js href="__PUBLIC__/Js/roleManage.js" />
+</block>

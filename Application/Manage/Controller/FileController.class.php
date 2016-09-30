@@ -148,7 +148,11 @@ class FileController extends AdminController {
         if(IS_GET){
         $doc_id=I('doc_id');
         $result = $this->filedoc->saveFileDoc($doc_id);
+        //P($result);die;
+        $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
+        $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_url'])['filename'];
         $this->assign('list', $result);
+        $this->assign('file_info', $file_info);
          //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');
         $this->assign('file_type', $file_type);
@@ -171,6 +175,7 @@ class FileController extends AdminController {
                     $size = $this->filedoc->fileSize($_FILES);
                     if (!empty($size)) {
                        $result=$this->filedoc->saveUploadNull('FILE_PUB_DOC','FIP_PUB_DOC');
+                       P($result);die;
                        $data['doc_upload_file_url']=$result[0];
                        $data['doc_upload_img_url']=$result[1];
                     }else {
@@ -179,7 +184,7 @@ class FileController extends AdminController {
                    //判断文档上传,附件上传为空时的情况
                 }elseif(!empty($_FILES['file']['tmp_name'])&&empty($_FILES['file1']['tmp_name'])){
                      $data['doc_upload_file_url']=$this->filedoc->saveUploadNull('FILE_DOC','FIP_DOC','file');
-                  //判断附件上传,文档上传为空时的情况   
+                     //判断附件上传,文档上传为空时的情况   
                 }elseif(empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])){
                      $data['doc_upload_img_url']=$this->filedoc->saveUploadNull('FILE_COVER','FTP_COVER','file1');     
                 }

@@ -89,23 +89,9 @@ class FileController extends AdminController {
             if (!empty($_FILES)) {
                 $size = $this->filedoc->fileSize($_FILES);
                 if (!empty($size)) {
-                    $upload_obj = new MeetingUplod();
-                    $config_info = C();
-                    //判断上传方式
-                    if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
-                        $file_config = $config_info['FIP_PUB_DOC'];
-                        $result = $upload_obj->ftpUpload($file_config);
-                        $data['doc_upload_file_url'] = $result['file']['path'];
-                        $data['doc_upload_img_url'] = $result['file1']['path'];
-                    } else { //普通上传
-                        $file_config = $config_info['FILE_PUB_DOC'];
-                        $result = $upload_obj->normalUpload($file_config);
-                        $data['doc_upload_file_url'] = $result['info']['file']['savepath'] . $result['info']['file']['savename'];
-                        $data['doc_upload_img_url'] = $result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
-                    }
-                    if ($result['code'] == 100) {
-                        $this->error($result['status'],U('File/index'));
-                    }
+                    $result=$this->filedoc->saveUploadNull('FILE_PUB_DOC','FIP_PUB_DOC');
+                    $data['doc_upload_file_url']=$result[0];
+                    $data['doc_upload_img_url']=$result[1];
                     $result = $this->filedoc->addFile($data);
                     if ($result['code'] == 200) {
                         $this->success($result['status'], U('File/index'));
@@ -180,33 +166,28 @@ class FileController extends AdminController {
         if(IS_POST){
             $data = I();
              if (!empty($data)) {
-                if (!empty($_FILES)) {
+                 //判断文件上传都不能为空时的情况
+                if (!empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])) {
                     $size = $this->filedoc->fileSize($_FILES);
                     if (!empty($size)) {
-                        $upload_obj = new MeetingUplod();
-                        $config_info = C();
-                        //判断上传方式
-                        if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
-                            $file_config = $config_info['FTP_DOC'];
-                            $result = $upload_obj->ftpUpload($file_config);
-                        } else { //普通上传
-                            $file_config = $config_info['FILE_DOC'];
-                            $result = $upload_obj->normalUpload($file_config);
-                        }
-                        $data['doc_upload_file_url'] = $result['info']['file']['savepath'] . $result['info']['file']['savename'];
-                        $data['doc_upload_img_url'] = $result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
-                        if ($result['code'] == 100) {
-                            $this->error($result['status'],U('File/index'));
-                        }
-                        $result = $this->filedoc->updateFileDoc($data,$data['doc_id']);
-                        if ($result['code'] == 200) {
-                            $this->success($result['status'],U('File/index'));
-                        }else {
-                            $this->success($result['status'], U('File/saveFile?doc_id='.$data['doc_id']));
-                        }
+                       $result=$this->filedoc->saveUploadNull('FILE_PUB_DOC','FIP_PUB_DOC');
+                       $data['doc_upload_file_url']=$result[0];
+                       $data['doc_upload_img_url']=$result[1];
                     }else {
                         $this->error(C('DOCFILE.SZIE_TYPE'), U('File/saveFile?doc_id='.$data['doc_id']));
                     }
+                   //判断文档上传,附件上传为空时的情况
+                }elseif(!empty($_FILES['file']['tmp_name'])&&empty($_FILES['file1']['tmp_name'])){
+                     $data['doc_upload_file_url']=$this->filedoc->saveUploadNull('FILE_DOC','FIP_DOC','file');
+                  //判断附件上传,文档上传为空时的情况   
+                }elseif(empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])){
+                     $data['doc_upload_img_url']=$this->filedoc->saveUploadNull('FILE_COVER','FTP_COVER','file1');     
+                }
+                $result = $this->filedoc->updateFileDoc($data,$data['doc_id']);
+                if ($result['code'] == 200) {
+                    $this->success($result['status'],U('File/index'));
+                }else {
+                    $this->error($result['status'], U('File/saveFile?doc_id='.$data['doc_id']));
                 }
             }
         }       

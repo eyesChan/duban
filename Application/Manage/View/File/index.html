@@ -102,7 +102,7 @@
         function withdraw(id) {
             $.dialog({
                 title: '提示信息', content: '确认撤回吗？', ok: function () {
-                    location.href = "delFile/doc_id/" + id;
+                     location.href = '{:U("/Manage/File/delFile/doc_id/' + id + '")}';
                 },
                 cancel: function () {
                 }

@@ -25,7 +25,7 @@
 	    <div class="tb1 jxssp">
 	        <table class="tbl tbl-list">
 	            <caption>工作单列表 
-                        <a class="tb-detail f-fr mr30" title="创建工作单" href="{:U('add')}">
+                        <a class="tb-detail f-fr mr30" title="创建工作单" href="{:U('WorkOrder/add')}">
                                     <input type="button" class="btn btn-c btn-xl button" value="创建工作单">
                                 </a> <a class="tb-detail f-fr mr30" title="工作单导出">
                                     <input type="button" value="工作单导出" id="btn_query" class="btn btn-a submit" onclick="obtain()" />
@@ -64,13 +64,13 @@
                             <td>{$item.worksheet_state}</td>
                             <td>{$item.worksheet_done_persent}</td>
                             <td>
-                                <a class="" title="查看" href="{:U('details?id='.$item['worksheet_id'])}">
+                                <a class="" title="查看" href="{:U('WorkOrder/details',array('id'=>$item['worksheet_id']))}">
                                     <input type="button" class="btn btn-c btn-xl button" value="查看">
                                 </a>
-                                <a class="" title="编辑" href="{:U('save?id='.$item['worksheet_id'])}">
+                                <a class="" title="编辑" href="{:U('WorkOrder/save',array('id'=>$item['worksheet_id']))}">
                                     <input type="button" class="btn btn-c btn-xl button" value="编辑">
                                 </a>
-                                <a class="" title="督办" href="{:U('sendEmail?id='.$item['worksheet_id'])}">
+                                <a class="" title="督办" href="{:U('WorkOrder/sendEmail',array('id'=>$item['worksheet_id']))}">
                                     <input type="button" class="btn btn-c btn-xl button" value="督办" id="pushemail">
                                 </a>
                             </td>

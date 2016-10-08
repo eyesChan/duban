@@ -62,10 +62,10 @@
                                 <td>{$item.db_draft_person}</td>
                                 <td>{$item.db_despatch_date}</td> 
                                 <td>
-                                    <a href="{:U('detailsPresent?db_pre_id='.$item['db_pre_id'])}"> 
+                                    <a href="{:U('detailsPresent',array('db_pre_id'=>$item['db_pre_id']))}"> 
                                         <input type="button" value="详情" class="btn btn-r btn-xl button">
                                     </a> 
-                                    <a href="{:U('savePresent?db_pre_id='.$item['db_pre_id'])}"> 
+                                    <a href="{:U('savePresent',array('db_pre_id'=>$item['db_pre_id']))}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 
                                    
@@ -83,7 +83,13 @@
         </div> 
     <js href="__PUBLIC__/Js/presentation.js"/>
     <script>
-    
+        //创建
+         var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="文稿台账创建"/>';
+            $(rightBtn).appendTo(".location");
+            function openNew(){
+            location.href = "{:U('addPresent')}";
+                
+        }
          //删除操作
         function withdraw(id) {
             $.dialog({

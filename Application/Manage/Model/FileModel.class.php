@@ -266,10 +266,9 @@ class FileModel  extends Model{
    * @return 返回查询的数据
    */
     public function  getRootView($config_id){
-         $work = M('config_system')
-              ->field('config_descripion')
+        $work = M('config_system')
               ->where("config_id = $config_id")
-              ->find();   
-        return $work['config_descripion'];
+              ->getField('config_descripion');   
+        return $work;
     }
 }

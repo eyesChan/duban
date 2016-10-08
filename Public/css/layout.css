@@ -113,7 +113,7 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
 .tbl-list tr.tb-cap:hover td {background: #f5f7f7 url(../images/bg-caption.jpg) no-repeat;}
 .tbl-list .text-ar{text-align: right;}
 .tbl-list .text-al{text-align: left;}
-.container-padding .from-table{border: 1px solid #ededed;}
+.container-padding .form-table{border: 1px solid #ededed;}
 /* position  */
 .none{display:none;}
 .text-center{text-align:center;}

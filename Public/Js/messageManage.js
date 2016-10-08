@@ -10,8 +10,19 @@ $("#add-btn").on("click", function () {
     var msg_sys_endtime = $(".end-time").val();
     //内容
     var msg_sys_content = UE.getEditor('CONTENT').getContent();
-
-    if (!$(".error-message").hasClass("show")) {
+    if($.trim(msg_sys_title)==""){
+        $.dialog.alert("请填写公告标题！");
+        return false;
+    }else if($.trim(msg_sys_starttime) == ""){
+        $.dialog.alert("请填写开始时间！");
+        return false;   
+    }else if($.trim(msg_sys_starttime) == ""){
+        $.dialog.alert("请填写结束时间！");
+        return false;   
+    }else if($.trim(msg_sys_content) == ""){
+        $.dialog.alert("请填写公告内容！");
+        return false;   
+    } else {
         $.ajax({
             url: "/Manage/MessageManage/add",
             data: {
@@ -49,7 +60,19 @@ $("#edit-btn").on("click", function () {
     //当前系统消息ID
     var msg_sys_id = $(".edit-id").val();
 
-    if (!$(".error-message").hasClass("show")) {
+    if($.trim(msg_sys_title)==""){
+        $.dialog.alert("请填写公告标题！");
+        return false;
+    }else if($.trim(msg_sys_starttime) == ""){
+        $.dialog.alert("请填写开始时间！");
+        return false;   
+    }else if($.trim(msg_sys_starttime) == ""){
+        $.dialog.alert("请填写结束时间！");
+        return false;   
+    }else if($.trim(msg_sys_content) == ""){
+        $.dialog.alert("请填写公告内容！");
+        return false;   
+    } else {
         $.ajax({
             url: "/Manage/MessageManage/edit",
             data: {

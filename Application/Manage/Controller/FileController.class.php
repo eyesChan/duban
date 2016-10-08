@@ -114,6 +114,8 @@ class FileController extends AdminController {
                     }
         return true;
         }
+        }
+        }
         //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');
         $this->assign('file_type', $file_type);
@@ -127,8 +129,7 @@ class FileController extends AdminController {
         $file_authority = getConfigInfo('doc_pub_authority');
         $this->assign('file_authority', $file_authority);
         $this->display();
-    }
-        }
+    
     }
     /**
      * 文档撤回

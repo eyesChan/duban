@@ -76,7 +76,7 @@ class FileController extends AdminController {
         $this->display();
     }
 
-   /**
+    /**
      * 文档添加
      * @author huang gang
      * @date 2016/09/22
@@ -100,15 +100,16 @@ class FileController extends AdminController {
                         $this->success($result['status'], U('File/index'));
                     } else {
                         $this->error($result['status'], U('File/addFile'));
-                    } 
-                }else{
+                    }
+                    return true;
+                } else {
                     $this->error(C('DOCFILE.SZIE_TYPE'), U('File/addFile'));
                 }
             }else{
                  $this->error(C('DOCFILE.FILE_DOC'), U('File/addFile'));
             }
-        return true;
         }
+
         //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');
         $this->assign('file_type', $file_type);
@@ -123,6 +124,7 @@ class FileController extends AdminController {
         $this->assign('file_authority', $file_authority);
         $this->display();
     }
+
     /**
      * 文档撤回
      * @author huang gang
@@ -167,9 +169,9 @@ class FileController extends AdminController {
             $fileName = $this->filedoc->fileSize($_FILES,1);
             $result=$this->filedoc->saveUploadNull($fileName);
             if($fileName['mark']=='file'){
-                $data['doc_upload_file_url']=$result[0];
+                 $data['doc_upload_file_url']=$result[0];
             }else{
-                $data['doc_upload_file_url']=$result[1];
+                 $data['doc_upload_file_url']=$result[1];
             }
             $result = $this->filedoc->updateFileDoc($data,$data['doc_id']);
                 if ($result['code'] == 200) {
@@ -177,11 +179,14 @@ class FileController extends AdminController {
                 }else {
                     $this->error($result['status'], U('File/saveFile',array('doc_id'=>$data['doc_id'])));
                 }
-            return true;
+                return true;
         } 
         $doc_id=I('doc_id');
         $result = $this->filedoc->saveFileDoc($doc_id);
+        $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
+        $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_url'])['filename'];
         $this->assign('list', $result);
+        $this->assign('file_info', $file_info);
          //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');
         $this->assign('file_type', $file_type);
@@ -194,7 +199,7 @@ class FileController extends AdminController {
         //文档权限设定
         $file_authority = getConfigInfo('doc_pub_authority');
         $this->assign('file_authority', $file_authority);
-        $this->display();        
+        $this->display();
     }
     
     /**
@@ -219,7 +224,7 @@ class FileController extends AdminController {
                         '权限设定',
                         '备注'
                 );
-        getExcel($headArr, $work);
+            getExcel($headArr, $work);
    
     }
 }

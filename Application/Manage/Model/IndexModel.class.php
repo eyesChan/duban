@@ -41,6 +41,8 @@ class IndexModel extends Model {
         $list['worksheet']['num_guaqi'] = $this->getNumWorksheet(self::$FLAG_WORKSHEET_GUAQI);//挂起状态的工作单数量
         $list['worksheet']['num_feiqi'] = $this->getNumWorksheet(self::$FLAG_WORKSHEET_FEIQI);//废弃状态的工作单数量
         
+        $list['account'] = $this->getNumAccount();
+        
         return $list;
     }
 
@@ -112,6 +114,21 @@ class IndexModel extends Model {
         $count = $mod_doc->where($where)->count();
         return $count;
     }
+    
+    //台账相关数量计算
+    public function getNumAccount(){
         
-
+        $mod_ceremoney_account = M('ceremoney_account');//签约仪式台账
+        $mod_internal_meeting = M('internalmeeting');//内部会议台账
+        $mod_ledger_meeting = M('led_meeting');//会谈会见台账
+        $mod_presentation = M('led_presentation');//文稿台账
+        $mod_resident_meeting = M('resident_meeting');//驻各地发展情况台账
+        
+        $count['ledger_meeting'] = $mod_ledger_meeting->where("led_status = 1")->count();
+        $count['presentation'] = $mod_presentation->where("pre_status = 0")->count();
+        
+        return $count;
+    }
+        
+    
 }

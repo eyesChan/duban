@@ -47,13 +47,13 @@
         </table>
         <table class="tbl">
             <tr>
-                <td colspan='4'>公文发布文件设定</td>
+                <td colspan='6'>公文发布文件设定</td>
                 
             </tr>
             
              <tr>
                  <td class="cap">文档可见范围：</td>
-                <td >
+                <td colspan='2'>
                     <select name='doc_root_view'>
                         <foreach item='item' name='file_range'>
                             <option  <if condition="$list['doc_root_view'] eq $item['config_value'] "> selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
@@ -61,7 +61,7 @@
                     </select>
                 </td>
                <td class="cap">浏览权限设定：</td>
-                <td>
+                <td colspan='2'>
                     <select name='doc_root_do'>
                         <foreach item='item' name='file_authority'>
                             <option <if condition="$list['doc_root_do'] eq $item['config_value'] "> selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
@@ -72,31 +72,39 @@
         </table>
         <table class="tbl">
             <tr>
-                <td colspan='2'>附件上传</td>
+                <td colspan='6'>附件上传</td>
             </tr>
             
              <tr>
                  <td class="cap">上传文档：</td>
-                <td colspan='2'>
-                    <input type="file" name='file' > 文档大小不能超过20M
+                <td colspan='5'>
+                    <input type="file" name='file' >
+                     <if condition="$list.doc_upload_file_url ">
+                        <a href="{$list.doc_upload_file_url}">{$list.doc_upload_file_name}</a>
+                    </if>
+             <span style="color:red">文档大小不能超过20M</soan>
                 </td>
              </tr>
         </table>
         <table class="tbl">
             <tr>
-                <td colspan='2'>附件封面上传</td>
+                <td colspan='6'>附件封面上传</td>
             </tr>
              <tr>
                <td class="cap">上传图片：</td>
-                <td colspan='2'>
-                   <input type="file" name='file1' >图片支持JPG、大小不能超过0.5M
+                <td colspan='5'>
+                   <input type="file" name='file1' >
+                    <if condition="$list.doc_upload_img_url ">
+                        <a href="{$list.doc_upload_img_url}">{$list.doc_upload_img_name}</a>
+                    </if>
+             <span style="color:red" >图片支持JPG、大小不能超过0.5M</soan>
                 </td>
             </tr>
         </table>
          <table class="tbl">
              <tr>
                <td class="cap">文档备注：</td>
-                <td>
+                <td colspan='5' >
                  <textarea class="textarea" name="doc_beizhu">{$list.doc_beizhu}</textarea>
                 </td>
             </tr>
@@ -106,7 +114,11 @@
         <div class="text-center">
 
 	        <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
+<<<<<<< HEAD
 	        <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
+=======
+	       <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>  
+>>>>>>> b73f89a41e0c00b7454190ad57b7c9928d5690cf
     	</div>
     </form>
 </block>

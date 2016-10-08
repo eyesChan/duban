@@ -101,15 +101,15 @@ class FileController extends AdminController {
                     } else {
                         $this->error($result['status'], U('File/addFile'));
                     }
-                    return true;
-                } else {
+                    
+                }else{
                     $this->error(C('DOCFILE.SZIE_TYPE'), U('File/addFile'));
                 }
             }else{
                  $this->error(C('DOCFILE.FILE_DOC'), U('File/addFile'));
             }
+        return true;
         }
-
         //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');
         $this->assign('file_type', $file_type);
@@ -169,9 +169,9 @@ class FileController extends AdminController {
             $fileName = $this->filedoc->fileSize($_FILES,1);
             $result=$this->filedoc->saveUploadNull($fileName);
             if($fileName['mark']=='file'){
-                 $data['doc_upload_file_url']=$result[0];
+                $data['doc_upload_file_url']=$result[0];
             }else{
-                 $data['doc_upload_file_url']=$result[1];
+                $data['doc_upload_file_url']=$result[1];
             }
             $result = $this->filedoc->updateFileDoc($data,$data['doc_id']);
                 if ($result['code'] == 200) {
@@ -179,7 +179,7 @@ class FileController extends AdminController {
                 }else {
                     $this->error($result['status'], U('File/saveFile',array('doc_id'=>$data['doc_id'])));
                 }
-                return true;
+            return true;
         } 
         $doc_id=I('doc_id');
         $result = $this->filedoc->saveFileDoc($doc_id);
@@ -224,7 +224,7 @@ class FileController extends AdminController {
                         '权限设定',
                         '备注'
                 );
-            getExcel($headArr, $work);
+        getExcel($headArr, $work);
    
     }
 }

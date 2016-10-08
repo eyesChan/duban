@@ -61,7 +61,6 @@ class ResidentMeetingController extends AdminController {
         $this->assign('list', $list);
         $this->assign('page', $show);
         $this->assign('param', $param);
-       
         $this->display();
     }
     
@@ -72,15 +71,16 @@ class ResidentMeetingController extends AdminController {
      * @return 跳转页面 Description
      */
     public function addResident() {
-         $data = I();
-         if(!empty($data)){
-             $result = $this->resident->addResident($data);
-              if ($result['code'] == 200) {
-                    $this->success($result['status'], U('ResidentMeeting/index'));
-                } else {
-                    $this->error($result['status'],U('ResidentMeeting/addResident'));
-                }
-         }
+        $data = I();
+        if(!empty($data)){
+            $result = $this->resident->addResident($data);
+            if($result['code'] == 200) {
+                $this->success($result['status'], U('ResidentMeeting/index'));
+            }else{
+                $this->error($result['status'],U('ResidentMeeting/addResident'));
+            }
+        return true;
+        }
         $this->display();
     }
     
@@ -105,23 +105,22 @@ class ResidentMeetingController extends AdminController {
      * @return 跳转页面 Description
      */
     public function saveResident(){
-         if(IS_GET){
-             $resident_id = I('resident_id');
-             $result = $this->resident->detailsResident($resident_id);
-             $this->assign('list', $result);
-             $this->display();
-         }
-         if(IS_POST){
-             $data=I();
-             if(!empty($data)){
+        if(IS_POST){
+            $data=I();
+            if(!empty($data)){
                 $result = $this->resident->saveResident($data,$data['resident_id']);
                 if ($result['code'] == 200) {
-                       $this->success($result['status'], U('ResidentMeeting/index'));
-                  }else{
-                       $this->error($result['status'], U('ResidentMeeting/saveResident',array('resident_id'=>$data['resident_id'])));
+                    $this->success($result['status'], U('ResidentMeeting/index'));
+                }else{
+                    $this->error($result['status'], U('ResidentMeeting/saveResident',array('resident_id'=>$data['resident_id'])));
                 }
             }
-         }       
+        return true;
+        }
+        $resident_id = I('resident_id');
+        $result = $this->resident->detailsResident($resident_id);
+        $this->assign('list', $result);
+        $this->display();
     }
     
     /*
@@ -133,12 +132,11 @@ class ResidentMeetingController extends AdminController {
     public function delResident(){
         $resident_id = I('resident_id');
         $result = $this->resident->delResident($resident_id);
-        if ($result['code'] == 200) {
-             $this->success($result['status'], U('ResidentMeeting/index'));
-          }else{
-             $this->error($result['status'], U('ResidentMeeting/index'));
+        if($result['code'] == 200) {
+            $this->success($result['status'], U('ResidentMeeting/index'));
+        }else{
+            $this->error($result['status'], U('ResidentMeeting/index'));
         }
-    
     }
      /**
      * 驻各地发展情况台账导出
@@ -169,7 +167,7 @@ class ResidentMeetingController extends AdminController {
                             '存档日期',
                             '存档地址',
             );
-            getExcel($headArr, $work);
+        getExcel($headArr, $work);
                             
       }
       
@@ -198,12 +196,12 @@ class ResidentMeetingController extends AdminController {
         $fileName = $files['info']['filename']['savename'];
         $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
         $result = $this->resident->addsResident($resute);
-              if ($result['code'] == 200) {
-                   writeOperationLog('批量导入驻各地发展情况台账', 1);
-                    $this->success($result['status'], U('ResidentMeeting/index'));
-                } else {
-                    writeOperationLog('批量导入驻各地发展情况台账', 0);
-                    $this->error($result['status'], U('ResidentMeeting/importExcel'));
-                }
+        if($result['code'] == 200) {
+            writeOperationLog('批量导入驻各地发展情况台账', 1);
+            $this->success($result['status'], U('ResidentMeeting/index'));
+        }else{
+            writeOperationLog('批量导入驻各地发展情况台账', 0);
+            $this->error($result['status'], U('ResidentMeeting/importExcel'));
+        }
     }
 }         

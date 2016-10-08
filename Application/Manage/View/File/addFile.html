@@ -47,13 +47,13 @@
         </table>
         <table class="tbl">
             <tr>
-                <td colspan='6'>公文发布文件设定</td>
+                <td colspan='4'>公文发布文件设定</td>
                 
             </tr>
             
              <tr>
                  <td class="cap">文档可见范围：</td>
-                <td colspan='2'>
+                <td >
                     <select name='doc_root_view'>
                         <foreach item='item' name='file_range'>
                             <option value="{$item.config_id}">{$item.config_descripion}</option>
@@ -61,7 +61,7 @@
                     </select>
                 </td>
                <td class="cap">浏览权限设定：</td>
-                <td colspan='2'>
+                <td>
                     <select name='doc_root_do'>
                         <foreach item='item' name='file_authority'>
                             <option value="{$item.config_id}">{$item.config_descripion}</option>
@@ -72,31 +72,31 @@
         </table>
         <table class="tbl">
             <tr>
-                <td colspan='6'>附件上传</td>
+                <td colspan='2'>附件上传</td>
             </tr>
             
              <tr>
                  <td class="cap">上传文档：</td>
-                <td colspan='5'>
-                    <input type="file" name='file' > <span style="color:red">文档大小不能超过20M</soan>
+                <td colspan='2'>
+                    <input type="file" name='file' > 文档大小不能超过20M
                 </td>
              </tr>
         </table>
         <table class="tbl">
             <tr>
-                <td colspan='6'>附件封面上传</td>
+                <td colspan='2'>附件封面上传</td>
             </tr>
              <tr>
                <td class="cap">上传图片：</td>
-                <td colspan='5'>
-                   <input type="file" name='file1' >     <span style="color:red" >图片支持JPG、大小不能超过0.5M</soan>
+                <td colspan='2'>
+                   <input type="file" name='file1' >图片支持JPG、大小不能超过0.5M
                 </td>
             </tr>
         </table>
          <table class="tbl">
              <tr>
                <td class="cap">文档备注：</td>
-                <td colspan='5'> 
+                <td>
                  <textarea class="textarea" name="doc_beizhu"></textarea>
                 </td>
             </tr>
@@ -104,7 +104,7 @@
         <div class="text-center">
 
 	        <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
-	         <input class="btn ml10 button btn-normal" type="button" value="取消" onclick="javascript:history.back(-1)"/>
+	        
     	</div>
     </form>
 </block>

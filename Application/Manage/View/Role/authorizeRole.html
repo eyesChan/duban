@@ -6,6 +6,11 @@
     <div class="role-padding container-padding">
         <div class="jxssp tb1">
             <form  id="au-form"  class="auRole" method="POST" action="{:U(save)}" enctype="multipart/form-data">
+                <table class="current-user">
+                <caption>
+                    当前用户：
+                </caption>
+                </table>
                 <div class="current-role" >
                     <input type="hidden" name="id" value="{$role_info['id']}">
                     <input type="hidden" name="p" value="{$p}">

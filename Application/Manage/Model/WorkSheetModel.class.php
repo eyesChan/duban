@@ -159,9 +159,7 @@ class WorkSheetModel  extends Model{
         $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
         $data['worksheet_rule_persont'] = $param['personliable'];
         $data['worksheet_done_persent'] = $param['worksheet_done_persent']; 
-        $states = $this->workState($param['worksheet_state'],$param['worksheet_id'],$param['worksheet_done_persent']);
-        $data['worksheet_state'] = $states['state'];
-        $data['worksheet_state_id'] = $states['id'];
+        $data['worksheet_state'] = $this->workState($param['worksheet_state'],$param['worksheet_id'],$param['worksheet_done_persent']);
         $work_id = $param['worksheet_id'];
         $data['worksheet_abandoned_reason'] = $param['worksheet_abandoned_reason'];
         $res = $order->where("worksheet_id = $work_id")->save($data);
@@ -177,8 +175,6 @@ class WorkSheetModel  extends Model{
     /*
      * 计算单个工单几天和每天%
      * @author xiaohui
-     * $start 开始时间
-     * $stop 结束时间
      */
     public function workDay($start,$stop){
      
@@ -193,28 +189,17 @@ class WorkSheetModel  extends Model{
         $catime = strtotime($start);
         if($catime > $time){
             $workDay['state'] = "未启动";
-        }
-        elseif($catime < $time-80000){
-            $workDay['state'] = "延迟";
-        }
-        else{
+        }else{
             $workDay['state'] = "正常";
         }
         return $workDay;
     }
     /*
      * 判断当前状态
-     * @state 是废弃和挂起
-     * @$id 工作单id
-     * @parcent 完成工作比
-     * 
      */
     public function workState($state,$id,$parcent){
-       
-        $states = array();
         if($parcent == "100" || $parcent == "100%"){
-            $states['state'] = "办结";
-            $states['id'] = 1;
+            $states = "办结";
             return $states;
         }else{
             $work = D('worksheet')
@@ -222,18 +207,8 @@ class WorkSheetModel  extends Model{
                     ->where("worksheet_id = $id")
                     ->find();
             if($state == '0'){
-                $time = time();
-                $starttime = strtotime($work['worksheet_start_date']);
-                $cation =  $time - $starttime;
-                $day = floor($cation/3600/24);
-                $surplus = $day * $work['worksheet_parcent_day'];
-                if($parcent >= $surplus){
-                    $states['state'] = "正常";
-                    return $states;
-                }else{
-                    $states['state'] = "延迟";
-                    return $states;
-                }   
+                $states = $work['worksheet_state'];
+                return $states;
             }
 
             elseif($state == '1' || $state == '2'){
@@ -241,34 +216,32 @@ class WorkSheetModel  extends Model{
                 $stoptime = strtotime($work['worksheet_end_date']);
                 $starttime = strtotime($work['worksheet_start_date']);
                 if($stoptime > $time){
-                    $cation =  $time - $starttime;
-                    $day = floor($cation/3600/24);
+                    $cation = $stoptime - $time;
+                    $day = floor($timeiff/3600/24);
                     $surplus = $day * $work['worksheet_parcent_day'];
                     $sum = $surplus + $work['worksheet_done_persent'];
-                    if($starttime > $time){        
-                        $states['state']="未启动";
-                        $states['id'] = 2;
+                    if($starttime > $time){
+                        
+                        $states="未启动";
                         return $states;
                     }else{
                         if($sum < 100){
-                            $states['state'] = "延迟";
-                            $states['id'] = 3;
+                            $states = "延迟";
                             return $states;
                         }else{
-                            $states['state'] = "正常";
+                            $states = "正常";
                             return $states;
                         }
                     }
                 }else{
-                    $states['state'] = "延迟";
+                    $states = "延迟";
                     return $states;
                 }
             }
-            
+            else{
+                return $state;
+            }  
         }
-        $states['state'] = $state;
-        $states['id'] = '4';
-        return $states;
     }
     /*
      * 分页刷新工作单状态
@@ -289,7 +262,7 @@ class WorkSheetModel  extends Model{
                     $state = "正常";
                     $this->saveOneOrder($val['worksheet_id'],$state);
                 }else{
-                    $state = "延迟";
+                    $state = "延期";
                     $this->saveOneOrder($val['worksheet_id'],$state);
                 }
             }

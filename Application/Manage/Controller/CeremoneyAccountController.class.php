@@ -103,9 +103,9 @@ class CeremoneyAccountController extends AdminController {
     /**
      * 导出excel
      */
-    public function makeExcel($params) {
+    public function makeExcel() {
 
-        $data_ca = $this->mod_ceremoney_account->getExecl($params);
+        $data_ca = $this->mod_ceremoney_account->getExecl();
 
         $headArr = array(
             '时间',

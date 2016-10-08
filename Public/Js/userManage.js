@@ -126,7 +126,7 @@ $(".username-input").on("blur", function () {
         success: function (data) {
            
             // var dataJson = JSON.parse(data);
-             console.log(data.status);
+             console.log(data.code);
             if (data.code == 100) {
                 if (!$(".error-message").hasClass("show")) {
                     $(".error-message").addClass("show").removeClass("hide").html(data.status);
@@ -183,6 +183,7 @@ $("#allSelect").on('click', function () {
     allSelect();
 });
 
+
 //管理全部角色选中全选
 var nLen = $(".user-allocationRole .checkbox-normal").length;
 var cLen = $(".user-allocationRole .checkbox-checked").length;
@@ -194,6 +195,3 @@ if (nLen == cLen) {
     $(".user-allocationRole .user-checkboxAll").removeClass("checkbox-checked");
 }
 
-$(".checkbox-default").click(function () {
-    console.log(1);
-});

@@ -57,6 +57,7 @@ class WorkSheetModel  extends Model{
             $data['worksheet_detele'] = 1;
             $data['worksheet_date'] = $workDay['days'];
             $data['worksheet_parcent_day'] = $workDay['parcent'];
+            $data['worksheet_state_id'] = $workDay['state_id'];
             $msg_sys_data = $this->create($data);
             if($msg_sys_data){
                 $res = $order->add($msg_sys_data);
@@ -193,12 +194,15 @@ class WorkSheetModel  extends Model{
         $catime = strtotime($start);
         if($catime > $time){
             $workDay['state'] = "未启动";
+            $workDay['state_id'] = 2;
         }
         elseif($catime < $time-80000){
             $workDay['state'] = "延迟";
+            $workDay['state_id'] = 3;
         }
         else{
             $workDay['state'] = "正常";
+            $workDay['state_id'] = 1;
         }
         return $workDay;
     }
@@ -229,9 +233,11 @@ class WorkSheetModel  extends Model{
                 $surplus = $day * $work['worksheet_parcent_day'];
                 if($parcent >= $surplus){
                     $states['state'] = "正常";
+                    $states['id'] = 1;
                     return $states;
                 }else{
                     $states['state'] = "延迟";
+                    $states['id'] = 3;
                     return $states;
                 }   
             }
@@ -244,23 +250,33 @@ class WorkSheetModel  extends Model{
                     $cation =  $time - $starttime;
                     $day = floor($cation/3600/24);
                     $surplus = $day * $work['worksheet_parcent_day'];
-                    $sum = $surplus + $work['worksheet_done_persent'];
+                    $sum = $surplus + $work['worksheet_done_persent'];    
+                    
                     if($starttime > $time){        
                         $states['state']="未启动";
                         $states['id'] = 2;
+                        return $states;
+                    }
+                    elseif ($day == '0') {
+                        $states['state'] = "正常";
+                        $states['id'] = 1;
                         return $states;
                     }else{
                         if($sum < 100){
                             $states['state'] = "延迟";
                             $states['id'] = 3;
                             return $states;
-                        }else{
+                        }
+                    
+                    else{
                             $states['state'] = "正常";
+                            $states['id'] = 1;
                             return $states;
                         }
                     }
                 }else{
                     $states['state'] = "延迟";
+                    $states['id'] = 3;
                     return $states;
                 }
             }
@@ -281,16 +297,19 @@ class WorkSheetModel  extends Model{
             if($val['worksheet_state'] == "未启动"){          
                 if($time > $starttime){
                     $state = "正常";
-                    $this->saveOneOrder($val['worksheet_id'],$state);
+                    $state_id = 1;
+                    $this->saveOneOrder($val['worksheet_id'],$state,$state_id);
                 }
             }
             if($val['worksheet_state'] == "正常"){
                 if($val['worksheet_done_persent'] >= $val['worksheet_parcent_day']*$val['worksheet_date']){
                     $state = "正常";
-                    $this->saveOneOrder($val['worksheet_id'],$state);
+                    $state_id = 1;
+                    $this->saveOneOrder($val['worksheet_id'],$state,$state_id);
                 }else{
                     $state = "延迟";
-                    $this->saveOneOrder($val['worksheet_id'],$state);
+                    $state_id = 3;
+                    $this->saveOneOrder($val['worksheet_id'],$state,$state_id);
                 }
             }
         }
@@ -300,8 +319,9 @@ class WorkSheetModel  extends Model{
      * 修改单个状态
      * @author xiao hui
      */
-    public function saveOneOrder($id,$state){
+    public function saveOneOrder($id,$state,$state_id){
         $data['worksheet_state'] = $state;
+        $data['worksheet_state_id'] = $state_id
         return D('worksheet')->where("worksheet_id = $id")->save($data);
     }
     /*

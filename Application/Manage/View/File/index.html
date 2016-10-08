@@ -17,6 +17,7 @@
                         <td class="cap">发布类型：</td>
                         <td>
                              <select name='doc_pub_type'>
+                                 <option value="">--请选择--</option>
                                 <foreach item='item' name='file_type'>
                                     <option  <if condition="$param['doc_pub_type'] eq $item['config_id'] "> selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
                                 </foreach>

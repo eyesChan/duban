@@ -156,18 +156,7 @@ class LedgerMeetingController extends AdminController {
                         '责任人','交接单位','存档地址','改进建议',
                 );
         getExcel($headArr, $work);
-    }
-    /*
-     *  导入页面
-     *  @author huang gang
-     *  @date 2016/09/27
-     *  @return 跳转页面 Description
-     */
-    public function importExcel(){
-        
-        $this->display('importLedger');
-    }
-    
+    }   
      /*
       * 导入
       *@author huang gang
@@ -175,19 +164,23 @@ class LedgerMeetingController extends AdminController {
       *@return 跳转页面 Description
       */
     public function importLedgerMeeting(){
-        $param = $_FILES['filename'];
-        $upload_obj = new MeetingUplod();
-        $files = $upload_obj->normalUpload($param);
-        $fileName = $files['info']['filename']['savename'];
-        $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
-        $result = $this->ledger_meeting->addsLedger($resute);
-        if($result['code'] == 200) {
-            writeOperationLog('批量导入会谈会见台账', 1);
-            $this->success($result['status'], U('LedgerMeeting/index'));
-        }else{
-            writeOperationLog('批量导入会谈会见台账', 0);
-            $this->error($result['status'], U('LedgerMeeting/importExcel'));
+        if (!empty($_FILES['filename'])) {
+            $param = $_FILES['filename'];
+            $upload_obj = new MeetingUplod();
+            $files = $upload_obj->normalUpload($param);
+            $fileName = $files['info']['filename']['savename'];
+            $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
+            $result = $this->ledger_meeting->addsLedger($resute);
+            if($result['code'] == 200) {
+                writeOperationLog('批量导入会谈会见台账', 1);
+                $this->success($result['status'], U('LedgerMeeting/index'));
+            }else{
+                writeOperationLog('批量导入会谈会见台账', 0);
+                $this->error($result['status'], U('LedgerMeeting/importExcel'));
+            }
+            return true;
         }
+        $this->display('importLedger');
     }
 }
 

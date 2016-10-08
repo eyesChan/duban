@@ -218,18 +218,6 @@ class PresentationController extends AdminController {
         getExcel($headArr, $work);
                             
       }
-      
-    /*
-     * 导入页面
-     * @author huang gang
-     * @date 2016/09/27
-     * @return 跳转页面 Description
-     */
-    public function importExcel(){
-        
-        $this->display('importPresent');
-    }
-    
      /*
       * 导入数据
       * @author huang gang
@@ -237,18 +225,22 @@ class PresentationController extends AdminController {
       * @return 跳转页面 Description
       */
     public function importPresent(){
-        $param = $_FILES['filename'];
-        $upload_obj = new MeetingUplod();
-        $files = $upload_obj->normalUpload($param);
-        $fileName = $files['info']['filename']['savename'];
-        $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
-        $result = $this->presentation->addsPresent($resute);
-        if($result['code'] == 200) {
-            writeOperationLog('批量导入文稿台账', 1);
-            $this->success($result['status'], U('Presentation/index'));
-        }else{
-            writeOperationLog('批量导入文稿台账', 0);
-            $this->error($result['status'], U('Presentation/importExcel'));
+        if (!empty($_FILES['filename'])) {
+            $param = $_FILES['filename'];
+            $upload_obj = new MeetingUplod();
+            $files = $upload_obj->normalUpload($param);
+            $fileName = $files['info']['filename']['savename'];
+            $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
+            $result = $this->presentation->addsPresent($resute);
+            if($result['code'] == 200) {
+                writeOperationLog('批量导入文稿台账', 1);
+                $this->success($result['status'], U('Presentation/index'));
+            }else{
+                writeOperationLog('批量导入文稿台账', 0);
+                $this->error($result['status'], U('Presentation/importExcel'));
+            }
+            return true;
         }
+        $this->display('importPresent');
     }
 }         

@@ -1,10 +1,3 @@
- var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="文稿台账创建"/>';
-            $(rightBtn).appendTo(".location");
-            function openNew(){
-            location.href = '/Manage/Presentation/addPresent';
-                
-        }
-
 $('#export').click(function(){
    
    var  db_pre_name = $('#db_pre_name').val();

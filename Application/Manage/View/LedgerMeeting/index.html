@@ -59,10 +59,10 @@
                                 <td>{$item.led_meeting_host}</td>
                                 <td>{$item.led_meeting_place}</td> 
                                 <td>
-                                    <a href="{:U('detailsLedger?led_meeting_id='.$item['led_meeting_id'])}"> 
+                                    <a href="{:U('detailsLedger',array('led_meeting_id'=>$item['led_meeting_id']))}"> 
                                         <input type="button" value="详情" class="btn btn-r btn-xl button">
                                     </a> 
-                                    <a href="{:U('saveLedger?led_meeting_id='.$item['led_meeting_id'])}"> 
+                                    <a href="{:U('saveLedger',array('led_meeting_id'=>$item['led_meeting_id']))}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 
                                         <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.led_meeting_id}')">
@@ -76,9 +76,13 @@
                 {$page}
             </div>
         </div> 
-    <js href="__PUBLIC__/Js/ledgerMeeting.js"/>
      <script>
-    
+         //创建
+        var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="会谈会见台账创建" style="width:120px"/>';
+         $(rightBtn).appendTo(".location");
+         function openNew(){
+             location.href = "{:U('addLedger')}";
+         }
          //删除操作
         function withdraw(id) {
             $.dialog({

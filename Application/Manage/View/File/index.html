@@ -77,7 +77,7 @@
                                 </if>
                                 <td>{$item.doc_beizhu}</td>       
                                 <td>
-                                    <a href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}"> 
+                                    <a href="{:U('saveFile?doc_id='.$item['doc_id'])}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 
 	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button" onclick="withdraw({$item.doc_id})" >
@@ -102,7 +102,7 @@
         function withdraw(id) {
             $.dialog({
                 title: '提示信息', content: '确认撤回吗？', ok: function () {
-                     location.href = '{:U("/Manage/File/delFile/doc_id/' + id + '")}';
+                    location.href = "delFile/doc_id/" + id;
                 },
                 cancel: function () {
                 }

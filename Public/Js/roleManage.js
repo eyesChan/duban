@@ -26,7 +26,7 @@ function singleDel(id) {
                         this.close();
                         if ($("label.checkbox-normal").hasClass("checkbox-checked")) {
                             $("label.checkbox-normal").removeClass("checkbox-checked");
-                        }
+                        };
                     }
                 });
             } else {
@@ -42,23 +42,23 @@ function singleDel(id) {
             }
         }
     });
-}
-;
+};
 
 // 批量删除方法
 function roleDelAll() {
-    var cbox = $("input[name=childrenBox\\[\\]]:checked");
+    var cbox = $("input[name=cbox\\[\\]]:checked");
     var id = '';
     for (var i = 0; i < cbox.length; i++) {
         id += cbox.eq(i).val();
         id += ',';
     }
     id = id.substring(0, id.length - 1);
-    if (!id) {
+    if (!$(".checkbox-normal").hasClass("checkbox-checked")) {
         $.dialog({
             title: '提示信息', content: '请选择要删除的角色!'
         });
     } else {
+
         $.ajax({
             type: "get",
             url: "/Manage/Role/checkRelation/id/" + id,
@@ -93,8 +93,7 @@ function roleDelAll() {
             }
         });
     }
-}
-;
+};
 
 //调用方法，取消全选样式
 baseOperateJs.cancelAll(".role-tbody", ".role-checkboxAll");

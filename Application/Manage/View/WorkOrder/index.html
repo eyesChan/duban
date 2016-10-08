@@ -1,5 +1,5 @@
 <extend name="Public:base" />
-<block name="title"><title>工作单列表</title></block>
+<block name="title"><title>会议创建</title></block>
 
 <block name="right">
 
@@ -53,6 +53,7 @@
 	                <th>操作</th>
 	            </tr>
 	            </thead>
+	        
 	        <tbody>	
                     <foreach name="list" item="item">
 	        	<tr>
@@ -71,10 +72,10 @@
                                     <input type="button" class="btn btn-c btn-xl button" value="编辑">
                                 </a>
                                 <a class="" title="督办" href="{:U('sendEmail?id='.$item['worksheet_id'])}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="督办" id="pushemail">
+                                    <input type="button" class="btn btn-c btn-xl button" value="督办">
                                 </a>
                             </td>
-	        	</tr> 
+	        	</tr>
                     </foreach>
 	        </tbody>
 	        </table>
@@ -95,22 +96,5 @@
                     $("#execlid").submit();
                     $("#hiddenform").val(0);
                 }
-                $("pushemail").click(function(){
-                    $.get("sendEmail",function(data){
-                        alert("Data: " + data + "\nStatus: ");
-                     });
-                });
-                function delMeeting(id){
-         
-            $.dialog({
-                title: '提示信息', content: '确认删除吗？', ok: function () {
-                location.href = '{:U("/Manage/Meeting/delMeeting/meeting_id/' + id + '")}';
-                },
-                        cancel: function () {
-                        }
-                });
-        
-
-        }
 	    </script> 
 </block>

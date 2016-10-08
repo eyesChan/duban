@@ -113,9 +113,5 @@ class IndexModel extends Model {
         return $count;
     }
         
-    //台账相关数量计算
-    public function getNumAccount($flag){
-        
-        $mod_ceremoney_account = M('ceremoney_account');//签约仪式台账
-    }
+
 }

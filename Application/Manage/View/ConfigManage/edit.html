@@ -1,4 +1,4 @@
-<extend name="Public:base"/>
+ <extend name="Public:base"/>
 
 <block name="title"><title>系统参数编辑</title></block>
 <block name="right">
@@ -6,7 +6,7 @@
     <div class="container-padding">
         <div class="jxssp tb1">
             <form id="edit_config_info" enctype="multipart/form-data">
-                <table class="tbl">
+                <table class="tbl from-table">
                     <colgroup>
                         <col width="20%">
                         <col width="30%">
@@ -15,9 +15,9 @@
                     </colgroup>
                     <tr>
                         <td class="cap"><span class="rq">*</span>参数类别：</td>
-                        <td>
+                        <td colspan="3">
                             <select name="config_key">
-                                <option value="">--全部--</option>
+                                <option value="-100">--全部--</option>
                                 <foreach name="config_types" item="c_type">
                                     <option value="{$c_type['config_value']}" <if condition="$c_type['config_value'] eq $config_system['config_key']">selected='true'</if> >{$c_type['config_descripion']}</option>
                                 </foreach>

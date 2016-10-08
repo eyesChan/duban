@@ -158,16 +158,8 @@ class WorkOrderController extends AdminController {
         $email = $this->mod_worksheet->userPerson($param);
         $title = "工作单督办";
         $content = array_pop($email);
-        $result = array('code'=>200,'status'=>'发送成功');
         foreach ($email as $key=>$val){
             sendMail($val['email'],$title,$content);
-            
-            if($result['code'] == 200){
-                    $this->success($result['status'], '/Manage/WorkOrder/index');
-                    
-                }else{
-                    $this->success($result['status'], '/Manage/WorkOrder/index');
-                }
         }
     } 
     /*

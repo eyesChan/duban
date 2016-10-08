@@ -29,7 +29,8 @@
                        
                 </table>
             </form>
-             <table class="tbl tbl-list"> 
+             <table class="tbl tbl-list">
+	            <caption>文档列表</caption>
 	            <colgroup>
                             <col width="9%">
                             <col width="13%">
@@ -58,10 +59,10 @@
                                 <td>{$item.led_meeting_host}</td>
                                 <td>{$item.led_meeting_place}</td> 
                                 <td>
-                                    <a href="{:U('detailsLedger',array('led_meeting_id'=>$item['led_meeting_id']))}"> 
+                                    <a href="{:U('detailsLedger?led_meeting_id='.$item['led_meeting_id'])}"> 
                                         <input type="button" value="详情" class="btn btn-r btn-xl button">
                                     </a> 
-                                    <a href="{:U('saveLedger',array('led_meeting_id'=>$item['led_meeting_id']))}"> 
+                                    <a href="{:U('saveLedger?led_meeting_id='.$item['led_meeting_id'])}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 
                                         <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.led_meeting_id}')">
@@ -82,7 +83,7 @@
         function withdraw(id) {
             $.dialog({
                 title: '提示信息', content: '确认删除吗？', ok: function () {
-                    location.href = '{:U("/Manage/LedgerMeeting/delLedger/led_meeting_id/' + id + '")}';
+                    location.href = "delLedger/led_meeting_id/" + id;
                 },
                 cancel: function () {
                 }

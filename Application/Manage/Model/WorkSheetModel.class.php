@@ -302,7 +302,12 @@ class WorkSheetModel  extends Model{
                 }
             }
             if($val['worksheet_state'] == "正常"){
-                if($val['worksheet_done_persent'] >= $val['worksheet_parcent_day']*$val['worksheet_date']){
+                $time = time();
+                $starttime = strtotime($val['worksheet_start_date']);
+                $cation =  $time - $starttime;
+                $day = floor($cation/3600/24);
+                $sum = $day * $val['worksheet_parcent_day'];
+                if($val['worksheet_done_persent'] >= $sum){
                     $state = "正常";
                     $state_id = 1;
                     $this->saveOneOrder($val['worksheet_id'],$state,$state_id);

@@ -32,10 +32,10 @@ class LedgerMeetingModel  extends Model{
         }
         $res = $led_meeting->add($param);
         if($res){
-             writeOperationLog('添加“' . $param['led_meeting_name'] . '”会谈会见台账', 1);
+            writeOperationLog('添加“' . $param['led_meeting_name'] . '”会谈会见台账', 1);
             return C('COMMON.SUCCESS_EDIT');
         }else{
-             writeOperationLog('添加“' . $param['led_meeting_name'] . '”会谈会见台账', 0);
+            writeOperationLog('添加“' . $param['led_meeting_name'] . '”会谈会见台账', 0);
             return C('COMMON.ERROR_EDIT');
         } 
     }
@@ -85,7 +85,7 @@ class LedgerMeetingModel  extends Model{
         $list = $led_meeting
               -> where("led_meeting_id= $led_meeting_id") 
               -> find();
-      return $list; 
+        return $list; 
     }
    
     /*

@@ -473,7 +473,7 @@ class MeetingModel extends Model {
     public function sendMeetingEmail($meeting_id) {
         $meeting_info = D('meeting')->alias('meet')
                 ->join('__MEMBER__ member ON meet.meeting_ledger_re_person = member.uid')
-                ->where(array('meet.meeting_id', $meeting_id))
+                ->where('meet.meeting_id = '. $meeting_id)
                 ->find();
         $str = $meeting_info['name'] . " ，您好：" . $meeting_info['meeting_name'] . "会议于" . $meeting_info['meeting_date'] . "已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
         return sendMail($meeting_info['email'], '台帐通知', $str);
@@ -487,8 +487,6 @@ class MeetingModel extends Model {
      * @return array Description
      */
     public function dealtData($val, $key) {
-        echo $key;
-        echo $val[$key];
         $user_mod = D('member');
         if (!empty($val[$key])) {
             $meeting_moderator_name = $user_mod->where('uid in (' . $val[$key] . ')')->getField('name', true);
@@ -498,16 +496,16 @@ class MeetingModel extends Model {
             $meeting_moderator_name1 = explode(',', $val[$key1]);
         }
         if (!empty($meeting_moderator_name)) {
-            $$meeting_moderator_info = $meeting_moderator_name;
+            $meeting_moderator_info = $meeting_moderator_name;
         }
         if (!empty($meeting_moderator_name1)) {
             $meeting_moderator_info = $meeting_moderator_name1;
         }
         if (!empty($meeting_moderator_name) && !empty($meeting_moderator_name1)) {
-            $$meeting_moderator_info = array_merge($$meeting_moderator_name, $meeting_moderator_name1);
+            $meeting_moderator_info = array_merge($meeting_moderator_name, $meeting_moderator_name1);
         }
-        if (!empty($$meeting_moderator_info)) {
-            return implode(',', $$meeting_moderator_info);
+        if (!empty($meeting_moderator_info)) {
+            return implode(',', $meeting_moderator_info);
         }
         return '';
     }
@@ -532,6 +530,9 @@ class MeetingModel extends Model {
         foreach ($data as $key => $val) {
             if (!empty($val[1])) {
                 $info['meeting_name'] = $val[1]; //会议名称
+            } else {
+                $meeting_flag = 0;
+                break;
             }
             if (!empty($val[2])) {
                 $type = $config_mod->where(array('config_key' => 'meeting_type', 'config_descripion' => trim($val[2])))->find();
@@ -578,7 +579,7 @@ class MeetingModel extends Model {
             }
             //会议时刻
             if (!empty($val[10])) {
-                $info['meeting_time'] = date('H:i:s', $dateMod->ExcelToPHP($val[10])-3600*8);
+                $info['meeting_time'] = date('H:i:s', $dateMod->ExcelToPHP($val[10]) - 3600 * 8);
             }
             //会议地点
             if (!empty($val[11])) {
@@ -602,7 +603,7 @@ class MeetingModel extends Model {
             }
             //通知发出时刻
             if (!empty($val[16])) {
-                $info['meeting_notice_date'] =  date('H:i:s', $dateMod->ExcelToPHP($val[16])-3600*8);
+                $info['meeting_notice_date'] = date('H:i:s', $dateMod->ExcelToPHP($val[16]) - 3600 * 8);
             }
             //会议材料收集
             if (!empty($val[17])) {
@@ -630,7 +631,7 @@ class MeetingModel extends Model {
             }
             //测试时间
             if (!empty($val[23])) {
-                $info['meeting_try_time'] =date('H:i:s', $dateMod->ExcelToPHP($val[23])-3600*8);  
+                $info['meeting_try_time'] = date('H:i:s', $dateMod->ExcelToPHP($val[23]) - 3600 * 8);
             }
             //问题明细
             if (!empty($val[24])) {
@@ -680,7 +681,8 @@ class MeetingModel extends Model {
             }
             //会议结束时刻
             if (!empty($val[31])) {
-                $info['meeting_end_time'] =  date('H:i:s', $dateMod->ExcelToPHP($val[31])-3600*8);;
+                $info['meeting_end_time'] = date('H:i:s', $dateMod->ExcelToPHP($val[31]) - 3600 * 8);
+                ;
             }
             //餐饮安排
             if (!empty($val[32])) {
@@ -707,12 +709,17 @@ class MeetingModel extends Model {
                     $meeting_flag = 0;
                     break;
                 }
+            } else {
+                $meeting_flag = 0;
+                break;
             }
             $info['meeting_state'] = 1;
             $sava_flag = $meeting_mod->add($info);
             if (!$sava_flag) {
                 $meeting_flag = 0;
                 break;
+            } else {
+                $this->sendMeetingEmail($sava_flag);
             }
         }
         if (!$meeting_flag) {

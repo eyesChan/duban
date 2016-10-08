@@ -36,6 +36,10 @@ class UserController {
             $result = C('USER.DISABLE_USER');
             writeOperationLog('“' . $nickname . '”' . $result['status'], 0);
             return $result;
+        }else if($user_info['status'] == 3){
+            $result = C('USER.ERROR_USERNAME');
+            writeOperationLog('“' . $nickname . '”' . $result['status'], 0);
+            return $result;
         }
         if ($user_info['password'] !== strtolower(md5(md5($password)))) {
             $result = C('USER.ERROR_PASSWORD');

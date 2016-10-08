@@ -38,34 +38,33 @@ class FileModel  extends Model{
     */
     
     public function addFile($param){
+        $docfile = M('doc');
+        $data['doc_name'] = $param['doc_name'];
+        $data['doc_dept_id'] = $param['doc_dept_id'];
+        $data['doc_pub_person'] = session('S_USER_INFO.UID'); //$param['doc_pub_person'];
+        $data['doc_pub_date'] = date('Y-m-d'); //$param['doc_pub_date'];
+        $data['doc_pub_type'] = $param['doc_pub_type'];
+        $data['doc_start_date'] = $param['doc_start_date'];
+        $data['doc_end_date'] = $param['doc_end_date'];
+        $data['doc_root_view'] = $param['doc_root_view'];
+        $data['doc_root_do'] = $param['doc_root_do'];
+        $data['doc_upload_file_url'] = $param['doc_upload_file_url'];
+        $data['doc_upload_img_url'] =$param['doc_upload_img_url'];
+        $data['doc_beizhu'] = $param['doc_beizhu'];
+        $data['doc_status'] = 1 ; //$param['doc_status'];
 
-            $docfile = M('doc');
-            $data['doc_name'] = $param['doc_name'];
-            $data['doc_dept_id'] = $param['doc_dept_id'];
-            $data['doc_pub_person'] = session('S_USER_INFO.UID'); //$param['doc_pub_person'];
-            $data['doc_pub_date'] = date('Y-m-d'); //$param['doc_pub_date'];
-            $data['doc_pub_type'] = $param['doc_pub_type'];
-            $data['doc_start_date'] = $param['doc_start_date'];
-            $data['doc_end_date'] = $param['doc_end_date'];
-            $data['doc_root_view'] = $param['doc_root_view'];
-            $data['doc_root_do'] = $param['doc_root_do'];
-            $data['doc_upload_file_url'] = $param['doc_upload_file_url'];
-            $data['doc_upload_img_url'] =$param['doc_upload_img_url'];
-            $data['doc_beizhu'] = $param['doc_beizhu'];
-            $data['doc_status'] = 1 ; //$param['doc_status'];
-            
-            if(in_array('',$data)){
-                writeOperationLog('添加的数据为空', 0);
-                return C('COMMON.ERROR_EDIT');
-            }
-            $res = $docfile->add($data);
-            if($res){
-                writeOperationLog('添加' . $param['doc_name'] . '”文档', 1);
-                return C('COMMON.SUCCESS_EDIT');
-            }else{
-                writeOperationLog('添加' . $param['doc_name'] . '”文档', 0);
-                return C('COMMON.ERROR_EDIT');
-            } 
+        if(in_array('',$data)){
+            writeOperationLog('添加的数据为空', 0);
+            return C('COMMON.ERROR_EDIT');
+        }
+        $res = $docfile->add($data);
+        if($res){
+            writeOperationLog('添加' . $param['doc_name'] . '”文档', 1);
+            return C('COMMON.SUCCESS_EDIT');
+        }else{
+            writeOperationLog('添加' . $param['doc_name'] . '”文档', 0);
+            return C('COMMON.ERROR_EDIT');
+        } 
     }
     
     /*
@@ -128,15 +127,15 @@ class FileModel  extends Model{
      * @return array 成功返回列表
      */
     public function getList($where, $first_rows, $list_rows) {
-      $docfile = M('doc');
-      $list = $docfile
+        $docfile = M('doc');
+        $list = $docfile
               ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
               ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where($where) 
               ->limit($first_rows, $list_rows)
               ->order('doc_id desc')
               ->select();
-      return $list;
+        return $list;
     }
     
     /*
@@ -205,7 +204,7 @@ class FileModel  extends Model{
             }else{
                 $data=$result[$param['mark']]['path'];
             }
-        } else { //普通上传
+        }else{ //普通上传
             $file_config = $config_info[$param['file_type']];
             $result = $upload_obj->normalUpload($file_config);
             if($param['mark']==0){
@@ -215,7 +214,6 @@ class FileModel  extends Model{
                 $data=$result['rootPath'].$result['info'][$param['mark']]['savepath'] . $result['info'][$param['mark']]['savename'];;
             }
         }
-        
         return $data;
     }
     /*
@@ -256,7 +254,7 @@ class FileModel  extends Model{
             $data[$k]['doc_root_do']=$this->getRootView($v['doc_root_do']);
             $data[$k]['doc_beizhu']=$v['doc_beizhu'];
         }
-         return $data;
+        return $data;
     }
   /*
    * 获取导出数据的可见范围及权限
@@ -266,10 +264,9 @@ class FileModel  extends Model{
    * @return 返回查询的数据
    */
     public function  getRootView($config_id){
-         $work = M('config_system')
-              ->field('config_descripion')
+        $work = M('config_system')
               ->where("config_id = $config_id")
-              ->find();   
-        return $work['config_descripion'];
+              ->getField('config_descripion');   
+        return $work;
     }
 }

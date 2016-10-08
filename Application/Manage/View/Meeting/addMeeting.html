@@ -25,6 +25,7 @@
                 <td class="cap">会议类型：</td>
                 <td>
                     <select name='meeting[meeting_type]'>
+                        <option value="-100">请选择</option>
                         <foreach item='item' name='type_info'>
                             <option value="{$item.config_value}" <if condition="$item.config_value eq $meeting_info.meeting_type ">selected=true</if> >{$item.config_descripion}</option>
                         </foreach>
@@ -33,6 +34,7 @@
                 <td class="cap">会议级别：</td>
                 <td colspan="3">
                     <select name='meeting[meeting_level]'>
+                        <option value="-100">请选择</option>
                         <foreach item='item' name='level_info'>
                             <option value="{$item.config_value}" <if condition="$item.config_value eq $meeting_info.meeting_level ">selected=true </if>>{$item.config_descripion}</option>
                         </foreach>
@@ -43,6 +45,7 @@
                 <td class="cap">召集人：</td>
                 <td>
                     <select data='meeting[meeting_callman]' class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
 
@@ -63,6 +66,7 @@
                 <td class="cap">主持人：</td>
                 <td colspan="3">
                     <select data='meeting[meeting_moderator]'  class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
 
@@ -92,6 +96,7 @@
                 <td class="cap">参会人员：</td>
                 <td>
                     <select data='meeting[meeting_participants]' class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
                         </foreach>
@@ -143,6 +148,7 @@
                 <td class="cap">会议通知撰写人：</td>
                 <td>
                     <select data='meeting[meeting_writeperson]' class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
 
@@ -187,6 +193,7 @@
                 <td class="cap">物料准备人：</td>
                 <td>
                     <select data='meeting[meeting_material_madeperson]' class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
 
@@ -207,6 +214,7 @@
                 <td class="cap">会场布置调试人：</td>
                 <td>
                     <select data='meeting[meeting_venue_arrangeperson]' class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
 
@@ -252,6 +260,7 @@
                 <td class="cap">现场保障人：</td>
                 <td>
                     <select data='meeting[meeting_site_protection]' class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
                         </foreach>
@@ -288,6 +297,7 @@
                 <td class="cap">会议摄影摄像：</td>
                 <td>
                     <select data='meeting[meeting_vedio]' class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
                         </foreach>
@@ -329,6 +339,7 @@
                 <td class="cap">会场整理人：</td>
                 <td >
                     <select data='meeting[meeting_clean_person]' class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
 
@@ -349,6 +360,7 @@
                 <td class="cap">记录整理人：</td>
                 <td >
                     <select data='meeting[meeting_record_person]' class="selectItem">
+                        <option value="-100">请选择</option>
                         <foreach name="user_info" item="item">
                             <option value="{$item.uid}">{$item.name}</option>
 

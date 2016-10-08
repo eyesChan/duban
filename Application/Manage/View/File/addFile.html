@@ -46,11 +46,7 @@
             </tr>
         </table>
         <table class="tbl">
-            <tr>
-                <td colspan='4'>公文发布文件设定</td>
-                
-            </tr>
-            
+            <caption>公文发布文件设定</caption>
              <tr>
                  <td class="cap">文档可见范围：</td>
                 <td >
@@ -61,7 +57,7 @@
                     </select>
                 </td>
                <td class="cap">浏览权限设定：</td>
-                <td>
+                <td colspan='3'>
                     <select name='doc_root_do'>
                         <foreach item='item' name='file_authority'>
                             <option value="{$item.config_id}">{$item.config_descripion}</option>
@@ -71,32 +67,27 @@
             </tr>
         </table>
         <table class="tbl">
-            <tr>
-                <td colspan='2'>附件上传</td>
-            </tr>
-            
+            <caption>附件上传</caption>
              <tr>
-                 <td class="cap">上传文档：</td>
-                <td colspan='2'>
-                    <input type="file" name='file' > 文档大小不能超过20M
+                 <td class="cap" >上传文档：</td>
+                <td colspan='7'>
+                    <input type="file" name='file' > <span style="color:red" >图片支持JPG、大小不能超过0.5M</soan>
                 </td>
              </tr>
         </table>
         <table class="tbl">
-            <tr>
-                <td colspan='2'>附件封面上传</td>
-            </tr>
+            <caption>附件封面上传</caption>
              <tr>
                <td class="cap">上传图片：</td>
-                <td colspan='2'>
-                   <input type="file" name='file1' >图片支持JPG、大小不能超过0.5M
+                <td colspan='7'>
+                   <input type="file" name='file1' ><span style="color:red" >图片支持JPG、大小不能超过0.5M</soan>
                 </td>
             </tr>
         </table>
          <table class="tbl">
              <tr>
                <td class="cap">文档备注：</td>
-                <td>
+                <td colspan='7'>
                  <textarea class="textarea" name="doc_beizhu"></textarea>
                 </td>
             </tr>

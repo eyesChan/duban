@@ -15,9 +15,9 @@
                     </colgroup>
                     <tr>
                         <td class="cap"><span class="rq">*</span>参数类别：</td>
-                        <td>
+                        <td colspan="3">
                             <select name="config_system[config_key]">
-                                <option value="">--全部--</option>
+                                <option value="-100">--全部--</option>
                                 <foreach name="config_types" item="c_type">
                                     <option value="{$c_type['config_value']}">{$c_type['config_descripion']}</option>
                                 </foreach>

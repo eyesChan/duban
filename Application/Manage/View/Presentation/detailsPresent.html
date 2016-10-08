@@ -6,11 +6,11 @@
              <tr>
                  <td class="cap">文档规范名称：</td>
                 <td >
-                   {$list.db_pre_name}
+                   <input type="text" readonly="true" name='db_pre_name' value="{$list.db_pre_name}" class="input-text text">
                 </td>
                <td class="cap">工作来源：</td>
                 <td>
-                 {$list.db_pre_work}
+                   <input type="text" readonly="true" name='db_pre_work' value="{$list.db_pre_work}" class="input-text text">
                 </td>
             </tr>
         </table>
@@ -20,61 +20,79 @@
             <tr>
                 <td class="cap">交办人：</td>
                 <td >
-                      {$list.db_assign_name}
+                      <input type="text" readonly="true" name='db_assign_name' value="{$list.db_assign_name}" class="input-text text">
                 </td>
                 <td class="cap">部门：</td>
                 <td > 
-                     {$list.db_assign_dapart}
+                     <input type="text" readonly="true" name='db_assign_dapart' value="{$list.db_assign_dapart}" class="input-text text">
                 </td>
                  <td class="cap">职务：</td>
                 <td colspan='3'>
-                     {$list.db_assign_post}
+                     <input type="text" readonly="true" name='db_assign_post' value="{$list.db_assign_post}" class="input-text text">
                 </td>
             </tr> 
              <tr>
                 <td class="cap">交办日期：</td>
                 <td>
-                     {$list.db_assign_date}
+                     <input type="text" readonly="true" name='db_assign_date'   value="{$list.db_assign_date}" class="input-text text">
                 </td>
                 <td class="cap">交办时间：</td>
                 <td>
-                     {$list.db_assign_time}
+                     <input type="text" readonly="true" name='db_assign_time' class="input-text text"  value="{$list.db_assign_time}" class="input-text text">
                 </td>
                  <td class="cap">完成日期：</td>
                 <td>
-                     {$list.db_complete_date}
+                     <input type="text" readonly="true" name='db_complete_date' id="date21"  value="{$list.db_complete_date}" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                  {$list.db_complete_time}
+                   <input type="text" readonly="true" name='db_complete_time' value="{$list.db_complete_time}" id='date3' class="input-text text">
                 </td>
             </tr>  
             <tr>
                 <td class="cap">文稿类型：</td>
-                <td> 
-                   {$list.db_pre_type}
+                <td>
+                   <select name='db_pre_type' readonly="true">
+                       
+                                 <option  value="{$list.db_pre_type}">{$list.db_pre_type}</option>
+                   </select>
                 </td>
                 <td class="cap">文稿形式：</td>
                 <td>
-                    {$list.db_pre_form}
-                </td>
+                      <select name='db_pre_form'>
+                   
+                               <option  value="{$list.db_pre_form}">{$list.db_pre_form}</option>
+                  
+                    </select>
+              </td>
                 <td class="cap">优先级：</td>
                 <td colspan='3'>
-                          {$list.db_pre_first}
+                     <select name='db_pre_first'>
+                            <option  value="{$list.db_pre_first}">{$list.db_pre_first}</option>
+                    </select>
                </td>
             </tr>
             <tr>
                 <td class="cap">工作难度：</td>
                 <td >
-                    {$list.db_pre_diff}
+                    <select name='db_pre_diff'>
+                            <option  value="{$list.db_pre_diff}">{$list.db_pre_diff}</option>
+                    </select>
                 </td>
                 <td class="cap">责任人：</td>
                 <td>
-                     {$list.db_pre_person}
+                   
+                    <select name='db_pre_person'>
+                            <option  value="{$list.db_pre_person}">{$list.db_pre_person}</option>
+                    </select>
                 </td>
                 <td class="cap">工作状态：</td>
                 <td colspan='3'>
-                    {$list.db_pre_status}
+                 
+                          <select name='db_pre_status'>
+                            <option  value="{$list.db_pre_status}">{$list.db_pre_status}</option>
+                    </select>
+                    
                 </td>
             </tr>
         </table>
@@ -83,23 +101,25 @@
              <tr>
                  <td class="cap">拟稿人：</td>
                 <td >
-                    {$list.db_draft_person}
+                    <select name='db_draft_person'>
+                            <option  value="{$list.db_draft_person}">{$list.db_draft_person}</option>
+                    </select>
                 </td>
                <td class="cap">完成日期：</td>
                 <td>
-                  {$list.db_draft_date}
+                   <input type="text" name='db_draft_date'readonly="true" value="{$list.db_draft_date}" id="date4" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                   {$list.db_draft_time}
+                   <input type="text" name='db_draft_time' readonly="true"  value="{$list.db_draft_time}" id='date5' class="input-text text">
                 </td>
                  <td class="cap">拟稿时长：</td>
                 <td>
-                   {$list.db_draft_length}
+                   <input type="text" name='db_draft_length' readonly="true" value="{$list.db_draft_length}" class="input-text text">
                 </td>
                  <td class="cap">拟稿字数：</td>
                 <td>
-                  {$list.db_draft_num}
+                   <input type="text" name='db_draft_num' readonly="true" value="{$list.db_draft_num}" class="input-text text">
                 </td>
             </tr>
         </table>
@@ -108,33 +128,37 @@
              <tr>
                  <td class="cap">核稿人：</td>
                 <td >
-                    {$list.db_orgin_person}
+                         <select name='db_orgin_person'>
+                            <option  value="{$list.db_orgin_person}">{$list.db_orgin_person}</option>
+                    </select>
                 </td>
                <td class="cap">完成日期：</td>
                 <td>
-                   {$list.db_orgin_date}
+                   <input type="text" readonly="true" name='db_orgin_date' value="{$list.db_orgin_date}" id="date6" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                 {$list.db_orgin_time}
+                   <input type="text" readonly="true" name='db_orgin_time'  value="{$list.db_orgin_time}" id='date7' class="input-text text">
                 </td>
                  <td class="cap">核稿时长：</td>
                 <td>
-                   {$list.db_orgin_length}
+                   <input type="text" readonly="true" name='db_orgin_length' value="{$list.db_orgin_length}" class="input-text text">
                 </td>
              </tr>
              <tr>
                  <td class="cap">核稿字数：</td>
                 <td>
-                   {$list.db_orgin_num}
+                   <input type="text" readonly="true" name='db_orgin_num' value="{$list.db_orgin_num}" class="input-text text">
                 </td>
                  <td class="cap">修改字数：</td>
                 <td>
-                   {$list.db_update_num}
+                   <input type="text" readonly="true" name='db_update_num' value="{$list.db_update_num}" class="input-text text">
                 </td>
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
-                    {$list.db_orgin_eval}
+                     <select name='db_orgin_eval'>
+                            <option  value="{$list.db_orgin_eval}">{$list.db_orgin_eval}</option>
+                    </select>
                  </td>
              </tr>
         </table>   
@@ -143,33 +167,37 @@
              <tr>
                  <td class="cap">核稿人：</td>
                 <td >
-                      {$list.db_orgin2_person}
+                    <select name='db_orgin2_person'>
+                            <option  value="{$list.db_orgin2_person}">{$list.db_orgin2_person}</option>
+                    </select>
                 </td>
                <td class="cap">完成日期：</td>
                 <td>
-                   {$list.db_orgin2_date}
+                   <input type="text" readonly="true" name='db_orgin2_date' value="{$list.db_orgin2_date}" id="date8" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                   {$list.db_orgin2_time}
+                   <input type="text" readonly="true" name='db_orgin2_time'  value="{$list.db_orgin2_time}" id='date9' class="input-text text">
                 </td>
                  <td class="cap">核稿时长：</td>
                 <td>
-                   {$list.db_orgin2_length}
+                   <input type="text" readonly="true" name='db_orgin2_length' value="{$list.db_orgin2_length}" class="input-text text">
                 </td>
              </tr>
              <tr>
                  <td class="cap">核稿字数：</td>
                 <td>
-                   {$list.db_orgin2_num}
+                   <input type="text" readonly="true" name='db_orgin2_num'  value="{$list.db_orgin2_num}" class="input-text text">
                 </td>
                  <td class="cap">修改字数：</td>
                 <td>
-                  {$list.db_update2_num}
+                   <input type="text" readonly="true" name='db_update2_num' value="{$list.db_update2_num}" class="input-text text">
                 </td>
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
-                  {$list.db_orgin2_eval}
+                    <select name='db_orgin2_eval'>
+                            <option  value="{$list.db_orgin2_eval}">{$list.db_orgin2_eval}</option>
+                    </select>
                 </td>
              </tr>
         </table>
@@ -178,33 +206,37 @@
              <tr>
                  <td class="cap">核稿人：</td>
                 <td >
-                    {$list.db_orgin3_person}
+                    <select name='db_orgin3_person'>
+                            <option  value="{$list.db_orgin3_person}">{$list.db_orgin3_person}</option>
+                    </select>
                 </td>
                <td class="cap">完成日期：</td>
                 <td>
-                   {$list.db_orgin3_date}
+                   <input type="text" readonly="true" name='db_orgin3_date' value="{$list.db_orgin3_date}" id="date10" class="input-text text">
                 </td>
                  <td class="cap">完成时间：</td>
                 <td>
-                   {$list.db_orgin3_time}
+                   <input type="text" readonly="true" name='db_orgin3_time' value="{$list.db_orgin3_time}"  id='date11' class="input-text text">
                 </td>
                  <td class="cap">核稿时长：</td>
                 <td>
-                  {$list.db_orgin3_length}
+                   <input type="text" readonly="true" name='db_orgin3_length' value="{$list.db_orgin3_length}" class="input-text text">
                 </td>
              </tr>
              <tr>
                  <td class="cap">核稿字数：</td>
                 <td>
-                   {$list.db_orgin3_num}
+                   <input type="text" readonly="true" name='db_orgin3_num' value="{$list.db_orgin3_num}" class="input-text text">
                 </td>
                  <td class="cap">修改字数：</td>
                 <td>
-                   {$list.db_update3_num}
+                   <input type="text" readonly="true" name='db_update3_num' value="{$list.db_update3_num}" class="input-text text">
                 </td>
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
-                    {$list.db_orgin3_eval}
+                    <select name='db_orgin3_eval'>
+                            <option  value="{$list.db_orgin3_eval}">{$list.db_orgin3_eval}</option>
+                    </select>
                 </td>
              </tr>
         </table>
@@ -214,15 +246,17 @@
              <tr>
                  <td class="cap">中心评价：</td>
                 <td>
-                    {$list.db_evaluate}
+                     <select name='db_evaluate'>
+                            <option  value="{$list.db_evaluate}">{$list.db_evaluate}</option>
+                    </select>
                 </td>
                  <td class="cap">超时次数：</td>
                 <td>
-                    {$list.db_overtime_num}
+                    <input type="text" readonly="true" name='db_overtime_num' value="{$list.db_overtime_num}" class="input-text text" >
                 </td>
                  <td class="cap">硬伤次数：</td>
-                <td colspan='3'>
-                    {$list.db_mishap_num}
+                <td>
+                    <input type="text" readonly="true" name='db_mishap_num' value="{$list.db_mishap_num}" class="input-text text" >
                 </td>
              </tr>
         </table>
@@ -231,19 +265,23 @@
               <tr>
                  <td class="cap">呈报日期：</td>
                 <td>
-                    {$list.db_examin_date}
+                    <input type="text" readonly="true" name='db_examin_date' value="{$list.db_examin_date}" id="date12" class="input-text text" >
                 </td>
                  <td class="cap">呈报时间：</td>
                 <td>
-                    {$list.db_examin_time}
+                    <input type="text" readonly="true" name='db_examin_time' value="{$list.db_examin_time}"  id='date13' class="input-text text" >
                 </td>
                  <td class="cap">审批方式：</td>
                 <td>
-                    {$list.db_examin_mode}
+                      <select name='db_examin_mode'>
+                            <option  value="{$list.db_examin_mode}">{$list.db_examin_mode}</option>
+                    </select>
                 </td>
                  <td class="cap">审批进展：</td>
                 <td>
-                    {$list.db_examin_progress}
+                     <select name='db_examin_progress'>
+                            <option  value="{$list.db_examin_progress}">{$list.db_examin_progress}</option>
+                    </select>
                 </td>
              </tr>       
         </table>
@@ -252,19 +290,21 @@
             <tr>
                  <td class="cap">发文方式：</td>
                  <td>
-                    {$list.db_despatch_mode}
+                      <select name='db_despatch_mode'>
+                            <option  value="{$list.db_despatch_mode}">{$list.db_despatch_mode}</option>
+                    </select>
                 </td>
                  <td class="cap">发布人：</td>
                 <td>
-                    {$list.db_despatch_person}
+                    <input type="text" readonly="true" name='db_despatch_person' value="{$list.db_despatch_person}" class="input-text text"  > 
                 </td>
                  <td class="cap">发布日期：</td>
                 <td>
-                    {$list.db_despatch_date}
+                    <input type="text" readonly="true" name='db_despatch_date' value="{$list.db_despatch_date}" id="date14" class="input-text text" >
                 </td>
                   <td class="cap">发布时间：</td>
                 <td>
-                  {$list.db_despatch_time}
+                    <input type="text" readonly="true" name='db_despatch_time'  value="{$list.db_despatch_time}" id='date15' class="input-text text" >
                 </td>
              </tr>
         </table>
@@ -273,19 +313,22 @@
              <tr>
                  <td class="cap">存档人：</td>
                 <td>
-                    {$list.db_file_person}
+                    <input type="text" readonly="true" name='db_file_person' value="{$list.db_file_person}" class="input-text text"  >
                 </td>
                  <td class="cap">存档情况：</td>
                 <td>
-                    {$list.db_file_status}
+            
+                      <select name='db_file_status'>
+                            <option  value="{$list.db_file_status}">{$list.db_file_status}</option>
+                    </select>
                 </td>
                  <td class="cap">存档时间：</td>
                 <td>
-                    {$list.db_file_date}
+                    <input type="text" readonly="true" name='db_file_date' value="{$list.db_file_date}" id="date16" class="input-text text">
                 </td>
                  <td class="cap">存档地址：</td>
                 <td>
-                   {$list.db_file_address}
+                    <input type="text" readonly="true" name='db_file_address' value="{$list.db_file_address}" class="input-text text" >
                 </td>
              </tr>
         </table>
@@ -294,19 +337,19 @@
              <tr>
                  <td class="cap">用印全称：</td>
                 <td>
-                   {$list.db_india_name}
+                    <input type="text" readonly="true" name='db_india_name' value="{$list.db_india_name}" class="input-text text" >
                 </td>
                  <td class="cap">用印份数：</td>
-                <td colspan='5'>
-                    {$list.db_india_num}
+                <td>
+                    <input type="text" readonly="true" name='db_india_num' value="{$list.db_india_num}" class="input-text text" >
                 </td>            
              </tr>
         </table>
          <table class="tbl">
              <caption>备注</caption>
              <tr>          
-                <td >
-                {$list.db_pre_beizhu}
+                <td>
+                 <textarea class="textarea" name="db_pre_beizhu" readonly="true">{$list.db_pre_beizhu}</textarea>
                 </td>
             </tr>
         </table>

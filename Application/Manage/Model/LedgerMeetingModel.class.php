@@ -98,12 +98,12 @@ class LedgerMeetingModel  extends Model{
     public function saveLedger($data,$led_meeting_id){
         $led_meeting = M('led_meeting');
         $res = $led_meeting->where("led_meeting_id =".$led_meeting_id)->save($data);
-       if(FALSE === $res){
+       if($res){
+           writeOperationLog('修改“' . $data['led_meeting_name'] . '”会谈会见台账', 1);
+            return C('COMMON.SUCCESS_EDIT');
+        }else{
             writeOperationLog('修改“' . $data['led_meeting_name'] . '”会谈会见台账', 0);
             return C('COMMON.ERROR_EDIT');
-        }else{
-            writeOperationLog('修改“' . $data['led_meeting_name'] . '”会谈会见台账', 1);
-            return C('COMMON.SUCCESS_EDIT');
         }      
     }
     

@@ -76,7 +76,7 @@ class FileController extends AdminController {
         $this->display();
     }
 
-    /**
+   /**
      * 文档添加
      * @author huang gang
      * @date 2016/09/22
@@ -86,35 +86,28 @@ class FileController extends AdminController {
     public function addFile() {
         $data = I();
         if (!empty($data)) {
-            if (!empty($_FILES)) {
-                $size = $this->filedoc->fileSize($_FILES);
+            if (!empty($_FILES['file']['tmp_name'])&&!empty($_FILES['file1']['tmp_name'])) {
+                $size = $this->filedoc->fileSize($_FILES,0);
                 if (!empty($size)) {
-                    $upload_obj = new MeetingUplod();
-                    $config_info = C();
-                    //判断上传方式
-                    if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
-                        $file_config = $config_info['FIP_PUB_DOC'];
-                        $result = $upload_obj->ftpUpload($file_config);
-                        $data['doc_upload_file_url'] = $result['file']['path'];
-                        $data['doc_upload_img_url'] = $result['file1']['path'];
-                    } else { //普通上传
-                        $file_config = $config_info['FILE_PUB_DOC'];
-                        $result = $upload_obj->normalUpload($file_config);
-                        $data['doc_upload_file_url'] = $result['info']['file']['savepath'] . $result['info']['file']['savename'];
-                        $data['doc_upload_img_url'] = $result['info']['file1']['savepath'] . $result['info']['file1']['savename'];
-                    }
-                    if ($result['code'] == 100) {
-                        $this->error($result['status'],U('File/index'));
-                    }
+                    $res['file_type']='FILE_PUB_DOC';
+                    $res['ftp_type']='FIP_PUB_DOC';
+                    $res['mark']=0;
+                    $result=$this->filedoc->saveUploadNull($res);
+                    $data['doc_upload_file_url']=$result[0];
+                    $data['doc_upload_img_url']=$result[1];
                     $result = $this->filedoc->addFile($data);
                     if ($result['code'] == 200) {
                         $this->success($result['status'], U('File/index'));
                     } else {
                         $this->error($result['status'], U('File/addFile'));
-                    }
+                    } 
+                }else{
+                    $this->error(C('DOCFILE.SZIE_TYPE'), U('File/addFile'));
+                }
+            }else{
+                 $this->error(C('DOCFILE.FILE_DOC'), U('File/addFile'));
+            }
         return true;
-        }
-        }
         }
         //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');
@@ -129,7 +122,6 @@ class FileController extends AdminController {
         $file_authority = getConfigInfo('doc_pub_authority');
         $this->assign('file_authority', $file_authority);
         $this->display();
-    
     }
     /**
      * 文档撤回

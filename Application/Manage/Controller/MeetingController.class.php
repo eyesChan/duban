@@ -387,6 +387,8 @@ class MeetingController extends AdminController {
                 $this->error($list['msg'], U('/Manage/Meeting/selectMeeting'));
             }
             if ($import_flag['code'] !== 100) {
+                //删除 临时文件
+                unlink($path);
                 $this->success($import_flag['status'], U('/Manage/Meeting/selectMeeting'));
                 return true;
             }

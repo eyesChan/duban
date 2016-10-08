@@ -321,7 +321,7 @@ class WorkSheetModel  extends Model{
      */
     public function saveOneOrder($id,$state,$state_id){
         $data['worksheet_state'] = $state;
-        $data['worksheet_state_id'] = $state_id
+        $data['worksheet_state_id'] = $state_id;
         return D('worksheet')->where("worksheet_id = $id")->save($data);
     }
     /*

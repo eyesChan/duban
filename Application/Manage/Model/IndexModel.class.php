@@ -48,7 +48,7 @@ class IndexModel extends Model {
     public function getNumMeeting($flag) {
 
         $mod_meeting = M('meeting');
-        $where['meeting_delete'] = 1; //未被删除的会议
+        $where['meeting_state'] = 1; //未被删除的会议
         switch ($flag) {
             case self::$FLAG_MEETING_NUM_TODAY:
                 $where['meeting_date'] = date('Y-m-d');
@@ -113,9 +113,5 @@ class IndexModel extends Model {
         return $count;
     }
         
-    //台账相关数量计算
-    public function getNumAccount($flag){
-        
-        $mod_ceremoney_account = M('ceremoney_account');//签约仪式台账
-    }
+
 }

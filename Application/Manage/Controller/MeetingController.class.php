@@ -255,13 +255,13 @@ class MeetingController extends AdminController {
         if ($meeting_save_flag !== false && $work_save_flag !== false) {
             $this->meeting_model->commit();
             writeOperationLog('删除“' . $meeting_info['meeting_name'] . '”会议', 1);
-            $this->success(C('COMMON.SUCCESS_DEL')['status'], U('/Manage/Meeting/selectMeeting'));
-            return true;
+
+            $this->ajaxReturn(C('COMMON.SUCCESS_EDIT'));
         }
         $this->meeting_model->rollback();
         writeOperationLog('删除“' . $meeting_info['meeting_name'] . '”会议', 0);
 
-        $this->error(C('COMMON.ERROR_DEL')['status'], U('/Manage/Meeting/selectMeeting'));
+        $this->ajaxReturn(C('COMMON.ERROR_EDIT'));
     }
 
     /**
@@ -387,6 +387,8 @@ class MeetingController extends AdminController {
                 $this->error($list['msg'], U('/Manage/Meeting/selectMeeting'));
             }
             if ($import_flag['code'] !== 100) {
+                //删除 临时文件
+                unlink($path);
                 $this->success($import_flag['status'], U('/Manage/Meeting/selectMeeting'));
                 return true;
             }

@@ -1,5 +1,5 @@
 <extend name="Public:base" />
-<block name="title"><title>工作单列表</title></block>
+<block name="title"><title>会议创建</title></block>
 
 <block name="right">
 
@@ -25,7 +25,7 @@
 	    <div class="tb1 jxssp">
 	        <table class="tbl tbl-list">
 	            <caption>工作单列表 
-                        <a class="tb-detail f-fr mr30" title="创建工作单" href="{:U('WorkOrder/add')}">
+                        <a class="tb-detail f-fr mr30" title="创建工作单" href="{:U('add')}">
                                     <input type="button" class="btn btn-c btn-xl button" value="创建工作单">
                                 </a> <a class="tb-detail f-fr mr30" title="工作单导出">
                                     <input type="button" value="工作单导出" id="btn_query" class="btn btn-a submit" onclick="obtain()" />
@@ -53,6 +53,7 @@
 	                <th>操作</th>
 	            </tr>
 	            </thead>
+	        
 	        <tbody>	
                     <foreach name="list" item="item">
 	        	<tr>
@@ -64,17 +65,17 @@
                             <td>{$item.worksheet_state}</td>
                             <td>{$item.worksheet_done_persent}</td>
                             <td>
-                                <a class="" title="查看" href="{:U('WorkOrder/details',array('id'=>$item['worksheet_id']))}">
+                                <a class="" title="查看" href="{:U('details?id='.$item['worksheet_id'])}">
                                     <input type="button" class="btn btn-c btn-xl button" value="查看">
                                 </a>
-                                <a class="" title="编辑" href="{:U('WorkOrder/save',array('id'=>$item['worksheet_id']))}">
+                                <a class="" title="编辑" href="{:U('save?id='.$item['worksheet_id'])}">
                                     <input type="button" class="btn btn-c btn-xl button" value="编辑">
                                 </a>
-                                <a class="" title="督办" href="{:U('WorkOrder/sendEmail',array('id'=>$item['worksheet_id']))}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="督办" id="pushemail">
+                                <a class="" title="督办" href="{:U('sendEmail?id='.$item['worksheet_id'])}">
+                                    <input type="button" class="btn btn-c btn-xl button" value="督办">
                                 </a>
                             </td>
-	        	</tr> 
+	        	</tr>
                     </foreach>
 	        </tbody>
 	        </table>
@@ -95,22 +96,5 @@
                     $("#execlid").submit();
                     $("#hiddenform").val(0);
                 }
-                $("pushemail").click(function(){
-                    $.get("sendEmail",function(data){
-                        alert("Data: " + data + "\nStatus: ");
-                     });
-                });
-                function delMeeting(id){
-         
-            $.dialog({
-                title: '提示信息', content: '确认删除吗？', ok: function () {
-                location.href = '{:U("/Manage/Meeting/delMeeting/meeting_id/' + id + '")}';
-                },
-                        cancel: function () {
-                        }
-                });
-        
-
-        }
 	    </script> 
 </block>

@@ -64,9 +64,9 @@ class WorkOrderController extends AdminController {
             }else{
                 $result = $this->mod_worksheet->addWork($param);
                 if($result['code'] == 200){
-                    $this->success($result['status'], U('index'));
+                    $this->success($result['status'], '/Manage/WorkOrder/index');
                 }else{
-                    $this->success($result['status'], U('index'));
+                    $this->success($result['status'], '/Manage/WorkOrder/add');
                 }
             }
             return true;
@@ -130,17 +130,17 @@ class WorkOrderController extends AdminController {
                 echo json_encode(C('COMMON.ERROR_EDIT'));
             }
         }
-        else{
+        if(IS_POST){
             $param = I('post.');
             if(empty($param)){
                 echo json_encode(C('COMMON.ERROR_EDIT'));
             }else{
                 $result = $this->mod_worksheet->saveWork($param);
                 if($result['code'] == 200){
-                    $this->success($result['status'], U('index'));
+                    $this->success($result['status'], '/Manage/WorkOrder/index');
                     
                 }else{
-                    $this->success($result['status'], U('index'));
+                    $this->success($result['status'], '/Manage/WorkOrder/index');
                 }
             }
             return true;
@@ -158,16 +158,8 @@ class WorkOrderController extends AdminController {
         $email = $this->mod_worksheet->userPerson($param);
         $title = "工作单督办";
         $content = array_pop($email);
-        $result = array('code'=>200,'status'=>'发送成功');
         foreach ($email as $key=>$val){
             sendMail($val['email'],$title,$content);
-            
-            if($result['code'] == 200){
-                    $this->success($result['status'], U('index'));
-                    
-                }else{
-                    $this->success($result['status'], U('index'));
-                }
         }
     } 
     /*

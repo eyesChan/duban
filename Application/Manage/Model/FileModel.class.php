@@ -112,8 +112,8 @@ class FileModel  extends Model{
      */
     public function getFileDocCount($where) {
         $count = M('doc')
-                ->join('__MEMBER__ on db_doc.doc_pub_person = __MEMBER__.uid')
-                ->join('__CONFIG_SYSTEM__ on db_doc.doc_pub_type = __CONFIG_SYSTEM__.config_id')
+                ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
+                ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
                 ->where($where)
                 ->count();
         return $count;
@@ -130,8 +130,8 @@ class FileModel  extends Model{
     public function getList($where, $first_rows, $list_rows) {
       $docfile = M('doc');
       $list = $docfile
-              ->join('__MEMBER__ on db_doc.doc_pub_person = __MEMBER__.uid')
-              ->join('__CONFIG_SYSTEM__ on db_doc.doc_pub_type = __CONFIG_SYSTEM__.config_id')
+              ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
+              ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where($where) 
               ->limit($first_rows, $list_rows)
               ->order('doc_id desc')
@@ -169,8 +169,8 @@ class FileModel  extends Model{
     public function saveFileDoc($doc_id){
         $docfile = M('doc');
         $list = $docfile
-              ->join('__MEMBER__ on db_doc.doc_pub_person = __MEMBER__.uid')
-              ->join('__CONFIG_SYSTEM__ on db_doc.doc_pub_type = __CONFIG_SYSTEM__.config_id')
+              ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
+              ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where('doc_id='.$doc_id)       
               ->find();
             $config_info = C();

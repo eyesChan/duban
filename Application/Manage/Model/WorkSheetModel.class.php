@@ -57,6 +57,7 @@ class WorkSheetModel  extends Model{
             $data['worksheet_detele'] = 1;
             $data['worksheet_date'] = $workDay['days'];
             $data['worksheet_parcent_day'] = $workDay['parcent'];
+            $data['worksheet_state_id'] = $workDay['state_id'];
             $msg_sys_data = $this->create($data);
             if($msg_sys_data){
                 $res = $order->add($msg_sys_data);
@@ -159,7 +160,9 @@ class WorkSheetModel  extends Model{
         $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
         $data['worksheet_rule_persont'] = $param['personliable'];
         $data['worksheet_done_persent'] = $param['worksheet_done_persent']; 
-        $data['worksheet_state'] = $this->workState($param['worksheet_state'],$param['worksheet_id'],$param['worksheet_done_persent']);
+        $states = $this->workState($param['worksheet_state'],$param['worksheet_id'],$param['worksheet_done_persent']);
+        $data['worksheet_state'] = $states['state'];
+        $data['worksheet_state_id'] = $states['id'];
         $work_id = $param['worksheet_id'];
         $data['worksheet_abandoned_reason'] = $param['worksheet_abandoned_reason'];
         $res = $order->where("worksheet_id = $work_id")->save($data);
@@ -175,6 +178,8 @@ class WorkSheetModel  extends Model{
     /*
      * 计算单个工单几天和每天%
      * @author xiaohui
+     * $start 开始时间
+     * $stop 结束时间
      */
     public function workDay($start,$stop){
      
@@ -189,17 +194,31 @@ class WorkSheetModel  extends Model{
         $catime = strtotime($start);
         if($catime > $time){
             $workDay['state'] = "未启动";
-        }else{
+            $workDay['state_id'] = 2;
+        }
+        elseif($catime < $time-80000){
+            $workDay['state'] = "延迟";
+            $workDay['state_id'] = 3;
+        }
+        else{
             $workDay['state'] = "正常";
+            $workDay['state_id'] = 1;
         }
         return $workDay;
     }
     /*
      * 判断当前状态
+     * @state 是废弃和挂起
+     * @$id 工作单id
+     * @parcent 完成工作比
+     * 
      */
     public function workState($state,$id,$parcent){
+       
+        $states = array();
         if($parcent == "100" || $parcent == "100%"){
-            $states = "办结";
+            $states['state'] = "办结";
+            $states['id'] = 1;
             return $states;
         }else{
             $work = D('worksheet')
@@ -207,8 +226,20 @@ class WorkSheetModel  extends Model{
                     ->where("worksheet_id = $id")
                     ->find();
             if($state == '0'){
-                $states = $work['worksheet_state'];
-                return $states;
+                $time = time();
+                $starttime = strtotime($work['worksheet_start_date']);
+                $cation =  $time - $starttime;
+                $day = floor($cation/3600/24);
+                $surplus = $day * $work['worksheet_parcent_day'];
+                if($parcent >= $surplus){
+                    $states['state'] = "正常";
+                    $states['id'] = 1;
+                    return $states;
+                }else{
+                    $states['state'] = "延迟";
+                    $states['id'] = 3;
+                    return $states;
+                }   
             }
 
             elseif($state == '1' || $state == '2'){
@@ -216,32 +247,44 @@ class WorkSheetModel  extends Model{
                 $stoptime = strtotime($work['worksheet_end_date']);
                 $starttime = strtotime($work['worksheet_start_date']);
                 if($stoptime > $time){
-                    $cation = $stoptime - $time;
-                    $day = floor($timeiff/3600/24);
+                    $cation =  $time - $starttime;
+                    $day = floor($cation/3600/24);
                     $surplus = $day * $work['worksheet_parcent_day'];
-                    $sum = $surplus + $work['worksheet_done_persent'];
-                    if($starttime > $time){
-                        
-                        $states="未启动";
+                    $sum = $surplus + $work['worksheet_done_persent'];    
+                    
+                    if($starttime > $time){        
+                        $states['state']="未启动";
+                        $states['id'] = 2;
+                        return $states;
+                    }
+                    elseif ($day == '0') {
+                        $states['state'] = "正常";
+                        $states['id'] = 1;
                         return $states;
                     }else{
                         if($sum < 100){
-                            $states = "延迟";
+                            $states['state'] = "延迟";
+                            $states['id'] = 3;
                             return $states;
-                        }else{
-                            $states = "正常";
+                        }
+                    
+                    else{
+                            $states['state'] = "正常";
+                            $states['id'] = 1;
                             return $states;
                         }
                     }
                 }else{
-                    $states = "延迟";
+                    $states['state'] = "延迟";
+                    $states['id'] = 3;
                     return $states;
                 }
             }
-            else{
-                return $state;
-            }  
+            
         }
+        $states['state'] = $state;
+        $states['id'] = '4';
+        return $states;
     }
     /*
      * 分页刷新工作单状态
@@ -254,16 +297,19 @@ class WorkSheetModel  extends Model{
             if($val['worksheet_state'] == "未启动"){          
                 if($time > $starttime){
                     $state = "正常";
-                    $this->saveOneOrder($val['worksheet_id'],$state);
+                    $state_id = 1;
+                    $this->saveOneOrder($val['worksheet_id'],$state,$state_id);
                 }
             }
             if($val['worksheet_state'] == "正常"){
                 if($val['worksheet_done_persent'] >= $val['worksheet_parcent_day']*$val['worksheet_date']){
                     $state = "正常";
-                    $this->saveOneOrder($val['worksheet_id'],$state);
+                    $state_id = 1;
+                    $this->saveOneOrder($val['worksheet_id'],$state,$state_id);
                 }else{
-                    $state = "延期";
-                    $this->saveOneOrder($val['worksheet_id'],$state);
+                    $state = "延迟";
+                    $state_id = 3;
+                    $this->saveOneOrder($val['worksheet_id'],$state,$state_id);
                 }
             }
         }
@@ -273,8 +319,9 @@ class WorkSheetModel  extends Model{
      * 修改单个状态
      * @author xiao hui
      */
-    public function saveOneOrder($id,$state){
+    public function saveOneOrder($id,$state,$state_id){
         $data['worksheet_state'] = $state;
+        $data['worksheet_state_id'] = $state_id;
         return D('worksheet')->where("worksheet_id = $id")->save($data);
     }
     /*

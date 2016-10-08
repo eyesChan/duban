@@ -487,6 +487,8 @@ class MeetingModel extends Model {
      * @return array Description
      */
     public function dealtData($val, $key) {
+        echo $key;
+        echo $val[$key];
         $user_mod = D('member');
         if (!empty($val[$key])) {
             $meeting_moderator_name = $user_mod->where('uid in (' . $val[$key] . ')')->getField('name', true);
@@ -518,6 +520,10 @@ class MeetingModel extends Model {
      * @date 2016/09/28
      */
     public function meetingImport($data) {
+        import("Org.Util.PHPExcel.PHPExcel");
+        //时间格式转换
+        include_once 'ThinkPHP/Library/Org/Util/PHPExcel/PHPExcel/Shared/Date.php';
+        $dateMod = new \PHPExcel_Shared_Date();
         $config_mod = D('config_system');
         $meeting_mod = D('meeting');
         $user_mod = D('member');
@@ -572,7 +578,7 @@ class MeetingModel extends Model {
             }
             //会议时刻
             if (!empty($val[10])) {
-                $info['meeting_time'] = $val[10];
+                $info['meeting_time'] = date('H:i:s', $dateMod->ExcelToPHP($val[10])-3600*8);
             }
             //会议地点
             if (!empty($val[11])) {
@@ -596,7 +602,7 @@ class MeetingModel extends Model {
             }
             //通知发出时刻
             if (!empty($val[16])) {
-                $info['meeting_notice_date'] = $val[16];
+                $info['meeting_notice_date'] =  date('H:i:s', $dateMod->ExcelToPHP($val[16])-3600*8);
             }
             //会议材料收集
             if (!empty($val[17])) {
@@ -624,7 +630,7 @@ class MeetingModel extends Model {
             }
             //测试时间
             if (!empty($val[23])) {
-                $info['meeting_try_time'] = $val[23];
+                $info['meeting_try_time'] =date('H:i:s', $dateMod->ExcelToPHP($val[23])-3600*8);  
             }
             //问题明细
             if (!empty($val[24])) {
@@ -674,7 +680,7 @@ class MeetingModel extends Model {
             }
             //会议结束时刻
             if (!empty($val[31])) {
-                $info['meeting_end_time'] = $val[31];
+                $info['meeting_end_time'] =  date('H:i:s', $dateMod->ExcelToPHP($val[31])-3600*8);;
             }
             //餐饮安排
             if (!empty($val[32])) {
@@ -686,7 +692,7 @@ class MeetingModel extends Model {
             }
             //记录整理人
             if (!empty($val[35])) {
-                $info['meeting_record_person'] = $val[35];
+                $info['meeting_record_person_value'] = $val[35];
             }
             //相关文字
             if (!empty($val[34])) {

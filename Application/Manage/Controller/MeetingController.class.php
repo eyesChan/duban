@@ -343,7 +343,7 @@ class MeetingController extends AdminController {
             }
             $data['是否解决'] = $state;
             $data['现场保障'] = $this->meeting_model->dealtData($val, 'meeting_site_protection');
-            $data['问题明细'] = $val['meeting_site_qusetion_detail'];
+            $data['问题明细_保障'] = $val['meeting_site_qusetion_detail'];
             if ($val['meeting_site_state'] == 1) {
                 $state = '解决';
             }
@@ -353,11 +353,11 @@ class MeetingController extends AdminController {
             if ($val['meeting_site_state'] == 3) {
                 $state = '处理中';
             }
-            $data['是否解决'] = $state;
+            $data['是否解决_保障'] = $state;
             $data['会议摄影摄像'] = $this->meeting_model->dealtData($val, 'meeting_vedio');
             $data['会议结束日期'] = $val['meeting_end_date'];
             $data['会议结束时刻'] = $val['meeting_end_time'];
-            $data['餐饮安排'] = $this->meeting_model->dealtData($val, 'meeting_food_drink');
+            $data['餐饮安排'] = $val['meeting_food_drink'];
             $data['会场整理人'] = $this->meeting_model->dealtData($val, 'meeting_clean_person');
             $data['相关文字'] = $val['meeting_content'];
             $data['整理人'] = $this->meeting_model->dealtData($val, 'meeting_record_person');

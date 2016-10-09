@@ -364,7 +364,7 @@ class WorkSheetModel  extends Model{
         $user = $work['worksheet_rule_person'];
         $where['uid']=array("in",$user);
         $userEmail = D('member')->field('email,name')->where($where)->select();
-        $content = "关于".$work['meeting_name']."会议".$work['worksheet_name']."的工作单进度延迟，请尽快处理，并尽快调整工作单进度状态；";
+        $content = "关于“".$work['meeting_name']."”会议“".$work['worksheet_name']."”的工作单进度延迟,请在".substr($work['worksheet_end_date'],0,11)."尽快处理，并尽快调整工作单进度状态；";
         $userEmail['content'] = $content;
         return $userEmail;
     }

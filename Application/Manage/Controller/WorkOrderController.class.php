@@ -59,14 +59,19 @@ class WorkOrderController extends AdminController {
         $user = $this->mod_worksheet->getUser();
         if(IS_POST){
             $param = I('post.');
+            
             if(empty($param)){
-                $this->success($result['status'], '/Manage/WorkOrder/add');
+                $this->error($result['status'], '/Manage/WorkOrder/add');
+            }
+            elseif(strtotime($param['start_time']) > strtotime($param['stop_time'])){
+                $result['status'] = "保存失败";
+                $this->error($result['status'], '/Manage/WorkOrder/add');
             }else{
                 $result = $this->mod_worksheet->addWork($param);
                 if($result['code'] == 200){
                     $this->success($result['status'], '/Manage/WorkOrder/index');
                 }else{
-                    $this->success($result['status'], '/Manage/WorkOrder/add');
+                    $this->error($result['status'], '/Manage/WorkOrder/add');
                 }
             }
             return true;
@@ -120,11 +125,13 @@ class WorkOrderController extends AdminController {
             $param = I('get.id');
             if(!empty($param)){
                 $workorder = $this->mod_worksheet->selectWork($param);
+                $user = $this->mod_worksheet->getUser();
                 if($workorder['worksheet_creat_person'] == session('S_USER_INFO.UID')){
                     $state = 100;
                     $this->assign('state',$state);
                 }
                 $this->assign('workorder',$workorder);
+                $this->assign('user',$user);
                 $this->display('save');
             }else{
                 echo json_encode(C('COMMON.ERROR_EDIT'));
@@ -140,7 +147,7 @@ class WorkOrderController extends AdminController {
                     $this->success($result['status'], '/Manage/WorkOrder/index');
                     
                 }else{
-                    $this->success($result['status'], '/Manage/WorkOrder/index');
+                    $this->error($result['status'], '/Manage/WorkOrder/index');
                 }
             }
             return true;
@@ -158,8 +165,16 @@ class WorkOrderController extends AdminController {
         $email = $this->mod_worksheet->userPerson($param);
         $title = "工作单督办";
         $content = array_pop($email);
+        $result = array('code'=>200,'status'=>'发送成功');
         foreach ($email as $key=>$val){
             sendMail($val['email'],$title,$content);
+            if($result['code'] == 200){
+                $this->success($result['status'], '/Manage/WorkOrder/index');
+                 //return true;
+            }else{
+                $this->error($result['status'], '/Manage/WorkOrder/index');
+            }  
+               
         }
     } 
     /*

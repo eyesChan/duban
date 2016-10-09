@@ -1,13 +1,13 @@
 <?php
-
+ 
 namespace Manage\Controller;
-
+ 
 use Manage\Controller\AdminController;
-
+ 
 class InternalMeetingController extends AdminController {
-
+ 
     private $mod_internalmeeting;
-
+ 
     /*
      * 添加工作单
      * @author Hui Xiao
@@ -16,13 +16,13 @@ class InternalMeetingController extends AdminController {
      * @param string $verify_code
      * @return object 跳转或显示页面
      */
-
+ 
     public function __construct() {
         parent::__construct();
-
+ 
         $this->mod_internalmeeting = D('InternalMeeting');
     }
-
+ 
     /**
      * 对数组进行转义
      * 
@@ -33,10 +33,10 @@ class InternalMeetingController extends AdminController {
         foreach ($param as $k => $val) {
             $param[$k] = str_replace("_", "\_", $val);
         }
-
+ 
         return $param;
     }
-
+ 
     public function index() {
         $param = I();
         if ($param['hiddenform'] == '1') {
@@ -48,9 +48,9 @@ class InternalMeetingController extends AdminController {
             //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('eq', $param['internal_meeting_date']) : '';
             $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
             $where = $this->escape($where);
-
+ 
             $count = $this->mod_internalmeeting->getInternalCount($where);
-
+ 
             $page = new \Think\Page($count, 10);
             $list = $this->mod_internalmeeting->getList($where, $page->firstRow, $page->listRows);
             foreach ($param as $key => $val) {
@@ -60,43 +60,48 @@ class InternalMeetingController extends AdminController {
             $this->assign('list', $list);
             $this->assign('page', $show);
             $this->assign('param', $param);
+            $this->assign('s_number', 1); //初始序号
             $this->display();
         }
     }
-
+ 
     /*
      * 添加
      */
-
+ 
     public function add() {
         if (IS_POST) {
-
+ 
             $param = I('post.');
             $result = $this->mod_internalmeeting->addInternal($param);
             if ($result['code'] == 200) {
                 $this->success($result['status'], U('InternalMeeting/index'));
             } else {
-                $this->success($result['status'], U('InternalMeeting/index'));
+                $this->error($result['status'], U('InternalMeeting/index'));
             }
+            return true;
         }
+ 
+        $uid = session('S_USER_INFO.UID');
+        $this->assign('uid', $uid);
         $this->display();
     }
-
+ 
     /*
      * 查看
      */
-
+ 
     public function details() {
         $id = I('get.id');
         $oneData = $this->mod_internalmeeting->getOneInternalMeeting($id);
         $this->assign('onedata', $oneData);
         $this->display();
     }
-
+ 
     /*
      * 编辑
      */
-
+ 
     public function save() {
         if (IS_POST) {
             $param = I('post.');
@@ -104,7 +109,7 @@ class InternalMeetingController extends AdminController {
             if ($result['code'] == 200) {
                 $this->success($result['status'], U('InternalMeeting/index'));
             } else {
-                $this->success($result['status'], U('InternalMeeting/index'));
+                $this->error($result['status'], U('InternalMeeting/index'));
             }
         } else {
             $id = I('get.id');
@@ -112,15 +117,16 @@ class InternalMeetingController extends AdminController {
             $this->assign('onedata', $oneData);
             $this->display();
         }
+        return true;
     }
-
+ 
     /*
      * 公司导出execl
      */
-
+ 
     public function companyGetExecl() {
         $internal = $this->mod_internalmeeting->getExecl();
-
+ 
         $headArr = array('序号',
             '项目名称',
             '交办人',
@@ -177,15 +183,15 @@ class InternalMeetingController extends AdminController {
         );
         getExcel($headArr, $internal);
     }
-
+ 
     /*
      * 导出集团execl
      */
-
+ 
     public function groupGetExecl() {
-
+ 
         $internal = $this->mod_internalmeeting->groupExecl();
-
+ 
         $headArr = array('序号',
             '项目名称',
             '交办人',
@@ -240,11 +246,11 @@ class InternalMeetingController extends AdminController {
         );
         getExcel($headArr, $internal);
     }
-
+ 
     /*
      * 导入
      */
-
+ 
     public function importExcel() {
         $param = $_FILES['filename'];
         if (!empty($param)) {
@@ -254,27 +260,26 @@ class InternalMeetingController extends AdminController {
             $res_info_import = $this->mod_internalmeeting->import($data);
             if ($res_info_import['code'] == 200) {
                 $this->success($res_info_import['status'], U('InternalMeeting/index'));
+                unlink($fileName);
             } else {
                 $this->error($res_info_import['status'], U('InternalMeeting/index'));
             }
-        
-        }else{
+        } else {
             $this->display('import');
         }
-       
     }
-
+ 
     /*
      * 删除
      */
-
+ 
     public function delete($id) {
         $result = $this->mod_internalmeeting->deleteInternal($id);
         if ($result['code'] == 200) {
             $this->success($result['status'], U('InternalMeeting/index'));
         } else {
-            $this->success($result['status'], U('InternalMeeting/index'));
+            $this->error($result['status'], U('InternalMeeting/index'));
         }
     }
-
+ 
 }

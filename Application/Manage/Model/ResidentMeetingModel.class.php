@@ -147,6 +147,8 @@ class ResidentMeetingModel  extends Model{
         foreach($data as $k => $v){
             unset($data[$k]['resident_status']);
             unset($data[$k]['resident_id']);
+            unset($data[$k]['resident_add_time']);
+            unset($data[$k]['resident_save_time']);
         }
         return $data;
     }

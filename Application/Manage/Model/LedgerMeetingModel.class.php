@@ -148,6 +148,8 @@ class LedgerMeetingModel  extends Model{
         foreach($data as $k => $v){
             unset($data[$k]['led_meeting_id']);
             unset($data[$k]['led_status']);
+            unset($data[$k]['led_add_time']);
+            unset($data[$k]['led_update_time']);
         }
         return $data;
     }

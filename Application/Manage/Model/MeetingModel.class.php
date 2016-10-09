@@ -478,7 +478,7 @@ class MeetingModel extends Model {
                 ->join('__MEMBER__ member ON meet.meeting_ledger_re_person = member.uid')
                 ->where('meet.meeting_id = ' . $meeting_id)
                 ->find();
-        $str = $meeting_info['name'] . " ，您好：" . $meeting_info['meeting_name'] . "会议于" . $meeting_info['meeting_create_time'] . "已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
+        $str = $meeting_info['name'] . " ，您好：" .'“'. $meeting_info['meeting_name'] .'”'. "会议于" . $meeting_info['meeting_create_time'] . "已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
         return sendMail($meeting_info['email'], '台帐通知', $str);
     }
 

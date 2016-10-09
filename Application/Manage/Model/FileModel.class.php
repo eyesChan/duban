@@ -243,16 +243,27 @@ class FileModel  extends Model{
      * @return array data 组合要到导出的数据
      */
     public function getExecl($param){
-        foreach($param as $k => $v){
-            $data[$k]['doc_name']=$v['doc_name'];
-            $data[$k]['config_descripion']=$v['config_descripion'];
-            $data[$k]['name']=$v['name'];
-            $data[$k]['doc_pub_date']=$v['doc_pub_date'];
-            $data[$k]['doc_start_date']=$v['doc_start_date'];
-            $data[$k]['doc_end_date']=$v['doc_end_date'];
+         //处理查询条件：文档名称、发布人、发布日期、文档类型.发布与撤回区分的状态
+        $param['doc_name'] != '' ? $where['doc_name'] = array('like', '%' . $param['doc_name'] . '%') : '';
+        $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
+        if (!empty($param['doc_pub_date'])) {
+            $where['doc_pub_date'] = array('EQ', $param['doc_pub_date']);
+        }
+        if (!empty($param['doc_pub_type'])) {
+            $where['doc_pub_type'] = array('EQ', $param['doc_pub_type']);
+        }
+        $where['doc_status'] = array('EQ', '1');
+        $docfile = M('doc');
+        $data = $docfile
+              ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
+              ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
+              ->where($where)
+              ->order('doc_id desc')
+              ->field('doc_name,config_descripion,name,doc_pub_date,doc_start_date,doc_end_date,doc_root_view,doc_root_do,doc_beizhu')
+              ->select();
+        foreach($data as $k => $v){
             $data[$k]['doc_root_view']=$this->getRootView($v['doc_root_view']);
             $data[$k]['doc_root_do']=$this->getRootView($v['doc_root_do']);
-            $data[$k]['doc_beizhu']=$v['doc_beizhu'];
         }
         return $data;
     }

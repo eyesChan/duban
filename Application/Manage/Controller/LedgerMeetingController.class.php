@@ -41,6 +41,9 @@ class LedgerMeetingController extends AdminController {
      */
     public function index() {   
         $param = I();
+        if ($param['hiddenform'] == 1) {
+            $this->exportLedgerMeeting($param);
+        }
         //处理查询条件：会谈名称、主持人、日期
         $param['led_meeting_name'] != '' ? $where['led_meeting_name'] = array('like', '%' . $param['led_meeting_name'] . '%') : '';
         $param['led_meeting_host'] != '' ? $where['led_meeting_host'] = array('like', '%' . $param['led_meeting_host'] . '%') : '';
@@ -145,9 +148,8 @@ class LedgerMeetingController extends AdminController {
      * @return 跳转页面 Description
      *  
      */
-    public function exportLedgerMeeting(){
-        $data=I();
-        $work = $this->ledger_meeting->getExecl($data); 
+    public function exportLedgerMeeting($param){
+        $work = $this->ledger_meeting->getExecl($param); 
         $headArr = array('时间','地点','会谈名称','宾客','出席领导','主持人','密级','着装','保障人员','保障时长',
                         '议程责任人','议程报批情况','发送会议通知','通知材料准备','通知服务单位保障','准备会议议程',
                         '准备背景材料','准备来访人简历','准备电脑','准备录音笔','准备麦克风','准备宣传材料','礼品',
@@ -156,6 +158,7 @@ class LedgerMeetingController extends AdminController {
                         '责任人','交接单位','存档地址','改进建议',
                 );
         getExcel($headArr, $work);
+        
     }   
      /*
       * 导入

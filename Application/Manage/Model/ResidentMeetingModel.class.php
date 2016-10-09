@@ -141,7 +141,8 @@ class ResidentMeetingModel  extends Model{
         $where['resident_status'] = array('EQ', '0');
         $resident_meeting = M('resident_meeting');
         $data = $resident_meeting
-                ->where($where) 
+                ->where($where)
+                ->order('resident_id desc')
                 ->select();
         //去除不需要的键值
         foreach($data as $k => $v){

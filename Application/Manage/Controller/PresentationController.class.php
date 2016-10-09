@@ -43,6 +43,12 @@ class PresentationController extends AdminController {
      */
     public function index() {   
         $param = I();
+        if ($param['hiddenform'] == 1) {
+            $this->exportPresent($param);
+        }
+        if ($param['hiddenform'] == 2) {
+            $this->exportPresents($param);
+        }
         //处理查询条件：文字台账、交办人、交办时间
         $param['db_pre_name'] != '' ? $where['db_pre_name'] = array('like', '%' . $param['db_pre_name'] . '%') : '';
         $param['db_assign_name'] != '' ? $where['db_assign_name'] = array('like', '%' . $param['db_assign_name'] . '%') : '';
@@ -184,9 +190,8 @@ class PresentationController extends AdminController {
      * @return 跳转页面 Description
      *  
      */
-    public function exportPresent(){
-        $data=I();
-        $work = $this->presentation->getExecl($data); 
+    public function exportPresent($param){
+        $work = $this->presentation->getExecl($param); 
         $headArr = array('序号', '文稿规范名称', '工作来源',  '交办日期',  '完成日期','文稿类型	', '文稿形式', 
                         '优先级别	', '工作难度', '责任人','工作状态','拟稿人','拟稿时长','拟稿字数',  
                         '核稿人', '核稿时长', '修改字数', '核稿评价', '核稿人','核稿时长','修改字数','核稿评价',
@@ -204,9 +209,8 @@ class PresentationController extends AdminController {
      * @return 跳转页面 Description
      *  
      */
-    public function exportPresents(){
-        $data=I();
-        $work = $this->presentation->getExecls($data); 
+    public function exportPresents($param){
+        $work = $this->presentation->getExecls($param); 
         $headArr = array('序号', '文稿规范名称','工作来源','交办人','部门','职务','交办日期','交办时间',
             '完成日期','完成时间','文稿类型','文稿形式','优先级别','工作难度','责任人','工作状态',
             '拟稿人','完成日期','完成时间','拟稿时长','拟稿字数','核稿人','完成日期','完成时间','核稿时长',

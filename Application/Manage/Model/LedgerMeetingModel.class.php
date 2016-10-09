@@ -142,7 +142,8 @@ class LedgerMeetingModel  extends Model{
         $where['led_status'] = array('EQ', '0');
         $led_meeting = M('led_meeting');
         $data = $led_meeting
-              ->where($where) 
+              ->where($where)
+              ->order('led_meeting_id desc')
               ->select();
         //去除不需要的键值
         foreach($data as $k => $v){

@@ -104,15 +104,6 @@
     text-align: left;
     padding: 20px 0 20px 235px;
 }
-
-.current-role {
-    height: 60px;
-    border-bottom: 1px solid #ededed;
-    font: 16px/60px "microsoft yahei";
-    padding-left: 20px;
-    background: #fff;
-}
-
 .jxssp .tb2 {
     width: 1040px;
     border: none;
@@ -215,5 +206,8 @@
 .operated-auth {
     display: inline-block;
     margin: 0 10px;
+}
+.jxssp caption {
+    margin-top: 0;
 }
 

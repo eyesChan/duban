@@ -3,6 +3,7 @@
         <div class="header-hd">
             <div class="header-top-bar clear">
 
+                <a class="fl login-person">您好！<span>{$admin_info.UNAME} </span>欢迎登录</a>
                 <a href="{:U('Index/index')}" id="home" >首页</a>
                 <div class="line"></div>
                 <a href="{:U('MessageManage/showList')}" id="home" >系统消息</a>
@@ -13,12 +14,7 @@
                 <div class="line"></div>
                 <a href="{:U('Login/logout')}">退出</a>
 
-                <div class="login-person">
-                    <div class="clear">
-                        <div class="fl">您好！<span>{$admin_info.UNAME} </span>欢迎登录</div>
-                    </div>
-
-                </div>
+               
             </div>
             <div class="logo">
                 <img src="__PUBLIC__/images/logo.png">

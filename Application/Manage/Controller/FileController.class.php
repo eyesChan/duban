@@ -44,6 +44,9 @@ class FileController extends AdminController {
      */
     public function index() {
         $param = I();
+        if ($param['hiddenform'] == 1) {
+            $this->exportFile($param);
+        }
         //处理查询条件：文档名称、发布人、发布日期、文档类型.发布与撤回区分的状态
         $param['doc_name'] != '' ? $where['doc_name'] = array('like', '%' . $param['doc_name'] . '%') : '';
         $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
@@ -230,11 +233,8 @@ class FileController extends AdminController {
      * @return 跳转页面 Description
      *  
      */
-    public function exportFile(){
-        $export_file =I('export_file');
-        $export_file=  base64_decode($export_file, true);
-        $data=json_decode($export_file,true);    
-        $work = $this->filedoc->getExecl($data);    
+    public function exportFile($param){
+        $work = $this->filedoc->getExecl($param);    
         $headArr = array('文档名称',
                         '文档类型',
                         '发布人',

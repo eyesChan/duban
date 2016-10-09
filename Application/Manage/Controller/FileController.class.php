@@ -191,10 +191,11 @@ class FileController extends AdminController {
             $result=$this->filedoc->saveUploadNull($fileName);
             if($fileName['mark']=='file'){
                  $data['doc_upload_file_url']=$result[0];
-            }else{
-                 $data['doc_upload_file_url']=$result[1];
+            }elseif($fileName['mark']=='file1'){
+                 $data['doc_upload_img_url']=$result[1];
             }
             $result = $this->filedoc->updateFileDoc($data,$data['doc_id']);
+            P($result);die;
                 if ($result['code'] == 200) {
                     $this->success($result['status'],U('File/index'));
                 }else {

@@ -5,7 +5,7 @@
   
     <div class="role-padding container-padding">     
         <div class="clear">              
-            <form method="post" action="{:U(index)}">
+            <form method="post" action="{:U(index)}" id="execlid">
                 <table class="tbl">
                 <caption>   
                         查询条件
@@ -36,15 +36,12 @@
                                               <input class="btn btn-red mr10 submit" type="submit" value="查询"/>    
                                         </div>    
                                 </td>
-                         </tr>    
+                         </tr> 
+                         <input type="hidden" id="hiddenform" name="hiddenform"> 
                 </table>
             </form>
              <table class="tbl tbl-list">
-	            
-                        <form method="post" action="{:U(exportFile)}" class="tb-detail f-fr mr30" id="execlid">
-                    <input  type="hidden" name="export_file" value="{$export_file}">
-                </form>
-               <!--  <a class="tb-detail f-fr mr30" href="/Manage/ConfigManage/add.html" id="exportbtn">导出记录</a> -->
+	  
                <caption>文档列表</caption>
                 <colgroup>  
                     <col width="15%">
@@ -56,7 +53,7 @@
                     <col width="15%">
                     <col width="20%">
             </colgroup>
-                </colgroup>
+               
 	            <thead>
 	            <tr>
                                 <th>文档名称</th>
@@ -110,7 +107,9 @@
     var exportBtn = '<input class="btn btn-red mr10 submit exportBtn" type="button" onclick="importMeeting()" value="导出记录"/>';
     $(exportBtn).appendTo(".location");
     function importMeeting(){
-        $("#execlid").submit();   
+        $("#hiddenform").val(1);
+        $("#execlid").submit();
+        $("#hiddenform").val(0);   
     }
     
         //撤回操作

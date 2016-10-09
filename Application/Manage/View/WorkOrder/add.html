@@ -64,7 +64,7 @@
         </table>
         <div class="text-center">
             <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
-            <input class="btn ml10 button btn-normal" type="reset" value="取消"/>
+            <a href="{:U(index)}"><input class="btn ml10 button btn-normal" type="button" value="取消"/></a>
         </div>
     </form>
  <script type="text/javascript">
@@ -96,7 +96,7 @@
             html += '<div class="person fl">';
             html += '<input type="hidden" name=' + selectName + ' value="' + uid + '">';
             html += '<span>' + text + '</span>';
-            html += '<i class="person-del">X</i>';
+            html += '<i class="person-del" style="color:red;font-size:16px;">&nbsp;&nbsp;X&nbsp;&nbsp;</i>';
             html += '</div>';
             return html;
         }

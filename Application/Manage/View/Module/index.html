@@ -40,14 +40,11 @@
                                 <td>{$v['title']}</td>
                                 <td>{$v['name']}</td>
                                 <td>
-                                    <a class="fl mr5" href="{:U('child?pid='.$v['id'])}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="关联子项">
+                                    <a class="fl mr5 btn btn-c btn-xl button" href="{:U('child?pid='.$v['id'])}">
+                                   关联子项</a>
+                                    <a class="fl mr5 btn btn-c btn-xl button" onClick="return confirm('确定要删除吗？');" href="{:U('delete?id='.$v['id'])}">删除
                                     </a>
-                                    <a class="fl operate-btn mr5" title="删除" onClick="return confirm('确定要删除吗？');" href="{:U('delete?id='.$v['id'])}">
-                                     <input type="button" class="btn btn-c btn-xl button" value="删除">
-                                    </a>
-                                    <a class="fl operate-btn mr5" title="编辑" href="{:U('save?id='.$v['id'])}">
-                                        <input type="button" class="btn btn-c btn-xl button" value="编辑">
+                                    <a class="fl mr5 btn btn-c btn-xl button" href="{:U('save?id='.$v['id'])}">编辑
                                     </a>
                                 </td>
                             </tr>

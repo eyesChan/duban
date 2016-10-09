@@ -3,18 +3,18 @@
 <block name="title"><title>授权列表</title></block>
 <block name="right">
 <css href="__PUBLIC__/css/roleManage.css"/>
-    <div class="role-padding container-padding">
+    <div class="container-padding">
         <div class="jxssp tb1">
             <form  id="au-form"  class="auRole" method="POST" action="{:U(save)}" enctype="multipart/form-data">
                 <table class="current-user">
                 <caption>
-                    当前用户：
+                    当前授权角色：{$role_info['title']}
                 </caption>
                 </table>
                 <div class="current-role" >
                     <input type="hidden" name="id" value="{$role_info['id']}">
                     <input type="hidden" name="p" value="{$p}">
-                    当前授权角色：{$role_info['title']}
+        
                 </div>
                 <div class="table-wrap">
                     <table class="tb1 tb2" >

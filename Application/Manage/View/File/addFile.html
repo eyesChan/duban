@@ -71,7 +71,7 @@
              <tr>
                  <td class="cap" ><span class="rq">*</span>上传文档：</td>
                 <td colspan='7'>
-                    <input type="file" name='file' > <span style="color:red">文档大小不能超过20M</soan>
+                    <input type="file" name='file' class="inputFile"> <span style="color:red">文档大小不能超过20M</soan>
                 </td>
              </tr>
         </table>
@@ -80,7 +80,7 @@
              <tr>
                <td class="cap"><span class="rq">*</span>上传图片：</td>
                 <td colspan='7'>
-                   <input type="file" name='file1' ><span style="color:red" >图片支持JPG、大小不能超过0.5M</soan>
+                   <input type="file" name='file1' class="inputPic"><span style="color:red" >图片支持JPG、大小不能超过0.5M</soan>
                 </td>
             </tr>
         </table>
@@ -94,8 +94,28 @@
         </table>
         <div class="text-center">
 
-	        <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
+	        <input class="btn btn-red mr10 submit" type="submit" id="submit" value="提交"/>
 	        <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
     	</div>
     </form>
+    <script type="text/javascript">
+    $('#submit').on("click",function(){
+        if($.trim($("[name=doc_name]").val()) == ""){
+            $.dialog.alert("请填写文档名称！");
+            return false;
+        }else if($("#date1").val() == ""){
+            $.dialog.alert("请填写生效时间！");
+            return false;
+        }else if($("#date2").val() == ""){
+            $.dialog.alert("请填写失效时间！");
+            return false;
+        }else if($(".inputFile").val() == ""){
+            $.dialog.alert("请上传文档！");
+            return false;
+        }else if($(".inputPic").val() == ""){
+            $.dialog.alert("请上传图片！");
+            return false;
+        }
+    });
+</script>
 </block>

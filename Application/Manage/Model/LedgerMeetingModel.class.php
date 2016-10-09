@@ -163,6 +163,9 @@ class LedgerMeetingModel  extends Model{
   */
      public function addsLedger($param){
         $led_meeting = M('led_meeting');
+        $flag = 0;
+        $model = new Model();
+        $model->startTrans();
         $data=array();
         $res=array('led_meeting_date','led_meeting_name','led_meeting_place','led_meeting_guest',
                     'led_meeting_leader','led_meeting_host','led_meeting_dense','led_meeting_cloth',
@@ -182,11 +185,18 @@ class LedgerMeetingModel  extends Model{
         }  
         foreach($param as $key => $v){
             $res = $led_meeting->add($v);
+            if($res==FALSE){
+                $flag=$flag-1;
+            }
         } 
-        if($res){  
-            return C('COMMON.SUCCESS_EDIT');
-        }else{        
-            return C('COMMON.ERROR_EDIT');
-        } 
+        if ($flag < 0) {
+            $model->rollback();
+            writeOperationLog('导入“' . 'excel表格' . '”', 0);
+            return C('COMMON.IMPORT_ERROR');
+        }else{
+            $model->commit();
+            writeOperationLog('导入“' . 'excel表格' . '”', 1);
+            return C('COMMON.IMPORT_SUCCESS');   
+        }
     }
 }

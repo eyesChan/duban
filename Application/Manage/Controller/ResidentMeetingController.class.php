@@ -185,10 +185,8 @@ class ResidentMeetingController extends AdminController {
             $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
             $result = $this->resident->addsResident($resute);
             if($result['code'] == 200) {
-                writeOperationLog('批量导入驻各地发展情况台账', 1);
                 $this->success($result['status'], U('ResidentMeeting/index'));
             }else{
-                writeOperationLog('批量导入驻各地发展情况台账', 0);
                 $this->error($result['status'], U('ResidentMeeting/importExcel'));
             }
             return true;  

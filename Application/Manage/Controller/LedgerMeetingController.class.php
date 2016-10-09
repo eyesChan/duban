@@ -172,10 +172,8 @@ class LedgerMeetingController extends AdminController {
             $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
             $result = $this->ledger_meeting->addsLedger($resute);
             if($result['code'] == 200) {
-                writeOperationLog('批量导入会谈会见台账', 1);
                 $this->success($result['status'], U('LedgerMeeting/index'));
             }else{
-                writeOperationLog('批量导入会谈会见台账', 0);
                 $this->error($result['status'], U('LedgerMeeting/importExcel'));
             }
             return true;

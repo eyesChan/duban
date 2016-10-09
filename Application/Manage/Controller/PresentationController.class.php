@@ -233,10 +233,8 @@ class PresentationController extends AdminController {
             $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
             $result = $this->presentation->addsPresent($resute);
             if($result['code'] == 200) {
-                writeOperationLog('批量导入文稿台账', 1);
                 $this->success($result['status'], U('Presentation/index'));
             }else{
-                writeOperationLog('批量导入文稿台账', 0);
                 $this->error($result['status'], U('Presentation/importExcel'));
             }
             return true;

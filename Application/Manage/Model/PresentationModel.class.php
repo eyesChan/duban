@@ -203,6 +203,9 @@ class PresentationModel  extends Model{
     */
      public function addsPresent($param){
         $led_presentation = M('led_presentation');
+        $flag = 0;
+        $model = new Model();
+        $model->startTrans();
         $data=array();
         $res=array( 'db_pre_id','db_pre_name','db_pre_work', 'db_assign_name', 'db_assign_dapart',
                     'db_assign_post','db_assign_date', 'db_assign_time', 'db_complete_date', 'db_complete_time', 
@@ -226,12 +229,19 @@ class PresentationModel  extends Model{
         }  
         foreach($param as $key => $v){
             $res = $led_presentation->add($v);
+            if($res==FALSE){
+                $flag=$flag-1;
+            }
         } 
-        if($res){
-            return C('COMMON.SUCCESS_EDIT');
+        if ($flag < 0) {
+            $model->rollback();
+            writeOperationLog('导入“' . 'excel表格' . '”', 0);
+            return C('COMMON.IMPORT_ERROR');
         }else{
-            return C('COMMON.ERROR_EDIT');
-        } 
+            $model->commit();
+            writeOperationLog('导入“' . 'excel表格' . '”', 1);
+            return C('COMMON.IMPORT_SUCCESS');   
+        }
     }
     
 }

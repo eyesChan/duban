@@ -164,6 +164,9 @@ class ResidentMeetingModel  extends Model{
      public function addsResident($param){
         $resident_meeting = M('resident_meeting');
         $data=array();
+        $flag = 0;
+        $model = new Model();
+        $model->startTrans();
         $res=array( 
             'resident_region',
             'resident_country', 
@@ -192,12 +195,19 @@ class ResidentMeetingModel  extends Model{
         }  
         foreach($param as $key => $v){
             $res = $resident_meeting->add($v);
+            if($res==FALSE){
+                $flag=$flag-1;
+            }
         } 
-        if($res){
-            return C('COMMON.SUCCESS_EDIT');
+        if ($flag < 0) {
+            $model->rollback();
+            writeOperationLog('导入“' . 'excel表格' . '”', 0);
+            return C('COMMON.IMPORT_ERROR');
         }else{
-            return C('COMMON.ERROR_EDIT');
-        } 
+            $model->commit();
+            writeOperationLog('导入“' . 'excel表格' . '”', 1);
+            return C('COMMON.IMPORT_SUCCESS');   
+        }
     }
     
 }

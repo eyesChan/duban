@@ -189,6 +189,8 @@ class CeremoneyAccountModel extends Model {
         for ($i = 0; $i <= $count; $i++) {
             unset($data_ca[$i]['ca_id']);
             unset($data_ca[$i]['ca_status']);
+            unset($data_ca[$i]['ca_create_time']);
+            unset($data_ca[$i]['ca_update_time']);
         }
         return $data_ca;
     }

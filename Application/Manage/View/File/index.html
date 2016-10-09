@@ -30,12 +30,11 @@
                 </table>
             </form>
              <table class="tbl tbl-list">
-	            <caption>文档列表
+	            
                         <form method="post" action="{:U(exportFile)}" class="tb-detail f-fr mr30" id="execlid">
                     <input  type="hidden" name="export_file" value="{$export_file}">
                 </form>
-               <!--  <a class="tb-detail f-fr mr30" href="/Manage/ConfigManage/add.html" id="exportbtn">导出记录</a> -->
-                </caption>
+
 	            <colgroup>
 	                <col width="13%">
                             <col width="11%">
@@ -77,6 +76,9 @@
                                 </if>
                                 <td>{$item.doc_beizhu}</td>       
                                 <td>
+                                     <a href="{:U('detailsFile',array('doc_id'=>$item['doc_id']))}"> 
+                                        <input type="button" value="详情" class="btn btn-r btn-xl button">
+                                    </a> 
                                     <a href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 

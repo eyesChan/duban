@@ -234,6 +234,7 @@ class PresentationController extends AdminController {
             if (!empty($resute) && $resute['code'] != 100) {
                 $result = $this->presentation->addsPresent($resute);
             } else {
+                writeOperationLog('导入“' . 'excel表格模板错误' . '”', 0);
                 $this->error($resute['msg'], U('Presentation/importPresent'));
             } 
             if($result['code'] == 200) {

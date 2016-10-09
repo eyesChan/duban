@@ -186,6 +186,7 @@ class ResidentMeetingController extends AdminController {
             if (!empty($resute) && $resute['code'] != 100) {
                 $result = $this->resident->addsResident($resute);
             } else {
+                writeOperationLog('导入“' . 'excel表格模板错误' . '”', 0);
                 $this->error($resute['msg'], U('ResidentMeeting/importResident'));
             } 
             if($result['code'] == 200) {

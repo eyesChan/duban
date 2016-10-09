@@ -181,13 +181,17 @@ class ResidentMeetingController extends AdminController {
             $param = $_FILES['filename'];
             $upload_obj = new MeetingUplod();
             $files = $upload_obj->normalUpload($param);
-            $fileName = $files['info']['filename']['savename'];
-            $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
-            $result = $this->resident->addsResident($resute);
+            $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
+            $resute = importExcel($fileName,'R');
+            if (!empty($resute) && $resute['code'] != 100) {
+                $result = $this->resident->addsResident($resute);
+            } else {
+                $this->error($resute['msg'], U('ResidentMeeting/importResident'));
+            } 
             if($result['code'] == 200) {
                 $this->success($result['status'], U('ResidentMeeting/index'));
             }else{
-                $this->error($result['status'], U('ResidentMeeting/importExcel'));
+                $this->error($result['status'], U('ResidentMeeting/importResident'));
             }
             return true;  
         }

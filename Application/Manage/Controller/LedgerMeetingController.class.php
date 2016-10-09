@@ -168,13 +168,17 @@ class LedgerMeetingController extends AdminController {
             $param = $_FILES['filename'];
             $upload_obj = new MeetingUplod();
             $files = $upload_obj->normalUpload($param);
-            $fileName = $files['info']['filename']['savename'];
-            $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
-            $result = $this->ledger_meeting->addsLedger($resute);
+            $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
+            $resute = importExcel($fileName,'AP');
+            if (!empty($resute) && $resute['code'] != 100) {
+                $result = $this->ledger_meeting->addsLedger($resute);
+            } else {
+                $this->error($resute['msg'], U('LedgerMeeting/importLedgerMeeting'));
+            } 
             if($result['code'] == 200) {
                 $this->success($result['status'], U('LedgerMeeting/index'));
             }else{
-                $this->error($result['status'], U('LedgerMeeting/importExcel'));
+                $this->error($result['status'], U('LedgerMeeting/importLedgerMeeting'));
             }
             return true;
         }

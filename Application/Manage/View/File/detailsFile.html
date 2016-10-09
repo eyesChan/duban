@@ -1,0 +1,85 @@
+<extend name="Public:base" />
+<block name="title"><title>文档详情</title></block>
+
+<block name="right"><br><br>
+        <table class="tbl">
+            <colgroup>
+                <col width="12%">
+                <col width="21%">
+                <col width="13%">
+                <col width="21%">
+                <col width="12%">
+                <col width="21%">
+            </colgroup>
+            <tr>
+                <td class="cap">文档名称：</td>
+                <td>
+               {$list.doc_name}
+                </td>
+                <td class="cap">发布部门：</td>
+                <td colspan="3">
+                 {$list.doc_dept_id}
+                </td>
+            </tr>     
+            <tr>
+                <td class="cap">发布类别：</td>
+                <td>
+                    {$list.doc_pub_type} 
+                </td>
+                <td class="cap">生效日期：</td>
+                <td>
+                      {$list.doc_start_date}
+              </td>
+                <td class="cap">失效日期：</td>
+                <td>
+                     {$list.doc_end_date}
+               </td>
+            </tr>
+        </table>
+        <table class="tbl">
+            <caption>公文发布文件设定</caption>
+             <tr>
+                 <td class="cap">文档可见范围：</td>
+                <td >
+                    {$list.doc_root_view}
+                </td>
+               <td class="cap">浏览权限设定：</td>
+                <td colspan='3'>
+                    {$list.doc_root_do}
+                </td>
+            </tr>
+        </table>
+        <table class="tbl">
+            <caption>附件上传</caption>
+             <tr>
+                 <td class="cap">上传文档：</td>
+                <td colspan='5'>
+                     <if condition="$list.doc_upload_file_url ">
+                        <a href="{$list.doc_upload_file_url}">{$list.doc_upload_file_name}</a>
+                    </if>
+                </td>
+             </tr>
+        </table>
+        <table class="tbl">
+                <caption>附件封面上传</caption>
+             <tr>
+               <td class="cap">上传图片：</td>
+                <td colspan='5'>
+                    <if condition="$list.doc_upload_img_url ">
+                        <a href="{$list.doc_upload_img_url}">{$list.doc_upload_img_name}</a>
+                    </if>
+                </td>
+            </tr>
+        </table>
+         <table class="tbl">
+             <tr>
+               <td class="cap">文档备注：</td>
+                <td colspan='5' >
+                 {$list.doc_beizhu}
+                </td>
+            </tr>
+        </table>
+        <div class="text-center">
+	        <input class="btn ml10 button btn-normal" type="reset" value="返回" onclick="javascript:history.back(-1)"/>
+    	</div>
+</block>

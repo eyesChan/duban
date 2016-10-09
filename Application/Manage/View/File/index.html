@@ -40,14 +40,23 @@
                 </table>
             </form>
              <table class="tbl tbl-list">
-	            <caption>文档列表
-                <form method="post" action="{:U(exportFile)}" class="tb-detail f-fr mr30">
-                    <input type="submit" value="导出记录" class="btn btn-c mr10 submit">
+	            
+                        <form method="post" action="{:U(exportFile)}" class="tb-detail f-fr mr30" id="execlid">
                     <input  type="hidden" name="export_file" value="{$export_file}">
                 </form>
                <!--  <a class="tb-detail f-fr mr30" href="/Manage/ConfigManage/add.html" id="exportbtn">导出记录</a> -->
-                </caption>
-
+               <caption>文档列表</caption>
+                <colgroup>  
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="20%">
+            </colgroup>
+                </colgroup>
 	            <thead>
 	            <tr>
                                 <th>文档名称</th>
@@ -79,8 +88,8 @@
                                 </if>
                                 <td>{$item.doc_beizhu}</td>       
                                 <td>
-                                    <a class="btn btn-r btn-xl button" href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}">编辑
-                                    </a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}">编辑</a>
+                                     <a class="btn btn-r btn-xl button" href="{:U('detailsFile',array('doc_id'=>$item['doc_id']))}">详情</a> 
 	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button" onclick="withdraw({$item.doc_id})" >
                                 </td>
 	        	</tr>
@@ -97,6 +106,11 @@
     $(rightBtn).appendTo(".location");
     function openNew(){
         location.href = '{:U(addFile)}';
+    }
+    var exportBtn = '<input class="btn btn-red mr10 submit exportBtn" type="button" onclick="importMeeting()" value="导出记录"/>';
+    $(exportBtn).appendTo(".location");
+    function importMeeting(){
+        $("#execlid").submit();   
     }
     
         //撤回操作

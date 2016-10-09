@@ -25,10 +25,7 @@ class PresentationModel  extends Model{
   * @return object 添加成功或失败
   */
      public function addPresent($param){
-        if(in_array('',$param)){
-            writeOperationLog('添加的数据为空', 0);
-            return C('COMMON.ERROR_EDIT');
-        }
+        $param= array_filter($param);
         $led_presentation = M('led_presentation');
         $res = $led_presentation->add($param);
         if($res){
@@ -164,6 +161,8 @@ class PresentationModel  extends Model{
         //去除不需要的键值
         foreach($data as $k => $v){     
             $data[$k]['db_pre_id']=$k+1;
+            unset($data[$k]['db_add_time']);
+            unset($data[$k]['db_update_time']);
         }
         return $data;
     }
@@ -190,7 +189,8 @@ class PresentationModel  extends Model{
         foreach($data as $k => $v){
             unset($data[$k]['pre_status']);
             $data[$k]['db_pre_id']=$k+1;
-            unset($data[$k]['db_assign_dapart']);
+            unset($data[$k]['db_add_time']);
+            unset($data[$k]['db_update_time']);
         }
         return $data;
     }

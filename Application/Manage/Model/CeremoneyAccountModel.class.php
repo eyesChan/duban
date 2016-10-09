@@ -93,6 +93,15 @@ class CeremoneyAccountModel extends Model {
      */
     public function doAdd($data) {
 
+        //数据完善
+        $data['ca_create_time'] = date('Y-m-d H:i:s');
+        $data['ca_update_time'] = date('Y-m-d H:i:s');
+        if(empty($data['ca_time'])) {
+            unset($data['ca_time']);
+        }
+        if(empty($data['ca_pub_date'])) {
+            unset($data['ca_pub_date']);
+        }
         //后台数据验证
         $ceremoney_account_data = $this->create($data);
         //入库
@@ -119,6 +128,14 @@ class CeremoneyAccountModel extends Model {
      */
     public function doEdit($data) {
 
+        //数据完善
+        $data['ca_update_time'] = date('Y-m-d H:i:s');
+        if(empty($data['ca_time'])) {
+            unset($data['ca_time']);
+        }
+        if(empty($data['ca_pub_date'])) {
+            unset($data['ca_pub_date']);
+        }
         //后台数据验证
         $ceremoney_account_data = $this->create($data);
         //入库
@@ -165,13 +182,16 @@ class CeremoneyAccountModel extends Model {
      * 
      * @return array
      */
-    public function getExecl() {
+    public function getExecl($params) {
 
-        $data_ca = $this->select();
+        $where = $this->makeWhereForSearch($params);
+        $data_ca = $this->where($where)->select();
         $count = count($data_ca);
         for ($i = 0; $i <= $count; $i++) {
             unset($data_ca[$i]['ca_id']);
             unset($data_ca[$i]['ca_status']);
+            unset($data_ca[$i]['ca_create_time']);
+            unset($data_ca[$i]['ca_update_time']);
         }
         return $data_ca;
     }
@@ -258,7 +278,6 @@ class CeremoneyAccountModel extends Model {
             $model->commit();
             writeOperationLog('导入“' . 'excel表格' . '”', 1);
             return C('COMMON.IMPORT_SUCCESS');
-            
         }
     }
 

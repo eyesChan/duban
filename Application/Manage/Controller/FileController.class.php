@@ -141,7 +141,28 @@ class FileController extends AdminController {
             $this->success($result['status'], U('File/index'));
         }
     }
-    
+    /*
+     * 文档详情
+     * @author huang gang
+     * @date 2016/09/27
+     * @return 跳转页面 Description
+     */
+    public function detailsFile(){
+        $doc_id=I('doc_id');
+        $result = $this->filedoc->saveFileDoc($doc_id);
+        $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
+        $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_url'])['filename'];
+        //文档发布类型 
+        $result['doc_pub_type'] = $this->filedoc->getRootView($result['doc_pub_type']);
+        //文档发布部门
+        $result['doc_dept_id'] = $this->filedoc->getRootView($result['doc_dept_id']);
+        //文档可见范围
+        $result['doc_root_view'] = $this->filedoc->getRootView($result['doc_root_view']);
+        //文档权限设定
+        $result['doc_root_do'] = $this->filedoc->getRootView($result['doc_root_do']);
+        $this->assign('list', $result);
+        $this->display();
+    }
    /**
      *  文档编辑
      * @author huang gang
@@ -170,8 +191,8 @@ class FileController extends AdminController {
             $result=$this->filedoc->saveUploadNull($fileName);
             if($fileName['mark']=='file'){
                  $data['doc_upload_file_url']=$result[0];
-            }else{
-                 $data['doc_upload_file_url']=$result[1];
+            }elseif($fileName['mark']=='file1'){
+                 $data['doc_upload_img_url']=$result[1];
             }
             $result = $this->filedoc->updateFileDoc($data,$data['doc_id']);
                 if ($result['code'] == 200) {

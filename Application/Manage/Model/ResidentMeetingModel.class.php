@@ -25,10 +25,6 @@ class ResidentMeetingModel  extends Model{
   * @return object 添加成功或失败
   */
      public function addResident($param){
-        if(in_array('',$param)){
-            writeOperationLog('添加的数据为空', 0);
-            return C('COMMON.ERROR_EDIT');
-        }
         $resident_meeting = M('resident_meeting');
         $res = $resident_meeting->add($param);
         if($res){
@@ -151,6 +147,8 @@ class ResidentMeetingModel  extends Model{
         foreach($data as $k => $v){
             unset($data[$k]['resident_status']);
             unset($data[$k]['resident_id']);
+            unset($data[$k]['resident_add_time']);
+            unset($data[$k]['resident_save_time']);
         }
         return $data;
     }

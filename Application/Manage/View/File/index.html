@@ -78,7 +78,7 @@
                                 </if>
                                 <td>{$item.doc_beizhu}</td>       
                                 <td>
-                                    <a href="{:U('saveFile?doc_id='.$item['doc_id'])}"> 
+                                    <a href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 
 	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button" onclick="withdraw({$item.doc_id})" >
@@ -96,7 +96,7 @@
     var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="文档发布创建"/>';
     $(rightBtn).appendTo(".location");
     function openNew(){
-        location.href = '/Manage/File/addFile';
+        location.href = '{:U(addFile)}';
     }
     
         //撤回操作

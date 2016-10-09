@@ -1,10 +1,3 @@
- var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="创建驻各地发展情况台账" style="width:180px"/>';
-            $(rightBtn).appendTo(".location");
-            function openNew(){
-            location.href = '/Manage/ResidentMeeting/addResident';
-                
-        }
-
 $('#export').click(function(){
    
    var  resident_country = $('#resident_country').val();

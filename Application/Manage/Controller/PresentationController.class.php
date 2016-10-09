@@ -207,7 +207,7 @@ class PresentationController extends AdminController {
     public function exportPresents(){
         $data=I();
         $work = $this->presentation->getExecls($data); 
-        $headArr = array('序号', '文稿规范名称','工作来源','交办人','部门职务','交办日期','交办时间',
+        $headArr = array('序号', '文稿规范名称','工作来源','交办人','部门','职务','交办日期','交办时间',
             '完成日期','完成时间','文稿类型','文稿形式','优先级别','工作难度','责任人','工作状态',
             '拟稿人','完成日期','完成时间','拟稿时长','拟稿字数','核稿人','完成日期','完成时间','核稿时长',
             '核稿字数','修改字数','核稿评价','核稿人','完成日期','完成时间','核稿时长','核稿字数','修改字数',
@@ -218,18 +218,6 @@ class PresentationController extends AdminController {
         getExcel($headArr, $work);
                             
       }
-      
-    /*
-     * 导入页面
-     * @author huang gang
-     * @date 2016/09/27
-     * @return 跳转页面 Description
-     */
-    public function importExcel(){
-        
-        $this->display('importPresent');
-    }
-    
      /*
       * 导入数据
       * @author huang gang
@@ -237,18 +225,25 @@ class PresentationController extends AdminController {
       * @return 跳转页面 Description
       */
     public function importPresent(){
-        $param = $_FILES['filename'];
-        $upload_obj = new MeetingUplod();
-        $files = $upload_obj->normalUpload($param);
-        $fileName = $files['info']['filename']['savename'];
-        $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
-        $result = $this->presentation->addsPresent($resute);
-        if($result['code'] == 200) {
-            writeOperationLog('批量导入文稿台账', 1);
-            $this->success($result['status'], U('Presentation/index'));
-        }else{
-            writeOperationLog('批量导入文稿台账', 0);
-            $this->error($result['status'], U('Presentation/importExcel'));
+        if (!empty($_FILES['filename'])) {
+            $param = $_FILES['filename'];
+            $upload_obj = new MeetingUplod();
+            $files = $upload_obj->normalUpload($param);
+            $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
+            $resute = importExcel($fileName,'BH');
+            if (!empty($resute) && $resute['code'] != 100) {
+                $result = $this->presentation->addsPresent($resute);
+            } else {
+                writeOperationLog('导入“' . 'excel表格模板错误' . '”', 0);
+                $this->error($resute['msg'], U('Presentation/importPresent'));
+            } 
+            if($result['code'] == 200) {
+                $this->success($result['status'], U('Presentation/index'));
+            }else{
+                $this->error($result['status'], U('Presentation/importPresent'));
+            }
+            return true;
         }
+        $this->display('importPresent');
     }
 }         

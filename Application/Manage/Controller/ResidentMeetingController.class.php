@@ -170,19 +170,6 @@ class ResidentMeetingController extends AdminController {
         getExcel($headArr, $work);
                             
       }
-      
-      
-    /*
-     * 驻各地发展情况台账导入页面
-     * @author huang gang
-     * @date 2016/09/29
-     * @return 跳转页面 Description
-     */
-    public function importExcel(){
-        
-        $this->display('importResident');
-    }
-    
      /*
       * 导入数据
       * @author huang gang
@@ -190,18 +177,25 @@ class ResidentMeetingController extends AdminController {
       * @return 跳转页面 Description
       */
     public function importResident(){
-        $param = $_FILES['filename'];
-        $upload_obj = new MeetingUplod();
-        $files = $upload_obj->normalUpload($param);
-        $fileName = $files['info']['filename']['savename'];
-        $resute = importExcel('Public/'.date('Y-m-d').'/'.$fileName,$column=null);
-        $result = $this->resident->addsResident($resute);
-        if($result['code'] == 200) {
-            writeOperationLog('批量导入驻各地发展情况台账', 1);
-            $this->success($result['status'], U('ResidentMeeting/index'));
-        }else{
-            writeOperationLog('批量导入驻各地发展情况台账', 0);
-            $this->error($result['status'], U('ResidentMeeting/importExcel'));
+        if (!empty($_FILES['filename'])) {
+            $param = $_FILES['filename'];
+            $upload_obj = new MeetingUplod();
+            $files = $upload_obj->normalUpload($param);
+            $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
+            $resute = importExcel($fileName,'R');
+            if (!empty($resute) && $resute['code'] != 100) {
+                $result = $this->resident->addsResident($resute);
+            } else {
+                writeOperationLog('导入“' . 'excel表格模板错误' . '”', 0);
+                $this->error($resute['msg'], U('ResidentMeeting/importResident'));
+            } 
+            if($result['code'] == 200) {
+                $this->success($result['status'], U('ResidentMeeting/index'));
+            }else{
+                $this->error($result['status'], U('ResidentMeeting/importResident'));
+            }
+            return true;  
         }
+        $this->display('importResident');
     }
 }         

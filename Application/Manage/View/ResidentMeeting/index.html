@@ -20,7 +20,7 @@
                           <a href="{:U('exportResident')}"><input class="btn btn-r btn-xl button" type="button" value="导出" id="export"/></a>
                         </td>
                         <td>
-                              <a class="tb-detail f-fr mr30" title="导入" href="{:U('importExcel')}">
+                              <a class="tb-detail f-fr mr30" title="导入" href="{:U('importResident')}">
                                     <input type="button" class="btn btn-c btn-xl button" value="导入">
                                 </a>
                         </td>
@@ -57,10 +57,10 @@
                                 <td>{$item.resident_person}</td>
                                 <td>{$item.resident_file_time}</td> 
                                 <td>
-                                    <a href="{:U('detailsResident?resident_id='.$item['resident_id'])}"> 
+                                    <a href="{:U('detailsResident',array('resident_id'=>$item['resident_id']))}"> 
                                         <input type="button" value="详情" class="btn btn-r btn-xl button">
                                     </a> 
-                                    <a href="{:U('saveResident?resident_id='.$item['resident_id'])}"> 
+                                    <a href="{:U('saveResident',array('resident_id'=>$item['resident_id']))}"> 
                                         <input type="button" value="编辑" class="btn btn-r btn-xl button">
                                     </a> 
                                    
@@ -78,7 +78,13 @@
         </div> 
     <js href="__PUBLIC__/Js/resident.js"/>
     <script>
-    
+        //创建
+         var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="创建驻各地发展情况台账" style="width:180px"/>';
+            $(rightBtn).appendTo(".location");
+            function openNew(){
+            location.href = "{:U('addResident')}";
+                
+        }
          //删除操作
         function withdraw(id) {
             $.dialog({

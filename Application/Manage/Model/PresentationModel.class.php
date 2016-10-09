@@ -190,7 +190,6 @@ class PresentationModel  extends Model{
         foreach($data as $k => $v){
             unset($data[$k]['pre_status']);
             $data[$k]['db_pre_id']=$k+1;
-            unset($data[$k]['db_assign_dapart']);
         }
         return $data;
     }

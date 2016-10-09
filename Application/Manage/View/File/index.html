@@ -31,8 +31,7 @@
             </form>
              <table class="tbl tbl-list">
 	            <caption>文档列表
-                <form method="post" action="{:U(exportFile)}" class="tb-detail f-fr mr30">
-                    <input type="submit" value="导出记录" class="btn btn-c mr10 submit">
+                        <form method="post" action="{:U(exportFile)}" class="tb-detail f-fr mr30" id="execlid">
                     <input  type="hidden" name="export_file" value="{$export_file}">
                 </form>
                <!--  <a class="tb-detail f-fr mr30" href="/Manage/ConfigManage/add.html" id="exportbtn">导出记录</a> -->
@@ -97,6 +96,11 @@
     $(rightBtn).appendTo(".location");
     function openNew(){
         location.href = '{:U(addFile)}';
+    }
+    var exportBtn = '<input class="btn btn-red mr10 submit exportBtn" type="button" onclick="importMeeting()" value="导出记录"/>';
+    $(exportBtn).appendTo(".location");
+    function importMeeting(){
+        $("#execlid").submit();   
     }
     
         //撤回操作

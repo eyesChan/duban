@@ -3,7 +3,7 @@
 
 <block name="right">
     <form action="{:U(saveFile)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
-        <table class="tbl">
+        <table class="tbl" style="border: 1px solid #ededed;">
             <colgroup>
                 <col width="12%">
                 <col width="21%">
@@ -71,7 +71,7 @@
              <tr>
                  <td class="cap">上传文档：</td>
                 <td colspan='5'>
-                    <input type="file" name='file' >
+                    <input type="file" name='file' class="inputFile" inputFile="">
                      <if condition="$list.doc_upload_file_url ">
                         <a href="{$list.doc_upload_file_url}">{$list.doc_upload_file_name}</a>
                     </if>
@@ -84,7 +84,7 @@
              <tr>
                <td class="cap">上传图片：</td>
                 <td colspan='5'>
-                   <input type="file" name='file1' >
+                   <input type="file" name='file1' class="inputPic" inputPic="" >
                     <if condition="$list.doc_upload_img_url ">
                         <a href="{$list.doc_upload_img_url}">{$list.doc_upload_img_name}</a>
                     </if>
@@ -92,7 +92,7 @@
                 </td>
             </tr>
         </table>
-         <table class="tbl">
+         <table class="tbl" style="border: 1px solid #ededed;">
              <tr>
                <td class="cap">文档备注：</td>
                 <td colspan='5' >
@@ -104,8 +104,38 @@
         </table>
         <div class="text-center">
 
-	        <input class="btn btn-red mr10 submit" type="submit" value="提交"/>
+	        <input class="btn btn-red mr10 submit" type="submit" id="submit" value="提交"/>
 	        <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
     	</div>
     </form>
+   <script type="text/javascript">
+   $('#submit').on("click",function(){
+     if($(".inputFile").siblings("a").html() != ""){
+            $(".inputFile").attr("inputFile",$(".inputFile").siblings("a").html());
+        }else {
+            $(".inputFile").attr("inputFile",$(".inputFile").val());
+        }
+        if($(".inputPic").siblings("a").html() != ""){
+            $(".inputPic").attr("inputPic",$(".inputPic").siblings("a").html());
+        }else {
+            $(".inputPic").attr("inputPic",$(".inputPic").val());
+        }
+    if($.trim($("[name=doc_name]").val()) == ""){
+        $.dialog.alert("请填写文档名称！");
+        return false;
+    }else if($("#date1").val() == ""){
+        $.dialog.alert("请填写生效时间！");
+        return false;
+    }else if($("#date2").val() == ""){
+        $.dialog.alert("请填写失效时间！");
+        return false;
+    }else if($(".inputFile").attr("inputFile") == ""){
+        $.dialog.alert("请上传文档！");
+        return false;
+    }else if($(".inputPic").attr("inputPic") == ""){
+        $.dialog.alert("请上传图片！");
+        return false;
+    }
+});
+</script>
 </block>

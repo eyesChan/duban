@@ -26,10 +26,7 @@ class LedgerMeetingModel  extends Model{
   */
      public function addLedger($param){
         $led_meeting = M('led_meeting');
-        if(in_array('',$param)){
-            writeOperationLog('添加的数据为空', 0);
-            return C('COMMON.ERROR_EDIT');
-        }
+        $param= array_filter($param);
         $res = $led_meeting->add($param);
         if($res){
             writeOperationLog('添加“' . $param['led_meeting_name'] . '”会谈会见台账', 1);
@@ -145,12 +142,15 @@ class LedgerMeetingModel  extends Model{
         $where['led_status'] = array('EQ', '0');
         $led_meeting = M('led_meeting');
         $data = $led_meeting
-              ->where($where) 
+              ->where($where)
+              ->order('led_meeting_id desc')
               ->select();
         //去除不需要的键值
         foreach($data as $k => $v){
             unset($data[$k]['led_meeting_id']);
             unset($data[$k]['led_status']);
+            unset($data[$k]['led_add_time']);
+            unset($data[$k]['led_update_time']);
         }
         return $data;
     }

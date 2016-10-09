@@ -4,7 +4,7 @@
     <css href="__PUBLIC__/css/meeting.css"/>
     <div class="role-padding container-padding">     
         <div class="filter-main clear">              
-            <form method="post" action="{:U(index)}">
+            <form method="post" action="{:U(index)}" id="execlid">
                 <table class="tbl">
                     <tr>
                         <td class="cap">会谈名称:</td>
@@ -17,7 +17,9 @@
                              <input class="btn btn-r btn-xl button" type="submit" value="查询"/>
                         </td>
                         <td>
-                            <a href="{:U('exportLedgerMeeting')}"><input class="btn btn-r btn-xl button" type="button" value="导出" id="export"/></a>
+                          <a href="javascript:;" onclick="obtain()" class="tb-detail f-fr mr30" title="导出">
+                                <input class="btn btn-r btn-xl button" type="button" value="导出" />
+                           </a>
                         </td>
                         <td>
                              <a class="tb-detail f-fr mr30" title="导入" href="{:U('importLedgerMeeting')}">
@@ -26,7 +28,7 @@
                         </td>
                         
                          </tr> 
-                       
+                     <input type="hidden" id="hiddenform" name="hiddenform">  
                 </table>
             </form>
              <table class="tbl tbl-list">
@@ -75,7 +77,14 @@
                 {$page}
             </div>
         </div> 
+    
      <script>
+         //导出
+           function obtain(){
+               $("#hiddenform").val(1);
+               $("#execlid").submit();
+               $("#hiddenform").val(0);
+        }
          //创建
         var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="会谈会见台账创建" style="width:120px"/>';
          $(rightBtn).appendTo(".location");

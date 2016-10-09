@@ -193,7 +193,7 @@ class MeetingController extends AdminController {
             }
             $save_flag = $this->meeting_model->addMeeting($meeting_info, $meeting_id);
             if ($save_flag !== false) {
-                $this->meeting_model->sendMeetingEmail($meeting_id);
+//                $this->meeting_model->sendMeetingEmail($meeting_id);
                 writeOperationLog('修改“' . $meeting_info['meeting_name'] . '”会议', 1);
                 $this->success(C('COMMON.SUCCESS_EDIT')['status'], U('/Manage/Meeting/selectMeeting'));
             } else {

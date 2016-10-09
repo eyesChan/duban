@@ -4,15 +4,21 @@
     <css href="__PUBLIC__/css/meeting.css"/>
   
     <div class="role-padding container-padding">     
-        <div class="filter-main clear">              
-            <form method="post" action="{:U(index)}">
+        <div class="clear">              
+            <form method="post" action="{:U(index)}" id="execlid">
                 <table class="tbl">
+                <caption>   
+                        查询条件
+                </caption>
                     <tr>
                         <td class="cap">文档名称:</td>
                         <td> <input class="input-text" type="text" name="doc_name" value="{$param['doc_name']}"></td>
                         <td class="cap">发布人：</td>
                         <td><input class="input-text" type="text" name="name" value="{$param['name']}"></td>
-                        <td class="cap">发布时间：</td>
+                        
+                         </tr>   
+                         <tr>   
+                              <td class="cap">发布时间：</td>
                          <td><input type="text" name='doc_pub_date' id="date8" value="{$param['doc_pub_date']}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>
                         <td class="cap">发布类型：</td>
                         <td>
@@ -22,31 +28,32 @@
                                     <option  <if condition="$param['doc_pub_type'] eq $item['config_id'] "> selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
                                 </foreach>
                              </select>
-                        </td>
-                        <td>
-                             <input class="btn btn-red mr10 submit" type="submit" value="查询"/>
-                        </td>
-                         </tr>         
+                        </td>  
+                         </tr>  
+                         <tr>   
+                                <td colspan="4">
+                                        <div class="wrap-btns"> 
+                                              <input class="btn btn-red mr10 submit" type="submit" value="查询"/>    
+                                        </div>    
+                                </td>
+                         </tr> 
+                         <input type="hidden" id="hiddenform" name="hiddenform"> 
                 </table>
             </form>
              <table class="tbl tbl-list">
-	            <caption>文档列表
-                <form method="post" action="{:U(exportFile)}" class="tb-detail f-fr mr30">
-                    <input type="submit" value="导出记录" class="btn btn-c mr10 submit">
-                    <input  type="hidden" name="export_file" value="{$export_file}">
-                </form>
-               <!--  <a class="tb-detail f-fr mr30" href="/Manage/ConfigManage/add.html" id="exportbtn">导出记录</a> -->
-                </caption>
-	            <colgroup>
-	                <col width="13%">
-                            <col width="11%">
-                            <col width="11%">
-                            <col width="11%">
-                            <col width="11%">
-                            <col width="11%">
-                            <col width="11%">
-                            <col width="38%">
-	            </colgroup>
+	  
+               <caption>文档列表</caption>
+                <colgroup>  
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="20%">
+            </colgroup>
+               
 	            <thead>
 	            <tr>
                                 <th>文档名称</th>
@@ -78,9 +85,8 @@
                                 </if>
                                 <td>{$item.doc_beizhu}</td>       
                                 <td>
-                                    <a href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}"> 
-                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
-                                    </a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}">编辑</a>
+                                     <a class="btn btn-r btn-xl button" href="{:U('detailsFile',array('doc_id'=>$item['doc_id']))}">详情</a> 
 	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button" onclick="withdraw({$item.doc_id})" >
                                 </td>
 	        	</tr>
@@ -97,6 +103,13 @@
     $(rightBtn).appendTo(".location");
     function openNew(){
         location.href = '{:U(addFile)}';
+    }
+    var exportBtn = '<input class="btn btn-red mr10 submit exportBtn" type="button" onclick="importMeeting()" value="导出记录"/>';
+    $(exportBtn).appendTo(".location");
+    function importMeeting(){
+        $("#hiddenform").val(1);
+        $("#execlid").submit();
+        $("#hiddenform").val(0);   
     }
     
         //撤回操作

@@ -129,16 +129,19 @@ class MeetingModel extends Model {
             $data['meeting_content'] = trim($data['meeting_content']);
             //会议状态
             $data['meeting_state'] = 1;
+            //会议添加时间
             foreach ($data as $key => $val) {
                 if (empty($val)) {
                     unset($data[$key]);
                 }
             }
             if (!empty($meeting_id)) {
+                $data['meeting_update_time'] = date('Y-m-d H:i:s');
                 $add_flag = D('meeting')->where(array('meeting_id' => $meeting_id))->save($data);
                 $this->meetingCallman($meeting_id, $callman_info);
                 $this->meetingParticipants($meeting_id, $meeting_participants_info);
             } else {
+                $data['meeting_create_time'] = date('Y-m-d H:i:s');
                 $add_flag = D('meeting')->add($data);
                 $this->meetingCallman($add_flag, $callman_info);
                 $this->meetingParticipants($add_flag, $meeting_participants_info);
@@ -473,9 +476,9 @@ class MeetingModel extends Model {
     public function sendMeetingEmail($meeting_id) {
         $meeting_info = D('meeting')->alias('meet')
                 ->join('__MEMBER__ member ON meet.meeting_ledger_re_person = member.uid')
-                ->where('meet.meeting_id = '. $meeting_id)
+                ->where('meet.meeting_id = ' . $meeting_id)
                 ->find();
-        $str = $meeting_info['name'] . " ，您好：" . $meeting_info['meeting_name'] . "会议于" . $meeting_info['meeting_date'] . "已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
+        $str = $meeting_info['name'] . " ，您好：" .'“'. $meeting_info['meeting_name'] .'”'. "会议于" . $meeting_info['meeting_create_time'] . "已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
         return sendMail($meeting_info['email'], '台帐通知', $str);
     }
 

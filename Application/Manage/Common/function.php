@@ -443,7 +443,11 @@ function importExcel($fileName, $column = null) {
      //过滤为空的数组
     foreach($dataset as $key => $v){
         $dataset[$key]=array_filter($v);
-    }  
+    }
     $dataset= array_filter($dataset);
+    if(empty($dataset)){
+        $result = array('msg' => '模板数据为空','code' => 100);
+        return $result; 
+    }
     return $dataset;
 }

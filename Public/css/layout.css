@@ -15,7 +15,7 @@
 .form-tips {margin-left: 10px;color: #8f8f8f;}
 .wrap-radio{margin-right: 10px;}
 /* 表格开始 */
-.tbl{width: 100%;margin: 0 auto 10px;font-size:12px;table-layout: fixed;border-top: 1px solid #ededed;}
+.tbl{width: 100%;margin: 0 auto 10px;font-size:12px;table-layout: fixed;}
 .tb1 table{border-left: 1px solid #ededed;}
 .tbl caption{width:100%;padding:0;text-indent:20px;font-size:14px;text-align:left;line-height:30px;border-bottom: 1px solid #ededed;  color:#5F5B6F;background: #FEF5F6 url(../images/bg-caption.jpg) no-repeat;}
 .tbl td{height:28px;padding:5px 2px;line-height:16px;border:1px solid #ededed; border-top:none;position: relative;}

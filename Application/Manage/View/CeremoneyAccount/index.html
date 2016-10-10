@@ -57,15 +57,9 @@
                         <td>{$item.ca_host}</td>
                         <td>{$item.ca_address}</td> 
                         <td>
-                            <a href="{:U('CeremoneyAccount/detail',array('ca_id'=>$item['ca_id']))}"> 
-                                <input type="button" value="详情" class="btn btn-r btn-xl button">
-                            </a> 
-                            <a href="{:U('CeremoneyAccount/edit',array('ca_id'=>$item['ca_id']))}">
-                                <input type="button" value="编辑" class="btn btn-r btn-xl button">
-                            </a> 
-                            <a onclick="del({$item['ca_id']})"> 
-                                <input type="button" value="删除" class="btn btn-r btn-xl button">
-                            </a> 
+                            <a class="btn btn-r btn-xl button" href="{:U('CeremoneyAccount/detail',array('ca_id'=>$item['ca_id']))}">详情</a> 
+                            <a class="btn btn-r btn-xl button" href="{:U('CeremoneyAccount/edit',array('ca_id'=>$item['ca_id']))}">编辑</a> 
+                            <input onclick="del({$item['ca_id']})" type="button" value="删除" class="btn btn-r btn-xl button"> 
                         </td>
                     </tr>
                 </foreach>

@@ -60,14 +60,9 @@
                                 <td>{$item.db_draft_person}</td>
                                 <td>{$item.db_despatch_date}</td> 
                                 <td>
-                                    <a href="{:U('detailsPresent',array('db_pre_id'=>$item['db_pre_id']))}"> 
-                                        <input type="button" value="详情" class="btn btn-r btn-xl button">
-                                    </a> 
-                                    <a href="{:U('savePresent',array('db_pre_id'=>$item['db_pre_id']))}"> 
-                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
-                                    </a> 
-                                   
-                                        <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.db_pre_id}')">
+                                    <a class="btn btn-r btn-xl button" href="{:U('detailsPresent',array('db_pre_id'=>$item['db_pre_id']))}">详情</a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('savePresent',array('db_pre_id'=>$item['db_pre_id']))}">编辑</a> 
+                                    <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.db_pre_id}')">
                                  
                                 </td>
 	        	</tr>

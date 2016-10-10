@@ -64,15 +64,9 @@
                             <td>{$item.internal_meeting_place}</td>
                            
                             <td>
-                                <a class="" title="详情" href="{:U('InternalMeeting/details',array('id'=>$item['internal_id']))}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="详情">
-                                </a>
-                                <a class="" title="编辑" href="{:U('InternalMeeting/save',array('id'=>$item['internal_id']))}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="编辑">
-                                </a>
-                                <a class="" title="删除">
-                                    <input type="button" class="btn btn-c btn-xl button" value="删除" onclick="delMeeting({$item['internal_id']})">
-                                </a>
+                                <a class="btn btn-c btn-xl button" href="{:U('InternalMeeting/details',array('id'=>$item['internal_id']))}">详情</a>
+                                <a class="btn btn-c btn-xl button" href="{:U('InternalMeeting/save',array('id'=>$item['internal_id']))}">编辑</a>
+                                <input type="button" class="btn btn-c btn-xl button" value="删除" onclick="delMeeting({$item['internal_id']})">
                             </td>
                 </tr>
                     </foreach>

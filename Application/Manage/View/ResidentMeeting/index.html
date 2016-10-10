@@ -57,14 +57,9 @@
                                 <td>{$item.resident_person}</td>
                                 <td>{$item.resident_file_time}</td> 
                                 <td>
-                                    <a href="{:U('detailsResident',array('resident_id'=>$item['resident_id']))}"> 
-                                        <input type="button" value="详情" class="btn btn-r btn-xl button">
-                                    </a> 
-                                    <a href="{:U('saveResident',array('resident_id'=>$item['resident_id']))}"> 
-                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
-                                    </a> 
-                                   
-                                        <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.resident_id}')">
+                                    <a class="btn btn-r btn-xl button" href="{:U('detailsResident',array('resident_id'=>$item['resident_id']))}">详情</a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('saveResident',array('resident_id'=>$item['resident_id']))}">编辑</a> 
+                                    <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.resident_id}')">
                                  
                                 </td>
 	        	</tr>

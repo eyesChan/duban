@@ -58,13 +58,9 @@
                                 <td>{$item.led_meeting_host}</td>
                                 <td>{$item.led_meeting_place}</td> 
                                 <td>
-                                    <a href="{:U('detailsLedger',array('led_meeting_id'=>$item['led_meeting_id']))}"> 
-                                        <input type="button" value="详情" class="btn btn-r btn-xl button">
-                                    </a> 
-                                    <a href="{:U('saveLedger',array('led_meeting_id'=>$item['led_meeting_id']))}"> 
-                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
-                                    </a> 
-                                        <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.led_meeting_id}')">
+                                    <a class="btn btn-r btn-xl button" href="{:U('detailsLedger',array('led_meeting_id'=>$item['led_meeting_id']))}">详情</a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('saveLedger',array('led_meeting_id'=>$item['led_meeting_id']))}">编辑</a> 
+                                    <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.led_meeting_id}')">
                                 </td>
 	        	</tr>
                     </foreach>

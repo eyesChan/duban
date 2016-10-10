@@ -6,7 +6,7 @@ return array(
     'FILE_MEETING' => array(//会议相关文件上传
         'FILE_SIZE' => 3145728,
         'FILE_PATH' => 'meeting/', //临时存储路径
-        'ALLOW_FILE' => array('xlsx', 'xls'),
+        'ALLOW_FILE' => array('xlsx', 'xls','png'),
     ),
     'FILE_DOC' => array(//文档附件文件上传
         'FILE_SIZE' => 20971520,
@@ -18,7 +18,7 @@ return array(
         'FILE_PATH' => 'filecover/', //临时存储路径
         'ALLOW_FILE' => array('jpg', 'png'),
     ),
-    'FILE_MEETING' => array(//会议相关文件上传
+    'FILE_internalMeeting INTERNALMEETING' => array(//会议相关文件上传
         'FILE_SIZE' => 3145728,
         'FILE_PATH' => 'internalMeeting/', //临时存储路径
         'ALLOW_FILE' => array('xlsx', 'xls'),

@@ -79,8 +79,8 @@ class MeetingController extends AdminController {
                     $src_name = $result['info']['file']['name'];
                     
                 }
-                $meeting_info['meeting_annexes_name'] = $src_name;
-                $meeting_info['meeting_annexes_url'] = $path;
+                $data['meeting_annexes_name'] = $src_name;
+                $data['meeting_annexes_url'] = $path;
             }
 
             $add_flag = $this->meeting_model->addMeeting($data);

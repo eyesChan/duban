@@ -606,9 +606,9 @@ class MeetingModel extends Model {
             }
             if (!empty($val[3])) {
                 $level = $config_mod->where(array('config_key' => 'meeting_level', 'config_descripion' => trim($val[3])))->find();
-                $info['meeting_leve'] = '';
+                $info['meeting_level'] = '';
                 if (!empty($level)) {
-                    $info['meeting_leve'] = $level['config_value']; //会议级别
+                    $info['meeting_level'] = $level['config_value']; //会议级别
                 }
             }
             //召集人
@@ -776,6 +776,8 @@ class MeetingModel extends Model {
                 $meeting_flag = 0;
                 break;
             }
+            $info['meeting_create_time'] = date('Y-m-d H:i:s');
+            $info['meeting_update_time'] = date('Y-m-d H:i:s');
             $info['meeting_state'] = 1;
             $sava_flag = $meeting_mod->add($info);
             if (!$sava_flag) {

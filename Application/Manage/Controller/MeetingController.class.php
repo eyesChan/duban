@@ -34,7 +34,7 @@ class MeetingController extends AdminController {
         $year = date('Y');
         $month = date('m');
         $m_info = array(1, 3, 5, 7, 8, 10, 12);
-        if (in_array($start_time, $m_info)) {
+        if (in_array($month, $m_info)) {
             $end_time = date('Y-m-31');
         } else {
             $end_time = date('Y-m-30');

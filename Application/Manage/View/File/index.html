@@ -85,8 +85,8 @@
                                 </if>
                                 <td>{$item.doc_beizhu}</td>       
                                 <td>
-                                    <a class="btn btn-r btn-xl button" href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}">编辑</a>
-                                     <a class="btn btn-r btn-xl button" href="{:U('detailsFile',array('doc_id'=>$item['doc_id']))}">详情</a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('detailsFile',array('doc_id'=>$item['doc_id']))}">详情</a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}">编辑</a>       
 	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button" onclick="withdraw({$item.doc_id})" >
                                 </td>
 	        	</tr>

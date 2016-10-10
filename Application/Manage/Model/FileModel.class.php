@@ -150,10 +150,10 @@ class FileModel  extends Model{
         $res_delete=$docfile-> where('doc_id='.$doc_id)->setField('doc_status','0');
         $doc_name=$docfile-> where('doc_id='.$doc_id)->getField('doc_name');
          if($res_delete){
-             writeOperationLog('撤回' . $doc_name . '”文档', 1); 
+             writeOperationLog('撤回“' . $doc_name . '”文档', 1); 
             return C('COMMON.DOCDEL_SUCCESS');
         }else{
-            writeOperationLog('撤回' . $doc_name . '”文档', 0); 
+            writeOperationLog('撤回“' . $doc_name . '”文档', 0); 
             return C('COMMON.DOCDEL_ERROR');
         }    
     }
@@ -228,10 +228,10 @@ class FileModel  extends Model{
         $docfile = M('doc');
         $res = $docfile->where("doc_id =".$doc_id)->save($data);
         if(FALSE === $res){
-            writeOperationLog('编辑' . $data['doc_name'] . '”文档', 0);
+            writeOperationLog('编辑“' . $data['doc_name'] . '”文档', 0);
             return C('COMMON.ERROR_EDIT');
         }else{
-            writeOperationLog('编辑' . $data['doc_name'] . '”文档', 1);
+            writeOperationLog('编辑“' . $data['doc_name'] . '”文档', 1);
             return C('COMMON.SUCCESS_EDIT');
         } 
     }

@@ -95,7 +95,7 @@
         //删除操作
         function del(ca_id) {
             $.dialog({
-                title: '提示信息', content: '确定删除这条台账信息？', ok: function () {
+                title: '提示信息', content: '确认删除吗？', ok: function () {
                     location.href = '{:U("/Manage/CeremoneyAccount/delete/ca_id/'+ca_id+'")}';
                 },
                 cancel: function () {

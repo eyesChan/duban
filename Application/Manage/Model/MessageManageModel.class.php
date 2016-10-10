@@ -49,18 +49,18 @@ class MessageManageModel extends Model {
         $arr_for_list = array();
 
         $where = $this->makeWhereForSearch($params);
-        $page = $params['p'];
+        $count = $this->where($where)->count();
+        $page = new \Think\Page($count, 10);
         $arr_for_list['msg_sys'] = $this->where($where)
                 ->join('db_member as member ON db_message_sys.user_id = member.uid')
                 ->order('msg_sys_creattime desc')
-                ->page($page, 10)
+                ->limit($page->firstRow, $page->listRows)
                 ->getField('msg_sys_id,msg_sys_title,msg_sys_starttime,msg_sys_endtime,msg_sys_status,member.name as creatname,msg_sys_creattime', TRUE);
-        $count = $this->where($where)->count();
-        $Page = new \Think\Page($count, 10);
+        
         foreach ($params as $k => $v) {
-            $Page->parameter[$k] = $v;
+            $page->parameter[$k] = $v;
         }
-        $arr_for_list['page_show'] = $Page->show();
+        $arr_for_list['page_show'] = $page->show();
 
         return $arr_for_list;
     }

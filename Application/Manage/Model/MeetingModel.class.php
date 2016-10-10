@@ -26,12 +26,13 @@ class MeetingModel extends Model {
      */
     public function addMeeting($data, $meeting_id = false) {
         $user_mod = D('member');
-
         if (!empty($data)) {
             //召集人-手输
             if ($data['meeting_callman']['value']) {
                 $data['meeting_callman_value'] = implode(',', $data['meeting_callman']['value']);
                 unset($data['meeting_callman']['value']);
+            } else {
+                $data['meeting_callman_value'] = '';
             }
             //召集人
 
@@ -43,11 +44,15 @@ class MeetingModel extends Model {
                 $data['meeting_callman_name'] = $callman_name;
                 //关联表信息
                 $callman_info = explode(',', $data['meeting_callman']);
+            } else {
+                $data['meeting_callman'] = '';
             }
             //主持人-手输
             if ($data['meeting_moderator']['value']) {
                 $data['meeting_moderator_value'] = implode($data['meeting_moderator']['value'], ',');
                 unset($data['meeting_moderator']['value']);
+            } else {
+                $data['meeting_moderator_value'] = '';
             }
             //主持人
             $data['meeting_moderator'] = implode($data['meeting_moderator'], ',');
@@ -55,6 +60,8 @@ class MeetingModel extends Model {
             if ($data['meeting_participants']['value']) {
                 $data['meeting_participants_value'] = implode($data['meeting_participants']['value'], ',');
                 unset($data['meeting_participants']['value']);
+            } else {
+                $data['meeting_participants_value'] = '';
             }
             //参会人员
             //关联表信息
@@ -64,6 +71,8 @@ class MeetingModel extends Model {
             if ($data['meeting_writeperson']['value']) {
                 $data['meeting_writeperson_value'] = implode($data['meeting_writeperson']['value'], ',');
                 unset($data['meeting_writeperson']['value']);
+            } else {
+                $data['meeting_writeperson_value'] = '';
             }
             //会议撰写人
             $data['meeting_writeperson'] = implode($data['meeting_writeperson'], ',');
@@ -72,6 +81,8 @@ class MeetingModel extends Model {
             if ($data['meeting_material_madeperson']['value']) {
                 $data['meeting_material_madeperson_value'] = implode($data['meeting_material_madeperson']['value'], ',');
                 unset($data['meeting_material_madeperson']['value']);
+            } else {
+                $data['meeting_material_madeperson_value'] = '';
             }
             //物料准备人
             $data['meeting_material_madeperson'] = implode($data['meeting_material_madeperson'], ',');
@@ -80,6 +91,8 @@ class MeetingModel extends Model {
             if ($data['meeting_venue_arrangeperson']['value']) {
                 $data['meeting_venue_arrangeperson_value'] = implode($data['meeting_venue_arrangeperson']['value'], ',');
                 unset($data['meeting_venue_arrangeperson']['value']);
+            } else {
+                $data['meeting_venue_arrangeperson_value'] = '';
             }
             //会场布置测试人
             $data['meeting_venue_arrangeperson'] = implode($data['meeting_venue_arrangeperson'], ',');
@@ -95,6 +108,8 @@ class MeetingModel extends Model {
             if ($data['meeting_clean_person']['value']) {
                 $data['meeting_clean_person_value'] = implode($data['meeting_clean_person']['value'], ',');
                 unset($data['meeting_clean_person']['value']);
+            } else {
+                $data['meeting_clean_person_value'] = '';
             }
             //会场整理人
             $data['meeting_clean_person'] = implode($data['meeting_clean_person'], ',');
@@ -103,6 +118,8 @@ class MeetingModel extends Model {
             if ($data['meeting_record_person']['value']) {
                 $data['meeting_record_person_value'] = implode($data['meeting_record_person']['value'], ',');
                 unset($data['meeting_record_person']['value']);
+            } else {
+                $data['meeting_record_person_value'] = '';
             }
             //记录整理人
             $data['meeting_record_person'] = implode($data['meeting_record_person'], ',');
@@ -111,6 +128,8 @@ class MeetingModel extends Model {
             if ($data['meeting_vedio']['value']) {
                 $data['meeting_vedio_value'] = implode($data['meeting_vedio']['value'], ',');
                 unset($data['meeting_vedio']['value']);
+            } else {
+                $data['meeting_vedio_value'] = '';
             }
 
             //会议摄影摄像
@@ -120,6 +139,8 @@ class MeetingModel extends Model {
             if ($data['meeting_site_protection']['value']) {
                 $data['meeting_site_protection_value'] = implode($data['meeting_site_protection']['value'], ',');
                 unset($data['meeting_site_protection']['value']);
+            } else {
+                $data['meeting_site_protection_value'] = '';
             }
 
             //现场保证人
@@ -130,10 +151,48 @@ class MeetingModel extends Model {
             //会议状态
             $data['meeting_state'] = 1;
             //会议添加时间
-            foreach ($data as $key => $val) {
-                if (empty($val)) {
-                    unset($data[$key]);
-                }
+            if (empty($data['meeting_date'])) {
+                unset($data['meeting_date']);
+            }
+            //会议时刻
+            if (empty($data['meeting_time'])) {
+                unset($data['meeting_time']);
+            }
+            //交办日期
+            if (empty($data['meeting_assigned_date'])) {
+                unset($data['meeting_assigned_date']);
+            }
+            //通知发送日期
+            if (empty($data['meeting_sendnotice_date'])) {
+                unset($data['meeting_sendnotice_date']);
+            }
+            //通知时刻
+            if (empty($data['meeting_notice_date'])) {
+                unset($data['meeting_notice_date']);
+            }
+            //材料收集时间
+            if (empty($data['meeting_material_collect_date'])) {
+                unset($data['meeting_material_collect_date']);
+            }
+            //材料发送时间
+            if (empty($data['meeting_material_send_date'])) {
+                unset($data['meeting_material_send_date']);
+            }
+            //测试日期
+            if (empty($data['meeting_try_date'])) {
+                unset($data['meeting_try_date']);
+            }
+            //测试时刻
+            if (empty($data['meeting_try_time'])) {
+                unset($data['meeting_try_time']);
+            }
+            //会议结束日期
+            if (empty($data['meeting_end_date'])) {
+                unset($data['meeting_end_date']);
+            }
+             //会议结束时刻
+            if (empty($data['meeting_end_time'])) {
+                unset($data['meeting_end_time']);
             }
             if (!empty($meeting_id)) {
                 $data['meeting_update_time'] = date('Y-m-d H:i:s');
@@ -478,7 +537,7 @@ class MeetingModel extends Model {
                 ->join('__MEMBER__ member ON meet.meeting_ledger_re_person = member.uid')
                 ->where('meet.meeting_id = ' . $meeting_id)
                 ->find();
-        $str = $meeting_info['name'] . " ，您好：" .'“'. $meeting_info['meeting_name'] .'”'. "会议于" . $meeting_info['meeting_create_time'] . "已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
+        $str = $meeting_info['name'] . " ，您好：" . '“' . $meeting_info['meeting_name'] . '”' . "会议于" . $meeting_info['meeting_create_time'] . "已经创建，请尽快登录协同办公管理系统进行会议台账创建，谢谢；";
         return sendMail($meeting_info['email'], '台帐通知', $str);
     }
 

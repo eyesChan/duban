@@ -6,8 +6,9 @@
         <div class="wrap-table mt10">
             <form method="POST" action="{:U(save)}" name="searchForm" id="sform">
                 <input type="hidden" name='id' value="{:I('get.id')}"/>
-                <div class="wrap-table">
+                <div class="tb1 jxssp tb1-noborder">
                     <table class="tbl">
+                    <caption>模块编辑</caption>
                         <colgroup>
                             <col width="10%">
                             <col width="80%">
@@ -63,15 +64,12 @@
                             <td class="cap">功能描述：</td>
                             <td colspan="3"><textarea name="mark" cols="21" class="input-text ml15" id="mark">{$auth.tip}</textarea></td>
                         </tr>
-                        <tr>
-                            <td class="cap">&nbsp;</td>
-                            <td colspan="3" class="clear">
-                                <input type="button"  style="margin-left: 30px;" value="修改"  onclick="sel1(2)" class="btn btn-a fl btn btn-c btn-xl button" >
-                                <a class="back-a module-back fl" href='javascript:history.go(-1);'>返回</a>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
+                    <div>
+                        <input type="button"  style="margin-left: 30px;" value="修改"  onclick="sel1(2)" class="btn btn-a fl btn btn-submit button" >
+                                <a class="btn-normal btn fl" href='javascript:history.go(-1);'>返回</a>
+                    </div>
 
                 </div>
             </form>

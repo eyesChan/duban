@@ -22,16 +22,15 @@
                             <textarea maxlength="100" name="describe">{$info.describe}</textarea>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="2" class="op-td">
-                            <input type="hidden" name="id" value="{$info['id']}" />
-                            <input type="hidden" name="p" value="{$p}" />
-                            <input type="submit" value="保存" class="filter-search mr10" id="btn-save" >
-                            <input type="reset" value="返回" class="filter-search ml10" name="sub" id="reset" onclick="javascript:history.back(-1)"/>
-                        </td>
-                    </tr>
                 </table>
             </form>
+            <div class="wrap-btns"> 
+                 <input type="hidden" name="id" value="{$info['id']}" />
+                            <input type="hidden" name="p" value="{$p}" />
+                <input type="submit" name="submit" value="保存" id="btn-save" class="btn btn-submit btn-xl button mr10">
+                <input type="reset" value="返回" class="btn btn-normal btn-xl button ml10"
+                                   onclick="javascript:history.back(-1)"/>
+            </div>
         </div>
     </div>
     <js href="__PUBLIC__/Js/baseOperate.js" />

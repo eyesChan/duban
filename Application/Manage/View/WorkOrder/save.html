@@ -47,9 +47,9 @@
             </tr>
             <input type="hidden" value="{$workorder['worksheet_id']}" name="worksheet_id">
         </table>
-        <div class="text-center">
-            <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
-                <a href="{:U('index')}"> <input class="btn ml10 button" type="button" value="取消" /></a>
+        <div class="wrap-btns">
+            <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="提交"/>
+            <a class="btn btn-normal ml10 button" href="{:U('index')}">取消</a>
         </div>
     </form>
 </block>

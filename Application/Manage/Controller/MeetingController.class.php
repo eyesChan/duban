@@ -248,7 +248,7 @@ class MeetingController extends AdminController {
      * @return true/false Description
      * @date 2016/09/26
      */
-    public function delMeeting() {
+   public function delMeeting() {
         $meeting_id = I('meeting_id');
         $work_mod = D('worksheet');
         $this->meeting_model->startTrans();
@@ -260,17 +260,16 @@ class MeetingController extends AdminController {
             $work_order_id = implode(',', $work_order_info);
             $work_save_flag = $work_mod->where(array('worksheet_id' => array('in', $work_order_id)))->save(array('worksheet_detele' => 0));
         }
-        $meeting_info = $this->meeting_model->where(array('meeting_id'=>$meeting_id))->find();
         if ($meeting_save_flag !== false && $work_save_flag !== false) {
             $this->meeting_model->commit();
             writeOperationLog('删除“' . $meeting_info['meeting_name'] . '”会议', 1);
-
-            $this->ajaxReturn(C('COMMON.SUCCESS_EDIT'));
+            $this->success(C('COMMON.SUCCESS_DEL')['status'], U('/Manage/Meeting/selectMeeting'));
+            return true;
         }
         $this->meeting_model->rollback();
         writeOperationLog('删除“' . $meeting_info['meeting_name'] . '”会议', 0);
 
-        $this->ajaxReturn(C('COMMON.ERROR_EDIT'));
+        $this->error(C('COMMON.ERROR_DEL')['status'], U('/Manage/Meeting/selectMeeting'));
     }
 
     /**

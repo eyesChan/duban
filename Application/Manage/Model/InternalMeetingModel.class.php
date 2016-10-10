@@ -129,7 +129,8 @@ class InternalMeetingModel  extends Model{
      * 导出公司execl
      */
     public function getExecl(){
-        $internal = D('internalmeeting')->limit('11,3')->select();
+        $where['internal_delete'] =1;
+        $internal = D('internalmeeting')->where($where)->order('internal_id desc')->limit(1)->select();
         $count = count($internal);
         for($i=0; $i<=$count; $i++){
             unset($internal[$i]['internal_username']);
@@ -138,10 +139,11 @@ class InternalMeetingModel  extends Model{
         return $internal;
     }
     /*
-     * 导出execl
+     * 导出集团execl
      */
     public function groupExecl(){
-        $internal = D('internalmeeting')->limit('11,3')->select();
+        $where['internal_delete'] =1;
+        $internal = D('internalmeeting')->where($where)->select();
         $count = count($internal);
         for($i=0; $i<=$count; $i++){
             unset($internal[$i]['internal_username']);
@@ -196,7 +198,6 @@ class InternalMeetingModel  extends Model{
         $model = new Model();
         $model->startTrans();
         $internal = M('internalmeeting');
-
         for($i=0;$i<$count;$i++){
             
             $info['internal_name'] = $data[$i][1];
@@ -249,8 +250,8 @@ class InternalMeetingModel  extends Model{
             $info['internal_whether_issued'] = $data[$i][48];
             $info['internal_meeting_speed'] =$data[$i][49];
             $info['internal_file_person'] =$data[$i][50];
-            $info['internal_proposal'] =$data[$i][51];
-            $info['internal_file_time'] = $data[$i][52];
+            $info['internal_proposal'] =$data[$i][52];
+            $info['internal_file_time'] = $data[$i][51];
             $info['internal_username'] = session('S_USER_INFO.UID');
         
             $res_add = $internal->add($info);

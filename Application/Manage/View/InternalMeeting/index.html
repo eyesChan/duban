@@ -1,10 +1,10 @@
 <extend name="Public:base" />
-<block name="title"><title>会议创建</title></block>
+<block name="title"><title>内部会议台账列表</title></block>
 <block name="right">
-
+ 
 <div class="container-padding">
- 	<form method="post" action="{:U(WorkOrder/index)}" name="queryOrder-form" class="login-form" id="execlid">
-	    <table class="tbl">
+     <form method="post" action="{:U(WorkOrder/index)}" name="queryOrder-form" class="login-form" id="execlid">
+        <table class="tbl">
                 <caption>查询条件</caption>
                 <tr><td class="cap">会议名称：</td>
                     <td><input class="input-text text" name="internal_name" value="{$param['internal_name']}" type="text" id="meeting_name"/></td>
@@ -17,11 +17,11 @@
                     <td><input type="submit" value="查询" id="btn_query" class="btn btn-a submit"/></td>
                     <input type="hidden" id="hiddenform" name="hiddenform">
                 </tr>
-	    </table>
-	    </form>
-	    <div class="tb1 jxssp">
-	        <table class="tbl tbl-list">
-	            <caption>
+        </table>
+        </form>
+        <div class="tb1 jxssp">
+            <table class="tbl tbl-list">
+                <caption>
                         <a class="tb-detail f-fr mr30" title="公司模板导出" href="{:U('companyGetExecl')}">
                                     <input type="button" class="btn btn-c btn-xl button" value="公司模板导出">
                                 </a> <a class="tb-detail f-fr mr30" title="集团模板导出" href="{:U('groupGetExecl')}">
@@ -31,32 +31,32 @@
                                     <input type="button" class="btn btn-c btn-xl button" value="导入">
                                 </a>
                     </caption>
-	            <colgroup>
-	                <col width="10%">
-	                <col width="10%">
-	                <col width="10%">
-	                <col width="10%">
-	                <col width="10%">
+                <colgroup>
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
                         <col width="10%">
-	                <col width="28%">
+                    <col width="28%">
                       
-	            </colgroup>
-	            <thead>
-	            <tr>
-	                <th>序号</th>
-	                <th>会议名称</th>
-	                <th>会议类型</th>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>会议名称</th>
+                    <th>会议类型</th>
                         <th>会议日期</th>
-	                <th>主持人</th>
-	                <th>会议地点</th>
-	                <th>操作</th>
-	            </tr>
-	            </thead>
-	        
-	        <tbody>	
+                    <th>主持人</th>
+                    <th>会议地点</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+            
+            <tbody>    
                     <foreach name="list" item="item">
-	        	<tr>
-                            <td>{$item.internal_id}</td>
+                <tr>
+                            <td>{$s_number++}</td>
                             <td>{$item.internal_name}</td>
                             <td>{$item.internal_meeting_type}</td>
                             <td>{$item.internal_meeting_date|substr=0,10}</td>
@@ -64,28 +64,28 @@
                             <td>{$item.internal_meeting_place}</td>
                            
                             <td>
-                                <a class="" title="详情" href="{:U('details?id='.$item['internal_id'])}">
+                                <a class="" title="详情" href="{:U('InternalMeeting/details',array('id'=>$item['internal_id']))}">
                                     <input type="button" class="btn btn-c btn-xl button" value="详情">
                                 </a>
-                                <a class="" title="编辑" href="{:U('save?id='.$item['internal_id'])}">
+                                <a class="" title="编辑" href="{:U('InternalMeeting/save',array('id'=>$item['internal_id']))}">
                                     <input type="button" class="btn btn-c btn-xl button" value="编辑">
                                 </a>
-                                <a class="" title="删除" href="{:U('delete?id='.$item['internal_id'])}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="删除">
+                                <a class="" title="删除">
+                                    <input type="button" class="btn btn-c btn-xl button" value="删除" onclick="delMeeting({$item['internal_id']})">
                                 </a>
                             </td>
-	        	</tr>
+                </tr>
                     </foreach>
-	        </tbody>
-	        </table>
-	            <div class="pagination fr">
-	                {$page}
-
-	            </div>
-
-	        </div>
-	    </div>	  
-	    <script type="text/javascript">
+            </tbody>
+            </table>
+                <div class="pagination fr">
+                    {$page}
+ 
+                </div>
+ 
+            </div>
+        </div>      
+        <script type="text/javascript">
                 var rightBtn = '<input class="btn btn-a mr10 submit rightBtn" type="button" onclick="openNew()" value="创建内部会议"/>';
                 $(rightBtn).appendTo(".location");
                 function openNew() {
@@ -104,5 +104,19 @@
                     $("#execlid").submit();
                     $("#hiddenform").val(0);
                 }
-	    </script> 
+                
+                //删除会议
+        function delMeeting(id){
+         
+            $.dialog({
+                title: '提示信息', content: '确认删除吗？', ok: function () {
+                location.href = '{:U("/Manage/InternalMeeting/delete/id/' + id + '")}';
+                },
+                        cancel: function () {
+                        }
+                });
+        
+ 
+        }
+        </script> 
 </block>

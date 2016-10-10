@@ -1,5 +1,5 @@
 <extend name="Public:base" />
-<block name="title"><title>会议创建</title></block>
+<block name="title"><title>工作单编辑</title></block>
 <block name="right">
     <form action="{:U(save)}" method='post' class="mt20" id="productManage">
         <table class="tbl">
@@ -18,13 +18,13 @@
                 <td>
                    <input type="text" class="input-text text" readonly="true" name="workname" value="{$workorder['worksheet_name']}">
                 </td>
-                 <td class="cap">工作单负责人：</td>
+                
+                  <td class="cap">工作单负责人：</td>
                 <td>
-                    <if condition="$state eq '100'">
-                    <input type="text" class="input-text text" name="worksheet_rule_person" value="{$workorder['username']}">
-                    <else/> 
+                     
+                    
                     <input type="text" class="input-text text" readonly="true" name="worksheet_rule_person" value="{$workorder['username']}">
-                    </if>
+                    
                 </td>
              
             </tr>  
@@ -51,8 +51,8 @@
             <input type="hidden" value="{$workorder['worksheet_id']}" name="worksheet_id">
         </table>
         <div class="text-center">
-	        <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
-	        <input class="btn ml10 button btn-normal" type="reset" value="取消"/>
-    	</div>
+            <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
+                <a href="{:U('index')}"> <input class="btn ml10 button btn-normal" type="button" value="取消" /></a>
+        </div>
     </form>
 </block>

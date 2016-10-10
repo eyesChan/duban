@@ -1,159 +1,61 @@
 <extend name="Public:base" />
 <block name="title"><title>工作单详细</title>
-
-<style>
-body { font-size: 12px; } 
-#n { margin:10px auto; width:920px; border:1px solid #CCC;
- font-size:14px; line-height:30px; } 
-#n a { padding:0 4px; color:#333 } 
-.Bar ,.Bars { position: relative; width: 200px;
-    /* 宽度 */ border: 1px solid #B1D632; padding: 1px; } 
-.Bar div,.Bars div { display: block; position: relative;
- background:#00F;/* 进度条背景颜色 */ color: #333333;
- height: 20px; /* 高度 */ line-height: 20px;
-  /* 必须和高度一致，文本才能垂直居中 */ } 
-.Bars div{ background:#C0C0C0} 
-.Bar div span,.Bars div span { position: absolute; width: 200px;
- /* 宽度 */ text-align: center; font-weight: bold; } 
-.cent{ margin:0 auto; width:300px; overflow:hidden} 
-
-
-.Bar ,.Bara { position: relative; width: 200px;
-    /* 宽度 */ border: 1px solid #B1D632; padding: 1px; } 
-.Bar div,.Bara div { display: block; position: relative;
- background:#00F;/* 进度条背景颜色 */ color: #333333;
- height: 20px; /* 高度 */ line-height: 20px;
-  /* 必须和高度一致，文本才能垂直居中 */ } 
-.Bara div{ background:#00FF00} 
-.Bar div span,.Bara div span { position: absolute; width: 200px;
- /* 宽度 */ text-align: center; font-weight: bold; } 
-.cent{ margin:0 auto; width:300px; overflow:hidden} 
-
-
-.Bar ,.Barc { position: relative; width: 200px;
-    /* 宽度 */ border: 1px solid #B1D632; padding: 1px; } 
-.Bar div,.Barc div { display: block; position: relative;
- background:#00F;/* 进度条背景颜色 */ color: #333333;
- height: 20px; /* 高度 */ line-height: 20px;
-  /* 必须和高度一致，文本才能垂直居中 */ } 
-.Barc div{ background:#FFFF00}
-.Bar div span,.Barc div span { position: absolute; width: 200px;
- /* 宽度 */ text-align: center; font-weight: bold; } 
-.cent{ margin:0 auto; width:300px; overflow:hidden} 
-
-
-
-.Bar ,.Barb { position: relative; width: 200px;
-    /* 宽度 */ border: 1px solid #B1D632; padding: 1px; } 
-.Bar div,.Barb div { display: block; position: relative;
- background:#00F;/* 进度条背景颜色 */ color: #333333;
- height: 20px; /* 高度 */ line-height: 20px;
-  /* 必须和高度一致，文本才能垂直居中 */ } 
-.Barb div{ background:#802A2A} 
-.Bar div span,.Barb div span { position: absolute; width: 200px;
- /* 宽度 */ text-align: center; font-weight: bold; } 
-.cent{ margin:0 auto; width:300px; overflow:hidden} 
-
-.Bar ,.Bard { position: relative; width: 200px;
-    /* 宽度 */ border: 1px solid #B1D632; padding: 1px; } 
-.Bar div,.Bard div { display: block; position: relative;
- background:#00F;/* 进度条背景颜色 */ color: #333333;
- height: 20px; /* 高度 */ line-height: 20px;
-  /* 必须和高度一致，文本才能垂直居中 */ } 
-.Bard div{ background:#FF0000} 
-.Bar div span,.Bard div span { position: absolute; width: 200px;
- /* 宽度 */ text-align: center; font-weight: bold; } 
-.cent{ margin:0 auto; width:300px; overflow:hidden} 
-</style>
+ 
 </block>
-
+ 
 <block name="right">
-
+ 
 <div class="container-padding">
- 	
-	    <div class="tb1 jxssp">
-	        <table class="tbl tbl-list">
-	            <caption>工作单详细</caption>
-	            <colgroup>
-	                <col width="10%">
-	                <col width="10%">
-	                <col width="6%">
-	                <col width="11%">
-	                <col width="13%">
-	                <col width="5%">
+     
+        <div class="tb1 jxssp">
+            <table class="tbl tbl-list">
+                <caption>工作单详细</caption>
+                <colgroup>
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="11%">
+                    <col width="13%">
+                    <col width="10%">
                         <col width="13%">
-                        <col width="22%">
-	            </colgroup>
-	            <thead>
-	            <tr>
-	                <th>工作单名称</th>
-	                <th>关联会议</th>
-	                <th>责任人</th>
-	                <th>最后时间</th>
+                        <col width="10%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>工作单名称</th>
+                    <th>关联会议</th>
+                    <th>责任人</th>
+                    <th>最后时间</th>
                         <th>工作描述</th>
-	                <th>状态</th>
+                    <th>状态</th>
                         <th>原因</th>
                         <th>进度</th>
-	            </tr>
-	            </thead>
-	        
-	        <tbody>	
+                </tr>
+                </thead>
+            
+            <tbody>    
                     
-	        	<tr>
-                            <td>{$item.worksheet_name}</td>
-                            <td>{$item.meeting_name}</td>
-                            <td>{$item.name}</td>
-                            <td>{$item.worksheet_end_date|substr=0,10}</td>
-                            <td>{$item.worksheet_describe}</td>
-                            <td>{$item.worksheet_state}</td>
-                            <td>{$item.worksheet_abandoned_reason}</td>
-                            <td>
-                                <if condition="$item.worksheet_state eq '未启动' ">
-                                <div class="Bars"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                    <elseif condition="$item.worksheet_state eq '正常'" />
-                                <div class="Bara"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                    <elseif condition="$item.worksheet_state eq '挂起'" />
-                                <div class="Barb"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                    <elseif condition="$item.worksheet_state eq '延迟'" />
-                                <div class="Barc"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                 <elseif condition="$item.worksheet_state eq '废弃'" />
-                                <div class="Bard"> 
-                                    <div style="width: {$item.worksheet_done_persent};"> 
-                                        <span>{$item.worksheet_done_persent}</span> 
-                                    </div> 
-                                </div> 
-                                     <else/> 
-                                 </if>
-                            </td>
-	        	</tr>
-                  
-	        </tbody>
-	        </table>
-	            <div class="pagination fr">
-	                {$page}
-
-	            </div>
-
-	        </div>
-	    </div>	  
-	    <script type="text/javascript">
-	    	var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" value="创建会议"/>';
-	    	$(rightBtn).appendTo(".location");
-	    </script> 
+                    <tr>
+                        <td>{$item.worksheet_name}</td>
+                        <td>{$item.meeting_name}</td>
+                        <td>{$item.name}</td>
+                        <td>{$item.worksheet_end_date|substr=0,10}</td>
+                        <td>{$item.worksheet_describe}</td>
+                        <td>{$item.worksheet_state}</td>
+                        <td>{$item.worksheet_abandoned_reason}</td>
+                        <td>
+                            {$item.worksheet_done_persent}
+                        </td>
+                    </tr>
+ 
+                </tbody>
+            </table>
+                <div class="pagination fr">
+                    {$page}
+ 
+                </div>
+ 
+            </div>
+        </div>      
+       
 </block>

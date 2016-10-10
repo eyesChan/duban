@@ -188,13 +188,19 @@ class MessageManageModel extends Model {
      * 每次查询前，批量验证并修改失效状态
      */
     public function checkAndResetStatus() {
-        //3=>已失效状态;4=>已删除状态
+        //1=>已发布;3=>已失效状态;4=>已删除状态
         $today = date('Y-m-d');
-        $arr_id = $this->where("(msg_sys_status != 4 ) AND (msg_sys_status != 3 ) AND (msg_sys_endtime < '$today')")->getField('msg_sys_id', TRUE);
-        if (count($arr_id) > 0) {
-            $str_id = implode(',', $arr_id);
+        $arr_id_to_three = $this->where("(msg_sys_status != 4 ) AND (msg_sys_status != 3 ) AND (msg_sys_endtime < '$today')")->getField('msg_sys_id', TRUE);
+        if (count($arr_id_to_three) > 0) {
+            $str_id = implode(',', $arr_id_to_three);
             $map['msg_sys_id'] = array('IN', $str_id);
             $this->where($map)->setField('msg_sys_status', 3);
+        }
+        $arr_id_to_one = $this->where("(msg_sys_status != 4 ) AND (msg_sys_status = 3 ) AND (msg_sys_endtime >= '$today')")->getField('msg_sys_id', TRUE);
+        if (count($arr_id_to_one) > 0) {
+            $str_id = implode(',', $arr_id_to_one);
+            $map['msg_sys_id'] = array('IN', $str_id);
+            $this->where($map)->setField('msg_sys_status', 1);
         }
     }
 

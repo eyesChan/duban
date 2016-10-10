@@ -19,6 +19,9 @@
                     <td colspan="6">
                         <div class="wrap-btns">
                             <input type="submit" value="查询" id="btn_query" class="btn btn-a submit"/>
+                            <a class="btn btn-c btn-xl button" href="{:U('companyGetExecl')}">公司模板导出</a> 
+                            <a class="btn btn-c btn-xl button" href="{:U('groupGetExecl')}">集团模板导出</a>
+                            <a class="btn btn-c btn-xl button" title="导入" href="{:U('importExcel')}">导入</a>
                             <input type="hidden" id="hiddenform" name="hiddenform">
                         </div>
                     </td>
@@ -27,16 +30,7 @@
         </form>
         <div class="tb1 jxssp">
             <table class="tbl tbl-list">
-                <caption>内部会议台账列表
-                        <a class="tb-detail f-fr mr30" title="公司模板导出" href="{:U('companyGetExecl')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="公司模板导出">
-                                </a> <a class="tb-detail f-fr mr30" title="集团模板导出" href="{:U('groupGetExecl')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="集团模板导出">
-                                </a>
-                        <a class="tb-detail f-fr mr30" title="导入" href="{:U('importExcel')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="导入">
-                                </a>
-                    </caption>
+                <caption>内部会议台账列表</caption>
                 <colgroup>
                     <col width="10%">
                     <col width="10%">

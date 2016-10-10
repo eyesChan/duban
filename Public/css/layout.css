@@ -60,9 +60,7 @@ select{height: 28px;padding: 1px 0; color: #404040;border: 1px solid #ededed;}
 .btn{display:inline-block;height:28px;padding:0 8px;line-height: 28px;color:#fff;font-size:14px;font-weight:bold;border:none;cursor: pointer;vertical-align: top;}
 .btn-a{background: #FF7777;}
 .btn-b{color:#e86d4c;background: none;border:1px solid #e46e4a;}
-.btn-c{background: #80A6E7;}
-/*.btn-r{background: #CC3333;}*/
-.btn-r{background: #6283ca;}
+.btn-r, .btn-c{background: #80A6E7;}
 .btn-xl{width:auto;padding:0 12px!important;}
 .btn-lg{width:auto;padding:0 38px!important;}
 .btn-a:hover{color:#fff;background: #e7542c;cursor: pointer;transition: all 0.2s ease-in;}
@@ -74,6 +72,18 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
 .collapse-btn{position: relative;text-align: center;}
 .collapse-arrow{display:none;position:absolute;bottom:-10px;right:14px;z-index:1;width:0;height:0;border-width:10px 9px 0;border-color: #e7542c transparent transparent;border-style: solid dashed dashed;}
 .collapse-btn.hover .collapse-arrow{dispay: block;border-color: #e86d4c transparent transparent;}
+.rightBtn {
+    position: absolute;
+    top: 1px; 
+    right: 10px;
+    text-indent: 0;
+}
+.leftBtn {
+    position: absolute;
+    top: 1px;
+    right: 130px;
+    text-indent: 0;
+}
 /* 按钮结束 */
 .wrap-btns {width: 100%;text-align: center;}
 .wrap-btns .btn{padding:0 30px;margin:0 5px;}

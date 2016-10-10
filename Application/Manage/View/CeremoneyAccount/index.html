@@ -20,15 +20,8 @@
                             <div class="text-center">
                                 <input type="hidden" id="flag_search_form" name="flag_search_form" value="{$remember_search['flag_search_form']}"/>
                                 <input class="btn btn-a submit" type="submit" value="查询"/>
-                                <a href="{:U(add)}">
-                                    <input type="button" class="btn btn-a submit" value="创建"/>
-                                </a>
-                                <a href="javascript:;" onclick="makeExcel()" class="tb-detail f-fr mr30">
-                                    <input class="btn btn-r btn-xl button" type="button" value="导出"/>
-                                </a>
-                                <a  href="{:U(importExcel)}" class="tb-detail f-fr mr30">
-                                    <input class="btn btn-r btn-xl button" type="button" value="导入"/>
-                                </a>
+                                <input class="btn btn-r btn-xl button" onclick="makeExcel()" type="button" value="导出"/>
+                                <a  class="btn btn-r btn-xl button" href="{:U(importExcel)}">导入</a>
                             </div>
                         </td>
                     </tr>
@@ -84,7 +77,8 @@
         </div>
     </div> 
     <script type="text/javascript">
-
+         var rightBtn = '<a href="{:U(add)}" class="btn btn-a submit rightBtn button">创建签约仪式台账</a>';
+        $(rightBtn).appendTo(".location");
         //导出excel
         function makeExcel() {
 

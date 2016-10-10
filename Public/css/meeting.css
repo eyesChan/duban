@@ -35,13 +35,3 @@
 	width: 80px;
 	height: 26px;
 }
-.exportBtn {
-	position: absolute;
-	top: 1px; 
-	right: 1px;
-}
-.rightBtn {
-	position: absolute;
-	top: 1px;
-	right: 130px;
-}

@@ -31,11 +31,7 @@
 	    <div class="tb1 jxssp">
 	        <table class="tbl tbl-list">
 	            <caption>工作单列表 
-                        <a class="tb-detail f-fr mr30" title="创建工作单" href="{:U('add')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="创建工作单">
-                                </a> <a class="tb-detail f-fr mr30" title="工作单导出">
-                                    <input type="button" value="工作单导出" id="btn_query" class="btn btn-a submit" onclick="obtain()" />
-                                </a>
+                       
                     </caption>
 	            <colgroup>
 	                <col width="10%">
@@ -93,7 +89,10 @@
 	        </div>
 	    </div>	  
 	    <script type="text/javascript">
-	    	
+        var rightBtn ="";
+        rightBtn += '<a class="btn btn-a btn-xl button leftBtn" href="{:U('"add"')}">创建工作单</a>';
+	    rightBtn += '<a type="button" id="btn_query" class="btn btn-a btn-xl button rightBtn" onclick="obtain()">工作单导出<a/>';
+        $(rightBtn).appendTo(".location");
                 /*
                  * 导出execl获取条件
                  */

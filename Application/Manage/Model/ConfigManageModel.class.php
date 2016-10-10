@@ -48,10 +48,11 @@ class ConfigManageModel extends Model {
         $arr_for_list = array();
 
         $where = $this->makeWhereForSearch($params);
-        $page = $params['p'];
+        $count = $this->where($where)->count();
+        $page = new \Think\Page($count, 10);
         $arr_for_list['config_items'] = $this->where($where)
                 ->order('config_key asc,config_sort')
-                ->page($page, 10)
+                ->limit($page->firstRow, $page->listRows)
                 ->getField('config_id,config_key,config_name,config_descripion,config_value,config_status,config_change_time', TRUE);
         foreach ($arr_for_list['config_items'] as $key => $value) {
             if ($value['config_status'] == 0) {
@@ -60,12 +61,10 @@ class ConfigManageModel extends Model {
                 $arr_for_list['config_items'][$key]['config_status_name'] = '启用';
             }
         }
-        $count = $this->where($where)->count();
-        $Page = new \Think\Page($count, 10);
         foreach ($params as $k => $v) {
-            $Page->parameter[$k] = $v;
+            $page->parameter[$k] = $v;
         }
-        $arr_for_list['page_show'] = $Page->show();
+        $arr_for_list['page_show'] = $page->show();
 
         return $arr_for_list;
     }

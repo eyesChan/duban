@@ -32,17 +32,17 @@ class CeremoneyAccountModel extends Model {
         $arr_for_list = array();
 
         $where = $this->makeWhereForSearch($params);
-        $page = $params['p'];
+        $count = $this->where($where)->count();
+        $page = new \Think\Page($count, 10);
         $arr_for_list['ceremoney_account'] = $this->where($where)
                 ->order('ca_time desc')
-                ->page($page, 10)
+                ->limit($page->firstRow, $page->listRows)
                 ->getField('ca_id,ca_name,ca_time,ca_host,ca_address', TRUE);
-        $count = $this->where($where)->count();
-        $Page = new \Think\Page($count, 10);
+        
         foreach ($params as $k => $v) {
-            $Page->parameter[$k] = $v;
+            $page->parameter[$k] = $v;
         }
-        $arr_for_list['page_show'] = $Page->show();
+        $arr_for_list['page_show'] = $page->show();
 
         return $arr_for_list;
     }

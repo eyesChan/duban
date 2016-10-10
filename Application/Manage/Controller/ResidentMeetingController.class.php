@@ -43,6 +43,9 @@ class ResidentMeetingController extends AdminController {
      */
     public function index() {   
         $param = I();
+        if ($param['hiddenform'] == 1) {
+            $this->exportResident($param);
+        }
         //处理查询条件：国家、责任人、收集时间
         $param['resident_country'] != '' ? $where['resident_country'] = array('like', '%' . $param['resident_country'] . '%') : '';
         $param['resident_person'] != '' ? $where['resident_person'] = array('like', '%' . $param['resident_person'] . '%') : '';
@@ -145,9 +148,8 @@ class ResidentMeetingController extends AdminController {
      * @return 跳转页面 Description
      *  
      */
-    public function exportResident(){
-        $data=I();
-        $work = $this->resident->getExecl($data); 
+    public function exportResident($param){
+        $work = $this->resident->getExecl($param); 
         $headArr = array(   '地区',
                             '国家',
                             '省份/城市',

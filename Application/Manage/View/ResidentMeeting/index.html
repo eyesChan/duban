@@ -4,7 +4,7 @@
     <css href="__PUBLIC__/css/meeting.css"/>
     <div class="role-padding container-padding">     
         <div class="filter-main clear">              
-            <form method="post" action="{:U(index)}">
+            <form method="post" action="{:U(index)}" id="execlid">
                 <table class="tbl">
                     <tr>
                         <td class="cap">国家:</td>
@@ -17,7 +17,7 @@
                              <input class="btn btn-r btn-xl button" type="submit" value="查询"/>
                         </td>
                         <td>
-                          <a href="{:U('exportResident')}"><input class="btn btn-r btn-xl button" type="button" value="导出" id="export"/></a>
+                          <a href="javascript:;" onclick="obtain()" ><input class="btn btn-r btn-xl button" type="button" value="导出" id="export"/></a>
                         </td>
                         <td>
                               <a class="tb-detail f-fr mr30" title="导入" href="{:U('importResident')}">
@@ -25,7 +25,7 @@
                                 </a>
                         </td>
                          </tr> 
-                       
+                     <input type="hidden" id="hiddenform" name="hiddenform">    
                 </table>
             </form>
              <table class="tbl tbl-list">
@@ -76,8 +76,13 @@
                 {$page}
             </div>
         </div> 
-    <js href="__PUBLIC__/Js/resident.js"/>
     <script>
+        //导出
+           function obtain(){
+               $("#hiddenform").val(1);
+               $("#execlid").submit();
+               $("#hiddenform").val(0);
+        }
         //创建
          var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="创建驻各地发展情况台账" style="width:180px"/>';
             $(rightBtn).appendTo(".location");

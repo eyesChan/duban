@@ -94,6 +94,7 @@ class LedgerMeetingModel  extends Model{
      * @return object 修改成功或失败 
      */
     public function saveLedger($data,$led_meeting_id){
+        $data= array_filter($data);
         $led_meeting = M('led_meeting');
         $res = $led_meeting->where("led_meeting_id =".$led_meeting_id)->save($data);
         if(FALSE === $res){

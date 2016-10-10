@@ -107,6 +107,7 @@ class PresentationModel  extends Model{
      * @return object 修改成功或失败 
      */
     public function savePresent($data,$pre_id){
+        $data= array_filter($data);
         $led_presentation = M('led_presentation');
         $res = $led_presentation->where("db_pre_id =".$pre_id)->save($data);
         if(FALSE === $res){

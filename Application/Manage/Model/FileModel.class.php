@@ -59,10 +59,10 @@ class FileModel  extends Model{
         }
         $res = $docfile->add($data);
         if($res){
-            writeOperationLog('添加' . $param['doc_name'] . '”文档', 1);
+            writeOperationLog('添加“' . $param['doc_name'] . '”文档', 1);
             return C('COMMON.SUCCESS_EDIT');
         }else{
-            writeOperationLog('添加' . $param['doc_name'] . '”文档', 0);
+            writeOperationLog('添加“' . $param['doc_name'] . '”文档', 0);
             return C('COMMON.ERROR_EDIT');
         } 
     }

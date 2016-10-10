@@ -260,6 +260,7 @@ class MeetingController extends AdminController {
             $work_order_id = implode(',', $work_order_info);
             $work_save_flag = $work_mod->where(array('worksheet_id' => array('in', $work_order_id)))->save(array('worksheet_detele' => 0));
         }
+        $meeting_info = $this->meeting_model->where(array('meeting_id'=>$meeting_id))->find();
         if ($meeting_save_flag !== false && $work_save_flag !== false) {
             $this->meeting_model->commit();
             writeOperationLog('删除“' . $meeting_info['meeting_name'] . '”会议', 1);

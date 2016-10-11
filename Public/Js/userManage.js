@@ -38,7 +38,7 @@ function singleReset(del_id) {
         success: function (data) {
             // checkAuth(data);
             // var dataJson = JSON.parse(data);
-            console.log(data.code)
+             alert(data.code)
             if (data.code == 200) {
                 $(".single-pwd-pro").show().children("span").html("重置密码成功！");
                 setTimeout(function () {
@@ -53,6 +53,7 @@ function singleReset(del_id) {
         }
     });
 }
+
 //批量重置密码
 function resetAll(uid) {
     del_id = '';
@@ -78,18 +79,19 @@ function resetAll(uid) {
                 url: "/Manage/User/resetPwd/uid/" + del_id,
                 data: "uid=" + del_id,
                 success: function (data) {
-                    checkAuth(data);
-                    var dataJson = JSON.parse(data);
-                    if (dataJson.code == 200) {
+                    // checkAuth(data);
+                    // var dataJson = JSON.parse(data);
+                    console.log(data.code)
+                    if (data.code == 200) {
                         del_id = del_id.substring(0, del_id.length - 1);
-                        $(".batch-prompt").show().children("span").html(dataJson.status);
+                        $(".batch-prompt").show().children("span").html("批量重置密码成功！");
                         setTimeout(function () {
-                            $(".batch-prompt").hide().children("span").html(dataJson.status);
+                            $(".batch-prompt").hide();
                         }, 1500);
                     } else {
-                        $(".batch-prompt").show().children("span").html(dataJson.status);
+                        $(".batch-prompt").show().children("span").html("批量重置密码失败！");
                         setTimeout(function () {
-                            $(".batch-prompt").hide().children("span").html(dataJson.status);
+                            $(".batch-prompt").hide();
                         }, 1500);
                     }
                 }

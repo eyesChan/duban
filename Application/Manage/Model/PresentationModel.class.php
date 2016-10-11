@@ -260,6 +260,7 @@ class PresentationModel  extends Model{
         $led_presentation = M('led_presentation');
         $data = $led_presentation
                 ->where($where) 
+                ->order('db_pre_id desc')
                 ->select();
          //去除及修改键值
         foreach($data as $k => $v){

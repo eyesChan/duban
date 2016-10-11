@@ -3,12 +3,10 @@
 <block name="right">
     <div class="container-padding">
         <div class="wrap-table mt10">
-            <div class="btn-common">
-                <a href="{:U('add')}"><input type="button" value="" class="filter-add filter-btn" ></a>
-            </div>
             <form method="POST" action="{:U(lst)}" name="listForm">
                 <div class="wrap-table">
                     <table class="tbl tbl-list">
+                    <caption>关联子项<a class="tb-detail f-fr mr30" href="{:U('add')}">新增模块</a></caption>
                         <colgroup>
                             <col width="10%">
                             <col width="10%">
@@ -36,15 +34,9 @@
                                 <td><?php echo $v['title']; ?></td>
                                 <td><?php echo $v['name']; ?></td>
                                 <td>
-                                    <a class="common-blue-btn fl common-operate-btn mr5" href="{:U('child?pid='.$v['id'])}">
-                                        <input type="button" class="btn btn-c btn-xl button" value="关联子项">
-                                    </a>
-                                    <a class="fl operate-btn mr5" title="删除" onClick="return confirm('确定要删除吗？');" href="{:U('delete?id='.$v['id'])}">
-                                        <input type="button" class="btn btn-c btn-xl button" value="删除">
-                                    </a>
-                                    <a class="fl operate-btn mr5" title="编辑" href="{:U('save?id='.$v['id'])}">
-                                        <input type="button" class="btn btn-c btn-xl button" value="编辑">
-                                    </a>
+                                    <a class="fl mr5 btn btn-c btn-xl button" href="{:U('child?pid='.$v['id'])}">关联子项</a>
+                                    <a class="fl mr5 btn btn-c btn-xl button" title="删除" onClick="return confirm('确定要删除吗？');" href="{:U('delete?id='.$v['id'])}">删除</a>
+                                    <a class="fl mr5 btn btn-c btn-xl button" title="编辑" href="{:U('save?id='.$v['id'])}">编辑</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

@@ -13,7 +13,7 @@ use Think\Model;
  */
 class ConfigManageModel extends Model {
 
-    protected $trueTableName = 'db_config_system';
+    protected $tableName = 'config_system';
     protected $_validate = array();
 
     public function __construct($name = '', $tablePrefix = '', $connection = '') {

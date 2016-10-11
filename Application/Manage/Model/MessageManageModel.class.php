@@ -11,7 +11,7 @@ use Think\Model;
  */
 class MessageManageModel extends Model {
 
-    protected $trueTableName = 'db_message_sys';
+    protected $tableName = 'message_sys';
     protected $_validate = array();
 
     public function __construct($name = '', $tablePrefix = '', $connection = '') {

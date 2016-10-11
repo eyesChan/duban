@@ -37,7 +37,7 @@ class PresentationModel  extends Model{
         } 
     }
     
-     /*
+    /*
      * 查询用户表
      * @ahthor huanggang
      * @Date    2016/09/27
@@ -45,7 +45,8 @@ class PresentationModel  extends Model{
      */
     public function getUser() {
         $user = M('member')
-                ->field('uid,name')  
+                ->where("status=1")
+                ->field('uid,name') 
                 ->select();
         return $user;
     }
@@ -79,9 +80,24 @@ class PresentationModel  extends Model{
               ->limit($first_rows, $list_rows)
               ->order('db_pre_id desc')
               ->select();
+        foreach($list as $k =>$v ){
+            $list[$k]['db_draft_person']=$this->getWhereUser($v['db_draft_person']);
+        }
         return $list;
     }
-    
+    /*
+     * 根据条件查询用户表
+     * @ahthor huanggang
+     * @Date    2016/09/27
+     * @param array $where 查询条件
+     * @return 返回查询的用户名
+     */
+    public function getWhereUser($where) {
+        $user = M('member')
+                ->where("uid=$where")
+                ->getField('name');
+        return $user;
+    }
     
     /*
      * 页面详情及编辑查询
@@ -95,7 +111,43 @@ class PresentationModel  extends Model{
         $list = $led_presentation
                 ->where("db_pre_id= $pre_id") 
                 ->find();
+        //文稿类型
+        $list['db_pre_type']=$this->getRootView($list['db_pre_type']);
+        //工作状态
+        $list['db_pre_status']=$this->getRootView($list['db_pre_status']);
+        //文稿形式
+        $list['db_pre_form']=$this->getRootView($list['db_pre_form']);
+        //责任人
+        $list['db_pre_person']=$this->getWhereUser($list['db_pre_person']);
+        //拟稿人
+        $list['db_draft_person']=$this->getWhereUser($list['db_draft_person']);
+        //核稿人1
+        $list['db_orgin_person']=$this->getWhereUser($list['db_orgin_person']);
+        //核稿人2
+        $list['db_orgin2_person']=$this->getWhereUser($list['db_orgin2_person']);
+        //核稿人3
+        $list['db_orgin3_person']=$this->getWhereUser($list['db_orgin3_person']);
+        //发文方式
+        $list['db_despatch_mode']=$this->getRootView($list['db_despatch_mode']);
+        //审批方式
+        $list['db_examin_mode']=$this->getRootView($list['db_examin_mode']);
+        //审批进展
+        $list['db_examin_progress']=$this->getRootView($list['db_examin_progress']);
         return $list; 
+    }
+    
+   /*
+   * 获取所需的数据
+   * @author huanggang
+   * @Date    2016/10/11
+   * @param  $config_id 查询条件
+   * @return 返回查询的数据
+   */
+    public function  getRootView($config_id){
+        $work = M('config_system')
+              ->where("config_id = $config_id")
+              ->getField('config_descripion');   
+        return $work;
     }
     
     /*
@@ -107,6 +159,7 @@ class PresentationModel  extends Model{
      * @return object 修改成功或失败 
      */
     public function savePresent($data,$pre_id){
+        $data= array_filter($data);
         $led_presentation = M('led_presentation');
         $res = $led_presentation->where("db_pre_id =".$pre_id)->save($data);
         if(FALSE === $res){
@@ -159,9 +212,31 @@ class PresentationModel  extends Model{
               ->where($where)
               ->order('db_pre_id desc')
               ->select();
-        //去除不需要的键值
+        //去除及修改键值
         foreach($data as $k => $v){     
             $data[$k]['db_pre_id']=$k+1;
+            //文稿类型
+            $data[$k]['db_pre_type']=$this->getRootView($v['db_pre_type']);
+            //文稿形式
+            $data[$k]['db_pre_form']=$this->getRootView($v['db_pre_form']);
+            //工作状态
+            $data[$k]['db_pre_status']=$this->getRootView($v['db_pre_status']);
+            //责任人
+            $data[$k]['db_pre_person']=$this->getWhereUser($v['db_pre_person']);
+            //拟稿人
+            $data[$k]['db_draft_person']=$this->getWhereUser($v['db_draft_person']);
+            //核稿人1
+            $data[$k]['db_orgin_person']=$this->getWhereUser($v['db_orgin_person']);
+            //核稿人2
+            $data[$k]['db_orgin2_person']=$this->getWhereUser($v['db_orgin2_person']);
+            //核稿人3
+            $data[$k]['db_orgin3_person']=$this->getWhereUser($v['db_orgin3_person']);
+            //发文方式
+            $data[$k]['db_despatch_mode']=$this->getRootView($v['db_despatch_mode']);
+            //审批方式
+            $data[$k]['db_examin_mode']=$this->getRootView($v['db_examin_mode']);
+            //审批进展
+            $data[$k]['db_examin_progress']=$this->getRootView($v['db_examin_progress']);
             unset($data[$k]['db_add_time']);
             unset($data[$k]['db_update_time']);
         }
@@ -185,11 +260,34 @@ class PresentationModel  extends Model{
         $led_presentation = M('led_presentation');
         $data = $led_presentation
                 ->where($where) 
+                ->order('db_pre_id desc')
                 ->select();
-         //去除不需要的键值
+         //去除及修改键值
         foreach($data as $k => $v){
             unset($data[$k]['pre_status']);
             $data[$k]['db_pre_id']=$k+1;
+            //文稿类型
+            $data[$k]['db_pre_type']=$this->getRootView($v['db_pre_type']);
+            //工作状态
+            $data[$k]['db_pre_status']=$this->getRootView($v['db_pre_status']);
+            //文稿形式
+            $data[$k]['db_pre_form']=$this->getRootView($v['db_pre_form']);
+            //责任人
+            $data[$k]['db_pre_person']=$this->getWhereUser($v['db_pre_person']);
+            //拟稿人
+            $data[$k]['db_draft_person']=$this->getWhereUser($v['db_draft_person']);
+            //核稿人1
+            $data[$k]['db_orgin_person']=$this->getWhereUser($v['db_orgin_person']);
+            //核稿人2
+            $data[$k]['db_orgin2_person']=$this->getWhereUser($v['db_orgin2_person']);
+            //核稿人3
+            $data[$k]['db_orgin3_person']=$this->getWhereUser($v['db_orgin3_person']);
+            //发文方式
+            $data[$k]['db_despatch_mode']=$this->getRootView($v['db_despatch_mode']);
+            //审批方式
+            $data[$k]['db_examin_mode']=$this->getRootView($v['db_examin_mode']);
+            //审批进展
+            $data[$k]['db_examin_progress']=$this->getRootView($v['db_examin_progress']);
             unset($data[$k]['db_add_time']);
             unset($data[$k]['db_update_time']);
         }
@@ -229,6 +327,43 @@ class PresentationModel  extends Model{
             $param[$key]=$data;
         }  
         foreach($param as $key => $v){
+            //文稿类型
+            $v['db_pre_type']=$this->getRootViews($v['db_pre_type']);
+            //文稿形式
+            $v['db_pre_form']=$this->getRootViews($v['db_pre_form']);
+            //工作状态
+            $v['db_pre_status']=$this->getRootViews($v['db_pre_status']);
+            //责任人
+            $v['db_pre_person']=$this->getWhereUsers($v['db_pre_person']);
+            if($v['db_pre_person']==FALSE){
+                $flag=$flag-1; 
+            }
+            //拟稿人
+            $v['db_draft_person']=$this->getWhereUsers($v['db_draft_person']);
+            if($v['db_draft_person']==FALSE){
+                $flag=$flag-1; 
+            }
+            //核稿人1
+            $v['db_orgin_person']=$this->getWhereUsers($v['db_orgin_person']);
+            if($v['db_orgin_person']==FALSE){
+                $flag=$flag-1; 
+            }
+            //核稿人2
+            $v['db_orgin2_person']=$this->getWhereUsers($v['db_orgin2_person']);
+            if($v['db_orgin2_person']==FALSE){
+                $flag=$flag-1; 
+            }
+            //核稿人3
+            $v['db_orgin3_person']=$this->getWhereUsers($v['db_orgin3_person']);
+            if($v['db_orgin3_person']==FALSE){
+                $flag=$flag-1; 
+            }
+            //发文方式
+            $v['db_despatch_mode']=$this->getRootViews($v['db_despatch_mode']);
+            //审批方式
+            $v['db_examin_mode']=$this->getRootViews($v['db_examin_mode']);
+            //审批进展
+            $v['db_examin_progress']=$this->getRootViews($v['db_examin_progress']);
             $res = $led_presentation->add($v);
             if($res==FALSE){
                 $flag=$flag-1;
@@ -243,6 +378,34 @@ class PresentationModel  extends Model{
             writeOperationLog('导入“' . 'excel表格' . '”', 1);
             return C('COMMON.IMPORT_SUCCESS');   
         }
+    }
+    
+    /*
+    * 获取所需的数据
+    * @author huanggang
+    * @Date    2016/10/11
+    * @param  $config_descripion 查询条件
+    * @return 返回查询的数据id
+    */
+    public function  getRootViews($config_descripion){
+        $config_id = M('config_system')
+              ->where("config_descripion = '$config_descripion'")
+              ->getField('config_id');
+        return $config_id;
+    }
+    
+    /*
+     * 根据条件查询用户表
+     * @ahthor huanggang
+     * @Date    2016/10/11
+     * @param array $where 查询条件
+     * @return 返回查询的用户id
+     */
+    public function getWhereUsers($where){
+        $uid = M('member')
+                ->where("name='$where'")
+                ->getField('uid');
+        return $uid;
     }
     
 }

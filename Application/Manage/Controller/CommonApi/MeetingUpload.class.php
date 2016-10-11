@@ -116,6 +116,7 @@ class MeetingUpload extends \Think\Controller {
                 $return_info[$key]['status'] = C('COMMON.UPLOAD_ERROR');
             }
             $return_info[$key]['path'] = $path .'/'. $new_name;
+            $return_info[$key]['src_name'] = $result['info']['file']['name'];
             //上传成功或失败 都删除 临时文件
             //删除临时文件
             unlink($src_path);

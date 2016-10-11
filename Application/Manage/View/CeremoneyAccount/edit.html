@@ -51,7 +51,11 @@
             <tr>
                 <td class="cap">密级：</td>
                 <td>
-                    <input type="text" name='ca_security_level' value="{$ca_info['ca_security_level']}" class="input-text text">
+                    <select name="ca_security_level" class="config-category">
+                        <foreach name="ca_sl" item="item">
+                            <option value="{$item['config_value']}" <if condition="$item['config_value'] eq $ca_info['ca_security_level']">selected='true'</if>>{$item['config_descripion']}</option>
+                        </foreach>
+                    </select>
                 </td>
                 <td class="cap">着装：</td>
                 <td>
@@ -298,14 +302,14 @@
             <caption>优化建议</caption>
             <tr>
                 <td class="cap">改进建议：</td>
-                <td>
+                <td colspan="5">
                     <textarea class="textarea" name="ca_improve_suggestion">{$ca_info['ca_improve_suggestion']}</textarea>
                 </td>
             </tr>
         </table>
-        <div class="text-center">
+        <div class="wrap-btns">
             <input type="hidden" name='ca_id' value="{$ca_info['ca_id']}"/>
-            <input class="btn btn-c mr10 submit" id='add-btn' type="submit" value="保存"/>
+            <input class="btn btn-c mr10 btn-submit" id='add-btn' type="submit" value="保存"/>
             <input class="btn ml10 button btn-normal" type="button" value="取消" onclick="javascript:history.back(-1)"/>
         </div>
     </form>

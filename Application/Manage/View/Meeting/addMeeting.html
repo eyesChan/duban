@@ -345,7 +345,7 @@
             <tr>
                 <td class="cap">餐饮安排：</td>
                 <td>
-                    <input type="text" class="input-text text" name="meeting[meeting_food_drink]" value="{$meeting_info.meeting_food_drink}">
+                    <input type="text" class="input-text text" name="meeting[meeting_food_drink_value]" value="{$meeting_info.meeting_food_drink_value}">
                     <!--                    <select data='meeting[meeting_food_drink]' class="selectItem">
                                             <foreach name="user_info" item="item">
                                                 <option value="{$item.uid}">{$item.name}</option>
@@ -421,13 +421,13 @@
             <tr>
                 <td class="cap">上传附件：</td>
                 <td colspan="5">
-                    <input type="file" name='file'><a href='{$meeting_info.meeting_annexes_url}'>{$meeting_info.file_name}</a></if> 
+                    <input type="file" name='file'><a target="__blank" href='{$meeting_info.meeting_annexes_url}'>{$meeting_info.file_name}</a></if> 
                 </td>                             
             </tr>
         </table>
-        <div class="text-center">
+        <div class="wrap-btns">
             <input  type="hidden" name="meeting_id" value="{$meeting_info.meeting_id}">
-            <input class="btn btn-red mr10 submit" type="submit" id="meetingSub" value="提交"/>
+            <input class="btn btn-red mr10 btn-submit" type="submit" id="meetingSub" value="提交"/>
             <input class="btn ml10 button btn-normal" onclick="javascript:history.go(-1)" type="button" value="取消"/>
         </div>
     </form>
@@ -543,7 +543,7 @@
             if ($.trim($("[name=meeting\\[meeting_name\\]]").val()) == "") {
                 $.dialog.alert("请填写会议名称！");
                 return false;
-            } else if ($("#account").val() == "-100") {
+            } else if ($("#account").val() == "-200") {
                 $.dialog.alert("请选择台账整理人！");
                 return false;
             }

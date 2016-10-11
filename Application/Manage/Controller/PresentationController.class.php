@@ -233,7 +233,7 @@ class PresentationController extends AdminController {
             $param = $_FILES['filename'];
             $upload_obj = new MeetingUplod();
             $files = $upload_obj->normalUpload($param);
-            $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
+            $fileName = $files['rootPath'].$files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
             $resute = importExcel($fileName,'BH');
             if (!empty($resute) && $resute['code'] != 100) {
                 $result = $this->presentation->addsPresent($resute);

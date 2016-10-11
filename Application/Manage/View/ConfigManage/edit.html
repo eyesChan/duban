@@ -7,6 +7,7 @@
         <div class="jxssp tb1">
             <form id="edit_config_info" enctype="multipart/form-data">
                 <table class="tbl form-table">
+                <caption>编辑系统参数</caption>
                     <colgroup>
                         <col width="20%">
                         <col width="30%">
@@ -16,7 +17,7 @@
                     <tr>
                         <td class="cap"><span class="rq">*</span>参数类别：</td>
                         <td colspan="3">
-                            <select name="config_key">
+                            <select name="config_key" class="config-category"> 
                                 <option value="-100">--全部--</option>
                                 <foreach name="config_types" item="c_type">
                                     <option value="{$c_type['config_value']}" <if condition="$c_type['config_value'] eq $config_system['config_key']">selected='true'</if> >{$c_type['config_descripion']}</option>
@@ -26,11 +27,11 @@
                     </tr> 
                     <tr>
                         <td class="cap"><span class="rq">*</span>参数名称：</td>
-                        <td colspan="3"><input class="notice-title input-text text" type="text" name="config_descripion" value="{$config_system[config_descripion]}"></td>
+                        <td colspan="3"><input class="input-text text config-name" type="text" name="config_descripion" value="{$config_system[config_descripion]}"></td>
                     </tr>
                     <tr>
                         <td class="cap"><span class="rq">*</span>参数值：</td>
-                        <td colspan="3"><input class="notice-title input-text text" type="text" name="config_value" value="{$config_system[config_value]}"></td>
+                        <td colspan="3"><input class="input-text config-value text" type="text" name="config_value" value="{$config_system[config_value]}"></td>
                     </tr>
                     <tr>
                         <td class="cap"><span class="rq">*</span>参数状态：</td>
@@ -41,13 +42,13 @@
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <div class="text-center">
+                            <div class="wrap-btns">
                             <div class="common-prompt save-success hide">
                                 <img src="__PUBLIC__/images/iconfont_sure.png" alt=""/>
                                 <span></span>
                             </div>
                                 <input type='hidden' name='config_id' value="{$config_system[config_id]}"/>
-                                <input class="btn btn-red mr10 submit" id='edit-btn' type="button" value="保存"/>
+                                <input class="btn btn-red mr10 btn-submit" id='edit-btn' type="button" value="保存"/>
                                 <input class="btn ml10 button btn-normal" type="button" value="取消" onclick="javascript:history.back(-1)"/>
                             </div>
                         </td>                   

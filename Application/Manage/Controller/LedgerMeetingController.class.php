@@ -82,6 +82,9 @@ class LedgerMeetingController extends AdminController {
             }
         return true;
         }
+        //会谈会见台账密级 
+        $led_dense = getConfigInfo('led_dense');
+        $this->assign('led_dense', $led_dense);
         $this->display();
     }
     
@@ -118,6 +121,9 @@ class LedgerMeetingController extends AdminController {
             }
         return true;
         }
+        //会谈会见台账密级 
+        $led_dense = getConfigInfo('led_dense');
+        $this->assign('led_dense', $led_dense);
         $led_meeting_id = I('led_meeting_id');
         $result = $this->ledger_meeting->detailsLedger($led_meeting_id);
         $this->assign('list', $result);

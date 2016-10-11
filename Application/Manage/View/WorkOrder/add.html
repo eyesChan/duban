@@ -3,19 +3,10 @@
 <block name="right">
     <form action="{:U(add)}" method='post' class="mt20" id="productManage">
         <table class="tbl">
-            <colgroup>
-                <col width="12%">
-                <col width="21%">
-                <col width="13%">
-                <col width="21%">
-                <col width="12%">
-                <col width="21%">
-            </colgroup>
-
-
+        <caption>工作单创建</caption>
             <tr>
                 <td class="cap">工作单名称：</td>
-                <td colspan="1">
+                <td>
                     <input type="text" class="input-text text" name="workname">
                 </td>
                 <td class="cap">关联会议：</td>
@@ -41,7 +32,7 @@
             </tr>
             <tr>
                 <td class="cap">工作单负责人：</td>
-                <td>
+                <td colspan="3">
                      <select name="meeting[meeting_callman]" class="selectItem">
                         
                     <foreach name="user" item="item">
@@ -56,15 +47,19 @@
 
             </tr>
             <tr>
+
                 <td class="cap">*工作单描述：</td>
                 <td class='5'>
+
                     <textarea class="textarea" name="worksheet_describe"></textarea>
                 </td>
             </tr>
         </table>
+
         <div class="text-center">
             <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
            <input class="btn ml10 button btn-normal" type="button" onclick="javascript:history.go(-1)" value="取消" />
+
         </div>
     </form>
  <script type="text/javascript">

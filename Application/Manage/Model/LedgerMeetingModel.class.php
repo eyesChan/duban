@@ -82,9 +82,25 @@ class LedgerMeetingModel  extends Model{
         $list = $led_meeting
               -> where("led_meeting_id= $led_meeting_id") 
               -> find();
+        //会谈会见台账密级
+        $list['led_meeting_dense']=$this->getRootView($list['led_meeting_dense']);
         return $list; 
     }
-   
+    
+    /*
+   * 获取所需的数据
+   * @author huanggang
+   * @Date    2016/10/11
+   * @param  $config_id 查询条件
+   * @return 返回查询的数据
+   */
+    public function  getRootView($config_id){
+        $work = M('config_system')
+              ->where("config_id = $config_id")
+              ->getField('config_descripion');   
+        return $work;
+    }
+    
     /*
      * 编辑操作
      * @Date    2016/09/26
@@ -94,6 +110,7 @@ class LedgerMeetingModel  extends Model{
      * @return object 修改成功或失败 
      */
     public function saveLedger($data,$led_meeting_id){
+        $data= array_filter($data);
         $led_meeting = M('led_meeting');
         $res = $led_meeting->where("led_meeting_id =".$led_meeting_id)->save($data);
         if(FALSE === $res){
@@ -151,6 +168,8 @@ class LedgerMeetingModel  extends Model{
             unset($data[$k]['led_status']);
             unset($data[$k]['led_add_time']);
             unset($data[$k]['led_update_time']);
+            //会谈会见台账密级
+            $data[$k]['led_meeting_dense']=$this->getRootView($v['led_meeting_dense']);
         }
         return $data;
     }
@@ -184,6 +203,8 @@ class LedgerMeetingModel  extends Model{
             $param[$key]=$data;
         }  
         foreach($param as $key => $v){
+            //会谈会见台账密级
+            $v['led_meeting_dense']=$this->getRootViews($v['led_meeting_dense']);
             $res = $led_meeting->add($v);
             if($res==FALSE){
                 $flag=$flag-1;
@@ -198,5 +219,19 @@ class LedgerMeetingModel  extends Model{
             writeOperationLog('导入“' . 'excel表格' . '”', 1);
             return C('COMMON.IMPORT_SUCCESS');   
         }
+    }
+    
+    /*
+    * 获取所需的数据
+    * @author huanggang
+    * @Date    2016/10/11
+    * @param  $config_descripion 查询条件
+    * @return 返回查询的数据id
+    */
+    public function  getRootViews($config_descripion){
+        $config_id = M('config_system')
+              ->where("config_descripion = '$config_descripion'")
+              ->getField('config_id');
+        return $config_id;
     }
 }

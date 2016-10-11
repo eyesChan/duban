@@ -4,6 +4,7 @@
 <block name="right">
     <form action="{:U(saveFile)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl" style="border: 1px solid #ededed;">
+        <caption>编辑文档</caption>
             <colgroup>
                 <col width="12%">
                 <col width="21%">
@@ -102,9 +103,9 @@
              <input type="hidden" name='doc_id' value="{$list.doc_id}">
             
         </table>
-        <div class="text-center">
+        <div class="wrap-btns">
 
-	        <input class="btn btn-red mr10 submit" type="submit" id="submit" value="提交"/>
+	        <input class="btn btn-red mr10 btn-submit" type="submit" id="submit" value="提交"/>
 	        <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
     	</div>
     </form>

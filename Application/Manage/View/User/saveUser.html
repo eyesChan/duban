@@ -6,7 +6,7 @@
 <block name="right">
     <css href="__PUBLIC__/css/userManage.css"/>
     <div class="container-padding">
-        <div class="tb1 jxssp tb1-noborder">
+        <div class="tb1 jxssp">
             <form method="POST" name="query-form" action="{$submit}" id="SalerSearchForm" onsubmit="return check();">
                 <div class="wrap-table mt10">
                     <table class="tbl">
@@ -14,6 +14,7 @@
                             <col width="10%">
                             <col width="80%">
                         </colgroup>
+                        <caption>编辑用户</caption>
                         <tbody>
                         <tr>
                             <td class="cap"><span class="rq">*</span>用户名</td>
@@ -71,8 +72,8 @@
                 </div>
                 <div class="clear">
                     <input type="hidden" name="uid" value="{$data[uid]}" class="fl hidden-id">
-                    <input type="submit" value="保存" id="btn_Save" class="btn-c btn-xl button btn btn-a fl">
-                    <a href='{:U("index",array("p"=>$p))}' id="btn_Cancel" class="no_disable back-a fl">返回</a>
+                    <input type="submit" value="保存" id="btn_Save" class="btn-submit btn-xl button btn fl">
+                    <a href='{:U("index",array("p"=>$p))}' class="btn-normal btn-xl button btn fl">返回</a>
                 </div>
             </form>
         </div>

@@ -49,18 +49,18 @@ class MessageManageModel extends Model {
         $arr_for_list = array();
 
         $where = $this->makeWhereForSearch($params);
-        $page = $params['p'];
+        $count = $this->where($where)->count();
+        $page = new \Think\Page($count, 10);
         $arr_for_list['msg_sys'] = $this->where($where)
                 ->join('db_member as member ON db_message_sys.user_id = member.uid')
                 ->order('msg_sys_creattime desc')
-                ->page($page, 10)
+                ->limit($page->firstRow, $page->listRows)
                 ->getField('msg_sys_id,msg_sys_title,msg_sys_starttime,msg_sys_endtime,msg_sys_status,member.name as creatname,msg_sys_creattime', TRUE);
-        $count = $this->where($where)->count();
-        $Page = new \Think\Page($count, 10);
+        
         foreach ($params as $k => $v) {
-            $Page->parameter[$k] = $v;
+            $page->parameter[$k] = $v;
         }
-        $arr_for_list['page_show'] = $Page->show();
+        $arr_for_list['page_show'] = $page->show();
 
         return $arr_for_list;
     }
@@ -188,13 +188,19 @@ class MessageManageModel extends Model {
      * 每次查询前，批量验证并修改失效状态
      */
     public function checkAndResetStatus() {
-        //3=>已失效状态;4=>已删除状态
+        //1=>已发布;3=>已失效状态;4=>已删除状态
         $today = date('Y-m-d');
-        $arr_id = $this->where("(msg_sys_status != 4 ) AND (msg_sys_status != 3 ) AND (msg_sys_endtime < '$today')")->getField('msg_sys_id', TRUE);
-        if (count($arr_id) > 0) {
-            $str_id = implode(',', $arr_id);
+        $arr_id_to_three = $this->where("(msg_sys_status != 4 ) AND (msg_sys_status != 3 ) AND (msg_sys_endtime < '$today')")->getField('msg_sys_id', TRUE);
+        if (count($arr_id_to_three) > 0) {
+            $str_id = implode(',', $arr_id_to_three);
             $map['msg_sys_id'] = array('IN', $str_id);
             $this->where($map)->setField('msg_sys_status', 3);
+        }
+        $arr_id_to_one = $this->where("(msg_sys_status != 4 ) AND (msg_sys_status = 3 ) AND (msg_sys_endtime >= '$today')")->getField('msg_sys_id', TRUE);
+        if (count($arr_id_to_one) > 0) {
+            $str_id = implode(',', $arr_id_to_one);
+            $map['msg_sys_id'] = array('IN', $str_id);
+            $this->where($map)->setField('msg_sys_status', 1);
         }
     }
 

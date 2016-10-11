@@ -17,22 +17,19 @@
 /* 表格开始 */
 .tbl{width: 100%;margin: 0 auto 10px;font-size:12px;table-layout: fixed;}
 .tb1 table{border-left: 1px solid #ededed;}
-.tbl caption{width:100%;padding:0;text-indent:20px;font-size:14px;text-align:left;line-height:30px;color:#4972bf;background: #f5f7f7 url(../images/bg-caption.jpg) no-repeat;}
+.tbl caption{width:100%;padding:0;text-indent:20px;font-size:14px;text-align:left;line-height:30px;border-bottom: 1px solid #ededed;  color:#5F5B6F;background: #FEF5F6 url(../images/bg-caption.jpg) no-repeat;}
 .tbl td{height:28px;padding:5px 2px;line-height:16px;border:1px solid #ededed; border-top:none;position: relative;}
 .tbl td .p-standard{width:19%;height: 30px; line-height: 30px;display: inline-block;}
 .tbl td.no-lborder{border-left: none;border-bottom: none;}
 .tbl td.no-rborder{border-right: none; border-bottom: none;}
 .tbl td.cap {text-align: right;}
-.tbl th {height: 33px;padding:6px 0 7px;line-height: 16px;text-align: center; color: #30519c;background: #f2f5fa;}
+.tbl th {height: 33px;padding:6px 0 7px;line-height: 16px;text-align: center; color: #5F5B6F;background: #FEF5F6;}
 .tbl th:first-child {border-left: 1px solid #ededed;}
 .tbl th:last-child {border-right: 1px solid #ededed;}
 .tbl-list td{text-align: center;}
 .tbl-list td p{border-bottom: 1px solid #ededed;min-height: 110px;line-height: 16px;}
 .tbl-list td p:last-child{border-bottom: none;}
 /*.tbl-list tr:hover td {background: #fffac8 none repeat scroll 0 0;}*/
-#tr_test td.text-al{text-align: left;} 
-#tr_test td p{border-bottom: none; min-height: 0;} 
-.sort-td {cursor: pointer;}
 input.input-text, input.input-pwd {height: 26px;padding: 0 5px; border: 1px solid #ededed;line-height: 26px; vertical-align: middle}
 input[disabled="disabled"],input[readonly]{color: #c9c9ca;}
 input.radio, input.checkbox {vertical-align: -2px;}
@@ -61,11 +58,9 @@ select{height: 28px;padding: 1px 0; color: #404040;border: 1px solid #ededed;}
 
 /* 按钮开始 */
 .btn{display:inline-block;height:28px;padding:0 8px;line-height: 28px;color:#fff;font-size:14px;font-weight:bold;border:none;cursor: pointer;vertical-align: top;}
-.btn-a{background: #e86d4c;}
+.btn-a{background: #FF7777;}
 .btn-b{color:#e86d4c;background: none;border:1px solid #e46e4a;}
-.btn-c{background: #6283ca;}
-/*.btn-r{background: #CC3333;}*/
-.btn-r{background: #6283ca;}
+.btn-r, .btn-c{background: #80A6E7;}
 .btn-xl{width:auto;padding:0 12px!important;}
 .btn-lg{width:auto;padding:0 38px!important;}
 .btn-a:hover{color:#fff;background: #e7542c;cursor: pointer;transition: all 0.2s ease-in;}
@@ -77,12 +72,25 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
 .collapse-btn{position: relative;text-align: center;}
 .collapse-arrow{display:none;position:absolute;bottom:-10px;right:14px;z-index:1;width:0;height:0;border-width:10px 9px 0;border-color: #e7542c transparent transparent;border-style: solid dashed dashed;}
 .collapse-btn.hover .collapse-arrow{dispay: block;border-color: #e86d4c transparent transparent;}
+.rightBtn {
+    position: absolute;
+    top: 1px; 
+    right: 10px;
+    text-indent: 0;
+}
+.leftBtn {
+    position: absolute;
+    top: 1px;
+    right: 130px;
+    text-indent: 0;
+}
 /* 按钮结束 */
 .wrap-btns {width: 100%;text-align: center;}
 .wrap-btns .btn{padding:0 30px;margin:0 5px;}
 .tbl .btn-a{width: 80px;}
 .tbl .operate-row{padding:12px 66px;}
 .operate-row .btn{width:80px;padding:0;margin:0 20px;}
+.abutton{width: 60px;height: 30px;line-height: 30px;margin-bottom: 10px;}
 /* 分页 */
 .pagination{ margin:20px 0 10px 0; }
 .pagination .page-input {width: 20px;border: 1px solid #ededed;}
@@ -140,8 +148,6 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
   display: inline-block;
   font-size: 14px;
   font-weight: normal;
-  line-height: 1.42857;
-  margin-bottom: 0;
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
@@ -152,20 +158,33 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
     height:30px;
 }
 .btn-red {
-    width: 100px;
+    padding: 0 10px;
     height:30px;
-    background: #e86d4c;
+    background: #FF7777;
 }
 .btn-blue:hover{
     background:#30519c;
 }
+a.btn-normal {
+    color: #333;
+    margin-left: 20px;
+}
+a.btn-normal:hover {
+    color: #333;
+}
 .btn-normal {
-    width: 100px;
     height: 30px;
     background: #fff;
     color: #333;
     border: 1px solid #ddd;
 }
+.btn-submit {
+    width: 100px;
+    height: 30px;
+    background: #80A6E7;
+    color: #fff;
+}
+.
 .login-step dd{
     float:left;
     border-bottom:3px solid #f5f7f7 ;
@@ -232,18 +251,6 @@ table td.LabelInvoice label input{
 .jxssp table{
     width:100%;
     height:auto;
-}
-.jxssp caption{
-    width: 100%;
-    padding: 0;
-    text-indent: 20px;
-    font-size: 14px;
-    text-align: left;
-    line-height: 35px;
-    color: #4972bf;
-    background: #f5f7f7 url(../images/bg-caption.jpg) repeat-y;
-    height:35px;
-    margin-top: 10px;
 }
 
 td.right{
@@ -468,21 +475,3 @@ p.need input,p.noneed input{
 .TR2{
     overflow-x: scroll;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

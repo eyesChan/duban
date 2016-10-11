@@ -38,11 +38,9 @@
                 <td class="cap">密级：</td>
                 <td>
                     <select name='led_meeting_dense'>
-                            <option value="普通">普通</option>
-                            <option value="秘密">秘密</option>
-                            <option value="机密">机密</option>
-                            <option value="绝密">绝密</option>
-                            
+                           <foreach item='item' name='led_dense'>
+                                 <option value="{$item.config_id}">{$item.config_descripion}</option>
+                           </foreach>
                     </select>
                 </td>
                 <td class="cap">着装：</td>
@@ -247,9 +245,9 @@
                 </td>
             </tr>
         </table>
-        <div class="text-center">
+        <div class="wrap-btns">
 
-	      <input class="btn btn-red mr10 submit productSubmit" type="submit" value="保存"/>
+	      <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="保存"/>
 	      <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
     	</div>
     </form>

@@ -4,6 +4,7 @@
 <block name="right">
     <form action="{:U(addFile)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
+        <caption>文档创建</caption>
             <colgroup>
                 <col width="12%">
                 <col width="21%">
@@ -92,10 +93,12 @@
                 </td>
             </tr>
         </table>
-        <div class="text-center">
+        <div class="wrap-btns">
 
-	        <input class="btn btn-red mr10 submit" type="submit" id="submit" value="提交"/>
-	        <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
+	        <input class="btn btn-red mr10 btn-submit" type="submit" id="submit" value="提交"/>
+                <a href="{:U('index')}" >
+                    <input type="button" class="btn ml10 button btn-normal" value="取消">
+                </a>
     	</div>
     </form>
     <script type="text/javascript">

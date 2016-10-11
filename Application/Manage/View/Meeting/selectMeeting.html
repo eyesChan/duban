@@ -82,8 +82,8 @@
         </div>
     </div>	  
     <script type="text/javascript">
-        var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" onclick="createMeeting()" type="button" value="创建会议"/>';
-        var exportBtn = '<input class="btn btn-red mr10 submit exportBtn" type="button" onclick="importMeeting()" value="会议记录导出"/>';
+        var rightBtn = '<input class="btn btn-red mr10 submit leftBtn" onclick="createMeeting()" type="button" value="创建会议"/>';
+        var exportBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="importMeeting()" value="会议记录导出"/>';
         $(rightBtn).appendTo(".location");
         $(exportBtn).appendTo(".location");
         //跳转添加会议页面
@@ -100,25 +100,26 @@
         }
         //删除会议
         function delMeeting(id){
-
-            $.post('/Manage/Meeting/delMeeting', {meeting_id:id}, function(obj){
-                if (obj.code == 200){
-                alert('删除成功');
-                location.href = '{:U(selectMeeting)}'
-                } else{
-                alert('删除失败');
+            $.dialog({
+                title: '提示信息', content: '确认删除吗？', ok: function () {
+//                 location.href = 'U("/Manage/Meeting/delMeeting/'+'meeting_id/'+id+'"')'
+                 location.href = "{:U('/Manage/Meeting/delMeeting/meeting_id/" + id + "')}"
+                },
+                cancel: function () {
                 }
-            })
+                //('', {meeting_id:id}, function(obj){
+            });
+
         }
         //会议导出
         function importMeeting(){
-            $("#hiddenform").val(1);
-            $("#execlid").submit();
-            $("#hiddenform").val(0);
+        $("#hiddenform").val(1);
+        $("#execlid").submit();
+        $("#hiddenform").val(0);
         }
         //会议导入
         function importExcel(){
-            location.href='{:U(importExcel)}'
+        location.href = '{:U(importExcel)}'
         }
 
     </script> 

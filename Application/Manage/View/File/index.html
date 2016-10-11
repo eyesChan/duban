@@ -85,8 +85,8 @@
                                 </if>
                                 <td>{$item.doc_beizhu}</td>       
                                 <td>
-                                    <a class="btn btn-r btn-xl button" href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}">编辑</a>
-                                     <a class="btn btn-r btn-xl button" href="{:U('detailsFile',array('doc_id'=>$item['doc_id']))}">详情</a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('detailsFile',array('doc_id'=>$item['doc_id']))}">详情</a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('saveFile',array('doc_id'=>$item['doc_id']))}">编辑</a>       
 	        		   <input type="button" value="撤回" class="btn btn-r btn-xl button" onclick="withdraw({$item.doc_id})" >
                                 </td>
 	        	</tr>
@@ -99,12 +99,12 @@
             </div>
         </div>
     <script>
-    var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="文档发布创建"/>';
+    var rightBtn = '<input class="btn btn-red submit leftBtn" type="button" onclick="openNew()" value="文档发布创建"/>';
     $(rightBtn).appendTo(".location");
     function openNew(){
         location.href = '{:U(addFile)}';
     }
-    var exportBtn = '<input class="btn btn-red mr10 submit exportBtn" type="button" onclick="importMeeting()" value="导出记录"/>';
+    var exportBtn = '<input class="btn btn-red submit rightBtn" type="button" onclick="importMeeting()" value="导出记录"/>';
     $(exportBtn).appendTo(".location");
     function importMeeting(){
         $("#hiddenform").val(1);

@@ -3,16 +3,13 @@
 <block name="right">
     <form action="{:U(save)}" method='post' class="mt20" id="productManage">
         <table class="tbl">
-          <colgroup>
-                <col width="12%">
-                <col width="21%">
-                <col width="13%">
-                <col width="21%">
-                <col width="12%">
-                <col width="21%">
-            </colgroup>
-            
-       
+        <caption>工作单编辑</caption>
+        <colgroup>
+            <col width="15%">
+            <col width="35%">
+            <col width="15%">
+            <col width="35%">
+        </colgroup>
             <tr>
                 <td class="cap">工作单名称：</td>
                 <td>
@@ -76,6 +73,7 @@
                 </td>
             </tr>
             <tr>
+
                 <td>挂起/废弃原因</td>
                 <td><textarea class="textarea" name="worksheet_abandoned_reason">{$workorder.worksheet_abandoned_reason}</textarea></td>
             </tr>
@@ -84,6 +82,7 @@
         <div class="text-center">
             <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
             <input class="btn ml10 button btn-normal" type="button" onclick="javascript:history.go(-1)" value="取消" />
+
         </div>
     </form>
 

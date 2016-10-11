@@ -6,38 +6,32 @@
         <div class="filter-main clear">              
             <form method="post" action="{:U(index)}" id="execlid">
                 <table class="tbl">
+                <caption>查询条件</caption>
                     <tr>
                         <td class="cap">文字台账:</td>
-                        <td> <input class="input-text" type="text" name="db_pre_name" id="db_pre_name" value="{$param['db_pre_name']}"></td>
+                        <td> <input  class="input-text" type="text" name="db_pre_name" id="db_pre_name" value="{$param['db_pre_name']}"></td>
                         <td class="cap">交办人：</td>
-                        <td><input class="input-text" type="text" name="db_assign_name" id="db_assign_name" value="{$param['db_assign_name']}"></td>
+                        <td ><input  class="input-text" type="text" name="db_assign_name" id="db_assign_name" value="{$param['db_assign_name']}"></td>
                         <td class="cap">交办时间：</td>
-                         <td><input type="text" name='db_assign_date' id="date8" value="{$param['db_assign_date']}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>                   
-                        <td>
-                             <input class="btn btn-r btn-xl button" type="submit" value="查询"/>
-                        </td>
-                        <td>
-                            
-                          <a href="javascript:;" onclick="obtain()" class="tb-detail f-fr mr30" >
-                              <input class="btn btn-r btn-xl button" type="button" value="集团模块导出" />
-                          </a>
-                        </td>
-                        <td>
-                            <a href="javascript:;" onclick="obtain1()" class="tb-detail f-fr mr30">
-                                <input class="btn btn-r btn-xl button" type="button" value="公司模块导出" />
-                            </a>
-                        </td>
-                        <td>
-                              <a class="tb-detail f-fr mr30" title="导入" href="{:U('importPresent')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="导入">
-                                </a>
-                        </td>
+                         <td><input  type="text" name='db_assign_date' id="date8" value="{$param['db_assign_date']}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>                   
                         
-                         </tr> 
+                    </tr> 
+                    <tr>
+                        <td colspan="6">
+                            <div class="wrap-btns">
+                                <input class="btn btn-a btn-xl button" type="submit" value="查询"/>
+                                <a href="javascript:;" onclick="obtain()" class="btn btn-r btn-xl button">集团模块导出</a>
+                                <a href="javascript:;" onclick="obtain1()" class="btn btn-r btn-xl button">公司模块导出</a>
+                                <a class="btn btn-c btn-xl button" title="导入" href="{:U('importPresent')}">导入
+                              </a>
+                            </div>
+                        </td>
+                    </tr>
                    <input type="hidden" id="hiddenform" name="hiddenform">      
                 </table>
             </form>
              <table class="tbl tbl-list">
+             <caption>文稿台账列表</caption>
 	            <colgroup>
                             <col width="9%">
                             <col width="13%">
@@ -66,14 +60,9 @@
                                 <td>{$item.db_draft_person}</td>
                                 <td>{$item.db_despatch_date}</td> 
                                 <td>
-                                    <a href="{:U('detailsPresent',array('db_pre_id'=>$item['db_pre_id']))}"> 
-                                        <input type="button" value="详情" class="btn btn-r btn-xl button">
-                                    </a> 
-                                    <a href="{:U('savePresent',array('db_pre_id'=>$item['db_pre_id']))}"> 
-                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
-                                    </a> 
-                                   
-                                        <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.db_pre_id}')">
+                                    <a class="btn btn-r btn-xl button" href="{:U('detailsPresent',array('db_pre_id'=>$item['db_pre_id']))}">详情</a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('savePresent',array('db_pre_id'=>$item['db_pre_id']))}">编辑</a> 
+                                    <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.db_pre_id}')">
                                  
                                 </td>
 	        	</tr>
@@ -99,7 +88,7 @@
                $("#hiddenform").val(0);
         }
         //创建
-         var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="文稿台账创建"/>';
+         var rightBtn = '<input class="btn btn-red mr10 submit fr" type="button" onclick="openNew()" value="文稿台账创建"/>';
             $(rightBtn).appendTo(".location");
             function openNew(){
             location.href = "{:U('addPresent')}";

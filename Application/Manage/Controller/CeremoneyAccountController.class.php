@@ -50,6 +50,8 @@ class CeremoneyAccountController extends AdminController {
                 $this->error($res_info_add['status'], U('CeremoneyAccount/index'));
             }
         } else {
+            $arr_ca_sl = $this->mod_ceremoney_account->getDataForAdd();
+            $this->assign('ca_sl', $arr_ca_sl);
             $this->display('add');
         }
     }
@@ -69,8 +71,9 @@ class CeremoneyAccountController extends AdminController {
             }
         } else {
             $ca_id = I('param.ca_id');
-            $data_for_edit = $this->mod_ceremoney_account->getDataById($ca_id);
-            $this->assign('ca_info', $data_for_edit);
+            $data_for_edit = $this->mod_ceremoney_account->getDataForEdit($ca_id);
+            $this->assign('ca_info', $data_for_edit['ca_info']);
+            $this->assign('ca_sl', $data_for_edit['ca_sl']);
             $this->display('edit');
         }
     }
@@ -81,7 +84,7 @@ class CeremoneyAccountController extends AdminController {
     public function detail() {
 
         $ca_id = I('param.ca_id');
-        $data_for_edit = $this->mod_ceremoney_account->getDataById($ca_id);
+        $data_for_edit = $this->mod_ceremoney_account->getDataForDetail($ca_id);
         $this->assign('ca_info', $data_for_edit);
         $this->display('detail');
     }

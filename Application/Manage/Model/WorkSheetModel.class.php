@@ -381,7 +381,7 @@ class WorkSheetModel  extends Model{
      * 导出execl 查询
      * @author xiao hui
      */
-    public function getExecl($param){
+    public function getOrderExcel($param){
         $param['worksheet_name'] != '' ? $where['worksheet_name'] = array('like', '%' . $param['worksheet_name'] . '%') : '';
         $param['meeting_name'] != '' ? $where['meeting_name'] = array('like', '%' . $param['meeting_name'] . '%') : '';
         $param['worksheet_rule_person'] != '' ? $where['worksheet_rule_person'] = array('like', '%' . $param['worksheet_rule_person'] . '%') : '';
@@ -389,7 +389,7 @@ class WorkSheetModel  extends Model{
         $order = M('worksheet');
         $where['worksheet_detele'] = 1;
         $list = $order
-            ->field('worksheet_name,meeting_name,name,worksheet_end_date,worksheet_describe,worksheet_state,worksheet_abandoned_reason,worksheet_done_persent')
+            ->field('worksheet_name,meeting_name,worksheet_rule_name,worksheet_end_date,worksheet_describe,worksheet_state,worksheet_abandoned_reason,worksheet_done_persent')
             ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
             ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
             ->where($where)

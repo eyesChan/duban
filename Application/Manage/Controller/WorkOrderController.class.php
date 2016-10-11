@@ -197,7 +197,7 @@ class WorkOrderController extends AdminController {
     public function exportExecl($param){
         
        
-        $work = $this->mod_worksheet->getExecl($param);
+        $work = $this->mod_worksheet->getOrderExcel($param);
         $headArr = array('工作单名称',
                         '关联会议',
                         '负责人',

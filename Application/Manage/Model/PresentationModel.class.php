@@ -219,6 +219,8 @@ class PresentationModel  extends Model{
             $data[$k]['db_pre_type']=$this->getRootView($v['db_pre_type']);
             //文稿形式
             $data[$k]['db_pre_form']=$this->getRootView($v['db_pre_form']);
+            //工作状态
+            $data[$k]['db_pre_status']=$this->getRootView($v['db_pre_status']);
             //责任人
             $data[$k]['db_pre_person']=$this->getWhereUser($v['db_pre_person']);
             //拟稿人

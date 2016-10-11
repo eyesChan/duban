@@ -22,10 +22,10 @@
         <div class="tb1 jxssp">
             <table class="tbl tbl-list">
                 <caption>
-                        <a class="tb-detail f-fr mr30" title="公司模板导出" href="{:U('companyGetExecl')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="公司模板导出">
-                                </a> <a class="tb-detail f-fr mr30" title="集团模板导出" href="{:U('groupGetExecl')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="集团模板导出">
+                        <a class="tb-detail f-fr mr30" title="公司模板导出" href="javascript:;" >
+                                    <input type="button" class="btn btn-c btn-xl button" value="公司模板导出"  onclick="obtain()">
+                                </a> <a class="tb-detail f-fr mr30" title="集团模板导出" href="javascript:;" >
+                                    <input type="button" class="btn btn-c btn-xl button" value="集团模板导出"  onclick="obtaintwo()">
                                 </a>
                         <a class="tb-detail f-fr mr30" title="导入" href="{:U('importExcel')}">
                                     <input type="button" class="btn btn-c btn-xl button" value="导入">
@@ -86,11 +86,16 @@
             </div>
         </div>      
         <script type="text/javascript">
-                var rightBtn = '<input class="btn btn-a mr10 submit rightBtn" type="button" onclick="openNew()" value="创建内部会议"/>';
-                $(rightBtn).appendTo(".location");
-                function openNew() {
-                    location.href = '{:U(add)}';
-                }
+             //创建
+         var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="创建内部会议台账" style="margin-left:580px;width:180px"/>';
+            $(rightBtn).appendTo(".location");
+            function openNew(){
+            location.href = "{:U('add')}";
+                
+        }
+               
+               
+                
                 $(".judgeMeeting").each(function(){
                     if($.trim($(this).html()) !== ""){
                         $(this).parent().addClass("haveMeeting");
@@ -104,7 +109,14 @@
                     $("#execlid").submit();
                     $("#hiddenform").val(0);
                 }
-                
+                /*
+                 * 导出execl获取条件
+                 */
+                function obtaintwo(){
+                    $("#hiddenform").val(2);
+                    $("#execlid").submit();
+                    $("#hiddenform").val(0);
+                }
                 //删除会议
         function delMeeting(id){
          

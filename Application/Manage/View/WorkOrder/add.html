@@ -56,7 +56,7 @@
 
             </tr>
             <tr>
-                <td class="cap">工作单描述：</td>
+                <td class="cap">*工作单描述：</td>
                 <td class='5'>
                     <textarea class="textarea" name="worksheet_describe"></textarea>
                 </td>
@@ -64,7 +64,7 @@
         </table>
         <div class="text-center">
             <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
-            <a href="{:U(index)}"><input class="btn ml10 button btn-normal" type="button" value="取消"/></a>
+           <input class="btn ml10 button btn-normal" type="button" onclick="javascript:history.go(-1)" value="取消" />
         </div>
     </form>
  <script type="text/javascript">

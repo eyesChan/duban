@@ -25,15 +25,6 @@ class ResidentMeetingModel  extends Model{
   * @return object 添加成功或失败
   */
      public function addResident($param){
-        if (empty($param['resident_collect_time'])) {
-            unset($param['resident_collect_time']);
-        }
-        if (empty($param['resident_notice_time'])) {
-            unset($param['resident_notice_time']);
-        }
-        if (empty($param['resident_file_time'])) {
-            unset($param['resident_file_time']);
-        }
         $resident_meeting = M('resident_meeting');
         $res = $resident_meeting->add($param);
         if($res){
@@ -102,15 +93,6 @@ class ResidentMeetingModel  extends Model{
      * @return object 修改成功或失败 
      */
     public function saveResident($data,$resident_id){
-        if (empty($data['resident_collect_time'])) {
-            unset($data['resident_collect_time']);
-        }
-        if (empty($data['resident_notice_time'])) {
-            unset($data['resident_notice_time']);
-        }
-        if (empty($data['resident_file_time'])) {
-            unset($data['resident_file_time']);
-        }
         $resident_meeting = M('resident_meeting');
         $res = $resident_meeting->where("resident_id =".$resident_id)->save($data);
         if(FALSE === $res){

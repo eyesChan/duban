@@ -50,7 +50,9 @@ class WorkSheetModel  extends Model{
             $data['worksheet_start_date'] = $param['start_time'];
             $data['worksheet_end_date'] = $param['stop_time'];
             $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
-            $data['worksheet_rule_person'] = implode(',',$param['undefined']);
+            $users = implode(',',$param['undefined']);
+            $data['worksheet_rule_person'] = $users;
+            $data['worksheet_rule_name'] = $this->showUsers($users);
             $data['worksheet_describe'] = $param['worksheet_describe'];
             $data['worksheet_done_persent'] = 0;
             $data['worksheet_state'] = $workDay['state'];
@@ -112,6 +114,7 @@ class WorkSheetModel  extends Model{
     public function getList($where, $first_rows, $list_rows) {
       $order = M('worksheet');
       $where['worksheet_detele'] = 1;
+      $where['uid'] = 
       $list = $order
               ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
               ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
@@ -133,21 +136,31 @@ class WorkSheetModel  extends Model{
     public function selectWork($param){
         $where['worksheet_detele'] = 1;
         $work = D('worksheet')
-              ->field('name,worksheet_state,worksheet_id,worksheet_end_date,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state,meeting_name,worksheet_abandoned_reason,worksheet_describe,worksheet_creat_person')
+              ->field('name,worksheet_rule_name,worksheet_state,worksheet_state_id,worksheet_id,worksheet_end_date,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state,meeting_name,worksheet_abandoned_reason,worksheet_describe,worksheet_creat_person')
               ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
               ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
               ->where("worksheet_id = $param")
               ->find();
         
-        $user = $work['worksheet_rule_person'];
-        $where['uid']=array("in",$user);
-        $users = D('member')->field('name')->where($where)->select();
-        foreach($users as $key=>$val){
-            $work['username'] .="," .$val['name']; 
-        }
+        $users = $work['worksheet_rule_person'];
+        $work['username'] = $this->selectUsers($users);
         return $work;
     }
     
+    /*
+     * 查询姓名
+     */
+    public function selectUsers($users){
+        $where['uid']=array("in",$users);
+        $users = D('member')->where($where)->getField('uid,name');
+//        P($users);die;
+//        foreach($users as $key=>$val){
+//            $work['username'] .="," .$val['name']; 
+//            $work['username'] = ltrim($work['username'],",");
+//        }
+        return $users;
+    }
+   
     /*
      * 修改工单状态
      * @author xiaohui
@@ -158,14 +171,20 @@ class WorkSheetModel  extends Model{
     public function saveWork($param){
         $order = M('worksheet');
         $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
-        $data['worksheet_rule_persont'] = $param['personliable'];
+        $usernew = $this->usersselect($param['worksheet_rule_person'],$param['undefined']);
+        $data['worksheet_rule_person'] = $usernew;
         $data['worksheet_done_persent'] = $param['worksheet_done_persent']; 
         $states = $this->workState($param['worksheet_state'],$param['worksheet_id'],$param['worksheet_done_persent']);
         $data['worksheet_state'] = $states['state'];
         $data['worksheet_state_id'] = $states['id'];
+        $data['worksheet_rule_name'] = $this->showUsers($usernew);
+       // echo $data['worksheet_rule_name'];die;
         $work_id = $param['worksheet_id'];
+      
         $data['worksheet_abandoned_reason'] = $param['worksheet_abandoned_reason'];
+         
         $res = $order->where("worksheet_id = $work_id")->save($data);
+     
         if($res){
             writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 1);
             return C('COMMON.SUCCESS_EDIT');
@@ -174,7 +193,39 @@ class WorkSheetModel  extends Model{
             return C('COMMON.ERROR_EDIT');
         } 
     }
+    
+    /*
+     * 查询责任人加入库
+     */
+     public function showUsers($usernew){
+        //header("Content-Type:text/html; charset=UTF-8");
+        $where['uid']=array("in",$usernew);
+        $users = D('member')->field('name')->where($where)->select();
+        //P($users);die;
+         foreach($users as $key=>$val){
+            $workuser .="," .$val['name']; 
+            $workuser = ltrim($workuser,",");
+       }
       
+        return $workuser;
+    }
+    /*
+     * 编辑拼接责任人
+     */
+    public function usersselect($params,$newparam){
+        for($i=0;$i<=count($params);$i++){
+            $newuser .= ",".$params[$i];
+            $newusers = ltrim($newuser,",");
+            $newusers = rtrim($newusers,",");
+        }
+        for($i=0;$i<=count($newparam);$i++){
+            $newuserss.= ",".$newparam[$i];
+            $newusersss = rtrim($newuserss,",");
+        }
+        $enduser = $newusers.$newusersss;
+        return $enduser;
+    }
+    
     /*
      * 计算单个工单几天和每天%
      * @author xiaohui
@@ -333,7 +384,7 @@ class WorkSheetModel  extends Model{
      * 导出execl 查询
      * @author xiao hui
      */
-    public function getExecl($param){
+    public function getOrderExcel($param){
         $param['worksheet_name'] != '' ? $where['worksheet_name'] = array('like', '%' . $param['worksheet_name'] . '%') : '';
         $param['meeting_name'] != '' ? $where['meeting_name'] = array('like', '%' . $param['meeting_name'] . '%') : '';
         $param['worksheet_rule_person'] != '' ? $where['worksheet_rule_person'] = array('like', '%' . $param['worksheet_rule_person'] . '%') : '';
@@ -341,7 +392,7 @@ class WorkSheetModel  extends Model{
         $order = M('worksheet');
         $where['worksheet_detele'] = 1;
         $list = $order
-            ->field('worksheet_name,meeting_name,name,worksheet_end_date,worksheet_describe,worksheet_state,worksheet_abandoned_reason,worksheet_done_persent')
+            ->field('worksheet_name,meeting_name,worksheet_rule_name,worksheet_end_date,worksheet_describe,worksheet_state,worksheet_abandoned_reason,worksheet_done_persent')
             ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
             ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
             ->where($where)

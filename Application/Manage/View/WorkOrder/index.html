@@ -61,7 +61,7 @@
 	        	<tr>
                             <td>{$item.worksheet_name}</td>
                             <td>{$item.meeting_name}</td>
-                            <td>{$item.name}</td>
+                            <td>{$item.worksheet_rule_name}</td>
                             <td>{$item.worksheet_start_date|substr=0,10}</td>
                             <td>{$item.worksheet_end_date|substr=0,10}</td>      
                             <td>{$item.worksheet_state}</td>
@@ -90,7 +90,7 @@
 	    </div>	  
 	    <script type="text/javascript">
         var rightBtn ="";
-        rightBtn += '<a class="btn btn-a btn-xl button leftBtn" href="{:U('"add"')}">创建工作单</a>';
+        rightBtn += '<a class="btn btn-a btn-xl button leftBtn" href="{:U("add")}">创建工作单</a>';
 	    rightBtn += '<a type="button" id="btn_query" class="btn btn-a btn-xl button rightBtn" onclick="obtain()">工作单导出<a/>';
         $(rightBtn).appendTo(".location");
                 /*

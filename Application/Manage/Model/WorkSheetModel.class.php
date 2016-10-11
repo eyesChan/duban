@@ -52,7 +52,7 @@ class WorkSheetModel  extends Model{
             $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
             $users = implode(',',$param['undefined']);
             $data['worksheet_rule_person'] = $users;
-            $data['worksheet_rule_name'] = $this->selectUsers($users);
+            $data['worksheet_rule_name'] = $this->showUsers($users);
             $data['worksheet_describe'] = $param['worksheet_describe'];
             $data['worksheet_done_persent'] = 0;
             $data['worksheet_state'] = $workDay['state'];
@@ -194,6 +194,9 @@ class WorkSheetModel  extends Model{
         } 
     }
     
+    /*
+     * 查询责任人加入库
+     */
      public function showUsers($usernew){
         //header("Content-Type:text/html; charset=UTF-8");
         $where['uid']=array("in",$usernew);
@@ -207,7 +210,7 @@ class WorkSheetModel  extends Model{
         return $workuser;
     }
     /*
-     * 编辑责任人
+     * 编辑拼接责任人
      */
     public function usersselect($params,$newparam){
         for($i=0;$i<=count($params);$i++){

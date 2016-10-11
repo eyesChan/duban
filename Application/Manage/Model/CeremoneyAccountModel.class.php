@@ -11,7 +11,7 @@ use Think\Model;
  */
 class CeremoneyAccountModel extends Model {
 
-    protected $trueTableName = 'db_ceremoney_account';
+    protected $tableName = 'ceremoney_account';
     protected $_validate = array();
 
     public function __construct($name = '', $tablePrefix = '', $connection = '') {

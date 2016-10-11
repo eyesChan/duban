@@ -3,6 +3,16 @@
 <block name="right"> 
        <form action="{:U(savePresent)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
+        <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
         <caption>文稿台账编辑</caption>
             <input type="hidden" name="db_pre_id" value="{$list.db_pre_id}">
              <tr>
@@ -17,6 +27,16 @@
             </tr>
         </table>
         <table class="tbl">
+         <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
             <caption>交办</caption>
           
             <tr>
@@ -105,6 +125,16 @@
             </tr>
         </table>
         <table class="tbl">
+         <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
             <caption>拟稿</caption>
              <tr>
                  <td class="cap">拟稿人：</td>
@@ -127,13 +157,26 @@
                 <td>
                    <input type="text" name='db_draft_length' value="{$list.db_draft_length}" class="input-text text">
                 </td>
-                 <td class="cap">拟稿字数：</td>
-                <td>
+                 
+            </tr>
+            <tr>
+                <td class="cap">拟稿字数：</td>
+                <td colspan="7">
                    <input type="text" name='db_draft_num' value="{$list.db_draft_num}" class="input-text text">
                 </td>
             </tr>
         </table>
         <table class="tbl">
+         <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
           <caption>核稿</caption>           
              <tr>
                  <td class="cap">核稿人：</td>
@@ -177,6 +220,16 @@
              </tr>
         </table>   
          <table class="tbl">
+          <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
           <caption>核稿2</caption>           
              <tr>
                  <td class="cap">核稿人：</td>
@@ -221,6 +274,16 @@
              </tr>
         </table>
          <table class="tbl">
+          <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
           <caption>核稿3</caption>           
              <tr>
                  <td class="cap">核稿人：</td>
@@ -266,6 +329,16 @@
         </table>
      
         <table class="tbl">
+         <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
             <caption>评价</caption>
              <tr>
                  <td class="cap">中心评价：</td>
@@ -288,6 +361,16 @@
              </tr>
         </table>
          <table class="tbl">
+          <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
              <caption>审批</caption>
               <tr>
                  <td class="cap">呈报日期：</td>
@@ -317,6 +400,16 @@
              </tr>       
         </table>
          <table class="tbl">
+          <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
           <caption>发文</caption>           
             <tr>
                  <td class="cap">发文方式：</td>
@@ -342,6 +435,16 @@
              </tr>
         </table>
         <table class="tbl">
+         <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
             <caption>存档</caption>
              <tr>
                  <td class="cap">存档人：</td>
@@ -367,6 +470,16 @@
              </tr>
         </table>
          <table class="tbl">
+          <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
           <caption>用印</caption>           
              <tr>
                  <td class="cap">用印全称：</td>
@@ -380,9 +493,19 @@
              </tr>
         </table>
          <table class="tbl">
+          <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
              <caption>备注</caption>
              <tr>          
-                <td>
+                <td colspan="8">
                  <textarea class="textarea" name="db_pre_beizhu" placeholder="备注内容:">{$list.db_pre_beizhu}</textarea>
                 </td>
             </tr>

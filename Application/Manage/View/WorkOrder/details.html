@@ -38,7 +38,7 @@
                     <tr>
                         <td>{$item.worksheet_name}</td>
                         <td>{$item.meeting_name}</td>
-                        <td>{$item.name}</td>
+                        <td>{$item.worksheet_rule_name}</td>
                         <td>{$item.worksheet_end_date|substr=0,10}</td>
                         <td>{$item.worksheet_describe}</td>
                         <td>{$item.worksheet_state}</td>
@@ -50,12 +50,13 @@
  
                 </tbody>
             </table>
-                <div class="pagination fr">
-                    {$page}
- 
-                </div>
- 
+               
             </div>
+    <div class="text-center">
+ 
+         
+          <input class="btn ml10 button btn-normal" type="button" onclick="javascript:history.go(-1)" value="返回" />
+        </div>
         </div>      
        
 </block>

@@ -207,14 +207,19 @@ class MessageManageModel extends Model {
     /**
      * 获取前台显示系统消息列表所需数据
      * 
-     * @return array
+     * @param type $params
+     * @return type
      */
     public function getDataForShowList() {
         
         $this->checkAndResetStatus();
         $where['msg_sys_status'] = 1;//已发布状态
-        $data = $this->where($where)->getField('msg_sys_id,msg_sys_title,msg_sys_creattime',TRUE);
-        
+        $count = $this->where($where)->count();
+        $page = new \Think\Page($count, 10);
+        $data['list'] = $this->where($where)
+                ->limit($page->firstRow, $page->listRows)
+                ->getField('msg_sys_id,msg_sys_title,msg_sys_creattime',TRUE);
+        $data['page_show'] = $page->show();
         return $data;
     }
 }

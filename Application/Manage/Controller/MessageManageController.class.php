@@ -100,7 +100,8 @@ class MessageManageController extends AdminController {
     public function showList() {
         
         $data = $this->mod_message_manage->getDataForShowList();
-        $this->assign('list', $data);
+        $this->assign('page', $data['page_show']);
+        $this->assign('list', $data['list']);
         $this->display('showlist');
     }
 

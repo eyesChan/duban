@@ -56,7 +56,7 @@
                 <td>
                    <select name='db_pre_type'>
                         <foreach item='item' name='pre_type'>
-                                 <option value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                 <option value="{$item.config_id}">{$item.config_descripion}</option>
                         </foreach>
                    </select>
                 </td>
@@ -64,7 +64,7 @@
                 <td>
                       <select name='db_pre_form'>
                            <foreach item='item' name='pre_form'>
-                                 <option value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                 <option value="{$item.config_id}">{$item.config_descripion}</option>
                            </foreach>
                     </select>
               </td>
@@ -90,7 +90,7 @@
                 <td>
                       <select name='db_pre_person'>
                             <foreach item='item' name='user_name'>
-                                 <option value="{$item.name}">{$item.name}</option>
+                                 <option value="{$item.uid}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -98,7 +98,7 @@
                 <td colspan='3'>
                       <select name='db_pre_status'>
                             <foreach item='item' name='work_status'>
-                                 <option value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                 <option value="{$item.config_id}">{$item.config_descripion}</option>
                             </foreach>
                     </select>
                 </td>
@@ -111,7 +111,7 @@
                 <td >
                     <select name='db_draft_person'>
                              <foreach item='item' name='user_name'>
-                                 <option value="{$item.name}">{$item.name}</option>
+                                 <option value="{$item.uid}">{$item.name}</option>
                            </foreach>          
                     </select>
                 </td>
@@ -140,7 +140,7 @@
                 <td >
                     <select name='db_orgin_person'>
                             <foreach item='item' name='user_name'>
-                                 <option value="{$item.name}">{$item.name}</option>
+                                 <option value="{$item.uid}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -183,7 +183,7 @@
                 <td >
                     <select name='db_orgin2_person'>
                            <foreach item='item' name='user_name'>
-                                 <option value="{$item.name}">{$item.name}</option>
+                                 <option value="{$item.uid}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -226,7 +226,7 @@
                 <td >
                     <select name='db_orgin3_person'>
                           <foreach item='item' name='user_name'>
-                                 <option value="{$item.name}">{$item.name}</option>
+                                 <option value="{$item.uid}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -299,7 +299,7 @@
                 <td>
                      <select name='db_examin_mode'>
                              <foreach item='item' name='exa_mode'>
-                                <option value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                <option value="{$item.config_id}">{$item.config_descripion}</option>
                            </foreach>
                     </select>
                 </td>
@@ -307,7 +307,7 @@
                 <td>
                      <select name='db_examin_progress'>
                            <foreach item='item' name='exa_mode'>
-                                <option value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                <option value="{$item.config_id}">{$item.config_descripion}</option>
                            </foreach>
                     </select>
                 </td>
@@ -320,7 +320,7 @@
                  <td>
                      <select name="db_despatch_mode">
                         <foreach item='item' name='dis_mode'>
-                                <option value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                <option value="{$item.config_id}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>
@@ -348,9 +348,9 @@
                  <td class="cap">存档情况：</td>
                 <td>
                      <select name='db_file_status'>
-                            <option value="普通">完成</option>
-                            <option value="秘密">部分完成</option>
-                            <option value="机密">不存档</option>
+                            <option value="完成">完成</option>
+                            <option value="部分完成">部分完成</option>
+                            <option value="不存档">不存档</option>
                      </select>
                 </td>
                  <td class="cap">存档时间：</td>

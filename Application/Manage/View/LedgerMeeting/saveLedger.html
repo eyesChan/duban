@@ -37,11 +37,9 @@
                 <td class="cap">密级：</td>
                 <td>
                     <select name='led_meeting_dense'>
-                            <option <if condition="$list['led_meeting_dense'] eq '普通' ">selected</if> value="普通">普通</option>
-                            <option <if condition="$list['led_meeting_dense'] eq '秘密' ">selected</if> value="秘密">秘密</option>
-                            <option <if condition="$list['led_meeting_dense'] eq '机密' ">selected</if> value="机密">机密</option>
-                            <option <if condition="$list['led_meeting_dense'] eq '绝密' ">selected</if> value="绝密">绝密</option>
-                            
+                         <foreach item='item' name='led_dense'>
+                                <option <if condition="$list['led_meeting_dense'] eq $item.config_descripion ">selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
+                        </foreach>
                     </select>
                 </td>
                 <td class="cap">着装：</td>

@@ -38,11 +38,9 @@
                 <td class="cap">密级：</td>
                 <td>
                     <select name='led_meeting_dense'>
-                            <option value="普通">普通</option>
-                            <option value="秘密">秘密</option>
-                            <option value="机密">机密</option>
-                            <option value="绝密">绝密</option>
-                            
+                           <foreach item='item' name='led_dense'>
+                                 <option value="{$item.config_id}">{$item.config_descripion}</option>
+                           </foreach>
                     </select>
                 </td>
                 <td class="cap">着装：</td>

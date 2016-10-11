@@ -219,8 +219,6 @@ class PresentationModel  extends Model{
             $data[$k]['db_pre_type']=$this->getRootView($v['db_pre_type']);
             //文稿形式
             $data[$k]['db_pre_form']=$this->getRootView($v['db_pre_form']);
-            //工作状态
-            $data[$k]['db_pre_status']=$this->getRootView($v['db_pre_status']);
             //责任人
             $data[$k]['db_pre_person']=$this->getWhereUser($v['db_pre_person']);
             //拟稿人
@@ -260,7 +258,6 @@ class PresentationModel  extends Model{
         $led_presentation = M('led_presentation');
         $data = $led_presentation
                 ->where($where) 
-                ->order('db_pre_id desc')
                 ->select();
          //去除及修改键值
         foreach($data as $k => $v){
@@ -301,10 +298,6 @@ class PresentationModel  extends Model{
     * @return object 添加成功或失败
     */
      public function addsPresent($param){
-        import("Org.Util.PHPExcel.PHPExcel");
-        //时间格式转换
-        include_once 'ThinkPHP/Library/Org/Util/PHPExcel/PHPExcel/Shared/Date.php';
-        $dateMod = new \PHPExcel_Shared_Date();
         $led_presentation = M('led_presentation');
         $flag = 0;
         $model = new Model();

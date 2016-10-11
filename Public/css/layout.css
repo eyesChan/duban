@@ -168,6 +168,7 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
 a.btn-normal {
     color: #333;
     margin-left: 20px;
+    width:  80px;
 }
 a.btn-normal:hover {
     color: #333;

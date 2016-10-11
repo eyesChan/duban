@@ -3,16 +3,11 @@
 <block name="right">
     <css href="__PUBLIC__/css/moduleManage.css"/>
     <div class="container-padding">
-     <table class="tbl" style="margin-top: 20px;">
-            <tr>
-                <td class="cap"> <a href="{:U('add')}"><input type="button" value="新增" class="btn btn-a submit" ></a></td>
-            </tr>
-        </table>
-
         <div class="wrap-table mt10">
           <form method="POST" action="{:U(lst)}" name="listForm">
                 <div class="wrap-table" style="display:">
                     <table class="tbl tbl-list">
+                    <caption>模块列表<a class="tb-detail f-fr mr30" href="{:U('add')}">新增模块</a></caption>
                         <colgroup>
                             <col width="10%">
                             <col width="10%">

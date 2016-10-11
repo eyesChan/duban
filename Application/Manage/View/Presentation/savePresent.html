@@ -3,6 +3,7 @@
 <block name="right"> 
        <form action="{:U(savePresent)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
+        <caption>文稿台账编辑</caption>
             <input type="hidden" name="db_pre_id" value="{$list.db_pre_id}">
              <tr>
                  <td class="cap">文档规范名称：</td>
@@ -386,9 +387,9 @@
                 </td>
             </tr>
         </table>
-         <div class="text-center">
+         <div class="wrap-btns">
 
-	      <input class="btn btn-red mr10 submit productSubmit" type="submit" value="保存"/>
+	      <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="保存"/>
 	      <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
     	</div>
     </form>

@@ -11,7 +11,7 @@ html{padding-top: 102px;_padding-top:0;-webkit-box-sizing: border-box;-moz-box-s
 .logo{width:485px;margin:30px 0 0 10px;color: #fff;font-size: 22px;font-family: "微软雅黑"}
 .logo .jns-logo{display:block;height:48px;text-indent: -999em;background: url(../images/logo.png) no-repeat;overflow: hidden;}
 .header-bd{position:absolute;left:190px;right:1px;bottom:-34px;z-index:30;height:34px;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing: border-box;background:#fff url(../images/bg_location.jpg) repeat-x left bottom;}
-.location{height: 30px;line-height: 30px;color: #30519c;text-indent:10px;background: #fff;}
+.location{height: 30px;line-height: 30px;color: #30519c;text-indent:10px;background: #fff;position: relative;}
 .login-person{padding: 0 5px;height: 30px;line-height: 30px;color: #000;}
 /*主体 */
 .wrap{margin:0 auto;width:1178px;height:100%;+height:expression(document.documentElement.offsetHeight-120+"px");padding-right:10px;border-width:0 1px;border-style: solid;border-color: #d7d7d9;background: #fff;}

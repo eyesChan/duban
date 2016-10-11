@@ -14,23 +14,23 @@
                     <td><input class="input-text text" name="name" value="{$param['name']}" id="worksheet_rule_person" type="text"/></td>
                     <td class="cap">会议时间：</td>
                     <td><input type="text" name='internal_meeting_date' id="date8" value="{$param['internal_meeting_date']}" id="worksheet_start_date" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl"></td>
-                    <td><input type="submit" value="查询" id="btn_query" class="btn btn-a submit"/></td>
-                    <input type="hidden" id="hiddenform" name="hiddenform">
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <div class="wrap-btns">
+                            <input type="submit" value="查询" id="btn_query" class="btn btn-a submit"/>
+                            <a class="btn btn-c btn-xl button" href="{:U('companyGetExecl')}">公司模板导出</a> 
+                            <a class="btn btn-c btn-xl button" href="{:U('groupGetExecl')}">集团模板导出</a>
+                            <a class="btn btn-c btn-xl button" title="导入" href="{:U('importExcel')}">导入</a>
+                            <input type="hidden" id="hiddenform" name="hiddenform">
+                        </div>
+                    </td>
                 </tr>
         </table>
         </form>
         <div class="tb1 jxssp">
             <table class="tbl tbl-list">
-                <caption>
-                        <a class="tb-detail f-fr mr30" title="公司模板导出" href="{:U('companyGetExecl')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="公司模板导出">
-                                </a> <a class="tb-detail f-fr mr30" title="集团模板导出" href="{:U('groupGetExecl')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="集团模板导出">
-                                </a>
-                        <a class="tb-detail f-fr mr30" title="导入" href="{:U('importExcel')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="导入">
-                                </a>
-                    </caption>
+                <caption>内部会议台账列表</caption>
                 <colgroup>
                     <col width="10%">
                     <col width="10%">
@@ -64,15 +64,9 @@
                             <td>{$item.internal_meeting_place}</td>
                            
                             <td>
-                                <a class="" title="详情" href="{:U('InternalMeeting/details',array('id'=>$item['internal_id']))}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="详情">
-                                </a>
-                                <a class="" title="编辑" href="{:U('InternalMeeting/save',array('id'=>$item['internal_id']))}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="编辑">
-                                </a>
-                                <a class="" title="删除">
-                                    <input type="button" class="btn btn-c btn-xl button" value="删除" onclick="delMeeting({$item['internal_id']})">
-                                </a>
+                                <a class="btn btn-c btn-xl button" href="{:U('InternalMeeting/details',array('id'=>$item['internal_id']))}">详情</a>
+                                <a class="btn btn-c btn-xl button" href="{:U('InternalMeeting/save',array('id'=>$item['internal_id']))}">编辑</a>
+                                <input type="button" class="btn btn-c btn-xl button" value="删除" onclick="delMeeting({$item['internal_id']})">
                             </td>
                 </tr>
                     </foreach>
@@ -86,7 +80,7 @@
             </div>
         </div>      
         <script type="text/javascript">
-                var rightBtn = '<input class="btn btn-a mr10 submit rightBtn" type="button" onclick="openNew()" value="创建内部会议"/>';
+                var rightBtn = '<input class="btn btn-a mr10 submit fr" type="button" onclick="openNew()" value="创建内部会议"/>';
                 $(rightBtn).appendTo(".location");
                 function openNew() {
                     location.href = '{:U(add)}';

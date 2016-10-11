@@ -6,32 +6,30 @@
         <div class="filter-main clear">              
             <form method="post" action="{:U(index)}" id="execlid">
                 <table class="tbl">
+                <caption>查询条件</caption>
                     <tr>
                         <td class="cap">会谈名称:</td>
                         <td> <input class="input-text" type="text" name="led_meeting_name" id="led_meeting_name" value="{$param['led_meeting_name']}"></td>
                         <td class="cap">主持人：</td>
                         <td><input class="input-text" type="text" name="led_meeting_host" id="led_meeting_host" value="{$param['led_meeting_host']}"></td>
                         <td class="cap">时间：</td>
-                         <td><input type="text" name='led_meeting_date' id="date8" value="{$param['led_meeting_date']}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>                   
-                        <td>
-                             <input class="btn btn-r btn-xl button" type="submit" value="查询"/>
-                        </td>
-                        <td>
-                          <a href="javascript:;" onclick="obtain()" class="tb-detail f-fr mr30" title="导出">
-                                <input class="btn btn-r btn-xl button" type="button" value="导出" />
-                           </a>
-                        </td>
-                        <td>
-                             <a class="tb-detail f-fr mr30" title="导入" href="{:U('importLedgerMeeting')}">
-                                    <input type="button" class="btn btn-c btn-xl button" value="导入">
-                                </a>
-                        </td>
-                        
+                         <td><input type="text" name='led_meeting_date' id="date8" value="{$param['led_meeting_date']}" onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>                 
                          </tr> 
+                         <tr>
+                             <td colspan="6">
+                             <div class="wrap-btns">
+                                  <input class="btn btn-a btn-xl button" type="submit" value="查询"/>
+                                 <a href="javascript:;" onclick="obtain()" class="btn btn-c btn-xl button mr30" title="导出">导出</a>
+                           <a class="btn btn-c btn-xl button" title="导入" href="{:U('importLedgerMeeting')}">导入</a>
+                             </div>
+                                
+                             </td>
+                         </tr>
                      <input type="hidden" id="hiddenform" name="hiddenform">  
                 </table>
             </form>
              <table class="tbl tbl-list">
+             <caption>会谈会见台账列表</caption>
 	            <colgroup>
                             <col width="9%">
                             <col width="13%">
@@ -60,13 +58,9 @@
                                 <td>{$item.led_meeting_host}</td>
                                 <td>{$item.led_meeting_place}</td> 
                                 <td>
-                                    <a href="{:U('detailsLedger',array('led_meeting_id'=>$item['led_meeting_id']))}"> 
-                                        <input type="button" value="详情" class="btn btn-r btn-xl button">
-                                    </a> 
-                                    <a href="{:U('saveLedger',array('led_meeting_id'=>$item['led_meeting_id']))}"> 
-                                        <input type="button" value="编辑" class="btn btn-r btn-xl button">
-                                    </a> 
-                                        <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.led_meeting_id}')">
+                                    <a class="btn btn-r btn-xl button" href="{:U('detailsLedger',array('led_meeting_id'=>$item['led_meeting_id']))}">详情</a> 
+                                    <a class="btn btn-r btn-xl button" href="{:U('saveLedger',array('led_meeting_id'=>$item['led_meeting_id']))}">编辑</a> 
+                                    <input type="button" value="删除" class="btn btn-r btn-xl button" onclick="withdraw('{$item.led_meeting_id}')">
                                 </td>
 	        	</tr>
                     </foreach>
@@ -86,7 +80,7 @@
                $("#hiddenform").val(0);
         }
          //创建
-        var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="会谈会见台账创建" style="width:120px"/>';
+        var rightBtn = '<input class="btn btn-red mr10 submit fr" type="button" onclick="openNew()" value="会谈会见台账创建"/>';
          $(rightBtn).appendTo(".location");
          function openNew(){
              location.href = "{:U('addLedger')}";

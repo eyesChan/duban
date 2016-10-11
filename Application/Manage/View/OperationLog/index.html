@@ -7,14 +7,6 @@
         <form  method="post" action="{:U(OperationLog/index)}" name="queryOrder-form" class="login-form">
             <table class="tbl">
                 <caption>查询条件</caption>
-                <colgroup>
-                    <col width="10%">
-                    <col width="10%">
-                    <col width="10%">
-                    <col width="10%">
-                    <col width="10%">
-                    <col width="50%">
-                </colgroup>
                 <tbody>
                     <tr>
                         <td class="cap">操作人：</td>
@@ -45,7 +37,7 @@
                         </td>
                         <td class="cap"></td>
                         <td>
-                            <input type="submit" value="筛选" id="btn_query" class="btn btn-a submit">
+                            <input type="submit" value="查询" id="btn_query" class="btn btn-a submit">
                           <!--   <input type="button" value="导出" id="btn_query" class="btn btn-a op-input"> -->
                         </td>
 
@@ -56,6 +48,7 @@
     </div>
     <div class="wrap-table-a">
         <table class="tbl tbl-list">
+        <caption>日志列表</caption>
             <colgroup>
                 <col width="5%">
                 <col width="20%">

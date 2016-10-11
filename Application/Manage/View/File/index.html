@@ -99,12 +99,12 @@
             </div>
         </div>
     <script>
-    var rightBtn = '<input class="btn btn-red mr10 submit rightBtn" type="button" onclick="openNew()" value="文档发布创建"/>';
+    var rightBtn = '<input class="btn btn-red submit leftBtn" type="button" onclick="openNew()" value="文档发布创建"/>';
     $(rightBtn).appendTo(".location");
     function openNew(){
         location.href = '{:U(addFile)}';
     }
-    var exportBtn = '<input class="btn btn-red mr10 submit exportBtn" type="button" onclick="importMeeting()" value="导出记录"/>';
+    var exportBtn = '<input class="btn btn-red submit rightBtn" type="button" onclick="importMeeting()" value="导出记录"/>';
     $(exportBtn).appendTo(".location");
     function importMeeting(){
         $("#hiddenform").val(1);

@@ -60,17 +60,12 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="wrap-btns fl">
-                    <div class="btns-middle">
-                        <input type="hidden" name='uid' value="{$info.uid}">
-                        <input class="btn-c btn-xl button btn btn-a fl" type="submit" name='submit' value="保存"/>
-                        <a href="{:U(index)}" class="no_disable back-a fl">返回</a>
-                    </div>
-                    
-                </div>
+                
             </form>
-
-
+            <div class="wrap-btns">
+                <input type="hidden" name='uid' value="{$info.uid}">
+                <input class="btn-submit btn-xl button btn fl" type="submit" name='submit' value="保存"/>
+                <a href="{:U(index)}" class="btn-normal btn-xl button btn fl">返回</a>
         </div>
     </div>
     <js href="__PUBLIC__/Js/baseOperate.js"/>

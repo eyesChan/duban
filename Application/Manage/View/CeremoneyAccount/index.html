@@ -6,6 +6,7 @@
         <div class="filter-main clear">              
             <form id="search_form" method="post" action="{:U(index)}">
                 <table class="tbl">
+                <caption>查询条件</caption>
                     <tr>
                         <td class="cap">会谈名称:</td>
                         <td> <input class="input-text" type="text" name="ca_name" value="{$remember_search['ca_name']}"></td>
@@ -15,19 +16,12 @@
                         <td><input type="text" name='ca_time' id="date8" value="{$remember_search['ca_time']}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl" ></td>                   
                     </tr>
                     <tr>
-                        <td colspan="10">
+                        <td colspan="6">
                             <div class="text-center">
                                 <input type="hidden" id="flag_search_form" name="flag_search_form" value="{$remember_search['flag_search_form']}"/>
                                 <input class="btn btn-a submit" type="submit" value="查询"/>
-                                <a href="{:U(add)}">
-                                    <input type="button" class="btn btn-a submit" value="创建"/>
-                                </a>
-                                <a href="javascript:;" onclick="makeExcel()" class="tb-detail f-fr mr30">
-                                    <input class="btn btn-r btn-xl button" type="button" value="导出"/>
-                                </a>
-                                <a  href="{:U(importExcel)}" class="tb-detail f-fr mr30">
-                                    <input class="btn btn-r btn-xl button" type="button" value="导入"/>
-                                </a>
+                                <input class="btn btn-r btn-xl button" onclick="makeExcel()" type="button" value="导出"/>
+                                <a  class="btn btn-r btn-xl button" href="{:U(importExcel)}">导入</a>
                             </div>
                         </td>
                     </tr>
@@ -63,15 +57,9 @@
                         <td>{$item.ca_host}</td>
                         <td>{$item.ca_address}</td> 
                         <td>
-                            <a href="{:U('CeremoneyAccount/detail',array('ca_id'=>$item['ca_id']))}"> 
-                                <input type="button" value="详情" class="btn btn-r btn-xl button">
-                            </a> 
-                            <a href="{:U('CeremoneyAccount/edit',array('ca_id'=>$item['ca_id']))}">
-                                <input type="button" value="编辑" class="btn btn-r btn-xl button">
-                            </a> 
-                            <a onclick="del({$item['ca_id']})"> 
-                                <input type="button" value="删除" class="btn btn-r btn-xl button">
-                            </a> 
+                            <a class="btn btn-r btn-xl button" href="{:U('CeremoneyAccount/detail',array('ca_id'=>$item['ca_id']))}">详情</a> 
+                            <a class="btn btn-r btn-xl button" href="{:U('CeremoneyAccount/edit',array('ca_id'=>$item['ca_id']))}">编辑</a> 
+                            <input onclick="del({$item['ca_id']})" type="button" value="删除" class="btn btn-r btn-xl button"> 
                         </td>
                     </tr>
                 </foreach>
@@ -83,7 +71,8 @@
         </div>
     </div> 
     <script type="text/javascript">
-
+         var rightBtn = '<a href="{:U(add)}" class="btn btn-a submit rightBtn button">创建签约仪式台账</a>';
+        $(rightBtn).appendTo(".location");
         //导出excel
         function makeExcel() {
 

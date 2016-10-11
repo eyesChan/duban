@@ -301,6 +301,10 @@ class PresentationModel  extends Model{
     * @return object 添加成功或失败
     */
      public function addsPresent($param){
+        import("Org.Util.PHPExcel.PHPExcel");
+        //时间格式转换
+        include_once 'ThinkPHP/Library/Org/Util/PHPExcel/PHPExcel/Shared/Date.php';
+        $dateMod = new \PHPExcel_Shared_Date();
         $led_presentation = M('led_presentation');
         $flag = 0;
         $model = new Model();
@@ -335,6 +339,22 @@ class PresentationModel  extends Model{
             $v['db_pre_status']=$this->getRootViews($v['db_pre_status']);
             //责任人
             $v['db_pre_person']=$this->getWhereUsers($v['db_pre_person']);
+            //交办时间
+            $v['db_assign_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_assign_time']) - 3600 * 8);
+            //交办完成时间
+            $v['db_complete_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_complete_time']) - 3600 * 8);
+            //拟稿完成时间
+            $v['db_draft_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_draft_time']) - 3600 * 8);
+            //核稿完成时间1
+            $v['db_orgin_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_orgin_time']) - 3600 * 8);
+            //核稿完成时间2
+            $v['db_orgin2_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_orgin2_time']) - 3600 * 8);
+            //核稿完成时间3
+            $v['db_orgin3_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_orgin3_time']) - 3600 * 8);
+            //审批呈报时间
+            $v['db_examin_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_examin_time']) - 3600 * 8);
+            //发布时间
+            $v['db_despatch_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_despatch_time']) - 3600 * 8);
             if($v['db_pre_person']==FALSE){
                 $flag=$flag-1; 
             }

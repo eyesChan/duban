@@ -38,14 +38,13 @@ function singleReset(del_id) {
         success: function (data) {
             // checkAuth(data);
             // var dataJson = JSON.parse(data);
-             alert(data.code)
             if (data.code == 200) {
-                $(".single-pwd-pro").show().children("span").html("重置密码成功！");
+                $(".single-pwd-pro").show().children("span").html(data.status);
                 setTimeout(function () {
                     $(".single-pwd-pro").hide();
                 }, 1000);
             } else {
-                $(".single-pwd-pro").show().children("span").html("重置密码成功！");
+                $(".single-pwd-pro").show().children("span").html(data.status);
                 setTimeout(function () {
                     $(".single-pwd-pro").hide();
                 }, 1000);
@@ -81,15 +80,14 @@ function resetAll(uid) {
                 success: function (data) {
                     // checkAuth(data);
                     // var dataJson = JSON.parse(data);
-                    console.log(data.code)
                     if (data.code == 200) {
                         del_id = del_id.substring(0, del_id.length - 1);
-                        $(".batch-prompt").show().children("span").html("批量重置密码成功！");
+                        $(".batch-prompt").show().children("span").html(data.status);
                         setTimeout(function () {
                             $(".batch-prompt").hide();
                         }, 1500);
                     } else {
-                        $(".batch-prompt").show().children("span").html("批量重置密码失败！");
+                        $(".batch-prompt").show().children("span").html(data.status);
                         setTimeout(function () {
                             $(".batch-prompt").hide();
                         }, 1500);

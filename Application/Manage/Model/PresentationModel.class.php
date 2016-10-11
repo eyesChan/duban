@@ -257,7 +257,8 @@ class PresentationModel  extends Model{
         $where['pre_status'] = array('EQ', '0');
         $led_presentation = M('led_presentation');
         $data = $led_presentation
-                ->where($where) 
+                ->where($where)
+                ->order('db_pre_id desc')
                 ->select();
          //去除及修改键值
         foreach($data as $k => $v){
@@ -298,6 +299,10 @@ class PresentationModel  extends Model{
     * @return object 添加成功或失败
     */
      public function addsPresent($param){
+        import("Org.Util.PHPExcel.PHPExcel");
+        //时间格式转换
+        include_once 'ThinkPHP/Library/Org/Util/PHPExcel/PHPExcel/Shared/Date.php';
+        $dateMod = new \PHPExcel_Shared_Date();
         $led_presentation = M('led_presentation');
         $flag = 0;
         $model = new Model();

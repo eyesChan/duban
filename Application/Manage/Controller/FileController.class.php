@@ -125,6 +125,8 @@ class FileController extends AdminController {
         //文档权限设定
         $file_authority = getConfigInfo('doc_pub_authority');
         $this->assign('file_authority', $file_authority);
+        //上传文件提示
+        $this->assign('doc_type',implode(' , ', C('FILE_DOC.ALLOW_FILE')));
         $this->display();
     }
 

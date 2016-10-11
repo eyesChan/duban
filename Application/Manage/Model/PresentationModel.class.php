@@ -219,8 +219,6 @@ class PresentationModel  extends Model{
             $data[$k]['db_pre_type']=$this->getRootView($v['db_pre_type']);
             //文稿形式
             $data[$k]['db_pre_form']=$this->getRootView($v['db_pre_form']);
-            //工作状态
-            $data[$k]['db_pre_status']=$this->getRootView($v['db_pre_status']);
             //责任人
             $data[$k]['db_pre_person']=$this->getWhereUser($v['db_pre_person']);
             //拟稿人
@@ -259,7 +257,7 @@ class PresentationModel  extends Model{
         $where['pre_status'] = array('EQ', '0');
         $led_presentation = M('led_presentation');
         $data = $led_presentation
-                ->where($where) 
+                ->where($where)
                 ->order('db_pre_id desc')
                 ->select();
          //去除及修改键值
@@ -339,21 +337,21 @@ class PresentationModel  extends Model{
             $v['db_pre_status']=$this->getRootViews($v['db_pre_status']);
             //责任人
             $v['db_pre_person']=$this->getWhereUsers($v['db_pre_person']);
-            //交办时间
+            //交办时刻
             $v['db_assign_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_assign_time']) - 3600 * 8);
-            //交办完成时间
+            //交办完成时刻
             $v['db_complete_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_complete_time']) - 3600 * 8);
-            //拟稿完成时间
+            //拟稿完成时刻
             $v['db_draft_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_draft_time']) - 3600 * 8);
-            //核稿完成时间1
+            //核稿完成时刻1
             $v['db_orgin_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_orgin_time']) - 3600 * 8);
-            //核稿完成时间2
+            //核稿完成时刻2
             $v['db_orgin2_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_orgin2_time']) - 3600 * 8);
-            //核稿完成时间3
+            //核稿完成时刻3
             $v['db_orgin3_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_orgin3_time']) - 3600 * 8);
-            //审批呈报时间
+            //审批呈报时刻
             $v['db_examin_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_examin_time']) - 3600 * 8);
-            //发布时间
+            //发布时刻
             $v['db_despatch_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_despatch_time']) - 3600 * 8);
             if($v['db_pre_person']==FALSE){
                 $flag=$flag-1; 

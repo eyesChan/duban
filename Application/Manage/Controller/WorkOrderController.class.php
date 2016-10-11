@@ -131,7 +131,6 @@ class WorkOrderController extends AdminController {
                     $this->assign('state',$state);
                 }
                 $this->assign('workorder',$workorder);
-              
                 $this->assign('user',$user);
                 $this->display('save');
             }else{
@@ -140,7 +139,6 @@ class WorkOrderController extends AdminController {
         }
         if(IS_POST){
             $param = I('post.');
-           // p($param);die;
             if(empty($param)){
                 echo json_encode(C('COMMON.ERROR_EDIT'));
             }else{
@@ -176,7 +174,7 @@ class WorkOrderController extends AdminController {
             }else{
                 $this->error($result['status'], '/Manage/WorkOrder/index');
             }  
-            return true;
+               
         }
     } 
     /*
@@ -197,7 +195,7 @@ class WorkOrderController extends AdminController {
     public function exportExecl($param){
         
        
-        $work = $this->mod_worksheet->getOrderExcel($param);
+        $work = $this->mod_worksheet->getExecl($param);
         $headArr = array('工作单名称',
                         '关联会议',
                         '负责人',

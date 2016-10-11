@@ -233,7 +233,7 @@ class UserController extends AdminController {
                     'code' => '200',
                 );
             }
-            echo json_encode($result);
+            $this->ajaxReturn($result);
             return true;
         } else {
 
@@ -242,7 +242,7 @@ class UserController extends AdminController {
                 'code' => '100',
             );
         }
-        echo json_decode($result);
+        $this->ajaxReturn($result);
     }
 
     /**

@@ -1,13 +1,13 @@
 //新增动作
 $("#add-btn").on("click", function () {
 
-    if($("[name=config_key]").val() == "-100"){
+    if($(".config-category").val() == "-100"){
         $.dialog.alert("请选择参数类别！");
         return false;
-    }else if($.trim($("[name=config_descripion]").val()) == "" ){
+    }else if($.trim($(".config-name").val()) == "" ){
         $.dialog.alert("请填写参数名称！");
         return false;
-    }else if($.trim($("[name=config_value]").val()) == "" ){
+    }else if($.trim($(".config-value").val()) == "" ){
         $.dialog.alert("请填写参数值！");
         return false;
     }else {

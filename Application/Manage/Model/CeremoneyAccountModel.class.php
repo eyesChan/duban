@@ -22,6 +22,49 @@ class CeremoneyAccountModel extends Model {
     }
 
     /**
+     * 获取添加页面所需数据集
+     * 
+     * @return array
+     */
+    public function getDataForAdd() {
+
+        //获取签约仪式密级数据
+        $arr_ca_sl = $this->getAllCASL();
+
+        return $arr_ca_sl;
+    }
+
+    /**
+     * 获取编辑页面所需数据集
+     * 
+     * @return array
+     */
+    public function getDataForEdit($ca_id) {
+
+        $arr['ca_info'] = $this->getDataById($ca_id);
+        $arr['ca_sl'] = $this->getAllCASL();
+
+        return $arr;
+    }
+
+    /**
+     * 获取详情页面所需数据集
+     * 
+     * @return array
+     */
+    public function getDataForDetail($ca_id) {
+
+        $arr_ca_info = $this->getDataById($ca_id);
+        $arr_ca_sl = $this->getAllCASL();
+        foreach ($arr_ca_sl as $v) {
+            if ($arr_ca_info['ca_security_level'] == $v['config_value']) {
+                $arr_ca_info['ca_sl_name'] = $v['config_descripion'];
+            }
+        }
+        return $arr_ca_info;
+    }
+
+    /**
      * 获取列表所需数据
      * 
      * @param array $params
@@ -38,7 +81,7 @@ class CeremoneyAccountModel extends Model {
                 ->order('ca_time desc')
                 ->limit($page->firstRow, $page->listRows)
                 ->getField('ca_id,ca_name,ca_time,ca_host,ca_address', TRUE);
-        
+
         foreach ($params as $k => $v) {
             $page->parameter[$k] = $v;
         }
@@ -96,10 +139,10 @@ class CeremoneyAccountModel extends Model {
         //数据完善
         $data['ca_create_time'] = date('Y-m-d H:i:s');
         $data['ca_update_time'] = date('Y-m-d H:i:s');
-        if(empty($data['ca_time'])) {
+        if (empty($data['ca_time'])) {
             unset($data['ca_time']);
         }
-        if(empty($data['ca_pub_date'])) {
+        if (empty($data['ca_pub_date'])) {
             unset($data['ca_pub_date']);
         }
         //后台数据验证
@@ -130,10 +173,10 @@ class CeremoneyAccountModel extends Model {
 
         //数据完善
         $data['ca_update_time'] = date('Y-m-d H:i:s');
-        if(empty($data['ca_time'])) {
+        if (empty($data['ca_time'])) {
             unset($data['ca_time']);
         }
-        if(empty($data['ca_pub_date'])) {
+        if (empty($data['ca_pub_date'])) {
             unset($data['ca_pub_date']);
         }
         //后台数据验证
@@ -186,6 +229,14 @@ class CeremoneyAccountModel extends Model {
 
         $where = $this->makeWhereForSearch($params);
         $data_ca = $this->where($where)->select();
+        $arr_ca_sl = $this->getAllCASL();
+        foreach ($data_ca as $key => $ca) {
+            foreach ($arr_ca_sl as $sl) {
+                if ($ca['ca_security_level'] == $sl['config_value']) {
+                    $data_ca[$key]['ca_security_level'] = $sl['config_descripion'];
+                }
+            }
+        }
         $count = count($data_ca);
         for ($i = 0; $i <= $count; $i++) {
             unset($data_ca[$i]['ca_id']);
@@ -216,7 +267,7 @@ class CeremoneyAccountModel extends Model {
             $param['ca_zq_leader'] = $data[$i][6];
             $param['ca_qy_leader'] = $data[$i][7];
             $param['ca_participants'] = $data[$i][8];
-            $param['ca_security_level'] = $data[$i][9];
+            $param['ca_security_level'] = $this->changSLNameToSLId($data[$i][9],$flag);
             $param['ca_dress'] = $data[$i][10];
             $param['ca_security_person'] = $data[$i][11];
             $param['ca_security_time'] = $data[$i][12];
@@ -278,6 +329,33 @@ class CeremoneyAccountModel extends Model {
             $model->commit();
             writeOperationLog('导入“' . 'excel表格' . '”', 1);
             return C('COMMON.IMPORT_SUCCESS');
+        }
+    }
+
+    /**
+     * 获取所有签约仪式密级
+     * 
+     * @return array
+     */
+    public function getAllCASL() {
+
+        $mod_config_system = M('config_system');
+        $where['config_key'] = 'ca_sl';
+        $where['config_status'] = 1;
+        $arr_ca_sl = $mod_config_system->where($where)->select();
+        return $arr_ca_sl;
+    }
+
+    public function changSLNameToSLId($sl_name,$flag) {
+
+        $mod_config_system = M('config_system');
+        $where['config_key'] = 'ca_sl';
+        $where['config_descripion'] = $sl_name;
+        $sl_id = $mod_config_system->where($where)->getField('config_value');
+        if(!empty($sl_id)) {
+            return $sl_id;
+        } else {
+            return $flag = -1;
         }
     }
 

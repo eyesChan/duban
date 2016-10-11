@@ -25,6 +25,9 @@ function sel1(param) {
                     $('#sform').submit();
                 }
             }
+        } else if($('#menu_url').val() == false) {
+            $.dialog.alert('请填写文件路径');
+            return false;
         } else {
             $('#sform').submit();
         }

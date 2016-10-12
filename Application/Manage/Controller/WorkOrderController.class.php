@@ -21,14 +21,7 @@ use Manage\Controller\AdminController;
 class WorkOrderController extends AdminController {
     
     private $mod_worksheet;
-    /*
-     * 添加工作单
-     * @author Hui Xiao
-     * @param string $wordname 工作单名称
-     * @param string $password
-     * @param string $verify_code
-     * @return object 跳转或显示页面
-     */
+
     public function __construct() {
         parent::__construct();
     
@@ -52,11 +45,13 @@ class WorkOrderController extends AdminController {
     
     
     /*
-     * 工作单添加
+     * 添加工作单
+     * @author Hui Xiao
+     * @return object 跳转或显示页面
      */
     public function add(){
-        $meeting = $this->mod_worksheet->listMeeting();
-        $user = $this->mod_worksheet->getUser();
+        $meeting = $this->mod_worksheet->listMeeting();//获取会议
+        $user = $this->mod_worksheet->getUser();//获取用户
         if(IS_POST){
             $param = I('post.');
             
@@ -133,14 +128,12 @@ class WorkOrderController extends AdminController {
                 $this->assign('workorder',$workorder);
                 $this->assign('user',$user);
                 $this->display('save');
-            }else{
-                echo json_encode(C('COMMON.ERROR_EDIT'));
             }
         }
         if(IS_POST){
             $param = I('post.');
             if(empty($param)){
-                echo json_encode(C('COMMON.ERROR_EDIT'));
+                $this->error($result['status'], '/Manage/WorkOrder/index');
             }else{
                 $result = $this->mod_worksheet->saveWork($param);
                 if($result['code'] == 200){
@@ -170,15 +163,14 @@ class WorkOrderController extends AdminController {
             sendMail($val['email'],$title,$content);
             if($result['code'] == 200){
                 $this->success($result['status'], '/Manage/WorkOrder/index');
-                 //return true;
+                return true;
             }else{
                 $this->error($result['status'], '/Manage/WorkOrder/index');
-            }  
-               
+            }       
         }
     } 
     /*
-     * 查看工作单
+     * 查看工作单详情
      * @author xiaohui
      * @param int id
      */
@@ -193,9 +185,7 @@ class WorkOrderController extends AdminController {
      * 工作单导出execl
      */
     public function exportExecl($param){
-        
-       
-        $work = $this->mod_worksheet->getExecl($param);
+        $work = $this->mod_worksheet->getOrderExcel($param);
         $headArr = array('工作单名称',
                         '关联会议',
                         '负责人',

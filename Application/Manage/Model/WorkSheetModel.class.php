@@ -114,7 +114,7 @@ class WorkSheetModel  extends Model{
     public function getList($where, $first_rows, $list_rows) {
       $order = M('worksheet');
       $where['worksheet_detele'] = 1;
-      $where['uid'] = 
+       
       $list = $order
               ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
               ->join('db_member on db_worksheet.worksheet_rule_person = db_member.uid')
@@ -153,11 +153,6 @@ class WorkSheetModel  extends Model{
     public function selectUsers($users){
         $where['uid']=array("in",$users);
         $users = D('member')->where($where)->getField('uid,name');
-//        P($users);die;
-//        foreach($users as $key=>$val){
-//            $work['username'] .="," .$val['name']; 
-//            $work['username'] = ltrim($work['username'],",");
-//        }
         return $users;
     }
    

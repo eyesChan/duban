@@ -1,7 +1,7 @@
 <extend name="Public:base" />
 <block name="title"><title>工作单编辑</title></block>
 <block name="right">
-    <form action="{:U(save)}" method='post' class="mt20" id="productManage">
+    <form action="{:U(save)}" method='post' class="mt20" id="productManage"  onsubmit="return check()">
         <table class="tbl">
         <caption>工作单编辑</caption>
         <colgroup>
@@ -23,7 +23,7 @@
                <td class="cap">工作单负责人：</td>
                 <td>
             <if condition="$state neq '100'">
-                <input type="text" class="input-text text" readonly="true" name="worksheet_rule_person" value="{$workorder['worksheet_rule_name']}">
+                <span name="worksheet_rule_person" >{$workorder['worksheet_rule_name']}</span>
                 <else/> 
                 <select  class="selectItem">
                     
@@ -49,7 +49,7 @@
              <tr>  
                  <td class="cap">工作完成比率：</td>
                 <td>
-                   <input type="text" class="input-text text" name="worksheet_done_persent" value="{$workorder['worksheet_done_persent']}">(百分比形式填写如：20%)
+                   <input type="text" id="bili"  class="input-text text" name="worksheet_done_persent" value="{$workorder['worksheet_done_persent']}">(百分比形式填写如：20%)
                 </td>
                 <td class="cap">工作状态调整：</td>
                 <td>
@@ -80,7 +80,7 @@
             <input type="hidden" value="{$workorder['worksheet_id']}" name="worksheet_id">
         </table>
         <div class="text-center">
-            <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交"/>
+            <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交" id="workorderSub"/>
             <input class="btn ml10 button btn-normal" type="button" onclick="javascript:history.go(-1)" value="取消" />
 
         </div>
@@ -162,5 +162,16 @@
             var _this = $(this);
             addPerson(_this, "请填写工作单负责人！");
         });
+        
+     
+           
+        $("#workorderSub").on("click", function () {
+            var len = $("#bili").val().length;
+            if (len > 4) {
+                $.dialog.alert("工作完成比率不合法！");
+                return false;
+            }
+        });
+        
     </script>
 </block>

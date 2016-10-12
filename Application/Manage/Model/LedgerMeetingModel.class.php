@@ -83,7 +83,7 @@ class LedgerMeetingModel  extends Model{
               -> where("led_meeting_id= $led_meeting_id") 
               -> find();
         //会谈会见台账密级
-        $list['led_meeting_dense']=$this->getRootView($list['led_meeting_dense']);
+        $list['led_meeting_dense']=$this->getRootView($list['led_meeting_dense'],'led_dense');
         return $list; 
     }
     
@@ -94,9 +94,9 @@ class LedgerMeetingModel  extends Model{
    * @param  $config_id 查询条件
    * @return 返回查询的数据
    */
-    public function  getRootView($config_id){
+    public function  getRootView($config_vlaue,$config_key){
         $work = M('config_system')
-              ->where("config_id = $config_id")
+              ->where(array('config_value'=>$config_vlaue,'config_key'=>$config_key))
               ->getField('config_descripion');   
         return $work;
     }
@@ -156,7 +156,7 @@ class LedgerMeetingModel  extends Model{
         if (!empty($param['led_meeting_date'])) {
             $where['led_meeting_date'] = array('EQ', $param['led_meeting_date']);
         }
-        $where['led_status'] = array('EQ', '0');
+        $where['led_status'] = array('EQ', '1');
         $led_meeting = M('led_meeting');
         $data = $led_meeting
               ->where($where)
@@ -204,7 +204,7 @@ class LedgerMeetingModel  extends Model{
         }  
         foreach($param as $key => $v){
             //会谈会见台账密级
-            $v['led_meeting_dense']=$this->getRootViews($v['led_meeting_dense']);
+            $v['led_meeting_dense']=$this->getRootViews($v['led_meeting_dense'],'led_dense');
             $res = $led_meeting->add($v);
             if($res==FALSE){
                 $flag=$flag-1;
@@ -225,13 +225,13 @@ class LedgerMeetingModel  extends Model{
     * 获取所需的数据
     * @author huanggang
     * @Date    2016/10/11
-    * @param  $config_descripion 查询条件
+    * @param  $config_descripion,$config_key 查询条件
     * @return 返回查询的数据id
     */
-    public function  getRootViews($config_descripion){
-        $config_id = M('config_system')
-              ->where("config_descripion = '$config_descripion'")
-              ->getField('config_id');
-        return $config_id;
+    public function  getRootViews($config_descripion,$config_key){
+        $config_value = M('config_system')
+              ->where(array('config_descripion'=>$config_descripion,'config_key'=>$config_key))
+              ->getField('config_value');
+        return $config_value;
     }
 }

@@ -125,7 +125,7 @@ class IndexModel extends Model {
         $mod_resident_meeting = M('resident_meeting');//驻各地发展情况台账
         
         $count['ledger_meeting'] = $mod_ledger_meeting->where("led_status = 1")->count();
-        $count['presentation'] = $mod_presentation->where("pre_status = 0")->count();
+        $count['presentation'] = $mod_presentation->where("pre_status = 1")->count();
         
         return $count;
     }

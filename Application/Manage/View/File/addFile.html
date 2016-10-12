@@ -22,7 +22,7 @@
                 <td colspan="3">
                     <select name='doc_dept_id'>
                         <foreach item='item' name='file_depart'>
-                            <option value="{$item.config_id}">{$item.config_descripion}</option>
+                            <option value="{$item.config_value}">{$item.config_descripion}</option>
                         </foreach>        
                     </select>
                 </td>
@@ -32,7 +32,7 @@
                 <td>
                     <select name='doc_pub_type'>
                         <foreach item='item' name='file_type'>
-                            <option value="{$item.config_id}">{$item.config_descripion}</option>
+                            <option value="{$item.config_value}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>
@@ -53,7 +53,7 @@
                 <td >
                     <select name='doc_root_view'>
                         <foreach item='item' name='file_range'>
-                            <option value="{$item.config_id}">{$item.config_descripion}</option>
+                            <option value="{$item.config_value}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>
@@ -61,7 +61,7 @@
                 <td colspan='3'>
                     <select name='doc_root_do'>
                         <foreach item='item' name='file_authority'>
-                            <option value="{$item.config_id}">{$item.config_descripion}</option>
+                            <option value="{$item.config_value}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>

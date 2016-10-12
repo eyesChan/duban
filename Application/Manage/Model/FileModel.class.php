@@ -262,8 +262,8 @@ class FileModel  extends Model{
               ->field('doc_name,config_descripion,name,doc_pub_date,doc_start_date,doc_end_date,doc_root_view,doc_root_do,doc_beizhu')
               ->select();
         foreach($data as $k => $v){
-            $data[$k]['doc_root_view']=$this->getRootView($v['doc_root_view']);
-            $data[$k]['doc_root_do']=$this->getRootView($v['doc_root_do']);
+            $data[$k]['doc_root_view']=$this->getRootView($v['doc_root_view'],'doc_pub_type');
+            $data[$k]['doc_root_do']=$this->getRootView($v['doc_root_do'],'doc_pub_authority');
         }
         return $data;
     }
@@ -274,9 +274,9 @@ class FileModel  extends Model{
    * @param  $config_id 查询条件
    * @return 返回查询的数据
    */
-    public function  getRootView($config_id){
+    public function  getRootView($config_vlaue,$config_key){
         $work = M('config_system')
-              ->where("config_id = $config_id")
+              ->where(array('config_value'=>$config_vlaue,'config_key'=>$config_key))
               ->getField('config_descripion');   
         return $work;
     }

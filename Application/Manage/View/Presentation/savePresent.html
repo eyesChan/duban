@@ -4,14 +4,14 @@
        <form action="{:U(savePresent)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
         <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
         <caption>文稿台账编辑</caption>
             <input type="hidden" name="db_pre_id" value="{$list.db_pre_id}">
@@ -28,14 +28,14 @@
         </table>
         <table class="tbl">
          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
             <caption>交办</caption>
           
@@ -168,14 +168,14 @@
         </table>
         <table class="tbl">
          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>核稿</caption>           
              <tr>
@@ -212,23 +212,23 @@
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
                     <select name='db_orgin_eval'>
-                            <option <if condition="$list['db_orgin_eval'] eq '优' ">selected</if> value=优>优</option>
-                            <option <if condition="$list['db_orgin_eval'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_orgin_eval'] eq '差' ">selected</if> value="差">差</option>    
+                            <option <if condition="$list['db_orgin_eval'] eq '优' ">selected</if> value='1'>优</option>
+                            <option <if condition="$list['db_orgin_eval'] eq '中' ">selected</if> value="2">中</option>
+                            <option <if condition="$list['db_orgin_eval'] eq '差' ">selected</if> value="3">差</option>    
                       </select>
                  </td>
              </tr>
         </table>   
          <table class="tbl">
-          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+           <colgroup>
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>核稿2</caption>           
              <tr>
@@ -265,24 +265,23 @@
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
                 <select name='db_orgin2_eval'>
-                        <option <if condition="$list['db_orgin2_eval'] eq '优' ">selected</if> value=优>优</option>
-                        <option <if condition="$list['db_orgin2_eval'] eq '中' ">selected</if> value="中">中</option>
-                        <option <if condition="$list['db_orgin2_eval'] eq '差' ">selected</if> value="差">差</option>    
-                    
+                        <option <if condition="$list['db_orgin2_eval'] eq '优' ">selected</if> value='1'>优</option>
+                        <option <if condition="$list['db_orgin2_eval'] eq '中' ">selected</if> value="2">中</option>
+                        <option <if condition="$list['db_orgin2_eval'] eq '差' ">selected</if> value="3">差</option>    
                  </select> 
                 </td>
              </tr>
         </table>
          <table class="tbl">
           <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>核稿3</caption>           
              <tr>
@@ -319,34 +318,32 @@
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
                       <select name='db_orgin3_eval'>
-                           <option <if condition="$list['db_orgin3_eval'] eq '优' ">selected</if> value=优>优</option>
-                            <option <if condition="$list['db_orgin3_eval'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_orgin3_eval'] eq '差' ">selected</if> value="差">差</option>    
-                    
+                           <option <if condition="$list['db_orgin3_eval'] eq '优' ">selected</if> value='1'>优</option>
+                            <option <if condition="$list['db_orgin3_eval'] eq '中' ">selected</if> value="2">中</option>
+                            <option <if condition="$list['db_orgin3_eval'] eq '差' ">selected</if> value="3">差</option>    
                       </select>
                 </td>
              </tr>
         </table>
-     
         <table class="tbl">
          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
             <caption>评价</caption>
              <tr>
                  <td class="cap">中心评价：</td>
                 <td>
                      <select name='db_evaluate'>
-                          <option <if condition="$list['db_evaluate'] eq '优' ">selected</if> value=优>优</option>
-                            <option <if condition="$list['db_evaluate'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_evaluate'] eq '差' ">selected</if> value="差">差</option>    
+                          <option <if condition="$list['db_evaluate'] eq '优' ">selected</if> value='1'>优</option>
+                            <option <if condition="$list['db_evaluate'] eq '中' ">selected</if> value="2">中</option>
+                            <option <if condition="$list['db_evaluate'] eq '差' ">selected</if> value="3">差</option>    
                     
                       </select>
                 </td>
@@ -362,14 +359,14 @@
         </table>
          <table class="tbl">
           <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
              <caption>审批</caption>
               <tr>
@@ -401,14 +398,14 @@
         </table>
          <table class="tbl">
           <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>发文</caption>           
             <tr>
@@ -436,14 +433,14 @@
         </table>
         <table class="tbl">
          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
             <caption>存档</caption>
              <tr>
@@ -471,14 +468,14 @@
         </table>
          <table class="tbl">
           <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>用印</caption>           
              <tr>
@@ -493,15 +490,15 @@
              </tr>
         </table>
          <table class="tbl">
-          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+         <colgroup>
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
              <caption>备注</caption>
              <tr>          

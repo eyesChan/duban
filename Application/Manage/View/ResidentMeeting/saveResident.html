@@ -3,6 +3,16 @@
 <block name="right">
       <form action="{:U(saveResident)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
       <table class="tbl">
+      <colgroup>
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+        </colgroup>
             <caption>基本信息</caption>
             <input type="hidden" name="resident_id" value='{$list.resident_id}'>
             <tr>
@@ -43,6 +53,16 @@
             </tr>  
         </table>
         <table class="tbl">
+        <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
           <caption>数据收集</caption>           
              <tr>
                <td class="cap">收集通知拟写人：</td>

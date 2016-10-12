@@ -33,14 +33,19 @@ td.detail-r {
 }
 .inner-box table td {
 	font-size: 12px;
+	padding: 5px 0;
 	color: #fff;
 }
 .inner-box table td.td-title {
 	width: 115px;
 	font-size: 14px;
+	padding-left: 30px;
 	color: #fff;
-	font-weight: bold;
-	text-align: right;
+	font-weight: 500;
+	text-align: left;
+}
+.inner-box table td.title1 {
+	font-size: 15px;
 }
 .meeting-prompt {
 	height: 420px;

@@ -158,13 +158,13 @@ class FileController extends AdminController {
         $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
         $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_url'])['filename'];
         //文档发布类型 
-        $result['doc_pub_type'] = $this->filedoc->getRootView($result['doc_pub_type']);
+        $result['doc_pub_type'] = $this->filedoc->getRootView($result['doc_pub_type'],'doc_pub_type');
         //文档发布部门
-        $result['doc_dept_id'] = $this->filedoc->getRootView($result['doc_dept_id']);
+        $result['doc_dept_id'] = $this->filedoc->getRootView($result['doc_dept_id'],'doc_pub_depart');
         //文档可见范围
-        $result['doc_root_view'] = $this->filedoc->getRootView($result['doc_root_view']);
+        $result['doc_root_view'] = $this->filedoc->getRootView($result['doc_root_view'],'doc_pub_range');
         //文档权限设定
-        $result['doc_root_do'] = $this->filedoc->getRootView($result['doc_root_do']);
+        $result['doc_root_do'] = $this->filedoc->getRootView($result['doc_root_do'],'doc_pub_authority');
         $this->assign('list', $result);
         $this->display();
     }

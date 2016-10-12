@@ -5,9 +5,10 @@
 <block name="right">
     <css href="__PUBLIC__/css/roleManage.css"/>
     <div class="role-padding container-padding">
-        <div class="jxssp tb1">
+        <div class="jxssp tbl">
             <form id="roleFrom" method="POST" action="{:U(edit)}" enctype="multipart/form-data">
-                <table class="tb1">
+                <table class="tbl">
+                <caption>角色编辑</caption>
                     <tr>
                         <td  class="right role-edit-td role-n"><span style="color:red;">*</span>角色名称:</td>
                         <td class="role-edit-td role-input">
@@ -23,14 +24,15 @@
                         </td>
                     </tr>
                 </table>
-            </form>
-            <div class="wrap-btns"> 
+                 <div class="wrap-btns"> 
                  <input type="hidden" name="id" value="{$info['id']}" />
                             <input type="hidden" name="p" value="{$p}" />
                 <input type="submit" name="submit" value="保存" id="btn-save" class="btn btn-submit btn-xl button mr10">
                 <input type="reset" value="返回" class="btn btn-normal btn-xl button ml10"
                                    onclick="javascript:history.back(-1)"/>
             </div>
+            </form>
+           
         </div>
     </div>
     <js href="__PUBLIC__/Js/baseOperate.js" />

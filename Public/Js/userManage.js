@@ -113,7 +113,7 @@ $(".username-input").on("blur", function () {
     } else if (!username.test($(this).val())) {
         $(".error-message").addClass("show").removeClass("hide").html("用户名格式不正确！");
     } else {
-        $(".error-message").addClass("hide").removeClass("show")
+        $(".error-message").addClass("hide").removeClass("show");
     }
 
     var uVal = $(".username-input").val();
@@ -124,9 +124,8 @@ $(".username-input").on("blur", function () {
         // async: false,
         data: {"uid": uId, "nickname": uVal},
         success: function (data) {
-           
+           console.log(data);
             // var dataJson = JSON.parse(data);
-             console.log(data.code);
             if (data.code == 100) {
                 if (!$(".error-message").hasClass("show")) {
                     $(".error-message").addClass("show").removeClass("hide").html(data.status);

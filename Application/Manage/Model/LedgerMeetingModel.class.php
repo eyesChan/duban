@@ -132,7 +132,7 @@ class LedgerMeetingModel  extends Model{
      */
     public function delLedger($led_meeting_id){
         $led_meeting = M('led_meeting');
-        $res = $led_meeting->where("led_meeting_id =".$led_meeting_id)->setField('led_status','1');
+        $res = $led_meeting->where("led_meeting_id =".$led_meeting_id)->setField('led_status','0');
         $led_meeting_name=$led_meeting->where("led_meeting_id =".$led_meeting_id)->getField('led_meeting_name');
         if($res){
             writeOperationLog('删除“' . $led_meeting_name. '”会谈会见台账', 1);

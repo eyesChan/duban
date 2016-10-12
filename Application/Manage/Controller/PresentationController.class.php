@@ -55,7 +55,7 @@ class PresentationController extends AdminController {
         if (!empty($param['db_assign_date'])) {
             $where['db_assign_date'] = array('EQ', $param['db_assign_date']);
         }
-        $where['pre_status'] = array('EQ', '0');
+        $where['pre_status'] = array('EQ', '1');
         $where = $this->escape($where);
         $count = $this->presentation->getPresentCount($where);
         $page = new \Think\Page($count, 10);
@@ -103,6 +103,15 @@ class PresentationController extends AdminController {
          //审批方式
         $exa_mode = getConfigInfo('doc_exa_mode');
         $this->assign('exa_mode', $exa_mode);
+        //审批进展
+        $exa_mode1 = getConfigInfo('doc_exa_mode1');
+        $this->assign('exa_mode1', $exa_mode1);
+        //优先级
+        $pre_level = getConfigInfo('pro_level');
+        $this->assign('pre_level', $pre_level);
+        //存档情况
+        $doc_status = getConfigInfo('doc_can_type');
+        $this->assign('doc_status', $doc_status);
          //用户信息
         $user_name = $this->presentation->getUser();
         $this->assign('user_name', $user_name);
@@ -145,7 +154,7 @@ class PresentationController extends AdminController {
         $pre_id = I('db_pre_id');
         $result = $this->presentation->detailsPresent($pre_id);
         $this->assign('list', $result);
-             //文稿类型 
+        //文稿类型 
         $pre_type = getConfigInfo('doc_pre_type');
         $this->assign('pre_type', $pre_type);
         //发布方式
@@ -160,6 +169,15 @@ class PresentationController extends AdminController {
          //审批方式
         $exa_mode = getConfigInfo('doc_exa_mode');
         $this->assign('exa_mode', $exa_mode);
+        //审批进展
+        $exa_mode1 = getConfigInfo('doc_exa_mode1');
+        $this->assign('exa_mode1', $exa_mode1);
+        //优先级
+        $pre_level = getConfigInfo('pro_level');
+        $this->assign('pre_level', $pre_level);
+        //存档情况
+        $doc_status = getConfigInfo('doc_can_type');
+        $this->assign('doc_status', $doc_status);
          //用户信息
         $user_name = $this->presentation->getUser();
         $this->assign('user_name', $user_name);

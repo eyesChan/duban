@@ -137,6 +137,14 @@ class PresentationModel  extends Model{
         $list['db_pre_first']=$this->getRootView($list['db_pre_first'],'pro_level');
         //存档情况
         $list['db_file_status']=$this->getRootView($list['db_file_status'],'doc_can_type');
+        //核稿评价1
+        $list['db_orgin_eval']=$this->goodsInDiff1($list['db_orgin_eval']);
+        //核稿评价2
+        $list['db_orgin2_eval']=$this->goodsInDiff1($list['db_orgin2_eval']);
+        //核稿评价3
+        $list['db_orgin3_eval']=$this->goodsInDiff1($list['db_orgin3_eval']);
+        //中心评价
+        $list['db_evaluate']=$this->goodsInDiff1($list['db_evaluate']);
         return $list; 
     }
     
@@ -152,6 +160,22 @@ class PresentationModel  extends Model{
               ->where(array('config_value'=>$config_value,'config_key'=>$config_key))
               ->getField('config_descripion');   
         return $work;
+    }
+    /*
+     * 判断 优 中 差
+     * @Date    2016/11/12
+     * @author huanggang
+     * @param $param 查询条件
+     * @return 入库的数据
+     */
+    public function goodsInDiff1($param){
+        if($param=='1'){
+            return '优';
+        }else if($param=='2'){
+            return '中';
+        }else{
+            return '差';
+        }
     }
     
     /*
@@ -245,6 +269,14 @@ class PresentationModel  extends Model{
             $data[$k]['db_pre_first']=$this->getRootView($v['db_pre_first'],'pro_level');
             //存档情况
             $data[$k]['db_file_status']=$this->getRootView($v['db_file_status'],'doc_can_type');
+            //核稿评价1
+            $data[$k]['db_orgin_eval']=$this->goodsInDiff1($v['db_orgin_eval']);
+            //核稿评价2
+            $data[$k]['db_orgin2_eval']=$this->goodsInDiff1($v['db_orgin2_eval']);
+            //核稿评价3
+            $data[$k]['db_orgin3_eval']=$this->goodsInDiff1($v['db_orgin3_eval']);
+            //中心评价
+            $data[$k]['db_evaluate']=$this->goodsInDiff1($v['db_evaluate']);
             unset($data[$k]['db_add_time']);
             unset($data[$k]['db_update_time']);
         }
@@ -300,6 +332,14 @@ class PresentationModel  extends Model{
             $data[$k]['db_pre_first']=$this->getRootView($v['db_pre_first'],'pro_level');
             //存档情况
             $data[$k]['db_file_status']=$this->getRootView($v['db_file_status'],'doc_can_type');
+            //核稿评价1
+            $data[$k]['db_orgin_eval']=$this->goodsInDiff1($v['db_orgin_eval']);
+            //核稿评价2
+            $data[$k]['db_orgin2_eval']=$this->goodsInDiff1($v['db_orgin2_eval']);
+            //核稿评价3
+            $data[$k]['db_orgin3_eval']=$this->goodsInDiff1($v['db_orgin3_eval']);
+            //中心评价
+            $data[$k]['db_evaluate']=$this->goodsInDiff1($v['db_evaluate']);
             unset($data[$k]['db_add_time']);
             unset($data[$k]['db_update_time']);
         }
@@ -400,6 +440,14 @@ class PresentationModel  extends Model{
             $v['db_pre_first']=$this->getRootViews($v['db_pre_first'],'pro_level');
             //存档情况
             $v['db_file_status']=$this->getRootViews($v['db_file_status'],'doc_can_type');
+            //核稿评价1
+            $v['db_orgin_eval']=$this->goodsInDiff($v['db_orgin_eval']);
+            //核稿评价2
+            $v['db_orgin2_eval']=$this->goodsInDiff($v['db_orgin2_eval']);
+            //核稿评价3
+            $v['db_orgin3_eval']=$this->goodsInDiff($v['db_orgin3_eval']);
+            //中心评价
+            $v['db_evaluate']=$this->goodsInDiff($v['db_evaluate']);
             $res = $led_presentation->add($v);
             if($res==FALSE){
                 $flag=$flag-1;
@@ -417,7 +465,7 @@ class PresentationModel  extends Model{
     }
     
     /*
-    * 获取所需的数据
+    * 导入时获取所需的数据
     * @author huanggang
     * @Date    2016/10/11
     * @param  $config_descripion 查询条件
@@ -431,7 +479,7 @@ class PresentationModel  extends Model{
     }
     
     /*
-     * 根据条件查询用户表
+     * 导入时根据条件查询用户表
      * @ahthor huanggang
      * @Date    2016/10/11
      * @param array $where 查询条件
@@ -444,4 +492,20 @@ class PresentationModel  extends Model{
         return $uid;
     }
     
+    /*
+     * 判断导入时 优 中 差
+     * @Date    2016/11/12
+     * @author huanggang
+     * @param $param 查询条件
+     * @return 入库的数据
+     */
+    public function goodsInDiff($param){
+        if($param=='优'){
+            return 1;
+        }else if($param=='中'){
+            return 2;
+        }else{
+            return 3;
+        }
+    }
 }

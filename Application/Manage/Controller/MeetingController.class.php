@@ -64,7 +64,7 @@ class MeetingController extends AdminController {
         $upload_obj = new MeetingUplod();
         $data = I('meeting');
         if (!empty($data)) {
-              if (!empty($_FILES['file']['name'])) {
+            if (!empty($_FILES['file']['name'])) {
                 $config_info = C();
                 //判断上传方式
                 if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
@@ -77,7 +77,6 @@ class MeetingController extends AdminController {
                     $result = $upload_obj->normalUpload($file_config);
                     $path = $result['rootPath'] . $result['info']['file']['savepath'] . $result['info']['file']['savename'];
                     $src_name = $result['info']['file']['name'];
-                    
                 }
                 $data['meeting_annexes_name'] = $src_name;
                 $data['meeting_annexes_url'] = $path;
@@ -194,7 +193,6 @@ class MeetingController extends AdminController {
                     $result = $upload_obj->normalUpload($file_config);
                     $path = $result['rootPath'] . $result['info']['file']['savepath'] . $result['info']['file']['savename'];
                     $src_name = $result['info']['file']['name'];
-                    
                 }
                 $meeting_info['meeting_annexes_name'] = $src_name;
                 $meeting_info['meeting_annexes_url'] = $path;
@@ -248,7 +246,7 @@ class MeetingController extends AdminController {
      * @return true/false Description
      * @date 2016/09/26
      */
-   public function delMeeting() {
+    public function delMeeting() {
         $meeting_id = I('meeting_id');
         $work_mod = D('worksheet');
         $this->meeting_model->startTrans();
@@ -260,7 +258,7 @@ class MeetingController extends AdminController {
             $work_order_id = implode(',', $work_order_info);
             $work_save_flag = $work_mod->where(array('worksheet_id' => array('in', $work_order_id)))->save(array('worksheet_detele' => 0));
         }
-        $meeting_info = $this->meeting_model->where(array('meeting_id'=>$meeting_id))->find();
+        $meeting_info = $this->meeting_model->where(array('meeting_id' => $meeting_id))->find();
         if ($meeting_save_flag !== false && $work_save_flag !== false) {
             $this->meeting_model->commit();
             writeOperationLog('删除“' . $meeting_info['meeting_name'] . '”会议', 1);
@@ -398,9 +396,12 @@ class MeetingController extends AdminController {
             if ($import_flag['code'] !== 100) {
                 //删除 临时文件
                 unlink($path);
+                writeOperationLog('导入excel表格', 1);
+
                 $this->success($import_flag['status'], U('/Manage/Meeting/selectMeeting'));
                 return true;
             }
+            writeOperationLog('导入excel表格', 0);
             $this->error($import_flag['status'], U('/Manage/Meeting/selectMeeting'));
             return true;
         }

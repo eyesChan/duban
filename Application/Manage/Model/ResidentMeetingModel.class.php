@@ -25,15 +25,6 @@ class ResidentMeetingModel  extends Model{
   * @return object 添加成功或失败
   */
      public function addResident($param){
-        if (empty($param['resident_collect_time'])) {
-            unset($param['resident_collect_time']);
-        }
-        if (empty($param['resident_notice_time'])) {
-            unset($param['resident_notice_time']);
-        }
-        if (empty($param['resident_file_time'])) {
-            unset($param['resident_file_time']);
-        }
         $resident_meeting = M('resident_meeting');
         $res = $resident_meeting->add($param);
         if($res){
@@ -102,15 +93,6 @@ class ResidentMeetingModel  extends Model{
      * @return object 修改成功或失败 
      */
     public function saveResident($data,$resident_id){
-        if (empty($data['resident_collect_time'])) {
-            unset($data['resident_collect_time']);
-        }
-        if (empty($data['resident_notice_time'])) {
-            unset($data['resident_notice_time']);
-        }
-        if (empty($data['resident_file_time'])) {
-            unset($data['resident_file_time']);
-        }
         $resident_meeting = M('resident_meeting');
         $res = $resident_meeting->where("resident_id =".$resident_id)->save($data);
         if(FALSE === $res){
@@ -132,7 +114,7 @@ class ResidentMeetingModel  extends Model{
      */
     public function delResident($resident_id){
         $resident_meeting = M('resident_meeting');
-        $res = $resident_meeting->where("resident_id =".$resident_id)->setField('resident_status','1');
+        $res = $resident_meeting->where("resident_id =".$resident_id)->setField('resident_status','0');
         $resident_region= $resident_meeting->where("resident_id =".$resident_id)->getField('resident_region');
         if($res){
             writeOperationLog('删除驻“' . $resident_region . '”发展情况台账', 1);
@@ -156,7 +138,7 @@ class ResidentMeetingModel  extends Model{
         if (!empty($param['resident_collect_time'])) {
             $where['resident_collect_time'] = array('EQ', $param['resident_collect_time']);
         }
-        $where['resident_status'] = array('EQ', '0');
+        $where['resident_status'] = array('EQ', '1');
         $resident_meeting = M('resident_meeting');
         $data = $resident_meeting
                 ->where($where)

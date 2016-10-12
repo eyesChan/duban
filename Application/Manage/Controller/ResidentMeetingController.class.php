@@ -52,7 +52,7 @@ class ResidentMeetingController extends AdminController {
         if (!empty($param['resident_collect_time'])) {
             $where['resident_collect_time'] = array('EQ', $param['resident_collect_time']);
         }
-        $where['resident_status'] = array('EQ', '0');
+        $where['resident_status'] = array('EQ', '1');
         $where = $this->escape($where);
         $count = $this->resident->getResidentCount($where);
         $page = new \Think\Page($count, 10);

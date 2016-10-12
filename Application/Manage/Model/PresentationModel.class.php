@@ -257,7 +257,8 @@ class PresentationModel  extends Model{
         $where['pre_status'] = array('EQ', '0');
         $led_presentation = M('led_presentation');
         $data = $led_presentation
-                ->where($where) 
+                ->where($where)
+                ->order('db_pre_id desc')
                 ->select();
          //去除及修改键值
         foreach($data as $k => $v){
@@ -298,6 +299,10 @@ class PresentationModel  extends Model{
     * @return object 添加成功或失败
     */
      public function addsPresent($param){
+        import("Org.Util.PHPExcel.PHPExcel");
+        //时间格式转换
+        include_once 'ThinkPHP/Library/Org/Util/PHPExcel/PHPExcel/Shared/Date.php';
+        $dateMod = new \PHPExcel_Shared_Date();
         $led_presentation = M('led_presentation');
         $flag = 0;
         $model = new Model();
@@ -325,11 +330,11 @@ class PresentationModel  extends Model{
         }  
         foreach($param as $key => $v){
             //文稿类型
-            $v['db_pre_type']=$this->getRootViews($v['db_pre_type']);
+            $v['db_pre_type']=$this->getRootViews($v['db_pre_type'],'doc_pre_type');
             //文稿形式
-            $v['db_pre_form']=$this->getRootViews($v['db_pre_form']);
+            $v['db_pre_form']=$this->getRootViews($v['db_pre_form'],'doc_pre_form');
             //工作状态
-            $v['db_pre_status']=$this->getRootViews($v['db_pre_status']);
+            $v['db_pre_status']=$this->getRootViews($v['db_pre_status'],'doc_work_status');
             //责任人
             $v['db_pre_person']=$this->getWhereUsers($v['db_pre_person']);
             //交办时刻
@@ -372,11 +377,11 @@ class PresentationModel  extends Model{
                 $flag=$flag-1; 
             }
             //发文方式
-            $v['db_despatch_mode']=$this->getRootViews($v['db_despatch_mode']);
+            $v['db_despatch_mode']=$this->getRootViews($v['db_despatch_mode'],'doc_dis_mode');
             //审批方式
-            $v['db_examin_mode']=$this->getRootViews($v['db_examin_mode']);
+            $v['db_examin_mode']=$this->getRootViews($v['db_examin_mode'],'doc_exa_mode');
             //审批进展
-            $v['db_examin_progress']=$this->getRootViews($v['db_examin_progress']);
+            $v['db_examin_progress']=$this->getRootViews($v['db_examin_progress'],'doc_exa_mode');
             $res = $led_presentation->add($v);
             if($res==FALSE){
                 $flag=$flag-1;
@@ -400,9 +405,9 @@ class PresentationModel  extends Model{
     * @param  $config_descripion 查询条件
     * @return 返回查询的数据id
     */
-    public function  getRootViews($config_descripion){
+    public function  getRootViews($config_descripion,$type){
         $config_id = M('config_system')
-              ->where("config_descripion = '$config_descripion'")
+              ->where(array('config_descripion'=>$config_descripion,'config_key'=>$type))
               ->getField('config_id');
         return $config_id;
     }

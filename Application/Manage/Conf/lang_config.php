@@ -148,7 +148,7 @@ return array(
     ),
   /* 文档管理提示 */
    'DOCFILE'=>array(
-       'SZIE_TYPE'=>'文件的类型或大小不符',
+       'SZIE_TYPE'=>'文件的格式或大小不符',
        'FILE_DOC'=>'没有上传文件',
    )
 );

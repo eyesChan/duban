@@ -22,7 +22,7 @@ return array(
         'FILE_PATH' => 'src/', //临时存储路径
         'PATH' => 'filedoc/',
         'ROOT_PATH' => 'duban/', //web server 指定项目路径 注意'/'
-        'ALLOW_FILE' => array('xlsx', 'xls', 'doc', 'pdf', 'jpeg'),
+        'ALLOW_FILE' => array('xlsx', 'xls', 'doc', 'pdf', 'jpeg','docx'),
     ),
     'FTP_COVER' => array(//文档附件封面文件上传
         'FILE_SIZE' => 524288,
@@ -43,7 +43,7 @@ return array(
         'FILE_PATH' => 'src/', //临时存储路径
         'PATH' => 'filedoc/',
         'ROOT_PATH' => 'duban/', //web server 指定项目路径 注意'/'
-        'ALLOW_FILE' => array('xlsx', 'xls', 'doc', 'pdf', 'jpeg','jpg','png'),
+        'ALLOW_FILE' => array('xlsx', 'xls', 'doc', 'pdf', 'jpeg','jpg','png','docx'),
     ),
 );
 

@@ -1,30 +1,19 @@
+
 <extend name="Public:base" />
-<block name="title"><title>会议创建</title></block>
+<block name="title"><title>签约仪式台账导入</title></block>
 <block name="right">
     <form action="{:U(importExcel)}" method='post' class="mt20" id="productManage" enctype="multipart/form-data">
         <table class="tbl">
-            <colgroup>
-                <col width="12%">
-                <col width="21%">
-                <col width="13%">
-                <col width="21%">
-                <col width="12%">
-                <col width="21%">
-            </colgroup>
-
-
             <tr>
                 <td class="cap">上传附件：</td>
                 <td colspan="1">
                     <input type="file" class="input-text text" name="filename">
                 </td>
-                
             </tr>
-         
         </table>
         <div class="wrap-btns">
             <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="提交"/>
-            <a href='{:U(index)}'><input class="btn ml10 button btn-normal" type="button" value="取消"/></a>
+            <input class="btn ml10 button btn-normal" type="button" value="取消" onclick="javascript:history.back(-1)" />
         </div>
     </form>
 

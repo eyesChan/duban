@@ -1,7 +1,4 @@
-.more-notice {
-    float: right;
-    margin-top: 20px;
-}
+
 td.detail-l {
     text-align: right;
     padding-right: 20px;
@@ -18,18 +15,17 @@ td.detail-r {
 	
 }
 .meeting-content {
-	width: 600px;
+/*	width: 600px;
 	height: 490px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	margin-top: -245px;
-	margin-left: -300px;
+	margin-left: -300px;*/
 	/*margin: 50px auto;*/
 }
 .inner-box {
-	width: 260px;
-	height: 100px;
+	width: 28%;
 	float: left;
 	margin-top: 20px;
 	margin-left: 20px;
@@ -37,36 +33,42 @@ td.detail-r {
 }
 .inner-box table td {
 	font-size: 12px;
+	padding: 5px 0;
 	color: #fff;
 }
 .inner-box table td.td-title {
 	width: 115px;
 	font-size: 14px;
+	padding-left: 30px;
 	color: #fff;
-	font-weight: bold;
-	text-align: right;
+	font-weight: 500;
+	text-align: left;
+}
+.inner-box table td.title1 {
+	font-size: 15px;
 }
 .meeting-prompt {
+	height: 420px;
 	background: #999999;
 }
-.meeting-prompt table {
-	margin-top: 28px;
-}
 .create-amount {
+	height: 100px;
 	background: #0099FF;
 }
-.create-amount table {
-	margin-top: 31px;
-}
+
 .work-status {
+	height: 100px;
 	background: #66CC66;
 }
 .work-progress {
+	height: 260px;
 	background: #FFCC66;
 }
 .file-release {
+	height: 100px;
 	background: #00CCFF;
 }
 .ledger-release {
+	height: 100px;
 	background: #FF6666;
 }

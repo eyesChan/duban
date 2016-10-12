@@ -31,7 +31,7 @@ jQuery.validator.addMethod("isPhone", function (value, element) {
 
 // 邮箱验证
 jQuery.validator.addMethod("isEmail", function (value, element) {
-    var tel = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+    var tel = /^([a-zA-Z0-9_-.])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
     return this.optional(element) || (tel.test(value));
 }, "邮箱格式不正确！");
 // 学生姓名验证

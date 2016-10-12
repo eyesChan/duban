@@ -132,7 +132,7 @@ class ResidentMeetingModel  extends Model{
      */
     public function delResident($resident_id){
         $resident_meeting = M('resident_meeting');
-        $res = $resident_meeting->where("resident_id =".$resident_id)->setField('resident_status','1');
+        $res = $resident_meeting->where("resident_id =".$resident_id)->setField('resident_status','0');
         $resident_region= $resident_meeting->where("resident_id =".$resident_id)->getField('resident_region');
         if($res){
             writeOperationLog('删除驻“' . $resident_region . '”发展情况台账', 1);
@@ -156,7 +156,7 @@ class ResidentMeetingModel  extends Model{
         if (!empty($param['resident_collect_time'])) {
             $where['resident_collect_time'] = array('EQ', $param['resident_collect_time']);
         }
-        $where['resident_status'] = array('EQ', '0');
+        $where['resident_status'] = array('EQ', '1');
         $resident_meeting = M('resident_meeting');
         $data = $resident_meeting
                 ->where($where)

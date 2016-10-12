@@ -4,14 +4,14 @@
        <form action="{:U(savePresent)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
         <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
         <caption>文稿台账编辑</caption>
             <input type="hidden" name="db_pre_id" value="{$list.db_pre_id}">
@@ -28,14 +28,14 @@
         </table>
         <table class="tbl">
          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
             <caption>交办</caption>
           
@@ -76,7 +76,7 @@
                 <td>
                    <select name='db_pre_type'>
                         <foreach item='item' name='pre_type'>
-                                 <option <if condition="$list['db_pre_type'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                 <option <if condition="$list['db_pre_type'] eq $item.config_descripion ">selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
                         </foreach>
                    </select>
                 </td>
@@ -84,16 +84,16 @@
                 <td>
                       <select name='db_pre_form'>
                            <foreach item='item' name='pre_form'>
-                               <option <if condition="$list['db_pre_form'] eq $item.config_descripion ">selected</if>  value="{$item.config_descripion}">{$item.config_descripion}</option>
+                               <option <if condition="$list['db_pre_form'] eq $item.config_descripion ">selected</if>  value="{$item.config_value}">{$item.config_descripion}</option>
                            </foreach>
                     </select>
               </td>
                 <td class="cap">优先级：</td>
                 <td colspan='3'>
                      <select name='db_pre_first'>
-                            <option <if condition="$list['db_pre_first'] eq '最优' ">selected</if> value="最优">最优</option>
-                            <option <if condition="$list['db_pre_first'] eq '优' ">selected</if> value="优">优</option>
-                            <option <if condition="$list['db_pre_first'] eq '普通' ">selected</if> value="普通">普通</option>         
+                             <foreach item='item' name='pre_level'>
+                               <option <if condition="$list['db_pre_first'] eq $item.config_descripion ">selected</if>  value="{$item.config_value}">{$item.config_descripion}</option>
+                           </foreach>   
                     </select>
                </td>
             </tr>
@@ -110,7 +110,7 @@
                 <td>
                       <select name='db_pre_person'>
                             <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_pre_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
+                                 <option <if condition="$list['db_pre_person'] eq $item.name ">selected</if> value="{$item.uid}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -118,7 +118,7 @@
                 <td colspan='3'>
                       <select name='db_pre_status'>
                             <foreach item='item' name='work_status'>
-                                 <option <if condition="$list['db_pre_status'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                 <option <if condition="$list['db_pre_status'] eq $item.config_descripion ">selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
                             </foreach>
                     </select>
                 </td>
@@ -141,7 +141,7 @@
                 <td >
                     <select name='db_draft_person'>
                              <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_draft_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
+                                 <option <if condition="$list['db_draft_person'] eq $item.name ">selected</if> value="{$item.uid}">{$item.name}</option>
                            </foreach>          
                     </select>
                 </td>
@@ -168,14 +168,14 @@
         </table>
         <table class="tbl">
          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>核稿</caption>           
              <tr>
@@ -183,7 +183,7 @@
                 <td >
                     <select name='db_orgin_person'>
                             <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_orgin_person'] eq $item.name">selected</if> value="{$item.name}">{$item.name}</option>
+                                 <option <if condition="$list['db_orgin_person'] eq $item.name">selected</if> value="{$item.uid}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -212,23 +212,23 @@
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
                     <select name='db_orgin_eval'>
-                            <option <if condition="$list['db_orgin_eval'] eq '优' ">selected</if> value=优>优</option>
-                            <option <if condition="$list['db_orgin_eval'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_orgin_eval'] eq '差' ">selected</if> value="差">差</option>    
+                            <option <if condition="$list['db_orgin_eval'] eq '优' ">selected</if> value='1'>优</option>
+                            <option <if condition="$list['db_orgin_eval'] eq '中' ">selected</if> value="2">中</option>
+                            <option <if condition="$list['db_orgin_eval'] eq '差' ">selected</if> value="3">差</option>    
                       </select>
                  </td>
              </tr>
         </table>   
          <table class="tbl">
-          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+           <colgroup>
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>核稿2</caption>           
              <tr>
@@ -236,7 +236,7 @@
                 <td >
                     <select name='db_orgin2_person'>
                            <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_orgin2_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
+                                 <option <if condition="$list['db_orgin2_person'] eq $item.name ">selected</if> value="{$item.uid}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -265,24 +265,23 @@
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
                 <select name='db_orgin2_eval'>
-                        <option <if condition="$list['db_orgin2_eval'] eq '优' ">selected</if> value=优>优</option>
-                        <option <if condition="$list['db_orgin2_eval'] eq '中' ">selected</if> value="中">中</option>
-                        <option <if condition="$list['db_orgin2_eval'] eq '差' ">selected</if> value="差">差</option>    
-                    
+                        <option <if condition="$list['db_orgin2_eval'] eq '优' ">selected</if> value='1'>优</option>
+                        <option <if condition="$list['db_orgin2_eval'] eq '中' ">selected</if> value="2">中</option>
+                        <option <if condition="$list['db_orgin2_eval'] eq '差' ">selected</if> value="3">差</option>    
                  </select> 
                 </td>
              </tr>
         </table>
          <table class="tbl">
           <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>核稿3</caption>           
              <tr>
@@ -290,7 +289,7 @@
                 <td >
                     <select name='db_orgin3_person'>
                           <foreach item='item' name='user_name'>
-                                 <option <if condition="$list['db_orgin3_person'] eq $item.name ">selected</if> value="{$item.name}">{$item.name}</option>
+                                 <option <if condition="$list['db_orgin3_person'] eq $item.name ">selected</if> value="{$item.uid}">{$item.name}</option>
                            </foreach>
                     </select>
                 </td>
@@ -319,34 +318,32 @@
                  <td class="cap">核稿评价：</td>
                 <td colspan='3'>
                       <select name='db_orgin3_eval'>
-                           <option <if condition="$list['db_orgin3_eval'] eq '优' ">selected</if> value=优>优</option>
-                            <option <if condition="$list['db_orgin3_eval'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_orgin3_eval'] eq '差' ">selected</if> value="差">差</option>    
-                    
+                           <option <if condition="$list['db_orgin3_eval'] eq '优' ">selected</if> value='1'>优</option>
+                            <option <if condition="$list['db_orgin3_eval'] eq '中' ">selected</if> value="2">中</option>
+                            <option <if condition="$list['db_orgin3_eval'] eq '差' ">selected</if> value="3">差</option>    
                       </select>
                 </td>
              </tr>
         </table>
-     
         <table class="tbl">
          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
             <caption>评价</caption>
              <tr>
                  <td class="cap">中心评价：</td>
                 <td>
                      <select name='db_evaluate'>
-                          <option <if condition="$list['db_evaluate'] eq '优' ">selected</if> value=优>优</option>
-                            <option <if condition="$list['db_evaluate'] eq '中' ">selected</if> value="中">中</option>
-                            <option <if condition="$list['db_evaluate'] eq '差' ">selected</if> value="差">差</option>    
+                          <option <if condition="$list['db_evaluate'] eq '优' ">selected</if> value='1'>优</option>
+                            <option <if condition="$list['db_evaluate'] eq '中' ">selected</if> value="2">中</option>
+                            <option <if condition="$list['db_evaluate'] eq '差' ">selected</if> value="3">差</option>    
                     
                       </select>
                 </td>
@@ -362,14 +359,14 @@
         </table>
          <table class="tbl">
           <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
              <caption>审批</caption>
               <tr>
@@ -385,15 +382,15 @@
                 <td>
                      <select name='db_examin_mode'>
                              <foreach item='item' name='exa_mode'>
-                                <option <if condition="$list['db_examin_mode'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                <option <if condition="$list['db_examin_mode'] eq $item.config_descripion ">selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
                            </foreach>
                     </select>
                 </td>
                  <td class="cap">审批进展：</td>
                 <td>
                      <select name='db_examin_progress'>
-                           <foreach item='item' name='exa_mode'>
-                                <option <if condition="$list['db_examin_progress'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
+                           <foreach item='item' name='exa_mode1'>
+                                <option <if condition="$list['db_examin_progress'] eq $item.config_descripion ">selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
                            </foreach>
                     </select>
                 </td>
@@ -401,14 +398,14 @@
         </table>
          <table class="tbl">
           <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>发文</caption>           
             <tr>
@@ -416,7 +413,7 @@
                  <td>
                      <select name="db_despatch_mode">
                         <foreach item='item' name='dis_mode'>
-                                <option <if condition="$list['db_despatch_mode'] eq $item.config_descripion ">selected</if> value="{$item.config_descripion}">{$item.config_descripion}</option>
+                                <option <if condition="$list['db_despatch_mode'] eq $item.config_descripion ">selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>
@@ -436,14 +433,14 @@
         </table>
         <table class="tbl">
          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
             <caption>存档</caption>
              <tr>
@@ -454,9 +451,9 @@
                  <td class="cap">存档情况：</td>
                 <td>
                      <select name='db_file_status'>
-                            <option <if condition="$list['db_file_status'] eq '完成' ">selected</if> value="完成">完成</option>
-                            <option <if condition="$list['db_file_status'] eq '部分完成' ">selected</if> value="部分完成">部分完成</option>
-                            <option <if condition="$list['db_file_status'] eq '不存档' ">selected</if> value="不存档">不存档</option>
+                           <foreach item='item' name='doc_status'>
+                                <option <if condition="$list['db_file_status'] eq $item.config_descripion ">selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
+                        </foreach>
                      </select>
                 </td>
                  <td class="cap">存档时间：</td>
@@ -471,14 +468,14 @@
         </table>
          <table class="tbl">
           <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
           <caption>用印</caption>           
              <tr>
@@ -493,15 +490,15 @@
              </tr>
         </table>
          <table class="tbl">
-          <colgroup>
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
-            <col width="10%">
-            <col width="15%">
+         <colgroup>
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
         </colgroup>
              <caption>备注</caption>
              <tr>          

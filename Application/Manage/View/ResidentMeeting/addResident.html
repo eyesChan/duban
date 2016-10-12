@@ -5,7 +5,16 @@
     <form action="{:U(addResident)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
             <caption>基本信息</caption>
-          
+        <colgroup>
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+            <col width="8%">
+            <col width="17%">
+        </colgroup>
             <tr>
                 <td class="cap">地区：</td>
                 <td >
@@ -44,6 +53,16 @@
             </tr>  
         </table>
         <table class="tbl">
+        <colgroup>
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="15%">
+        </colgroup>
           <caption>数据收集</caption>           
              <tr>
                <td class="cap">收集通知拟写人：</td>
@@ -107,7 +126,7 @@
         </table>
         <div class="wrap-btns">
 
-	      <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="保存"/>
+	      <input class="btn btn-red mr10 btn-submit" type="submit" value="保存"/>
 	      <input class="btn ml10 button btn-normal" type="reset" value="取消" onclick="javascript:history.back(-1)"/>
     	</div>
     </form>

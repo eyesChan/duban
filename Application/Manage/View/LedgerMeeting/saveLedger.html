@@ -38,7 +38,7 @@
                 <td>
                     <select name='led_meeting_dense'>
                          <foreach item='item' name='led_dense'>
-                                <option <if condition="$list['led_meeting_dense'] eq $item.config_descripion ">selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
+                                <option <if condition="$list['led_meeting_dense'] eq $item.config_descripion ">selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>

@@ -112,11 +112,11 @@ class PresentationModel  extends Model{
                 ->where("db_pre_id= $pre_id") 
                 ->find();
         //文稿类型
-        $list['db_pre_type']=$this->getRootView($list['db_pre_type']);
+        $list['db_pre_type']=$this->getRootView($list['db_pre_type'],'doc_pre_type');
         //工作状态
-        $list['db_pre_status']=$this->getRootView($list['db_pre_status']);
+        $list['db_pre_status']=$this->getRootView($list['db_pre_status'],'doc_work_status');
         //文稿形式
-        $list['db_pre_form']=$this->getRootView($list['db_pre_form']);
+        $list['db_pre_form']=$this->getRootView($list['db_pre_form'],'doc_pre_form');
         //责任人
         $list['db_pre_person']=$this->getWhereUser($list['db_pre_person']);
         //拟稿人
@@ -128,11 +128,23 @@ class PresentationModel  extends Model{
         //核稿人3
         $list['db_orgin3_person']=$this->getWhereUser($list['db_orgin3_person']);
         //发文方式
-        $list['db_despatch_mode']=$this->getRootView($list['db_despatch_mode']);
+        $list['db_despatch_mode']=$this->getRootView($list['db_despatch_mode'],'doc_dis_mode');
         //审批方式
-        $list['db_examin_mode']=$this->getRootView($list['db_examin_mode']);
+        $list['db_examin_mode']=$this->getRootView($list['db_examin_mode'],'doc_exa_mode');
         //审批进展
-        $list['db_examin_progress']=$this->getRootView($list['db_examin_progress']);
+        $list['db_examin_progress']=$this->getRootView($list['db_examin_progress'],'doc_exa_mode1');
+        //优先级
+        $list['db_pre_first']=$this->getRootView($list['db_pre_first'],'pro_level');
+        //存档情况
+        $list['db_file_status']=$this->getRootView($list['db_file_status'],'doc_can_type');
+        //核稿评价1
+        $list['db_orgin_eval']=$this->goodsInDiff1($list['db_orgin_eval']);
+        //核稿评价2
+        $list['db_orgin2_eval']=$this->goodsInDiff1($list['db_orgin2_eval']);
+        //核稿评价3
+        $list['db_orgin3_eval']=$this->goodsInDiff1($list['db_orgin3_eval']);
+        //中心评价
+        $list['db_evaluate']=$this->goodsInDiff1($list['db_evaluate']);
         return $list; 
     }
     
@@ -143,11 +155,27 @@ class PresentationModel  extends Model{
    * @param  $config_id 查询条件
    * @return 返回查询的数据
    */
-    public function  getRootView($config_id){
+    public function  getRootView($config_value,$config_key){
         $work = M('config_system')
-              ->where("config_id = $config_id")
+              ->where(array('config_value'=>$config_value,'config_key'=>$config_key))
               ->getField('config_descripion');   
         return $work;
+    }
+    /*
+     * 判断 优 中 差
+     * @Date    2016/11/12
+     * @author huanggang
+     * @param $param 查询条件
+     * @return 入库的数据
+     */
+    public function goodsInDiff1($param){
+        if($param=='1'){
+            return '优';
+        }else if($param=='2'){
+            return '中';
+        }else{
+            return '差';
+        }
     }
     
     /*
@@ -181,7 +209,7 @@ class PresentationModel  extends Model{
      */
     public function delPresent($pre_id){
         $led_presentation = M('led_presentation');
-        $res = $led_presentation->where("db_pre_id =".$pre_id)->setField('pre_status','1');
+        $res = $led_presentation->where("db_pre_id =".$pre_id)->setField('pre_status','0');
         $db_pre_name= $led_presentation->where("db_pre_id =".$pre_id)->getField('db_pre_name');
         if($res){
             writeOperationLog('删除“' . $db_pre_name . '”文稿台账', 1);
@@ -205,7 +233,7 @@ class PresentationModel  extends Model{
         if (!empty($param['led_meeting_date'])) {
             $where['db_assign_date'] = array('EQ', $param['db_assign_date']);
         }
-        $where['pre_status'] = array('EQ', '0');
+        $where['pre_status'] = array('EQ', '1');
         $led_presentation = M('led_presentation');
         $data = $led_presentation
               ->field('db_pre_id,db_pre_name,db_pre_work,db_assign_date,db_complete_time,db_pre_type,db_pre_form,db_pre_first,db_pre_diff,db_pre_person,db_pre_status,db_draft_person,db_draft_length,db_draft_num,db_orgin_person,db_orgin_length,db_orgin_num,db_orgin_eval,db_orgin2_person,db_orgin2_length,db_orgin2_num,db_orgin2_eval,db_orgin3_person,db_orgin3_length,db_orgin3_num,db_orgin3_eval,db_evaluate,db_overtime_num,db_overtime_num,db_mishap_num,db_examin_date,db_examin_mode,db_examin_progress,db_despatch_mode,db_despatch_date,db_file_status,db_file_date,db_file_address')
@@ -216,9 +244,11 @@ class PresentationModel  extends Model{
         foreach($data as $k => $v){     
             $data[$k]['db_pre_id']=$k+1;
             //文稿类型
-            $data[$k]['db_pre_type']=$this->getRootView($v['db_pre_type']);
+            $data[$k]['db_pre_type']=$this->getRootView($v['db_pre_type'],'doc_pre_type');
             //文稿形式
-            $data[$k]['db_pre_form']=$this->getRootView($v['db_pre_form']);
+            $data[$k]['db_pre_form']=$this->getRootView($v['db_pre_form'],'doc_pre_form');
+            //工作状态
+            $data[$k]['db_pre_status']=$this->getRootView($v['db_pre_status'],'doc_work_status');
             //责任人
             $data[$k]['db_pre_person']=$this->getWhereUser($v['db_pre_person']);
             //拟稿人
@@ -230,11 +260,23 @@ class PresentationModel  extends Model{
             //核稿人3
             $data[$k]['db_orgin3_person']=$this->getWhereUser($v['db_orgin3_person']);
             //发文方式
-            $data[$k]['db_despatch_mode']=$this->getRootView($v['db_despatch_mode']);
+            $data[$k]['db_despatch_mode']=$this->getRootView($v['db_despatch_mode'],'doc_dis_mode');
             //审批方式
-            $data[$k]['db_examin_mode']=$this->getRootView($v['db_examin_mode']);
+            $data[$k]['db_examin_mode']=$this->getRootView($v['db_examin_mode'],'doc_exa_mode');
             //审批进展
-            $data[$k]['db_examin_progress']=$this->getRootView($v['db_examin_progress']);
+            $data[$k]['db_examin_progress']=$this->getRootView($v['db_examin_progress'],'doc_exa_mode1');
+            //优先级
+            $data[$k]['db_pre_first']=$this->getRootView($v['db_pre_first'],'pro_level');
+            //存档情况
+            $data[$k]['db_file_status']=$this->getRootView($v['db_file_status'],'doc_can_type');
+            //核稿评价1
+            $data[$k]['db_orgin_eval']=$this->goodsInDiff1($v['db_orgin_eval']);
+            //核稿评价2
+            $data[$k]['db_orgin2_eval']=$this->goodsInDiff1($v['db_orgin2_eval']);
+            //核稿评价3
+            $data[$k]['db_orgin3_eval']=$this->goodsInDiff1($v['db_orgin3_eval']);
+            //中心评价
+            $data[$k]['db_evaluate']=$this->goodsInDiff1($v['db_evaluate']);
             unset($data[$k]['db_add_time']);
             unset($data[$k]['db_update_time']);
         }
@@ -254,7 +296,7 @@ class PresentationModel  extends Model{
         if (!empty($param['led_meeting_date'])) {
             $where['db_assign_date'] = array('EQ', $param['db_assign_date']);
         }
-        $where['pre_status'] = array('EQ', '0');
+        $where['pre_status'] = array('EQ', '1');
         $led_presentation = M('led_presentation');
         $data = $led_presentation
                 ->where($where)
@@ -265,11 +307,11 @@ class PresentationModel  extends Model{
             unset($data[$k]['pre_status']);
             $data[$k]['db_pre_id']=$k+1;
             //文稿类型
-            $data[$k]['db_pre_type']=$this->getRootView($v['db_pre_type']);
+            $data[$k]['db_pre_type']=$this->getRootView($v['db_pre_type'],'doc_pre_type');
             //工作状态
-            $data[$k]['db_pre_status']=$this->getRootView($v['db_pre_status']);
+            $data[$k]['db_pre_status']=$this->getRootView($v['db_pre_status'],'doc_work_status');
             //文稿形式
-            $data[$k]['db_pre_form']=$this->getRootView($v['db_pre_form']);
+            $data[$k]['db_pre_form']=$this->getRootView($v['db_pre_form'],'doc_pre_form');
             //责任人
             $data[$k]['db_pre_person']=$this->getWhereUser($v['db_pre_person']);
             //拟稿人
@@ -281,11 +323,23 @@ class PresentationModel  extends Model{
             //核稿人3
             $data[$k]['db_orgin3_person']=$this->getWhereUser($v['db_orgin3_person']);
             //发文方式
-            $data[$k]['db_despatch_mode']=$this->getRootView($v['db_despatch_mode']);
+            $data[$k]['db_despatch_mode']=$this->getRootView($v['db_despatch_mode'],'doc_dis_mode');
             //审批方式
-            $data[$k]['db_examin_mode']=$this->getRootView($v['db_examin_mode']);
+            $data[$k]['db_examin_mode']=$this->getRootView($v['db_examin_mode'],'doc_exa_mode');
             //审批进展
-            $data[$k]['db_examin_progress']=$this->getRootView($v['db_examin_progress']);
+            $data[$k]['db_examin_progress']=$this->getRootView($v['db_examin_progress'],'doc_exa_mode1');
+            //优先级
+            $data[$k]['db_pre_first']=$this->getRootView($v['db_pre_first'],'pro_level');
+            //存档情况
+            $data[$k]['db_file_status']=$this->getRootView($v['db_file_status'],'doc_can_type');
+            //核稿评价1
+            $data[$k]['db_orgin_eval']=$this->goodsInDiff1($v['db_orgin_eval']);
+            //核稿评价2
+            $data[$k]['db_orgin2_eval']=$this->goodsInDiff1($v['db_orgin2_eval']);
+            //核稿评价3
+            $data[$k]['db_orgin3_eval']=$this->goodsInDiff1($v['db_orgin3_eval']);
+            //中心评价
+            $data[$k]['db_evaluate']=$this->goodsInDiff1($v['db_evaluate']);
             unset($data[$k]['db_add_time']);
             unset($data[$k]['db_update_time']);
         }
@@ -381,7 +435,19 @@ class PresentationModel  extends Model{
             //审批方式
             $v['db_examin_mode']=$this->getRootViews($v['db_examin_mode'],'doc_exa_mode');
             //审批进展
-            $v['db_examin_progress']=$this->getRootViews($v['db_examin_progress'],'doc_exa_mode');
+            $v['db_examin_progress']=$this->getRootViews($v['db_examin_progress'],'doc_exa_mode1');
+            //优先级
+            $v['db_pre_first']=$this->getRootViews($v['db_pre_first'],'pro_level');
+            //存档情况
+            $v['db_file_status']=$this->getRootViews($v['db_file_status'],'doc_can_type');
+            //核稿评价1
+            $v['db_orgin_eval']=$this->goodsInDiff($v['db_orgin_eval']);
+            //核稿评价2
+            $v['db_orgin2_eval']=$this->goodsInDiff($v['db_orgin2_eval']);
+            //核稿评价3
+            $v['db_orgin3_eval']=$this->goodsInDiff($v['db_orgin3_eval']);
+            //中心评价
+            $v['db_evaluate']=$this->goodsInDiff($v['db_evaluate']);
             $res = $led_presentation->add($v);
             if($res==FALSE){
                 $flag=$flag-1;
@@ -399,21 +465,21 @@ class PresentationModel  extends Model{
     }
     
     /*
-    * 获取所需的数据
+    * 导入时获取所需的数据
     * @author huanggang
     * @Date    2016/10/11
     * @param  $config_descripion 查询条件
     * @return 返回查询的数据id
     */
     public function  getRootViews($config_descripion,$type){
-        $config_id = M('config_system')
+        $config_value = M('config_system')
               ->where(array('config_descripion'=>$config_descripion,'config_key'=>$type))
-              ->getField('config_id');
-        return $config_id;
+              ->getField('config_value');
+        return $config_value;
     }
     
     /*
-     * 根据条件查询用户表
+     * 导入时根据条件查询用户表
      * @ahthor huanggang
      * @Date    2016/10/11
      * @param array $where 查询条件
@@ -426,4 +492,20 @@ class PresentationModel  extends Model{
         return $uid;
     }
     
+    /*
+     * 判断导入时 优 中 差
+     * @Date    2016/11/12
+     * @author huanggang
+     * @param $param 查询条件
+     * @return 入库的数据
+     */
+    public function goodsInDiff($param){
+        if($param=='优'){
+            return 1;
+        }else if($param=='中'){
+            return 2;
+        }else{
+            return 3;
+        }
+    }
 }

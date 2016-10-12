@@ -50,7 +50,7 @@ class LedgerMeetingController extends AdminController {
         if (!empty($param['led_meeting_date'])) {
             $where['led_meeting_date'] = array('EQ', $param['led_meeting_date']);
         }
-        $where['led_status'] = array('EQ', '0');
+        $where['led_status'] = array('EQ', '1');
         $where = $this->escape($where);
         $count = $this->ledger_meeting->getLedgerCount($where);
         $page = new \Think\Page($count, 10);

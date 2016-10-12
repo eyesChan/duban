@@ -319,6 +319,7 @@ class CeremoneyAccountModel extends Model {
             $res_add = $this->add($param);
             if ($res_add === FALSE) {
                 $flag = $flag - 1;
+                break;
             }
         }
         if ($flag < 0) {

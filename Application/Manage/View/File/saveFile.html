@@ -22,7 +22,7 @@
                 <td colspan="3">
                     <select name='doc_dept_id'>
                         <foreach item='item' name='file_depart'>
-                            <option <if condition="$list['doc_dept_id'] eq $item['config_id'] "> selected</if> value="{$item.config_id}" > {$item.config_descripion}</option>
+                            <option <if condition="$list['doc_dept_id'] eq $item['config_value'] "> selected</if> value="{$item.config_value}" > {$item.config_descripion}</option>
                         </foreach>        
                     </select>
                 </td>
@@ -32,7 +32,7 @@
                 <td>
                     <select name='doc_pub_type'>
                         <foreach item='item' name='file_type'>
-                            <option <if condition="$list['doc_pub_type'] eq $item['config_id'] "> selected</if>  value="{$item.config_id}">{$item.config_descripion}</option>
+                            <option <if condition="$list['doc_pub_type'] eq $item['config_value'] "> selected</if>  value="{$item.config_value}">{$item.config_descripion}</option>
                         </foreach>
                     </select>
                 </td>

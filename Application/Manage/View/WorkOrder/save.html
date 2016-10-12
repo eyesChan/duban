@@ -74,13 +74,15 @@
             </tr>
             <tr>
 
-                <td>挂起/废弃原因</td>
-                <td><textarea class="textarea" name="worksheet_abandoned_reason">{$workorder.worksheet_abandoned_reason}</textarea></td>
+                <td class="cap">挂起/废弃原因</td>
+                <td colspan="3"><textarea class="textarea" name="worksheet_abandoned_reason">{$workorder.worksheet_abandoned_reason}</textarea></td>
             </tr>
             <input type="hidden" value="{$workorder['worksheet_id']}" name="worksheet_id">
         </table>
-        <div class="text-center">
-            <input class="btn btn-red mr10 submit productSubmit" type="submit" value="提交" id="workorderSub"/>
+
+        <div class="wrap-btns">
+            <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="提交" id="workorderSub"/>
+
             <input class="btn ml10 button btn-normal" type="button" onclick="javascript:history.go(-1)" value="取消" />
 
         </div>

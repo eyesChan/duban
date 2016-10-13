@@ -25,7 +25,7 @@
                              <select name='doc_pub_type'>
                                  <option value="">--请选择--</option>
                                 <foreach item='item' name='file_type'>
-                                    <option  <if condition="$param['doc_pub_type'] eq $item['config_id'] "> selected</if> value="{$item.config_id}">{$item.config_descripion}</option>
+                                    <option  <if condition="$param['doc_pub_type'] eq $item['config_value'] "> selected</if> value="{$item.config_value}">{$item.config_descripion}</option>
                                 </foreach>
                              </select>
                         </td>  
@@ -71,7 +71,7 @@
                     <foreach name="list" item="item">
 	        	<tr>
                                 <td>{$item.doc_name}</td>
-                                <td>{$item.config_descripion}</td>
+                                <td>{$item.doc_pub_type}</td>
                                 <td>{$item.name}</td>
                                
                                 <td>{$item.doc_pub_date}</td>

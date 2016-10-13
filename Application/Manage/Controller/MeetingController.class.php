@@ -62,10 +62,11 @@ class MeetingController extends AdminController {
 
     public function addMeeting() {
         $upload_obj = new MeetingUplod();
+        $config_info = C();
+
         $data = I('meeting');
         if (!empty($data)) {
             if (!empty($_FILES['file']['name'])) {
-                $config_info = C();
                 //判断上传方式
                 if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
                     $file_config = $config_info['FTP_MEETING'];
@@ -110,6 +111,14 @@ class MeetingController extends AdminController {
         //会议形式
         $meeting_form_info = getConfigInfo('meeting_form');
         $this->assign('form_info', $meeting_form_info);
+        //获取附件允许格式
+        if ($config_info['OPEN_FTP'] == '1') {
+            $file_config = $config_info['FTP_MEETING'];
+        } else {
+            $file_config = $config_info['FILE_MEETING'];
+        }
+        $allow_file = $file_config['ALLOW_FILE'];
+        $this->assign('allow_file', implode(' , ', $allow_file));
         //台帐管理员
         $this->assign('account_info', $account_info);
         $this->display();
@@ -156,6 +165,7 @@ class MeetingController extends AdminController {
      */
     public function edit() {
         $upload_obj = new MeetingUplod();
+        $config_info = C();
         $meeting_info = I('meeting');
         $meeting_id = I('meeting_id');
         if ($meeting_id && empty($meeting_info)) {
@@ -177,11 +187,18 @@ class MeetingController extends AdminController {
             $this->assign('meeting_info', $meeting_info);
             //获取台帐管理员
             $account_info = $this->meeting_model->getAccount();
+            //获取附件允许格式
+            if ($config_info['OPEN_FTP'] == '1') {
+                $file_config = $config_info['FTP_MEETING'];
+            } else {
+                $file_config = $config_info['FILE_MEETING'];
+            }
+            $allow_file = $file_config['ALLOW_FILE'];
+            $this->assign('allow_file', implode(' , ', $allow_file));
             $this->assign('account_info', $account_info);
             $this->display('addMeeting');
         } else {
             if (!empty($_FILES['file']['name'])) {
-                $config_info = C();
                 //判断上传方式
                 if ($config_info['OPEN_FTP'] == '1') { //开启ftp上传
                     $file_config = $config_info['FTP_MEETING'];

@@ -130,11 +130,13 @@ class FileModel  extends Model{
         $docfile = M('doc');
         $list = $docfile
               ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
-              ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where($where) 
               ->limit($first_rows, $list_rows)
               ->order('doc_id desc')
               ->select();
+      foreach ($list as $k => $v) {
+           $list[$k]['doc_pub_type']=$this->getRootView($v['doc_pub_type'],'doc_pub_type');
+      }
         return $list;
     }
     
@@ -169,7 +171,6 @@ class FileModel  extends Model{
         $docfile = M('doc');
         $list = $docfile
               ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
-              ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where('doc_id='.$doc_id)       
               ->find();
             $config_info = C();
@@ -256,14 +257,14 @@ class FileModel  extends Model{
         $docfile = M('doc');
         $data = $docfile
               ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
-              ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where($where)
               ->order('doc_id desc')
-              ->field('doc_name,config_descripion,name,doc_pub_date,doc_start_date,doc_end_date,doc_root_view,doc_root_do,doc_beizhu')
+              ->field('doc_name,doc_pub_type,name,doc_pub_date,doc_start_date,doc_end_date,doc_root_view,doc_root_do,doc_beizhu')
               ->select();
         foreach($data as $k => $v){
-            $data[$k]['doc_root_view']=$this->getRootView($v['doc_root_view'],'doc_pub_type');
-            $data[$k]['doc_root_do']=$this->getRootView($v['doc_root_do'],'doc_pub_authority');
+            $data[$k]['doc_pub_type']=$this->getRootView($v['doc_pub_type'],'doc_pub_type');
+            $data[$k]['doc_root_view']=$this->getRootView($v['doc_root_view'],'doc_pub_range');
+            $data[$k]['doc_root_do']=$this->getRootView($v['doc_root_do'],'doc_pub_authority');   
         }
         return $data;
     }

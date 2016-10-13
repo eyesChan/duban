@@ -51,12 +51,12 @@
                 <td class="cap"><span class="rq">*</span>工作单描述：</td>
                 <td colspan="3">
 
-                    <textarea class="textarea" name="worksheet_describe"></textarea>
+                    <textarea class="textarea" name="worksheet_describe" id="worksheet_describe"></textarea>
                 </td>
             </tr>
         </table>
         <div class="wrap-btns">
-            <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="提交"/>
+            <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="提交" id="workorderSub"/>
              <input class="btn ml10 button btn-normal" type="button" onclick="javascript:history.go(-1)" value="返回" />
         </div>
     </form>
@@ -136,5 +136,16 @@
             var _this = $(this);
             addPerson(_this, "请填写工作单负责人！");
         });
+        
+       
+        $("#workorderSub").on("click", function () {
+            var describe = $("#worksheet_describe").val();
+           
+            if (describe == "") {
+                $.dialog.alert("请填写工作描述！");
+                return false;
+            }
+        });
+        
     </script>
 </block>

@@ -171,7 +171,6 @@ class FileModel  extends Model{
         $docfile = M('doc');
         $list = $docfile
               ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
-              ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
               ->where('doc_id='.$doc_id)       
               ->find();
             $config_info = C();

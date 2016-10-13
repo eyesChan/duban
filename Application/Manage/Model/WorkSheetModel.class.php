@@ -258,7 +258,7 @@ class WorkSheetModel extends Model {
             $workDay['state_id'] = 3;
         } else {
             $workDay['state'] = "正常";
-            $workDay['state_id'] = 1;
+            $workDay['state_id'] = 6;
         }
         return $workDay;
     }
@@ -291,7 +291,7 @@ class WorkSheetModel extends Model {
                 $surplus = $day * $work['worksheet_parcent_day'];
                 if ($parcent >= $surplus) {
                     $states['state'] = "正常";
-                    $states['id'] = 1;
+                    $states['id'] = 6;
                     return $states;
                 } else {
                     $states['state'] = "延迟";
@@ -314,7 +314,7 @@ class WorkSheetModel extends Model {
                         return $states;
                     } elseif ($day == '0') {
                         $states['state'] = "正常";
-                        $states['id'] = 1;
+                        $states['id'] = 6;
                         return $states;
                     } else {
                         if ($sum < 100) {
@@ -323,7 +323,7 @@ class WorkSheetModel extends Model {
                             return $states;
                         } else {
                             $states['state'] = "正常";
-                            $states['id'] = 1;
+                            $states['id'] = 6;
                             return $states;
                         }
                     }
@@ -335,7 +335,7 @@ class WorkSheetModel extends Model {
             }
         }
         $states['state'] = $state;
-        $states['id'] = '4';
+        $states['id'] = 4;
         return $states;
     }
 
@@ -363,9 +363,11 @@ class WorkSheetModel extends Model {
                 $sum = $day * $val['worksheet_parcent_day'];
                 if ($val['worksheet_done_persent'] >= $sum) {
                     $state = "正常";
-                    $state_id = 1;
-                    $this->saveOneOrder($val['worksheet_id'], $state, $state_id);
-                } else {
+
+                    $state_id = 6;
+                    $this->saveOneOrder($val['worksheet_id'],$state,$state_id);
+                }else{
+
                     $state = "延迟";
                     $state_id = 3;
                     $this->saveOneOrder($val['worksheet_id'], $state, $state_id);
@@ -419,6 +421,7 @@ class WorkSheetModel extends Model {
 
     /*
      * 发送邮件
+     * 
      */
 
     public function userPerson($param) {

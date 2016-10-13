@@ -124,7 +124,6 @@ $(".username-input").on("blur", function () {
         // async: false,
         data: {"uid": uId, "nickname": uVal},
         success: function (data) {
-           console.log(data);
             // var dataJson = JSON.parse(data);
             if (data.code == 100) {
                 if (!$(".error-message").hasClass("show")) {

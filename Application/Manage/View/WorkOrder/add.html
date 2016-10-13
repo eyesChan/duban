@@ -33,7 +33,7 @@
             <tr>
                 <td class="cap">工作单负责人：</td>
                 <td colspan="3">
-                     <select name="meeting[meeting_callman]" class="selectItem">
+                     <select name="meeting[meeting_callman]" data="worksheet_rule_person" class="selectItem">
                         
                     <foreach name="user" item="item">
                         <option value="{$item.uid}">{$item.name}</option>

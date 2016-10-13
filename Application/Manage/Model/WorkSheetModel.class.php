@@ -50,7 +50,7 @@ class WorkSheetModel  extends Model{
             $data['worksheet_start_date'] = $param['start_time'];
             $data['worksheet_end_date'] = $param['stop_time'];
             $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
-            $users = implode(',',$param['undefined']);
+            $users = implode(',',$param['worksheet_rule_person']);
             $data['worksheet_rule_person'] = $users;
             $data['worksheet_rule_name'] = $this->showUsers($users);
             $data['worksheet_describe'] = $param['worksheet_describe'];
@@ -166,7 +166,7 @@ class WorkSheetModel  extends Model{
     public function saveWork($param){
         $order = M('worksheet');
         $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
-        $usernew = $this->usersselect($param['worksheet_rule_person'],$param['undefined']);
+        $usernew = $this->usersselect($param['worksheet_rule_person'],$param['worksheet_rule_person']);
         $data['worksheet_rule_person'] = $usernew;
         $data['worksheet_done_persent'] = $param['worksheet_done_persent']; 
         $states = $this->workState($param['worksheet_state'],$param['worksheet_id'],$param['worksheet_done_persent']);

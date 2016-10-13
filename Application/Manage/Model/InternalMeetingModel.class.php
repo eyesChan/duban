@@ -232,7 +232,8 @@ class InternalMeetingModel  extends Model{
         $model = new Model();
         $model->startTrans();
         $internal = M('internalmeeting');
-      
+        p($data[0][7]);
+        die;
         for($i=0;$i<$count;$i++){
             
             $info['internal_name'] = $data[$i][0];
@@ -242,7 +243,8 @@ class InternalMeetingModel  extends Model{
             $info['internal_meeting_name'] =$data[$i][4];
             $info['internal_meeting_date'] = $data[$i][5];
             $info['internal_meeting_place'] = $data[$i][6];
-            $info['internal_meeting_form'] =$data[$i][7];
+            
+            $info['internal_meeting_form'] = $this->internalWhere($data[$i][7]);
             $info['internal_meeting_type'] =$data[$i][8];
             $info['internal_meeting_level'] =$data[$i][9];
             $info['internal_meeting_dense'] =$data[$i][10];

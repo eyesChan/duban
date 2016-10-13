@@ -118,15 +118,18 @@ class IndexModel extends Model {
     //台账相关数量计算
     public function getNumAccount(){
         
-        $mod_ceremoney_account = M('ceremoney_account');//签约仪式台账
-        $mod_internal_meeting = M('internalmeeting');//内部会议台账
         $mod_ledger_meeting = M('led_meeting');//会谈会见台账
         $mod_presentation = M('led_presentation');//文稿台账
+        $mod_internal_meeting = M('internalmeeting');//内部会议台账
+        $mod_ceremoney_account = M('ceremoney_account');//签约仪式台账
         $mod_resident_meeting = M('resident_meeting');//驻各地发展情况台账
         
         $count['ledger_meeting'] = $mod_ledger_meeting->where("led_status = 1")->count();
         $count['presentation'] = $mod_presentation->where("pre_status = 1")->count();
-        
+        $count['internalmeeting'] = $mod_internal_meeting->where("internal_delete = 1")->count();
+        $count['ceremoney_account'] = $mod_ceremoney_account->where("ca_status = 1")->count();
+        $count['resident_meeting'] = $mod_resident_meeting->where("resident_status = 1")->count();
+        $count['total'] = $count['ledger_meeting']+$count['presentation']+$count['internalmeeting']+$count['ceremoney_account']+$count['resident_meeting'];
         return $count;
     }
         

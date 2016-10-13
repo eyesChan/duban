@@ -41,7 +41,8 @@
                             </foreach>
                                    '
                                        for="singleSelect{$vo.id}"></label>
-                                <input type='checkbox' class="singleSelect"
+                                
+                                <input <if condition="$vo.id eq 1 ">disabled=true</if> type='checkbox' class="singleSelect"
                                 <foreach name="user_group_info" item="item">
                                     <if condition=" $vo.id eq $item.group_id ">
                                         checked=checked
@@ -49,6 +50,9 @@
                                 </foreach>
                                 id="singleSelect{$vo.id}" value='{$vo.id}'
                                 name='childrenBox[]'>
+                                
+                                
+                                
                                 <span class="allocationRoleTitle">{$vo.title}</span>
 
                             </td>

@@ -105,7 +105,11 @@ class ModuleController extends AdminController {
         $menu_name = $auth_rule->where("id = $menu_id")->getField('title');
         if ($auth_rule->where('id = ' . I('id'))->delete()) {
             writeOperationLog('删除“' . $menu_name . '”模块', 1);
-            $this->success(C('COMMON.DEL_SUCCESS'));
+            if (!empty(I('pid'))) {
+                $this->success(C('COMMON.DEL_SUCCESS'), U('Module/child/', array('pid'=>I('pid'))));
+            } else {
+                $this->success(C('COMMON.DEL_SUCCESS'), U('Module/index'));
+            }
         } else {
             writeOperationLog('删除“' . $menu_name . '”模块', 0);
             $this->error(C('COMMON.DEL_ERROR'));

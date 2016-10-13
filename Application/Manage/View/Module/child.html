@@ -35,7 +35,7 @@
                                 <td><?php echo $v['name']; ?></td>
                                 <td>
                                     <a class="fl mr5 btn btn-c btn-xl button" href="{:U('child?pid='.$v['id'])}">关联子项</a>
-                                    <a class="fl mr5 btn btn-c btn-xl button" title="删除" onClick="return confirm('确定要删除吗？');" href="{:U('delete?id='.$v['id'])}">删除</a>
+                                    <a class="fl mr5 btn btn-c btn-xl button" title="删除" onClick="return confirm('确定要删除吗？');" href="{:U('delete',array('id'=>$v['id'],'pid'=>$v['pid']))}">删除</a>
                                     <a class="fl mr5 btn btn-c btn-xl button" title="编辑" href="{:U('save?id='.$v['id'])}">编辑</a>
                                 </td>
                             </tr>
@@ -51,7 +51,9 @@
             </div>
         </div>
     </div>
-
+    <div class="wrap-btns">
+        <a class="btn ml5 button btn-normal" href="{:U('index')}">返回</a>
+    </div>
     <script type="text/javascript">
 
     </script>

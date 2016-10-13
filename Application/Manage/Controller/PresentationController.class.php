@@ -256,14 +256,21 @@ class PresentationController extends AdminController {
             if (!empty($resute) && $resute['code'] != 100) {
                 $result = $this->presentation->addsPresent($resute);
             } else {
+                //删除临时文件
+                unlink($fileName);
                 writeOperationLog('导入“' . 'excel表格模板错误' . '”', 0);
                 $this->error($resute['msg'], U('Presentation/importPresent'));
             } 
             if($result['code'] == 200) {
+                //删除临时文件
+                unlink($fileName);
                 $this->success($result['status'], U('Presentation/index'));
             }else{
+                //删除临时文件
+                unlink($fileName);
                 $this->error($result['status'], U('Presentation/importPresent'));
             }
+            
             return true;
         }
         $this->display('importPresent');

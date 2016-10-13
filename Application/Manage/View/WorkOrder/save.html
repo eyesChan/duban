@@ -56,6 +56,7 @@
                     <select name="worksheet_state" 
                             
                             <if condition="$workorder.worksheet_state eq 未启动">disabled=true</if>
+                        <if condition="$workorder.worksheet_state eq 办结">disabled=true</if>
                         
                         
                         

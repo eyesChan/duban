@@ -182,12 +182,18 @@ class LedgerMeetingController extends AdminController {
             if (!empty($resute) && $resute['code'] != 100) {
                 $result = $this->ledger_meeting->addsLedger($resute);
             } else {
+                //删除临时文件
+                unlink($fileName);
                 writeOperationLog('导入“' . 'excel表格模板错误' . '”', 0);
                 $this->error($resute['msg'], U('LedgerMeeting/importLedgerMeeting'));
             } 
             if($result['code'] == 200) {
+                //删除临时文件
+                unlink($fileName);
                 $this->success($result['status'], U('LedgerMeeting/index'));
             }else{
+                //删除临时文件
+                unlink($fileName);
                 $this->error($result['status'], U('LedgerMeeting/importLedgerMeeting'));
             }
             return true;

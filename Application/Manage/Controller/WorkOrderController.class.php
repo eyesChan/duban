@@ -104,6 +104,7 @@ class WorkOrderController extends AdminController {
         $show = $page->show();
         $this->assign('list', $list);
         $uuid = session('S_USER_INFO.UID');
+        $this->assign('uuid', $uuid);
         $this->assign('page', $show);
         $this->assign('param', $param);
         $this->display('index');

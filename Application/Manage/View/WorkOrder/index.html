@@ -70,9 +70,16 @@
                                 <a class="" title="查看" href="{:U('details?id='.$item['worksheet_id'])}">
                                     <input type="button" class="btn btn-c btn-xl button" value="查看">
                                 </a>
+                                <?php
+                                    $users = $item['worksheet_creat_person'].",".$item['worksheet_rule_person'];
+                                    
+                               
+                                 ?>
+                                <in name="uuid" value="$users">
                                 <a class="" title="编辑" href="{:U('save?id='.$item['worksheet_id'])}">
                                     <input type="button" class="btn btn-c btn-xl button" value="编辑">
                                 </a>
+                                </in>
                                 <a class="" title="督办" href="{:U('sendEmail?id='.$item['worksheet_id'])}">
                                     <input type="button" class="btn btn-c btn-xl button" value="督办">
                                 </a>

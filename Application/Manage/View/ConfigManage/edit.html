@@ -30,10 +30,6 @@
                         <td colspan="3"><input class="input-text text config-name" type="text" name="config_descripion" value="{$config_system[config_descripion]}"></td>
                     </tr>
                     <tr>
-                        <td class="cap"><span class="rq">*</span>参数值：</td>
-                        <td colspan="3"><input class="input-text config-value text" type="text" name="config_value" value="{$config_system[config_value]}"></td>
-                    </tr>
-                    <tr>
                         <td class="cap"><span class="rq">*</span>参数状态：</td>
                         <td colspan="3">
                             <input type="radio" name="config_status" value="1" <if condition="$config_system[config_status] eq 1">checked="checked"</if> class="input-text ml15">启用

@@ -59,7 +59,7 @@
                         <td class="role-row-td">
                             <a class="btn btn-c btn-xl button mr5" href="{:U('Role/authorizeRole',array('id'=>$v['id'],'p'=>$p))}">角色授权</a>
                             <a class="btn btn-c btn-xl button  mr5" href="{:U('Role/edit',array('id'=>$v['id'],'p'=>$p))}">编辑</a>
-                            <a onclick='singleDel({$v['id']})'  class="btn btn-c btn-xl button" >删除</a>
+                            <a onclick="singleDel({$v['id']})"  class="btn btn-c btn-xl button" >删除</a>
                         </td>
                         </in>
                         </tr>
@@ -70,8 +70,8 @@
         </form>
         <div class="batch-operate fl">
             批量操作
-            <a href="javascript:javascipt:;" onclick="roleDelAll()" class="user-batch-del batch-del">
-                <img src="__PUBLIC__/images/batch_del.png" alt=""/>删除</a>
+            <span onclick="roleDelAll()" class="user-batch-del batch-del">
+                <img src="__PUBLIC__/images/batch_del.png" alt=""/>删除</span>
         </div>
         <div class="pagination fr">
             {$page}

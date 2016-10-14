@@ -54,11 +54,11 @@
                     <input type="button" class="btn btn-r btn-xl button addCallman" value="添加">
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
-                        <foreach name="meeting_info.meeting_callman" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_callman" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_callman][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
 
-                        <foreach name="meeting_info.meeting_callman_value" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_callman_value" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_callman][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
                     </div>
@@ -75,10 +75,10 @@
                     <input type="button" class="btn btn-r btn-xl button addModerator" value="添加">
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
-                        <foreach name="meeting_info.meeting_moderator" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_moderator" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_moderator][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
-                        <foreach name="meeting_info.meeting_moderator_value" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_moderator_value" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_moderator][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
                     </div>
@@ -108,7 +108,7 @@
                             <foreach name="meeting_info.meeting_participants" key="key" item="item">
                                 <div class="person fl"><input type="hidden" name="meeting[meeting_participants][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                             </foreach>
-                            <foreach name="meeting_info.meeting_participants_value" key="$key" item="item">
+                            <foreach name="meeting_info.meeting_participants_value" key="key" item="item">
                                 <div class="person fl"><input type="hidden" name="meeting[meeting_participants][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
                             </foreach>
                         </div>
@@ -157,10 +157,10 @@
                     <input type="button" class="btn btn-r btn-xl button addWriteperson" value="添加">
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
-                        <foreach name="meeting_info.meeting_writeperson" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_writeperson" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_writeperson][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
-                        <foreach name="meeting_info.meeting_writeperson_value" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_writeperson_value" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_writeperson][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
 
@@ -202,10 +202,10 @@
                     <input type="button" class="btn btn-r btn-xl button addMadeperson" value="添加">
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
-                        <foreach name="meeting_info.meeting_material_madeperson" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_material_madeperson" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_material_madeperson][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
-                        <foreach name="meeting_info.meeting_material_madeperson_value" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_material_madeperson_value" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_material_madeperson][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
 
@@ -223,10 +223,10 @@
                     <input type="button" class="btn btn-r btn-xl button addArrangeperson" value="添加">
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
-                        <foreach name="meeting_info.meeting_venue_arrangeperson" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_venue_arrangeperson" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_venue_arrangeperson][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
-                        <foreach name="meeting_info.meeting_venue_arrangeperson_value" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_venue_arrangeperson_value" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_venue_arrangeperson][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
 
@@ -268,10 +268,10 @@
                     <input type="button" class="btn btn-r btn-xl button addMeetingVedio" value="添加">
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
-                        <foreach name="meeting_info.meeting_site_protection" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_site_protection" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_site_protection][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
-                        <foreach name="meeting_info.meeting_site_protection_value" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_site_protection_value" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_site_protection][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
 
@@ -309,7 +309,7 @@
             </if>
             <input type="text" class="hide hide-input" >
             <div class="person-content clear">
-                <foreach name="meeting_info.meeting_vedio" key="$key" item="item">
+                <foreach name="meeting_info.meeting_vedio" key="key" item="item">
                     <div class="person fl"><input type="hidden" name="meeting[meeting_vedio][]" value="{$key}"><span>{$item}</span>
                         <if condition="$meeting_info.meeting_id ">
                             <else />
@@ -319,7 +319,7 @@
 
                     </div>
                 </foreach>
-                <foreach name="meeting_info.meeting_vedio_value" key="$key" item="item">
+                <foreach name="meeting_info.meeting_vedio_value" key="key" item="item">
                     <div class="person fl"><input type="hidden" name="meeting[meeting_vedio][value][]" value="{$item}"><span>{$item}</span>
 
                         <if condition="$meeting_info.meeting_id ">
@@ -367,10 +367,10 @@
                     <input type="button" class="btn btn-r btn-xl button addCleanPerson" value="添加">
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
-                        <foreach name="meeting_info.meeting_clean_person" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_clean_person" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_clean_person][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
-                        <foreach name="meeting_info.meeting_clean_person_value" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_clean_person_value" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_clean_person][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
 
@@ -388,10 +388,10 @@
                     <input type="button" class="btn btn-r btn-xl button addRecordPerson" value="添加">
                     <input type="text" class="hide hide-input" >
                     <div class="person-content clear">
-                        <foreach name="meeting_info.meeting_record_person" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_record_person" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_record_person][]" value="{$key}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
-                        <foreach name="meeting_info.meeting_record_person_value" key="$key" item="item">
+                        <foreach name="meeting_info.meeting_record_person_value" key="key" item="item">
                             <div class="person fl"><input type="hidden" name="meeting[meeting_record_person][value][]" value="{$item}"><span>{$item}</span><i class="person-del">X</i></div>
                         </foreach>
 

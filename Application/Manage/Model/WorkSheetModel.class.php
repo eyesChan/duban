@@ -66,10 +66,10 @@ class WorkSheetModel extends Model {
             if ($msg_sys_data) {
                 $res = $order->add($msg_sys_data);
                 if (FALSE === $res) {
-                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 1);
+                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
                     return C('COMMON.ERROR_EDIT');
                 } else {
-                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
+                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 1);
                     return C('COMMON.SUCCESS_EDIT');
                 }
             }

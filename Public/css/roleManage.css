@@ -1,7 +1,4 @@
 /*角色管理css*/
-#allSelect {
-    margin-right: 5px;
-}
 .tb1 .r-from #rn {
     height: 70px;
     background: #fff;
@@ -10,7 +7,7 @@
 }
 
 .inner-container .role-padding {
-    padding-top: 20px;
+    padding-top: 40px;
 }
 
 .role-filter {
@@ -32,6 +29,17 @@
     color: #fff;
 }
 
+.role-table-title {
+    height: 33px;
+    padding: 6px 0 7px;
+    line-height: 16px;
+    text-align: center;
+    color: #B1B8BE;
+    background: #fff;
+    border-bottom: 1px solid #ededed;
+    position: relative;
+}
+
 .role-row-td {
     padding: 2px 0;
     line-height: 35px;
@@ -49,7 +57,9 @@
 .role-delete,
 .role-ediit {
     display: inline-block;
+    vertical-align: bottom;
     height: 22px;
+    margin: 6px 0;
 }
 
 .diy-checkbox {
@@ -60,12 +70,12 @@
     width: 15%;
 }
 
-.filter-add {
-    margin-top: 20px;
-    margin-right: 20px;
+.diy-checkbox-normal {
+    margin-left: 55px;
 }
 
 .jxssp .role-edit-td {
+    border-bottom: none;
     padding: 20px 0;
 }
 
@@ -82,8 +92,6 @@
 .jxssp .role-input textarea,
 .jxssp .role-input input {
     margin-left: 20px;
-    margin-top: 10px;
-    border: 1px solid #ededed;
 }
 
 .jxssp .role-input input {
@@ -92,6 +100,8 @@
     line-height: 26px;
     line-height: 26px \9;
     text-indent: 2px;
+    border: none;
+    background-color: #ECEFF4;
 }
 
 .jxssp .role-input textarea {
@@ -104,6 +114,15 @@
     text-align: left;
     padding: 20px 0 20px 235px;
 }
+
+.current-role {
+    height: 60px;
+    border-bottom: 1px solid #ededed;
+    font: 16px/60px "microsoft yahei";
+    padding-left: 20px;
+    background: #fff;
+}
+
 .jxssp .tb2 {
     width: 1040px;
     border: none;
@@ -126,9 +145,6 @@
     width: 150px;
 }
 
-.jxssp .au-td-op {
-
-}
 
 .jxssp .au3,
 .jxssp .au2 {
@@ -207,7 +223,7 @@
     display: inline-block;
     margin: 0 10px;
 }
-.jxssp caption {
-    margin-top: 0;
-}
 
+.batch-del {
+    cursor: pointer;
+}

@@ -61,7 +61,7 @@ td.detail-r {
 	background: #66CC66;
 }
 .work-progress {
-	height: 260px;
+	height: 100px;
 	background: #FFCC66;
 }
 .file-release {
@@ -69,6 +69,6 @@ td.detail-r {
 	background: #00CCFF;
 }
 .ledger-release {
-	height: 100px;
+	height: 260px;
 	background: #FF6666;
 }

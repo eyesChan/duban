@@ -19,7 +19,7 @@ function singleDel(id) {
         url: "/Manage/Role/checkRelation/id/" + id + '/flag/1',
         dataType: "json",
         success: function (data) {
-            checkAuth(data);//调用commonjs中的方法，显示没有权限提示
+            // checkAuth(data);//调用commonjs中的方法，显示没有权限提示
             if (data.status == 101) {
                 $.dialog({
                     title: '提示信息', content: data.msg, ok: function () {
@@ -64,7 +64,7 @@ function roleDelAll() {
             url: "/Manage/Role/checkRelation/id/" + id,
             dataType: "json",
             success: function (data) {
-                checkAuth(data);//调用commonjs中的方法，显示没有权限提示
+                // checkAuth(data);//调用commonjs中的方法，显示没有权限提示
                 if (data.status == 100) {
                     $.dialog({
                         title: '提示信息', content: data.msg, ok: function () {

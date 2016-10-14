@@ -103,6 +103,7 @@ class WorkOrderController extends AdminController {
         }
         $show = $page->show();
         $this->assign('list', $list);
+        $uuid = session('S_USER_INFO.UID');
         $this->assign('page', $show);
         $this->assign('param', $param);
         $this->display('index');
@@ -127,6 +128,7 @@ class WorkOrderController extends AdminController {
                 }
                 $this->assign('workorder',$workorder);
                 $this->assign('user',$user);
+                //$this->assign('uid',)
                 $this->display('save');
             }
         }

@@ -34,7 +34,7 @@
                 <td class="cap">工作单负责人：</td>
                 <td colspan="3">
                      <select name="meeting[meeting_callman]" data="worksheet_rule_person" class="selectItem">
-                        
+                         <option value="0"> 请选择</option>
                     <foreach name="user" item="item">
                         <option value="{$item.uid}">{$item.name}</option>
                     </foreach>
@@ -78,16 +78,22 @@
         });
         function getHtml(text, uid, selectName) {
             
-                  var html = "";
+            var html = "";
+            if(uid == '0'){
+                $.dialog.alert("请选择负责人！");
+                return false;
+            }
             if (uid == '-100') {
                 selectName = selectName + '[value][]';
                 uid = text;
             } else {
                 selectName = selectName + '[]';
+                
 
             }
+           
             html += '<div class="person fl">';
-            html += '<input type="hidden" name=' + selectName + ' value="' + uid + '">';
+            html += '<input type="hidden" name=' + selectName + ' value="' + uid + '" id="test">';
             html += '<span>' + text + '</span>';
             html += '<i class="person-del" style="color:red;font-size:16px;">&nbsp;&nbsp;X&nbsp;&nbsp;</i>';
             html += '</div>';
@@ -140,11 +146,17 @@
        
         $("#workorderSub").on("click", function () {
             var describe = $("#worksheet_describe").val();
-           
+            var name = $("#test").val();
+            
+            if(name == undefined){
+                $.dialog.alert("请选择负责人！");
+                return false;
+            }
             if (describe == "") {
                 $.dialog.alert("请填写工作描述！");
                 return false;
             }
+             
         });
         
     </script>

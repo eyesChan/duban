@@ -7,9 +7,6 @@ $("#add-btn").on("click", function () {
     }else if($.trim($(".config-name").val()) == "" ){
         $.dialog.alert("请填写参数名称！");
         return false;
-    }else if($.trim($(".config-value").val()) == "" ){
-        $.dialog.alert("请填写参数值！");
-        return false;
     }else {
         $.ajax({
             url: "/Manage/configManage/add",
@@ -36,9 +33,6 @@ $("#edit-btn").on("click", function () {
         return false;
     }else if($.trim($("[name=config_descripion]").val()) == "" ){
         $.dialog.alert("请填写参数名称！");
-        return false;
-    }else if($.trim($("[name=config_value]").val()) == "" ){
-        $.dialog.alert("请填写参数值！");
         return false;
     }else {
         $.ajax({
@@ -111,8 +105,3 @@ function showPro(target, msg, loca) {
         location.href = loca;
     }, 1500);
 }
-
-// 必填项验证
-$("#edit-btn").on("click",function(){
-
-})

@@ -100,7 +100,7 @@ class ConfigManageModel extends Model {
 
         $where['config_id'] = $config_id;
         $res = $this->where($where)->find();
-        
+
         return $res;
     }
 
@@ -132,6 +132,19 @@ class ConfigManageModel extends Model {
     }
 
     /**
+     * 
+     * @param string $config_key
+     * @return int
+     */
+    public function getBigestValue($config_key) {
+
+        $where['config_key'] = $config_key;
+        $arr_value = $this->where($where)->order('config_value desc')->getField('config_value', TRUE);
+        $bigest_value = $arr_value[0];
+        return $bigest_value;
+    }
+
+    /**
      * 添加入库
      * 
      * @param array $data
@@ -142,7 +155,9 @@ class ConfigManageModel extends Model {
         //完善待插入数据
         $data['config_system']['config_name'] = $this->where(array('config_value' => $data['config_system']['config_key']))->getField('config_descripion');
         $now_bigest_sort = $this->getBigestSort($data['config_system']['config_key']);
+        $now_value = $this->getBigestValue($data['config_system']['config_key']);
         $data['config_system']['config_sort'] = $now_bigest_sort + 1;
+        $data['config_system']['config_value'] = $now_value + 1;
         $data['config_system']['config_change_time'] = date('Y-m-d H:i:s');
         //后台数据验证
         $config_sys_data = $this->create($data['config_system']);
@@ -213,15 +228,15 @@ class ConfigManageModel extends Model {
             return C('COMMON.DEL_ERROR');
         }
     }
-    
+
     /**
      * 修改系统参数状态
      * 
      * @param array $data
      * @return array
      */
-    public function changeStatus($data){
-        
+    public function changeStatus($data) {
+
         //完善待插入数据
         $data['config_change_time'] = date('Y-m-d H:i:s');
         //后台数据验证

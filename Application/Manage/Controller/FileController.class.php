@@ -126,7 +126,14 @@ class FileController extends AdminController {
         $file_authority = getConfigInfo('doc_pub_authority');
         $this->assign('file_authority', $file_authority);
         //上传文件提示
-        $this->assign('doc_type',implode(' , ', C('FILE_DOC.ALLOW_FILE')));
+        $config_info = C();
+        if ($config_info['OPEN_FTP'] == '1') {
+            $file_config = $config_info['FIP_DOC'];
+        } else {
+            $file_config = $config_info['FILE_DOC'];
+        }
+        $allow_file = $file_config['ALLOW_FILE'];
+        $this->assign('doc_type',implode(' , ', $allow_file));
         $this->display();
     }
 
@@ -226,7 +233,14 @@ class FileController extends AdminController {
         $file_authority = getConfigInfo('doc_pub_authority');
         $this->assign('file_authority', $file_authority);
         //上传文件提示
-        $this->assign('doc_type',implode(' , ', C('FILE_DOC.ALLOW_FILE')));
+        $config_info = C();
+        if ($config_info['OPEN_FTP'] == '1') {
+            $file_config = $config_info['FIP_DOC'];
+        } else {
+            $file_config = $config_info['FILE_DOC'];
+        }
+        $allow_file = $file_config['ALLOW_FILE'];
+        $this->assign('doc_type',implode(' , ', $allow_file));
         $this->display();
     }
     

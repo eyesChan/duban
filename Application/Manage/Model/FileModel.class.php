@@ -112,7 +112,6 @@ class FileModel  extends Model{
     public function getFileDocCount($where) {
         $count = M('doc')
                 ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')
-                ->join('__CONFIG_SYSTEM__ on __DOC__.doc_pub_type = __CONFIG_SYSTEM__.config_id')
                 ->where($where)
                 ->count();
         return $count;

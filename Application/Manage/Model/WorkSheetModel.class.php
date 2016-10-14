@@ -42,6 +42,7 @@ class WorkSheetModel extends Model {
      */
 
     public function addWork($param) {
+        
         if ($param['association'] != '0') {
             $order = M('worksheet');
             //计算天数和每天百分比
@@ -65,10 +66,10 @@ class WorkSheetModel extends Model {
             if ($msg_sys_data) {
                 $res = $order->add($msg_sys_data);
                 if (FALSE === $res) {
-                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 1);
+                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
                     return C('COMMON.ERROR_EDIT');
                 } else {
-                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
+                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 1);
                     return C('COMMON.SUCCESS_EDIT');
                 }
             }
@@ -170,30 +171,33 @@ class WorkSheetModel extends Model {
 
     public function saveWork($param) {
         $order = M('worksheet');
-        $data['worksheet_creat_person'] = session('S_USER_INFO.UID');
+        //$data['worksheet_creat_person'] = session('S_USER_INFO.UID');
+        
         if (!empty($param['worksheet_rule_person'])) {
             $usernew = $this->usersselect($param['worksheet_rule_person'], $param['worksheet_rule_person']);
             $data['worksheet_rule_person'] = $usernew;
+            $data['worksheet_rule_name'] = $this->showUsers($usernew);
+            
         }
 
         $data['worksheet_done_persent'] = $param['worksheet_done_persent'];
         $states = $this->workState($param['worksheet_state'], $param['worksheet_id'], $param['worksheet_done_persent']);
         $data['worksheet_state'] = $states['state'];
         $data['worksheet_state_id'] = $states['id'];
-        $data['worksheet_rule_name'] = $this->showUsers($usernew);
-        // echo $data['worksheet_rule_name'];die;
+
         $work_id = $param['worksheet_id'];
 
         $data['worksheet_abandoned_reason'] = $param['worksheet_abandoned_reason'];
 
         $res = $order->where("worksheet_id = $work_id")->save($data);
-
-        if ($res) {
+        
+        if ($res === FALSE) {
+             writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 0);
+            return C('COMMON.ERROR_EDIT');
+        } else {
             writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 1);
             return C('COMMON.SUCCESS_EDIT');
-        } else {
-            writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 0);
-            return C('COMMON.ERROR_EDIT');
+           
         }
     }
 
@@ -278,62 +282,77 @@ class WorkSheetModel extends Model {
             $states['state'] = "办结";
             $states['id'] = 1;
             return $states;
-        } else {
+        }
+        elseif ($state == '') {
             $work = D('worksheet')
-                    ->field('worksheet_parcent_day,worksheet_end_date,worksheet_state,worksheet_start_date,worksheet_done_persent')
-                    ->where("worksheet_id = $id")
-                    ->find();
-            if ($state == '0') {
-                $time = time();
-                $starttime = strtotime($work['worksheet_start_date']);
-                $cation = $time - $starttime;
-                $day = floor($cation / 3600 / 24);
-                $surplus = $day * $work['worksheet_parcent_day'];
-                if ($parcent >= $surplus) {
-                    $states['state'] = "正常";
-                    $states['id'] = 6;
-                    return $states;
-                } else {
-                    $states['state'] = "延迟";
-                    $states['id'] = 3;
-                    return $states;
-                }
-            } elseif ($state == '1' || $state == '2') {
-                $time = time();
-                $stoptime = strtotime($work['worksheet_end_date']);
-                $starttime = strtotime($work['worksheet_start_date']);
-                if ($stoptime > $time) {
+                        ->field('worksheet_parcent_day,worksheet_end_date,worksheet_state,worksheet_state_id,worksheet_start_date,worksheet_done_persent')
+                        ->where("worksheet_id = $id")
+                        ->find();
+            if($work['worksheet_state_id'] == 2){
+                $states['state'] = "未启动";
+                $states['id'] = 2;
+                return $states;
+            }else{
+                $states['state'] = "办结";
+                $states['id'] = 1;
+                return $states;
+            }
+        }else {
+                $work = D('worksheet')
+                        ->field('worksheet_parcent_day,worksheet_end_date,worksheet_state,worksheet_start_date,worksheet_done_persent')
+                        ->where("worksheet_id = $id")
+                        ->find();
+                if ($state == '0') {
+                    $time = time();
+                    $starttime = strtotime($work['worksheet_start_date']);
                     $cation = $time - $starttime;
                     $day = floor($cation / 3600 / 24);
                     $surplus = $day * $work['worksheet_parcent_day'];
-                    $sum = $surplus + $work['worksheet_done_persent'];
-
-                    if ($starttime > $time) {
-                        $states['state'] = "未启动";
-                        $states['id'] = 2;
-                        return $states;
-                    } elseif ($day == '0') {
+                    if ($parcent >= $surplus) {
                         $states['state'] = "正常";
                         $states['id'] = 6;
                         return $states;
                     } else {
-                        if ($sum < 100) {
-                            $states['state'] = "延迟";
-                            $states['id'] = 3;
+                        $states['state'] = "延迟";
+                        $states['id'] = 3;
+                        return $states;
+                    }
+                } elseif ($state == '1' || $state == '2') {
+                    $time = time();
+                    $stoptime = strtotime($work['worksheet_end_date']);
+                    $starttime = strtotime($work['worksheet_start_date']);
+                    if ($stoptime > $time) {
+                        $cation = $time - $starttime;
+                        $day = floor($cation / 3600 / 24);
+                        $surplus = $day * $work['worksheet_parcent_day'];
+                        $sum = $surplus + $work['worksheet_done_persent'];
+
+                        if ($starttime > $time) {
+                            $states['state'] = "未启动";
+                            $states['id'] = 2;
                             return $states;
-                        } else {
+                        } elseif ($day == '0') {
                             $states['state'] = "正常";
                             $states['id'] = 6;
                             return $states;
+                        } else {
+                            if ($sum < 100) {
+                                $states['state'] = "延迟";
+                                $states['id'] = 3;
+                                return $states;
+                            } else {
+                                $states['state'] = "正常";
+                                $states['id'] = 6;
+                                return $states;
+                            }
                         }
+                    } else {
+                        $states['state'] = "延迟";
+                        $states['id'] = 3;
+                        return $states;
                     }
-                } else {
-                    $states['state'] = "延迟";
-                    $states['id'] = 3;
-                    return $states;
                 }
             }
-        }
         $states['state'] = $state;
         $states['id'] = 4;
         return $states;
@@ -347,6 +366,7 @@ class WorkSheetModel extends Model {
     public function getState($list) {
         $time = time();
         foreach ($list as $key => $val) {
+           
             $starttime = strtotime($val['worksheet_start_date']);
             if ($val['worksheet_state'] == "未启动") {
                 if ($time > $starttime) {

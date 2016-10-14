@@ -284,7 +284,11 @@ class WorkSheetModel extends Model {
             return $states;
         }
         elseif ($state == '') {
-            if($parcent == 0 ){
+            $work = D('worksheet')
+                        ->field('worksheet_parcent_day,worksheet_end_date,worksheet_state,worksheet_state_id,worksheet_start_date,worksheet_done_persent')
+                        ->where("worksheet_id = $id")
+                        ->find();
+            if($work['worksheet_state_id'] == 2){
                 $states['state'] = "未启动";
                 $states['id'] = 2;
                 return $states;
@@ -362,6 +366,7 @@ class WorkSheetModel extends Model {
     public function getState($list) {
         $time = time();
         foreach ($list as $key => $val) {
+           
             $starttime = strtotime($val['worksheet_start_date']);
             if ($val['worksheet_state'] == "未启动") {
                 if ($time > $starttime) {

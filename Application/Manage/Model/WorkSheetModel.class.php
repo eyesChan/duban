@@ -353,9 +353,16 @@ class WorkSheetModel extends Model {
                     }
                 }
             }
-        $states['state'] = $state;
-        $states['id'] = 4;
-        return $states;
+            if($state == "废弃"){
+                $states['state'] = $state;
+                $states['id'] = 5;
+                return $states;
+            }else{
+                $states['state'] = $state;
+                $states['id'] = 4;
+                return $states;
+            }
+        
     }
 
     /*

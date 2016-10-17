@@ -232,8 +232,8 @@ class InternalMeetingModel  extends Model{
         $model = new Model();
         $model->startTrans();
         $internal = M('internalmeeting');
-        p($data[0][7]);
-        die;
+        $dateMod = new \PHPExcel_Shared_Date();
+       
         for($i=0;$i<$count;$i++){
             
             $info['internal_name'] = $data[$i][0];
@@ -244,7 +244,7 @@ class InternalMeetingModel  extends Model{
             $info['internal_meeting_date'] = $data[$i][5];
             $info['internal_meeting_place'] = $data[$i][6];
             
-            $info['internal_meeting_form'] = $this->internalWhere($data[$i][7]);
+            $info['internal_meeting_form'] = $data[$i][7];
             $info['internal_meeting_type'] =$data[$i][8];
             $info['internal_meeting_level'] =$data[$i][9];
             $info['internal_meeting_dense'] =$data[$i][10];
@@ -263,9 +263,9 @@ class InternalMeetingModel  extends Model{
             $info['internal_notice_company'] = $data[$i][23];
             $info['internal_material_person'] = $data[$i][24];
             $info['internal_notice_start_date'] = $data[$i][25];
-            $info['internal_notice_start_time'] = $data[$i][26];
+            $info['internal_notice_start_time'] = date('H:i:s', $dateMod->ExcelToPHP($data[0][26]) - 3600 * 8);
             $info['internal_notice_stop_date'] = $data[$i][27];
-            $info['internal_notice_stop_time'] = $data[$i][28];
+            $info['internal_notice_stop_time'] = date('H:i:s', $dateMod->ExcelToPHP($data[0][28]) - 3600 * 8);
             $info['internal_misdeed'] = $data[$i][29];
             $info['internal_misdeed_type'] =$data[$i][30];
             $info['internal_get_meeting_person'] = $data[$i][31];

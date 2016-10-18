@@ -219,7 +219,6 @@ class FileController extends AdminController {
         $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
         $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_url'])['filename'];
         $this->assign('list', $result);
-        $this->assign('file_info', $file_info);
          //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');
         $this->assign('file_type', $file_type);

@@ -9,7 +9,8 @@ return array(
     'DB_PWD' => 'root', // 密码
     'DB_PORT' => '3306', // 端口
     'DB_PREFIX' => 'db_', // 数据库表前缀
-
+    'SHOW_PAGE_TRACE' => true,
+    'URL_CASE_INSENSITIVE' => FALSE,
     /* 操作成功、失败跳转页面 */
     'TMPL_ACTION_SUCCESS' => 'Public:dispatch_jump',
     'TMPL_ACTION_ERROR' => 'Public:dispatch_jump',
@@ -17,8 +18,7 @@ return array(
     /* 超级管理员id */
     'ADMINISTRATOR' => array(1),
     /* 不需要控制的权限 */
-    'NO__AUTH' => array('Manage/Login/index', 'Manage/Login/logout','Manage/Index/index', 'Manage/Ucenter/modifyPsd','Manage/MessageManage/showList','Manage/MessageManage/showDetail'),
-
+    'NO__AUTH' => array('Manage/Login/index', 'Manage/Login/logout', 'Manage/Index/index', 'Manage/Ucenter/modifyPsd', 'Manage/MessageManage/showList', 'Manage/MessageManage/showDetail'),
     /* 加密串 */
     'ENCRYPT_STR' => 'kindergarten201607',
     /* 重置密码 */
@@ -30,7 +30,7 @@ return array(
         'DEPARTMENT' => 2, //部门
         'PERSONAL' => 3, //个人
     ),
-    'OPEN_FTP'=>'1', //上传启用ftp
+    'OPEN_FTP' => '1', //上传启用ftp
 );
 
 

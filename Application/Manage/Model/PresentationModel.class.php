@@ -409,16 +409,19 @@ class PresentationModel  extends Model{
             $v['db_despatch_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_despatch_time']) - 3600 * 8);
             if($v['db_pre_person']==FALSE){
                 $flag=$flag-1; 
+                break;
             }
             //拟稿人
             $v['db_draft_person']=$this->getWhereUsers($v['db_draft_person']);
             if($v['db_draft_person']==FALSE){
                 $flag=$flag-1; 
+                break;
             }
             //核稿人1
             $v['db_orgin_person']=$this->getWhereUsers($v['db_orgin_person']);
             if($v['db_orgin_person']==FALSE){
                 $flag=$flag-1; 
+                break;
             }
             //核稿人2
             $v['db_orgin2_person']=$this->getWhereUsers($v['db_orgin2_person']);
@@ -429,6 +432,7 @@ class PresentationModel  extends Model{
             $v['db_orgin3_person']=$this->getWhereUsers($v['db_orgin3_person']);
             if($v['db_orgin3_person']==FALSE){
                 $flag=$flag-1; 
+                break;
             }
             //发文方式
             $v['db_despatch_mode']=$this->getRootViews($v['db_despatch_mode'],'doc_dis_mode');
@@ -451,6 +455,7 @@ class PresentationModel  extends Model{
             $res = $led_presentation->add($v);
             if($res==FALSE){
                 $flag=$flag-1;
+                break;
             }
         } 
         if ($flag < 0) {

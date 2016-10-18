@@ -208,6 +208,7 @@ class LedgerMeetingModel  extends Model{
             $res = $led_meeting->add($v);
             if($res==FALSE){
                 $flag=$flag-1;
+                break;
             }
         } 
         if ($flag < 0) {

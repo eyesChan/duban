@@ -5,11 +5,9 @@ namespace Manage\Controller;
 use Manage\Controller\AdminController;
  
 class InternalMeetingController extends AdminController {
- 
+    
     private $mod_internalmeeting;
- 
-   
- 
+    
     public function __construct() {
         parent::__construct();
  
@@ -26,7 +24,6 @@ class InternalMeetingController extends AdminController {
         foreach ($param as $k => $val) {
             $param[$k] = str_replace("_", "\_", $val);
         }
- 
         return $param;
     }
     /*
@@ -40,10 +37,9 @@ class InternalMeetingController extends AdminController {
         elseif ($param['hiddenform'] == '2') {
             $this->groupGetExecl($param);
         }else {
-            //处理查询条件：操作人姓名、IP地址、模块名称、操作内容、开始时间 结束时间 
+            //处理查询条件：会议名称，创建人，开始时间
             $param['internal_name'] != '' ? $where['internal_name'] = array('like', '%' . $param['internal_name'] . '%') : '';
             $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-            //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('eq', $param['internal_meeting_date']) : '';
             $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
             $where = $this->escape($where);
  
@@ -65,11 +61,11 @@ class InternalMeetingController extends AdminController {
  
     /*
      * 添加
+     * @author xiao hui
      */
  
     public function add() {
         if (IS_POST) {
- 
             $param = I('post.');
             $result = $this->mod_internalmeeting->addInternal($param);
             if ($result['code'] == 200) {
@@ -79,14 +75,13 @@ class InternalMeetingController extends AdminController {
             }
             return true;
         }
- 
         $uid = session('S_USER_INFO.UID');
         $this->assign('uid', $uid);
         $this->display();
     }
  
     /*
-     * 查看
+     * 查看详情
      */
  
     public function details() {
@@ -123,12 +118,7 @@ class InternalMeetingController extends AdminController {
      */
  
     public function companyGetExecl($param) {
-       
-        //$param['internal_name'] != '' ? $where['internal_name'] = array('like', '%' . $param['internal_name'] . '%') : '';
-        //$param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-        //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('eq', $param['internal_meeting_date']) : '';
-        //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
-         
+
         $internal = $this->mod_internalmeeting->getExecl($param);
         
         $headArr = array(
@@ -194,10 +184,6 @@ class InternalMeetingController extends AdminController {
  
     public function groupGetExecl($param) {
       
-        //$param['internal_name'] != '' ? $where['internal_name'] = array('like', '%' . $param['internal_name'] . '%') : '';
-        //$param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-        //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('eq', $param['internal_meeting_date']) : '';
-       // $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
         $internal = $this->mod_internalmeeting->groupExecl($param);
  
         $headArr = array(
@@ -273,7 +259,8 @@ class InternalMeetingController extends AdminController {
             } else {
                 $this->error($res_info_import['status'], U('InternalMeeting/index'));
             }
-        } else {
+        } 
+        else {
             $this->display('import');
         }
     }

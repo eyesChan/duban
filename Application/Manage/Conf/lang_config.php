@@ -9,6 +9,8 @@ return array(
 	'EDIT_ERROR' => '保存失败',
 	'DEL_SUCCESS' => '删除成功',
 	'DEL_ERROR' => '删除失败',
+        'SEND_SUCCESS' => '发送成功',
+        'SEND_ERROR' => '发送失败',
         'AUTH_ERROR' => array(
             'status' => 0,
             'info' => '没有权限'

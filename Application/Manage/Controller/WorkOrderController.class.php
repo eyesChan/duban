@@ -53,14 +53,13 @@ class WorkOrderController extends AdminController {
         $meeting = $this->mod_worksheet->listMeeting();//获取会议
         $user = $this->mod_worksheet->getUser();//获取用户
         if(IS_POST){
-            $param = I('post.');
-            
+            $param = I('post.'); 
             if(empty($param)){
-                $this->error($result['status'], '/Manage/WorkOrder/add');
+                $this->error(C('COMMON.ADD_ERROR'), '/Manage/WorkOrder/add');
             }
             elseif(strtotime($param['start_time']) > strtotime($param['stop_time'])){
-                $result['status'] = "保存失败";
-                $this->error($result['status'], '/Manage/WorkOrder/add');
+                
+                $this->error(C('COMMON.ADD_ERROR'), '/Manage/WorkOrder/add');
             }else{
                 $result = $this->mod_worksheet->addWork($param);
                 if($result['code'] == 200){
@@ -129,7 +128,6 @@ class WorkOrderController extends AdminController {
                 }
                 $this->assign('workorder',$workorder);
                 $this->assign('user',$user);
-                //$this->assign('uid',)
                 $this->display('save');
             }
         }
@@ -161,14 +159,12 @@ class WorkOrderController extends AdminController {
         $email = $this->mod_worksheet->userPerson($param);
         $title = "工作单督办";
         $content = array_pop($email);
-        $result = array('code'=>200,'status'=>'发送成功');
         foreach ($email as $key=>$val){
-            sendMail($val['email'],$title,$content);
-            if($result['code'] == 200){
-                $this->success($result['status'], '/Manage/WorkOrder/index');
+            if(sendMail($val['email'],$title,$content)){
+                $this->success(C('COMMON.SEND_SUCCESS'), '/Manage/WorkOrder/index');
                 return true;
             }else{
-                $this->error($result['status'], '/Manage/WorkOrder/index');
+                $this->error(C('COMMON.SEND_ERROR'), '/Manage/WorkOrder/index');
             }       
         }
     } 

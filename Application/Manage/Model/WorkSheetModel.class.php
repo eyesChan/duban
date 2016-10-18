@@ -139,7 +139,6 @@ class WorkSheetModel extends Model {
      */
 
     public function selectWork($param) {
-        $where['worksheet_detele'] = 1;
         $work = D('worksheet')
                 ->field('name,worksheet_rule_name,worksheet_state,worksheet_state_id,worksheet_id,worksheet_end_date,worksheet_name,worksheet_rule_person,worksheet_done_persent,worksheet_state,meeting_name,worksheet_abandoned_reason,worksheet_describe,worksheet_creat_person')
                 ->join('db_meeting on db_worksheet.worksheet_relate_meeting = db_meeting.meeting_id')
@@ -171,24 +170,19 @@ class WorkSheetModel extends Model {
 
     public function saveWork($param) {
         $order = M('worksheet');
-        //$data['worksheet_creat_person'] = session('S_USER_INFO.UID');
         
         if (!empty($param['worksheet_rule_person'])) {
             $usernew = $this->usersselect($param['worksheet_rule_person'], $param['worksheet_rule_person']);
             $data['worksheet_rule_person'] = $usernew;
-            $data['worksheet_rule_name'] = $this->showUsers($usernew);
-            
+            $data['worksheet_rule_name'] = $this->showUsers($usernew);     
         }
 
         $data['worksheet_done_persent'] = $param['worksheet_done_persent'];
         $states = $this->workState($param['worksheet_state'], $param['worksheet_id'], $param['worksheet_done_persent']);
         $data['worksheet_state'] = $states['state'];
         $data['worksheet_state_id'] = $states['id'];
-
         $work_id = $param['worksheet_id'];
-
         $data['worksheet_abandoned_reason'] = $param['worksheet_abandoned_reason'];
-
         $res = $order->where("worksheet_id = $work_id")->save($data);
         
         if ($res === FALSE) {
@@ -197,7 +191,6 @@ class WorkSheetModel extends Model {
         } else {
             writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 1);
             return C('COMMON.SUCCESS_EDIT');
-           
         }
     }
 
@@ -206,22 +199,20 @@ class WorkSheetModel extends Model {
      */
 
     public function showUsers($usernew) {
-        //header("Content-Type:text/html; charset=UTF-8");
+
         $where['uid'] = array("in", $usernew);
         $users = D('member')->field('name')->where($where)->select();
-        //P($users);die;
         foreach ($users as $key => $val) {
             $workuser .="," . $val['name'];
             $workuser = ltrim($workuser, ",");
         }
-
         return $workuser;
     }
 
     /*
      * 编辑拼接责任人
      */
-
+    
     public function usersselect($params, $newparam) {
         for ($i = 0; $i <= count($params); $i++) {
             $newuser .= "," . $params[$i];

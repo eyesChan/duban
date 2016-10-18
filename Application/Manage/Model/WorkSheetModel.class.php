@@ -1,33 +1,17 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace Manage\Model;
 
 use Think\Model;
 
 /**
- * Description of WorkOrderModel
  *
  * @author xiaohui
  * @Date    2016/09/18
  */
 class WorkSheetModel extends Model {
 
-    protected $trueTableName = 'db_worksheet';
-    protected $_validate = array(//这里必须定义为$_validata用来验证
-
-        array('worksheet_describe', 'require', ''),
-        array('worksheet_name', 'require', ''),
-        array('worksheet_relate_meeting', 'require', ''),
-        array('worksheet_start_date', 'require', ''),
-        array('worksheet_end_date', 'require', ''),
-        array('worksheet_rule_person', 'require', '')
-    );
+    protected $tableName = 'worksheet';
 
     /*
      * 工作单添加
@@ -42,7 +26,7 @@ class WorkSheetModel extends Model {
      */
 
     public function addWork($param) {
-        
+
         if ($param['association'] != '0') {
             $order = M('worksheet');
             //计算天数和每天百分比
@@ -62,16 +46,15 @@ class WorkSheetModel extends Model {
             $data['worksheet_date'] = $workDay['days'];
             $data['worksheet_parcent_day'] = $workDay['parcent'];
             $data['worksheet_state_id'] = $workDay['state_id'];
-            $msg_sys_data = $this->create($data);
-            if ($msg_sys_data) {
-                $res = $order->add($msg_sys_data);
-                if (FALSE === $res) {
-                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
-                    return C('COMMON.ERROR_EDIT');
-                } else {
-                    writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 1);
-                    return C('COMMON.SUCCESS_EDIT');
-                }
+            $this->create($data);
+
+            $res = $order->add($data);
+            if (FALSE === $res) {
+                writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
+                return C('COMMON.ERROR_EDIT');
+            } else {
+                writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 1);
+                return C('COMMON.SUCCESS_EDIT');
             }
         } else {
             writeOperationLog('添加“' . $data['worksheet_name'] . '”工作单', 0);
@@ -170,11 +153,11 @@ class WorkSheetModel extends Model {
 
     public function saveWork($param) {
         $order = M('worksheet');
-        
+
         if (!empty($param['worksheet_rule_person'])) {
             $usernew = $this->usersselect($param['worksheet_rule_person'], $param['worksheet_rule_person']);
             $data['worksheet_rule_person'] = $usernew;
-            $data['worksheet_rule_name'] = $this->showUsers($usernew);     
+            $data['worksheet_rule_name'] = $this->showUsers($usernew);
         }
 
         $data['worksheet_done_persent'] = $param['worksheet_done_persent'];
@@ -184,9 +167,9 @@ class WorkSheetModel extends Model {
         $work_id = $param['worksheet_id'];
         $data['worksheet_abandoned_reason'] = $param['worksheet_abandoned_reason'];
         $res = $order->where("worksheet_id = $work_id")->save($data);
-        
+
         if ($res === FALSE) {
-             writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 0);
+            writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 0);
             return C('COMMON.ERROR_EDIT');
         } else {
             writeOperationLog('修改“' . $data['worksheet_name'] . '”工作单', 1);
@@ -212,7 +195,7 @@ class WorkSheetModel extends Model {
     /*
      * 编辑拼接责任人
      */
-    
+
     public function usersselect($params, $newparam) {
         for ($i = 0; $i <= count($params); $i++) {
             $newuser .= "," . $params[$i];
@@ -273,87 +256,85 @@ class WorkSheetModel extends Model {
             $states['state'] = "办结";
             $states['id'] = 1;
             return $states;
-        }
-        elseif ($state == '') {
+        } elseif ($state == '') {
             $work = D('worksheet')
-                        ->field('worksheet_parcent_day,worksheet_end_date,worksheet_state,worksheet_state_id,worksheet_start_date,worksheet_done_persent')
-                        ->where("worksheet_id = $id")
-                        ->find();
-            if($work['worksheet_state_id'] == 2){
+                    ->field('worksheet_parcent_day,worksheet_end_date,worksheet_state,worksheet_state_id,worksheet_start_date,worksheet_done_persent')
+                    ->where("worksheet_id = $id")
+                    ->find();
+            if ($work['worksheet_state_id'] == 2) {
                 $states['state'] = "未启动";
                 $states['id'] = 2;
                 return $states;
-            }else{
+            } else {
                 $states['state'] = "办结";
                 $states['id'] = 1;
                 return $states;
             }
-        }else {
-                $work = D('worksheet')
-                        ->field('worksheet_parcent_day,worksheet_end_date,worksheet_state,worksheet_start_date,worksheet_done_persent')
-                        ->where("worksheet_id = $id")
-                        ->find();
-                if ($state == '0') {
-                    $time = time();
-                    $starttime = strtotime($work['worksheet_start_date']);
+        } else {
+            $work = D('worksheet')
+                    ->field('worksheet_parcent_day,worksheet_end_date,worksheet_state,worksheet_start_date,worksheet_done_persent')
+                    ->where("worksheet_id = $id")
+                    ->find();
+            if ($state == '0') {
+                $time = time();
+                $starttime = strtotime($work['worksheet_start_date']);
+                $cation = $time - $starttime;
+                $day = floor($cation / 3600 / 24);
+                $surplus = $day * $work['worksheet_parcent_day'];
+                if ($parcent >= $surplus) {
+                    $states['state'] = "正常";
+                    $states['id'] = 6;
+                    return $states;
+                } else {
+                    $states['state'] = "延迟";
+                    $states['id'] = 3;
+                    return $states;
+                }
+            } elseif ($state == '1' || $state == '2') {
+                $time = time();
+                $stoptime = strtotime($work['worksheet_end_date']);
+                $starttime = strtotime($work['worksheet_start_date']);
+                if ($stoptime > $time) {
                     $cation = $time - $starttime;
                     $day = floor($cation / 3600 / 24);
                     $surplus = $day * $work['worksheet_parcent_day'];
-                    if ($parcent >= $surplus) {
+                    $sum = $surplus + $work['worksheet_done_persent'];
+
+                    if ($starttime > $time) {
+                        $states['state'] = "未启动";
+                        $states['id'] = 2;
+                        return $states;
+                    } elseif ($day == '0') {
                         $states['state'] = "正常";
                         $states['id'] = 6;
                         return $states;
                     } else {
-                        $states['state'] = "延迟";
-                        $states['id'] = 3;
-                        return $states;
-                    }
-                } elseif ($state == '1' || $state == '2') {
-                    $time = time();
-                    $stoptime = strtotime($work['worksheet_end_date']);
-                    $starttime = strtotime($work['worksheet_start_date']);
-                    if ($stoptime > $time) {
-                        $cation = $time - $starttime;
-                        $day = floor($cation / 3600 / 24);
-                        $surplus = $day * $work['worksheet_parcent_day'];
-                        $sum = $surplus + $work['worksheet_done_persent'];
-
-                        if ($starttime > $time) {
-                            $states['state'] = "未启动";
-                            $states['id'] = 2;
+                        if ($sum < 100) {
+                            $states['state'] = "延迟";
+                            $states['id'] = 3;
                             return $states;
-                        } elseif ($day == '0') {
+                        } else {
                             $states['state'] = "正常";
                             $states['id'] = 6;
                             return $states;
-                        } else {
-                            if ($sum < 100) {
-                                $states['state'] = "延迟";
-                                $states['id'] = 3;
-                                return $states;
-                            } else {
-                                $states['state'] = "正常";
-                                $states['id'] = 6;
-                                return $states;
-                            }
                         }
-                    } else {
-                        $states['state'] = "延迟";
-                        $states['id'] = 3;
-                        return $states;
                     }
+                } else {
+                    $states['state'] = "延迟";
+                    $states['id'] = 3;
+                    return $states;
                 }
             }
-            if($state == "废弃"){
-                $states['state'] = $state;
-                $states['id'] = 5;
-                return $states;
-            }else{
-                $states['state'] = $state;
-                $states['id'] = 4;
-                return $states;
-            }
-        
+        }
+        if ($state == "废弃") {
+            $states['state'] = $state;
+            $states['id'] = 5;
+            return $states;
+        } else {
+            $states['state'] = $state;
+            $states['id'] = 4;
+            return $states;
+        }
     }
 
     /*
@@ -364,7 +345,7 @@ class WorkSheetModel extends Model {
     public function getState($list) {
         $time = time();
         foreach ($list as $key => $val) {
-           
+
             $starttime = strtotime($val['worksheet_start_date']);
             if ($val['worksheet_state'] == "未启动") {
                 if ($time > $starttime) {
@@ -383,8 +364,8 @@ class WorkSheetModel extends Model {
                     $state = "正常";
 
                     $state_id = 6;
-                    $this->saveOneOrder($val['worksheet_id'],$state,$state_id);
-                }else{
+                    $this->saveOneOrder($val['worksheet_id'], $state, $state_id);
+                } else {
 
                     $state = "延迟";
                     $state_id = 3;
@@ -446,9 +427,10 @@ class WorkSheetModel extends Model {
         $work = $this->selectWork($param);
         $user = $work['worksheet_rule_person'];
         $where['uid'] = array("in", $user);
-        $userEmail = D('member')->field('email,name')->where($where)->select();
+        $arr_email = D('member')->where($where)->getField('email',TRUE);
         $content = "关于“" . $work['meeting_name'] . "”会议“" . $work['worksheet_name'] . "”的工作单进度延迟,请在" . substr($work['worksheet_end_date'], 0, 11) . "尽快处理，并尽快调整工作单进度状态；";
         $userEmail['content'] = $content;
+        $userEmail['email'] = $arr_email;
         return $userEmail;
     }
 

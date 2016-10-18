@@ -289,7 +289,14 @@ function sendMail($to, $title, $content) {
     $mail->Password = C('MAIL_PASSWORD'); //邮箱密码
     $mail->From = C('MAIL_FROM'); //发件人地址（也就是你的邮箱地址）
     $mail->FromName = C('MAIL_FROMNAME'); //发件人姓名
-    $mail->AddAddress($to, "尊敬的客户");
+    if (is_array($to)) {
+        foreach ($to as $value) {
+            $mail->AddAddress($value);
+        }
+    }else{
+        $mail->AddAddress($to);
+    }
+
     $mail->WordWrap = 50; //设置每行字符长度
     $mail->IsHTML(C('MAIL_ISHTML')); // 是否HTML格式邮件
     $mail->CharSet = C('MAIL_CHARSET'); //设置邮件编码
@@ -440,14 +447,14 @@ function importExcel($fileName, $column = null) {
         }
         $dataset[] = $info;
     }
-     //过滤为空的数组
-    foreach($dataset as $key => $v){
-        $dataset[$key]=array_filter($v);
+    //过滤为空的数组
+    foreach ($dataset as $key => $v) {
+        $dataset[$key] = array_filter($v);
     }
-    $dataset= array_filter($dataset);
-    if(empty($dataset)){
-        $result = array('msg' => '模板数据为空','code' => 100);
-        return $result; 
+    $dataset = array_filter($dataset);
+    if (empty($dataset)) {
+        $result = array('msg' => '模板数据为空', 'code' => 100);
+        return $result;
     }
     return $dataset;
 }

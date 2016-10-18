@@ -214,6 +214,7 @@ class ResidentMeetingModel  extends Model{
             $res = $resident_meeting->add($v);
             if($res==FALSE){
                 $flag=$flag-1;
+                break;
             }
         } 
         if ($flag < 0) {

@@ -18,7 +18,7 @@ use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
  */
 class FileModel extends Model {
 
-    protected $trueTableName = 'db_doc';
+    protected $tableName = 'doc';
     
     /**
      * 对数组进行转义

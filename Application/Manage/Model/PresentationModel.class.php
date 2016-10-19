@@ -428,6 +428,10 @@ class PresentationModel extends Model {
             $v['db_pre_status'] = $this->getRootViews($v['db_pre_status'], 'doc_work_status');
             //责任人
             $v['db_pre_person'] = $this->getWhereUsers($v['db_pre_person']);
+            if ($v['db_pre_person'] == FALSE) {
+                $flag = $flag - 1;
+                break;
+            }
             //交办时刻
             $v['db_assign_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_assign_time']) - 3600 * 8);
             //交办完成时刻
@@ -444,10 +448,6 @@ class PresentationModel extends Model {
             $v['db_examin_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_examin_time']) - 3600 * 8);
             //发布时刻
             $v['db_despatch_time'] = date('H:i:s', $dateMod->ExcelToPHP($v['db_despatch_time']) - 3600 * 8);
-            if ($v['db_pre_person'] == FALSE) {
-                $flag = $flag - 1;
-                break;
-            }
             //拟稿人
             $v['db_draft_person'] = $this->getWhereUsers($v['db_draft_person']);
             if ($v['db_draft_person'] == FALSE) {

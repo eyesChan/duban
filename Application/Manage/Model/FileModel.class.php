@@ -51,9 +51,8 @@ class FileModel extends Model {
     /*
      * 对文件大小及类型进行判断
      * @ahthor huanggang
-     * @param $mark  标示文件是否都为空,0为都不能为空 1为任意一个为空, 
      * @Date    2016/09/22
-     * @return object 返回true或false
+     * @return  array 返回所需数据
      */
 
     public function fileSize($size) {
@@ -81,14 +80,21 @@ class FileModel extends Model {
         }
     }
 
+    /*
+     * 编辑对文件上传进行判断
+     * @ahthor huanggang
+     * @Date    2016/09/22
+     * @return  array 返回所需数据
+     */
+
     public function fileSaveSize($size) {
-        //用于编辑 判断文档上传是否为空 
+        // 判断文档上传是否为空 
         if (!empty($size['file']['tmp_name'])) {
             $data['file_type'] = 'FILE_DOC';
             $data['ftp_type'] = 'FIP_DOC';
             $data['mark'] = 'file';
         }
-        //用于编辑 判断文档附件上传是否为空
+        // 判断文档附件上传是否为空
         if (!empty($size['file1']['tmp_name'])) {
             $data['file_type'] = 'FILE_COVER';
             $data['ftp_type'] = 'FTP_COVER';

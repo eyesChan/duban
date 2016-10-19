@@ -18,8 +18,7 @@ use Think\Model;
  */
 class LedgerMeetingModel extends Model {
 
-    protected $trueTableName = 'db_led_meeting';
-
+    protected $tableName = 'led_meeting';
     /**
      * 对数组进行转义
      * @param array 需要转义的数组

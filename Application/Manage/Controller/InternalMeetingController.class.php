@@ -247,24 +247,28 @@ class InternalMeetingController extends AdminController {
      */
 
     public function importExcel() {
-        $param = $_FILES['filename'];
-
-        if (!empty($param)) {
-            $files = $this->mod_internalmeeting->normalUpload($param);
+        
+        if (!empty($_FILES['filename']['name'])) {
+            
+            $mod_upload = new CommonApi\MeetingUpload();
+            $param = $_FILES['filename'];
+            $config_info = C();
+            $file_config = $config_info['FILE_INTERNALMEETING'];
+            $files = $mod_upload->normalUpload($file_config);
             $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
             $data = importExcel($fileName);
             $res_info_import = $this->mod_internalmeeting->import($data);
             if ($res_info_import['code'] == 200) {
-                $this->success($res_info_import['status'], U('InternalMeeting/index'));
                 unlink($fileName);
+                $this->success($res_info_import['status'], U('InternalMeeting/index'));
             } else {
+                unlink($fileName);
                 $this->error($res_info_import['status'], U('InternalMeeting/index'));
             }
         } else {
             $this->display('import');
         }
-    }
-
+    } 
     /*
      * 删除
      */

@@ -24,19 +24,6 @@ class FileController extends AdminController {
 
         $this->filedoc = D('File');
     }
-
-    /**
-     * 对数组进行转义
-     * @param array 需要转义的数组
-     * @return array 返回转义后的数组
-     */
-    public function escape($param) {
-        foreach ($param as $k => $val) {
-            $param[$k] = str_replace("_", "\_", $val);
-        }
-        return $param;
-    }
-
     /**
      * 显示文档发布列表
      * @author huang gang
@@ -49,17 +36,7 @@ class FileController extends AdminController {
         if ($param['hiddenform'] == 1) {
             $this->exportFile($param);
         }
-        //处理查询条件：文档名称、发布人、发布日期、文档类型.发布与撤回区分的状态
-        $param['doc_name'] != '' ? $where['doc_name'] = array('like', '%' . $param['doc_name'] . '%') : '';
-        $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-        if (!empty($param['doc_pub_date'])) {
-            $where['doc_pub_date'] = array('EQ', $param['doc_pub_date']);
-        }
-        if (!empty($param['doc_pub_type'])) {
-            $where['doc_pub_type'] = array('EQ', $param['doc_pub_type']);
-        }
-        $where['doc_status'] = array('EQ', '1');
-        $where = $this->escape($where);
+        $where = $this->filedoc->getSelectWhere($param);
         $count = $this->filedoc->getFileDocCount($where);
         $page = new \Think\Page($count, 10);
         $list = $this->filedoc->getList($where, $page->firstRow, $page->listRows);

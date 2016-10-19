@@ -19,7 +19,18 @@ use Manage\Controller\CommonApi\MeetingUpload as MeetingUplod;
 class FileModel extends Model {
 
     protected $trueTableName = 'db_doc';
-
+    
+    /**
+     * 对数组进行转义
+     * @param array 需要转义的数组
+     * @return array 返回转义后的数组
+     */
+    public function escape($param) {
+        foreach ($param as $k => $val) {
+            $param[$k] = str_replace("_", "\_", $val);
+        }
+        return $param;
+    }
     /*
      * 文档添加
      * @ahthor huanggang
@@ -31,9 +42,9 @@ class FileModel extends Model {
 
     public function addFile($param) {
         $docfile = M('doc');
-        $param['doc_pub_person'] = session('S_USER_INFO.UID'); //$param['doc_pub_person'];
-        $param['doc_pub_date'] = date('Y-m-d'); //$param['doc_pub_date'];
-        $param['doc_status'] = 1; //$param['doc_status'];
+        $param['doc_pub_person'] = session('S_USER_INFO.UID');
+        $param['doc_pub_date'] = date('Y-m-d'); 
+        $param['doc_status'] = 1; 
         if (in_array('', $param)) {
             writeOperationLog('添加的数据为空', 0);
             return C('COMMON.ERROR_EDIT');
@@ -63,7 +74,7 @@ class FileModel extends Model {
             //文档附件上传大小及类型
             $img_size = C('FTP_COVER.FILE_SIZE');
             $img_type = C('FILE_COVER.ALLOW_FILE');
-            //获取文档及附件的后缀名
+            //获取文档及附件的后缀名 
             $doc_upload_file = end(explode('.', $size['file']['name']));
             $doc_upload_img = end(explode('.', $size['file1']['name']));
             if ($size['file']['size'] <= $file_size && $size['file']['size'] <= $img_size && in_array($doc_upload_file, $file_type) && in_array($doc_upload_img, $img_type)) {
@@ -118,7 +129,26 @@ class FileModel extends Model {
                 ->count();
         return $count;
     }
-
+    /**
+     * 处理搜索添加
+     * @Date    2016/09/23
+     * @author  huanggang
+     * @return array 成功查询条件数组
+     */
+    public function getSelectWhere($param){
+        //处理查询条件：文档名称、发布人、发布日期、文档类型.发布与撤回区分的状态
+        $param['doc_name'] != '' ? $where['doc_name'] = array('like', '%' . $param['doc_name'] . '%') : '';
+        $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
+        if (!empty($param['doc_pub_date'])) {
+            $where['doc_pub_date'] = array('EQ', $param['doc_pub_date']);
+        }
+        if (!empty($param['doc_pub_type'])) {
+            $where['doc_pub_type'] = array('EQ', $param['doc_pub_type']);
+        }
+        $where['doc_status'] = array('EQ', '1');
+        $where = $this->escape($where);
+        return $where;
+    }
     /**
      * 分页查询操作
      * @Date    2016/09/23
@@ -253,16 +283,7 @@ class FileModel extends Model {
      */
 
     public function getExecl($param) {
-        //处理查询条件：文档名称、发布人、发布日期、文档类型.发布与撤回区分的状态
-        $param['doc_name'] != '' ? $where['doc_name'] = array('like', '%' . $param['doc_name'] . '%') : '';
-        $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-        if (!empty($param['doc_pub_date'])) {
-            $where['doc_pub_date'] = array('EQ', $param['doc_pub_date']);
-        }
-        if (!empty($param['doc_pub_type'])) {
-            $where['doc_pub_type'] = array('EQ', $param['doc_pub_type']);
-        }
-        $where['doc_status'] = array('EQ', '1');
+        $where=$this->getSelectWhere($param);
         $docfile = M('doc');
         $data = $docfile
                 ->join('__MEMBER__ on __DOC__.doc_pub_person = __MEMBER__.uid')

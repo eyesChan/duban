@@ -18,7 +18,7 @@ use Think\Model;
  */
 class PresentationModel extends Model {
 
-    protected $trueTableName = 'db_led_presentation';
+    protected $tableName = 'led_presentation';
 
     /**
      * 对数组进行转义

@@ -1,21 +1,19 @@
 <?php
- 
+
 namespace Manage\Controller;
- 
+
 use Manage\Controller\AdminController;
- 
+
 class InternalMeetingController extends AdminController {
- 
+
     private $mod_internalmeeting;
- 
-   
- 
+
     public function __construct() {
         parent::__construct();
- 
+
         $this->mod_internalmeeting = D('InternalMeeting');
     }
- 
+
     /**
      * 对数组进行转义
      * 
@@ -26,29 +24,28 @@ class InternalMeetingController extends AdminController {
         foreach ($param as $k => $val) {
             $param[$k] = str_replace("_", "\_", $val);
         }
- 
         return $param;
     }
+
     /*
      * 首页
      */
+
     public function index() {
         $param = I();
         if ($param['hiddenform'] == '1') {
             $this->companyGetExecl($param);
-        } 
-        elseif ($param['hiddenform'] == '2') {
+        } elseif ($param['hiddenform'] == '2') {
             $this->groupGetExecl($param);
-        }else {
-            //处理查询条件：操作人姓名、IP地址、模块名称、操作内容、开始时间 结束时间 
+        } else {
+            //处理查询条件：会议名称，创建人，开始时间
             $param['internal_name'] != '' ? $where['internal_name'] = array('like', '%' . $param['internal_name'] . '%') : '';
             $param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-            //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('eq', $param['internal_meeting_date']) : '';
             $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
             $where = $this->escape($where);
- 
+
             $count = $this->mod_internalmeeting->getInternalCount($where);
- 
+
             $page = new \Think\Page($count, 10);
             $list = $this->mod_internalmeeting->getList($where, $page->firstRow, $page->listRows);
             foreach ($param as $key => $val) {
@@ -62,14 +59,14 @@ class InternalMeetingController extends AdminController {
             $this->display();
         }
     }
- 
+
     /*
      * 添加
+     * @author xiao hui
      */
- 
+
     public function add() {
         if (IS_POST) {
- 
             $param = I('post.');
             $result = $this->mod_internalmeeting->addInternal($param);
             if ($result['code'] == 200) {
@@ -79,27 +76,26 @@ class InternalMeetingController extends AdminController {
             }
             return true;
         }
- 
         $uid = session('S_USER_INFO.UID');
         $this->assign('uid', $uid);
         $this->display();
     }
- 
+
     /*
-     * 查看
+     * 查看详情
      */
- 
+
     public function details() {
         $id = I('get.id');
         $oneData = $this->mod_internalmeeting->getOneInternalMeeting($id);
         $this->assign('onedata', $oneData);
         $this->display();
     }
- 
+
     /*
      * 编辑
      */
- 
+
     public function save() {
         if (IS_POST) {
             $param = I('post.');
@@ -117,20 +113,15 @@ class InternalMeetingController extends AdminController {
         }
         return true;
     }
- 
+
     /*
      * 公司导出execl
      */
- 
+
     public function companyGetExecl($param) {
-       
-        //$param['internal_name'] != '' ? $where['internal_name'] = array('like', '%' . $param['internal_name'] . '%') : '';
-        //$param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-        //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('eq', $param['internal_meeting_date']) : '';
-        //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
-         
+
         $internal = $this->mod_internalmeeting->getExecl($param);
-        
+
         $headArr = array(
             '项目名称',
             '交办人',
@@ -187,19 +178,15 @@ class InternalMeetingController extends AdminController {
         );
         getExcel($headArr, $internal);
     }
- 
+
     /*
      * 导出集团execl
      */
- 
+
     public function groupGetExecl($param) {
-      
-        //$param['internal_name'] != '' ? $where['internal_name'] = array('like', '%' . $param['internal_name'] . '%') : '';
-        //$param['name'] != '' ? $where['name'] = array('like', '%' . $param['name'] . '%') : '';
-        //$param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('eq', $param['internal_meeting_date']) : '';
-       // $param['internal_meeting_date'] != '' ? $where['internal_meeting_date'] = array('like', '%' . $param['internal_meeting_date'] . '%') : '';
+
         $internal = $this->mod_internalmeeting->groupExecl($param);
- 
+
         $headArr = array(
             '项目名称',
             '交办人',
@@ -254,14 +241,14 @@ class InternalMeetingController extends AdminController {
         );
         getExcel($headArr, $internal);
     }
- 
+
     /*
      * 导入
      */
- 
+
     public function importExcel() {
         $param = $_FILES['filename'];
-       
+
         if (!empty($param)) {
             $files = $this->mod_internalmeeting->normalUpload($param);
             $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
@@ -277,11 +264,11 @@ class InternalMeetingController extends AdminController {
             $this->display('import');
         }
     }
- 
+
     /*
      * 删除
      */
- 
+
     public function delete($id) {
         $result = $this->mod_internalmeeting->deleteInternal($id);
         if ($result['code'] == 200) {
@@ -290,5 +277,5 @@ class InternalMeetingController extends AdminController {
             $this->error($result['status'], U('InternalMeeting/index'));
         }
     }
- 
+
 }

@@ -1,56 +1,56 @@
 <extend name="Public:base" />
 <block name="title"><title>文档创建</title></block>
- 
+
 <block name="right">
     <form action="{:U(add)}" method='post' enctype= "multipart/form-data" class="mt20" id="productManage">
         <table class="tbl">
             <caption>会议基本信息</caption>
-          
+
             <tr>
                 <td class="cap">项目名称：</td>
-               <td>
-                     <input type="text" name='internal_name' class="input-text text">
+                <td>
+                    <input type="text" name='internal_name' class="input-text text">
                 </td>
                 <td class="cap">交办人：</td>
                 <td>
-                     <input type="text" name='internal_assigned_person' class="input-text text">
+                    <input type="text" name='internal_assigned_person' class="input-text text">
                 </td>
-                 <td class="cap">交办时间：</td>
-                 <td>
-                      <input type="text" name='internal_assigned_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                <td class="cap">交办时间：</td>
+                <td>
+                    <input type="text" name='internal_assigned_date'  id="date2" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
-                
+
             </tr> 
-             <tr>
+            <tr>
                 <td class="cap">负责人：</td>
                 <td>
-                     <input type="text" name='internal_responsible_person' class="input-text text">
+                    <input type="text" name='internal_responsible_person' class="input-text text">
                 </td>
                 <td class="cap">会议名称：</td>
                 <td>
-                     <input type="text" name='internal_meeting_name' class="input-text text">
+                    <input type="text" name='internal_meeting_name' class="input-text text">
                 </td>
-                 <td class="cap">会议时间：</td>
+                <td class="cap">会议时间：</td>
                 <td>
-                      <input type="text" name='internal_meeting_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    <input type="text" name='internal_meeting_date'  id="date2"  onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
             </tr>  
             <tr>
                 <td class="cap">会议地点：</td>
                 <td>
-                     <input type="text" name='internal_meeting_place' class="input-text text">
-              </td>
+                    <input type="text" name='internal_meeting_place' class="input-text text">
+                </td>
                 <td class="cap">会议形式：</td>
                 <td>
-                      <select name='internal_meeting_form'>
-                            <option value="现场">现场</option>
-                            <option value="视频">视频</option>
-                            <option value="电话">电话</option>
+                    <select name='internal_meeting_form'>
+                        <option value="现场">现场</option>
+                        <option value="视频">视频</option>
+                        <option value="电话">电话</option>
                     </select>
-               </td>
-               <td class="cap">会议类型：</td>
+                </td>
+                <td class="cap">会议类型：</td>
                 <td>
-                      <select name="internal_meeting_type">
+                    <select name="internal_meeting_type">
                         <option value="创新工作会议">创新工作会议</option>
                         <option value="CEO办公会议">CEO办公会议</option>
                         <option value="周会">周会</option>
@@ -63,292 +63,292 @@
                         <option value="职能体系联席会议">职能体系联席会议</option>
                         <option value="会谈会见">会谈会见</option>
                         <option value="其他（讲座、培训等)">其他（讲座、培训等)</option>
-                      </select>
+                    </select>
             </tr>
-             <tr>
+            <tr>
                 <td class="cap">会议级别：</td>
                 <td>
-                <select name="internal_meeting_level">
-                    <option value="集团">集团</option>
-                    <option value="产业集团">产业集团</option>
-                    <option value="公司">公司</option>
-                    <option value="部门">部门</option>
-                </select>
+                    <select name="internal_meeting_level">
+                        <option value="集团">集团</option>
+                        <option value="产业集团">产业集团</option>
+                        <option value="公司">公司</option>
+                        <option value="部门">部门</option>
+                    </select>
                 </td>
-                
+
                 <td class="cap">密级：</td>
                 <td>
                     <select name='internal_meeting_dense'>
-                            <option value="普通">普通</option>
-                            <option value="秘密">秘密</option>
-                            <option value="机密">机密</option>
-                            <option value="绝密">绝密</option>
-                            
+                        <option value="普通">普通</option>
+                        <option value="秘密">秘密</option>
+                        <option value="机密">机密</option>
+                        <option value="绝密">绝密</option>
+
                     </select>
                 </td>
-                 <td class="cap">召集人：</td>
+                <td class="cap">召集人：</td>
                 <td>
-                     <input type="text" name='internal_call_man' class="input-text text">
-              </td>
+                    <input type="text" name='internal_call_man' class="input-text text">
+                </td>
             </tr>
-                <tr>
+            <tr>
                 <td class="cap">主持人：</td>
-               <td>
-                     <input type="text" name='internal_host' class="input-text text">
+                <td>
+                    <input type="text" name='internal_host' class="input-text text">
                 </td>
                 <td class="cap">参会人员：</td>
                 <td>
-                     <input type="text" name='internal_participants' class="input-text text">
+                    <input type="text" name='internal_participants' class="input-text text">
                 </td>
-                 <td class="cap">工作人员：</td>
-                 <td>
-                     <input type="text" name='internal_work_ren' class="input-text text">
+                <td class="cap">工作人员：</td>
+                <td>
+                    <input type="text" name='internal_work_ren' class="input-text text">
                 </td>
-                
+
             </tr> 
-             <tr>
+            <tr>
                 <td class="cap">议程安排：</td>
                 <td>
-                     <input type="text" name='internal_meeting_arrange' class="input-text text">
+                    <input type="text" name='internal_meeting_arrange' class="input-text text">
                 </td>
                 <td class="cap">开始时间：</td>
                 <td>
-                     <input type="text" name='internal_meeting_start_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    <input type="text" name='internal_meeting_start_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
-                 <td class="cap">结束时间：</td>
+                <td class="cap">结束时间：</td>
                 <td>
-                      <input type="text" name='internal_meeting_stop_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
+                    <input type="text" name='internal_meeting_stop_date'  id="date2" value="{$start_time}" onfocus="WdatePicker({startDate: '%y-%M-%d 00:00:00'})" class="Wdate input-text fl">
                 </td>
             </tr> 
         </table>
         <table class="tbl">
             <caption>议程</caption>
-            
-             <tr>
-                 <td class="cap">议程责任人：</td>
+
+            <tr>
+                <td class="cap">议程责任人：</td>
                 <td >
-                   <input type="text" name='internal_meeting_responsible_person' class="input-text text">
+                    <input type="text" name='internal_meeting_responsible_person' class="input-text text">
                 </td>
-               <td class="cap">是否预定会议室：</td>
+                <td class="cap">是否预定会议室：</td>
                 <td>
-                   <input type="text" name='internal_reserve_name' class="input-text text">
+                    <input type="text" name='internal_reserve_name' class="input-text text">
                 </td>
-                 <td class="cap">议程报批状况：</td>
+                <td class="cap">议程报批状况：</td>
                 <td>
-                        <select name="internal_meeting_bao_state">
+                    <select name="internal_meeting_bao_state">
                         <option value="完成">完成</option>
                         <option value="报批中">报批中</option>
                         <option value="未报批">未报批</option>
-                      </select>
+                    </select>
                 </td>
             </tr>
         </table>
         <table class="tbl">
-          <caption>通知</caption>           
-             <tr>
-                 <td class="cap">发布会议通知：</td>
+            <caption>通知</caption>           
+            <tr>
+                <td class="cap">发布会议通知：</td>
                 <td>
                     <input type="text" name='internal_send_meeting_notice' class="input-text text">
                 </td>
-                 <td class="cap">通知材料准备：</td>
+                <td class="cap">通知材料准备：</td>
                 <td>
                     <input type="text" name='internal_notice_ready' class="input-text text">
                 </td>
-                 <td class="cap">通知服务单位保障：</td>
+                <td class="cap">通知服务单位保障：</td>
                 <td>
                     <input type="text" name='internal_notice_company' class="input-text text">
                 </td>
-             </tr>
+            </tr>
         </table>
-       
-         <table class="tbl">
-             <caption>材料</caption>
-              <tr>
-                 <td class="cap">材料收集：</td>
+
+        <table class="tbl">
+            <caption>材料</caption>
+            <tr>
+                <td class="cap">材料收集：</td>
                 <td>
                     <input type="text" name='internal_material_person' class="input-text text" placeholder="责任人">
                 </td>
-                 <td class="cap">通知日期：</td>
+                <td class="cap">通知日期：</td>
                 <td>
-                   <input type="text" name='internal_notice_start_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
+                    <input type="text" name='internal_notice_start_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
                 </td>
-                 <td class="cap">通知时间：</td>
+                <td class="cap">通知时间：</td>
                 <td>
-                     <input type="text" name='internal_notice_start_time' value="{$meeting_info.meeting_end_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" class="input-text text">
+                    <input type="text" name='internal_notice_start_time' value="{$meeting_info.meeting_end_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" class="input-text text">
                 </td>
-             </tr>
-              <tr>
-                 <td class="cap">通知截止日期：</td>
+            </tr>
+            <tr>
+                <td class="cap">通知截止日期：</td>
                 <td>
                     <input type="text" name='internal_notice_stop_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
                 </td>
-                 <td class="cap">通知截止时间：</td>
+                <td class="cap">通知截止时间：</td>
                 <td>
-                     
-                     <input type="text" name='internal_notice_stop_time' value="{$meeting_info.meeting_end_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" class="input-text text">
+
+                    <input type="text" name='internal_notice_stop_time' value="{$meeting_info.meeting_end_time}" onfocus="WdatePicker({skin: 'whyGreen', dateFmt: 'H:mm'})" class="Wdate input-text fl" class="input-text text">
                 </td>
             </tr>
-                </td>
+            </td>
 
-                </td>
-                 <td class="cap">违规：</td>
-                <td>
+            </td>
+            <td class="cap">违规：</td>
+            <td>
                 <select name="internal_misdeed">
-              <option value="是">是</option>
-              <option value="否">否</option>
-            </select>
-                </td>
-             </tr>
-             
-               <tr>
-                      <td class="cap">违规类别（晚交/质量）：</td>
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                </select>
+            </td>
+            </tr>
+
+            <tr>
+                <td class="cap">违规类别（晚交/质量）：</td>
                 <td>
-                <select name="internal_misdeed_type">
-              <option value="质量">质量</option>
-              <option value="晚交">晚交</option>
-            </select>
+                    <select name="internal_misdeed_type">
+                        <option value="质量">质量</option>
+                        <option value="晚交">晚交</option>
+                    </select>
                 </td>
-                 <td class="cap">发送会议材料：</td>
+                <td class="cap">发送会议材料：</td>
                 <td>
                     <input type="text" name='internal_get_meeting_person' class="input-text text" placeholder="责任人">
                 </td>
-                 <td class="cap">打印材料：</td>
+                <td class="cap">打印材料：</td>
                 <td>
-                      <input type="text" name='internal_print_person' class="input-text text" placeholder="责任人">
+                    <input type="text" name='internal_print_person' class="input-text text" placeholder="责任人">
                 </td>
-              
-             </tr>
-             
-             
+
+            </tr>
+
+
         </table>
         <table class="tbl">
             <caption>会场布置</caption>
-             <tr>
-                 <td class="cap">摆放桌牌：</td>
+            <tr>
+                <td class="cap">摆放桌牌：</td>
                 <td>
                     <input type="text" name='internal_bai_person' class="input-text text"  placeholder="责任人">
                 </td>
-                 <td class="cap">背景板设计：</td>
+                <td class="cap">背景板设计：</td>
                 <td>
                     <input type="text" name='internal_bei_person' class="input-text text" placeholder="责任人">
                 </td>
-                 <td class="cap">背景板：</td>
+                <td class="cap">背景板：</td>
                 <td>
                     <input type="text" name='internal_beiban' class="input-text text" placeholder="责任人">
                 </td>
-             </tr>
-               <tr>
-                 <td class="cap">回报台：</td>
+            </tr>
+            <tr>
+                <td class="cap">回报台：</td>
                 <td>
                     <input type="text" name='internal_hui_person' class="input-text text"  placeholder="责任人">
                 </td>
-                 <td class="cap">测试话筒：</td>
+                <td class="cap">测试话筒：</td>
                 <td>
                     <input type="text" name='internal_cehua_person' class="input-text text" placeholder="责任人">
                 </td>
-                 <td class="cap">测试视频：</td>
+                <td class="cap">测试视频：</td>
                 <td>
                     <input type="text" name='internal_cevideo_person' class="input-text text" placeholder="责任人">
                 </td>
-             </tr>
-               <tr>
-                 <td class="cap">测试音频：</td>
+            </tr>
+            <tr>
+                <td class="cap">测试音频：</td>
                 <td>
                     <input type="text" name='internal_cemp_person' class="input-text text"  placeholder="责任人">
                 </td>
-                 <td class="cap">测试翻页器：</td>
+                <td class="cap">测试翻页器：</td>
                 <td>
                     <input type="text" name='internal_cefan_person' class="input-text text" placeholder="责任人">
                 </td>
-                 <td class="cap">录音笔：</td>
+                <td class="cap">录音笔：</td>
                 <td>
                     <input type="text" name='internal_recorder_person' class="input-text text" placeholder="责任人">
                 </td>
-             
-             </tr>
-               <tr>
-                
-                 <td class="cap">准备茶水：</td>
+
+            </tr>
+            <tr>
+
+                <td class="cap">准备茶水：</td>
                 <td>
                     <input type="text" name='internal_ready_person' class="input-text text" placeholder="责任人">
                 </td>
-             
-             </tr>
+
+            </tr>
         </table>
-         <table class="tbl">
-          <caption>会议保障</caption>           
-             <tr>
-                 <td class="cap">是否出现问题：</td>
+        <table class="tbl">
+            <caption>会议保障</caption>           
+            <tr>
+                <td class="cap">是否出现问题：</td>
                 <td>
-                   <select name="internal_whether_problem">
-                <option value="是">是</option>
-                <option value="否">否</option>
-              </select>
+                    <select name="internal_whether_problem">
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                    </select>
                 </td>
-                 <td class="cap">问题类型：</td>
+                <td class="cap">问题类型：</td>
                 <td>
                     <select name="internal_problem_type">
-                <option value="无">无</option>
-                <option value="视频连接中断">视频连接中断</option>
-                <option value="麦克风无声音">麦克风无声音</option>
-                <option value="会议材料不完整">会议材料不完整</option>
-                <option value="与会领导未通知">与会领导未通知</option>
-              </select>
+                        <option value="无">无</option>
+                        <option value="视频连接中断">视频连接中断</option>
+                        <option value="麦克风无声音">麦克风无声音</option>
+                        <option value="会议材料不完整">会议材料不完整</option>
+                        <option value="与会领导未通知">与会领导未通知</option>
+                    </select>
                 </td>            
-             </tr>
+            </tr>
         </table>
         <table class="tbl">
             <caption>会后工作</caption>
-             <tr>
-                 <td class="cap">纪要拟定责任人：</td>
+            <tr>
+                <td class="cap">纪要拟定责任人：</td>
                 <td>
                     <input type="text" name='internal_summary_person' class="input-text text" placeholder="责任人">
                 </td>
-                 <td class="cap">纪要报批进度：</td>
+                <td class="cap">纪要报批进度：</td>
                 <td>
                     <input type="text" name='internal_summary_speed' class="input-text text" placeholder="责任人">
                 </td>
-                 <td class="cap">是否已下发：</td>
+                <td class="cap">是否已下发：</td>
                 <td>
-                     <select name="internal_whether_issued">
-                <option value="是">是</option>
-                <option value="否">否</option>
-              </select>
+                    <select name="internal_whether_issued">
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                    </select>
                 </td>
-               
-             </tr>
-              <tr>
-                 <td class="cap">会议材料是否归档：</td>
+
+            </tr>
+            <tr>
+                <td class="cap">会议材料是否归档：</td>
                 <td>
-                     <select name="internal_meeting_speed">
-                <option value="是">是</option>
-                <option value="否">否</option>
-              </select>
+                    <select name="internal_meeting_speed">
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                    </select>
                 </td>
-                 <td class="cap">归档接受人：</td>
+                <td class="cap">归档接受人：</td>
                 <td>
                     <input type="text" name='internal_file_person' class="input-text text" placeholder="责任人">
                 </td>
-                 <td class="cap">归档日期：</td>
+                <td class="cap">归档日期：</td>
                 <td>
-                    <input type="text" name='internal_notice_stop_date' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
+                    <input type="text" name='internal_file_time' value="{$meeting_info.meeting_material_send_date}" id="d4312"  onfocus="WdatePicker({startDate: '%y-%M-%d 23:59:59', dateFmt: 'yyyy-MM-dd', minDate: $('#d4311').val()})" class="Wdate input-text fl">
                 </td>
-               
-             </tr>
-        </table>
-         
-       
-             <tr>
-               <td class="cap">改进建议：</td>
-                <td>
-                 <textarea class="textarea" name="internal_proposal"></textarea>
-                </td>
+
             </tr>
-    
+        </table>
+
+
+        <tr>
+            <td class="cap">改进建议：</td>
+            <td>
+                <textarea class="textarea" name="internal_proposal"></textarea>
+            </td>
+        </tr>
+
         <div class="wrap-btns">
- 
-          <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="提交"/>
-          <input class="btn ml10 button btn-normal" type="button" value="取消" onclick="javascript:history.back(-1)" />
+
+            <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="提交"/>
+            <input class="btn ml10 button btn-normal" type="button" value="取消" onclick="javascript:history.back(-1)" />
         </div>
     </form>
 </block>

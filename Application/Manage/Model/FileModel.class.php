@@ -130,7 +130,7 @@ class FileModel extends Model {
         return $count;
     }
     /**
-     * 处理搜索添加
+     * 处理搜索条件
      * @Date    2016/09/23
      * @author  huanggang
      * @return array 成功查询条件数组

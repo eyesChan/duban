@@ -3,6 +3,7 @@
 <block name="right">
     <form action="{:U(importResident)}" method='post' class="mt20" id="productManage" enctype="multipart/form-data">
         <table class="tbl">
+        <caption>导入驻各地发展情况台账</caption>
             <tr>
                 <td class="cap">上传附件：</td>
                 <td colspan="1">
@@ -14,7 +15,7 @@
         </table>
         <div class="wrap-btns">
             <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="提交"/>
-             <a href='{:U(index)}'><input class="btn ml10 button btn-normal" type="button" value="取消" /></a>
+             <a href='{:U(index)}' class="btn ml10 button btn-normal btn-xl">取消</a>
         </div>
     </form>
 

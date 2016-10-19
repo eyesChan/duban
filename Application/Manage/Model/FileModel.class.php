@@ -68,24 +68,22 @@ class FileModel extends Model {
             $doc_upload_file = end(explode('.', $size['file']['name']));
             $doc_upload_img = end(explode('.', $size['file1']['name']));
             if ($size['file']['size'] <= $file_size && $size['file']['size'] <= $img_size && in_array($doc_upload_file, $file_type) && in_array($doc_upload_img, $img_type)) {
-                 //上传文件都不为空情况下的数据类型参数
+                //上传文件都不为空情况下的数据类型参数
                 $data['file_type'] = 'FILE_PUB_DOC';
                 $data['ftp_type'] = 'FIP_PUB_DOC';
                 $data['mark'] = 0;
-            }else{
-                $data=C('DOCFILE.SZIE_TYPE');
-            } 
+            } else {
+                $data = C('DOCFILE.SZIE_TYPE');
+            }
             return $data;
-        }else{
+        } else {
             return C('DOCFILE.FILE_DOC');
         }
-        
-        
     }
-    
-    public function fileSaveSize($size){
-         //用于编辑 判断文档上传是否为空 
-        if (!empty($size['file']['tmp_name']) ) {
+
+    public function fileSaveSize($size) {
+        //用于编辑 判断文档上传是否为空 
+        if (!empty($size['file']['tmp_name'])) {
             $data['file_type'] = 'FILE_DOC';
             $data['ftp_type'] = 'FIP_DOC';
             $data['mark'] = 'file';
@@ -94,10 +92,11 @@ class FileModel extends Model {
         if (!empty($size['file1']['tmp_name'])) {
             $data['file_type'] = 'FILE_COVER';
             $data['ftp_type'] = 'FTP_COVER';
-            $data['mark'] = 'file1'; 
+            $data['mark'] = 'file1';
         }
-         return $data;
+        return $data;
     }
+
     /*
      * 统计数量
      * @ahthor huanggang

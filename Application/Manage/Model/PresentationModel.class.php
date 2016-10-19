@@ -464,6 +464,7 @@ class PresentationModel extends Model {
             $v['db_orgin2_person'] = $this->getWhereUsers($v['db_orgin2_person']);
             if ($v['db_orgin2_person'] == FALSE) {
                 $flag = $flag - 1;
+                break;
             }
             //核稿人3
             $v['db_orgin3_person'] = $this->getWhereUsers($v['db_orgin3_person']);

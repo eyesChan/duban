@@ -111,13 +111,13 @@ class PresentationModel extends Model {
      * @return array 成功查询条件数组
      */
     public function getSelectWhere($param) {
-         //处理查询条件：国家、责任人、收集时间
-        $param['resident_country'] != '' ? $where['resident_country'] = array('like', '%' . $param['resident_country'] . '%') : '';
-        $param['resident_person'] != '' ? $where['resident_person'] = array('like', '%' . $param['resident_person'] . '%') : '';
-        if (!empty($param['resident_collect_time'])) {
-            $where['resident_collect_time'] = array('EQ', $param['resident_collect_time']);
+          //处理查询条件：文字台账、交办人、交办时间
+        $param['db_pre_name'] != '' ? $where['db_pre_name'] = array('like', '%' . $param['db_pre_name'] . '%') : '';
+        $param['db_assign_name'] != '' ? $where['db_assign_name'] = array('like', '%' . $param['db_assign_name'] . '%') : '';
+        if (!empty($param['db_assign_date'])) {
+            $where['db_assign_date'] = array('EQ', $param['db_assign_date']);
         }
-        $where['resident_status'] = array('EQ', '1');
+        $where['pre_status'] = array('EQ', '1');
         $where = $this->escape($where);
         return $where;
     }
@@ -272,8 +272,8 @@ class PresentationModel extends Model {
      */
 
     public function getExecl($param) {
-        //处理查询条件：文字台账、交办人、时间
-        $where = $this->getSelectWhere($param);
+        //处理查询条件：文字台账、交办人、交办时间
+        $where=$this->getSelectWhere($param);
         $led_presentation = M('led_presentation');
         $data = $led_presentation
                 ->field('db_pre_id,db_pre_name,db_pre_work,db_assign_date,db_complete_time,db_pre_type,db_pre_form,db_pre_first,db_pre_diff,db_pre_person,db_pre_status,db_draft_person,db_draft_length,db_draft_num,db_orgin_person,db_orgin_length,db_orgin_num,db_orgin_eval,db_orgin2_person,db_orgin2_length,db_orgin2_num,db_orgin2_eval,db_orgin3_person,db_orgin3_length,db_orgin3_num,db_orgin3_eval,db_evaluate,db_overtime_num,db_overtime_num,db_mishap_num,db_examin_date,db_examin_mode,db_examin_progress,db_despatch_mode,db_despatch_date,db_file_status,db_file_date,db_file_address')
@@ -331,8 +331,8 @@ class PresentationModel extends Model {
      */
 
     public function getExecls($param) {
-        //处理查询条件：文字台账、交办人、时间
-        $where = $this->getSelectWhere($param);
+        //处理查询条件：文字台账、交办人、交办时间
+        $where=$this->getSelectWhere($param);
         $led_presentation = M('led_presentation');
         $data = $led_presentation
                 ->where($where)

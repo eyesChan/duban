@@ -178,19 +178,19 @@ class FileController extends AdminController {
     public function saveFile() {
         if (IS_POST) {
             $data = I('post.');
-            if(!empty($_FILES['file']['tmp_name']) && !empty($_FILES['file1']['tmp_name'])){
+            if (!empty($_FILES['file']['tmp_name']) && !empty($_FILES['file1']['tmp_name'])) {
                 $res = $this->filedoc->fileSize($_FILES);
-                if($res['status']!=100){
-                  $file_doc = $this->filedoc->saveUploadNull($res);
-                  $data['doc_upload_file_url'] = $file_doc[0];
-                  $data['doc_upload_img_url'] = $file_doc[1];  
+                if ($res['status'] != 100) {
+                    $file_doc = $this->filedoc->saveUploadNull($res);
+                    $data['doc_upload_file_url'] = $file_doc[0];
+                    $data['doc_upload_img_url'] = $file_doc[1];
                 } else {
-                  $this->error($res['msg'], U('File/saveFile', array('doc_id' => $data['doc_id'])));
+                    $this->error($res['msg'], U('File/saveFile', array('doc_id' => $data['doc_id'])));
                 }
-            }else{
-                $fileName = $this->filedoc->fileSaveSize($_FILES); 
+            } else {
+                $fileName = $this->filedoc->fileSaveSize($_FILES);
                 $result = $this->filedoc->saveUploadNull($fileName);
-                 if ($fileName['mark'] == 'file') {
+                if ($fileName['mark'] == 'file') {
                     $data['doc_upload_file_url'] = $result[0];
                 } elseif ($fileName['mark'] == 'file1') {
                     $data['doc_upload_img_url'] = $result[1];

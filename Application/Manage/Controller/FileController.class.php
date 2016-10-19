@@ -69,6 +69,9 @@ class FileController extends AdminController {
                 $file_doc = $this->filedoc->saveUploadNull($res);
                 $data['doc_upload_file_url'] = $file_doc[0];
                 $data['doc_upload_img_url'] = $file_doc[1];
+                //文件的原始名称
+                $data['doc_upload_file_name']=$_FILES['file']['name'];
+                $data['doc_upload_img_name']=$_FILES['file1']['name'];
                 $result = $this->filedoc->addFile($data);
                 if ($result['code'] == 200) {
                     $this->success($result['status'], U('File/index'));
@@ -161,6 +164,9 @@ class FileController extends AdminController {
                     $file_doc = $this->filedoc->saveUploadNull($res);
                     $data['doc_upload_file_url'] = $file_doc[0];
                     $data['doc_upload_img_url'] = $file_doc[1];
+                    //上传文件原始名称
+                    $data['doc_upload_file_name']=$_FILES['file']['name'];
+                    $data['doc_upload_img_name']=$_FILES['file1']['name'];
                 } else {
                     $this->error($res['msg'], U('File/saveFile', array('doc_id' => $data['doc_id'])));
                 }
@@ -169,8 +175,10 @@ class FileController extends AdminController {
                 $result = $this->filedoc->saveUploadNull($fileName);
                 if ($fileName['mark'] == 'file') {
                     $data['doc_upload_file_url'] = $result[0];
+                    $data['doc_upload_file_name']=$_FILES['file']['name'];
                 } elseif ($fileName['mark'] == 'file1') {
                     $data['doc_upload_img_url'] = $result[1];
+                    $data['doc_upload_img_name']=$_FILES['file1']['name'];
                 }
             }
             $result = $this->filedoc->updateFileDoc($data, $data['doc_id']);
@@ -184,8 +192,8 @@ class FileController extends AdminController {
         $doc_id = I('doc_id');
         $result = $this->filedoc->saveFileDoc($doc_id);
         //展示文件名
-        $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
-        $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_url'])['filename'];
+        $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_name'])['filename'];
+        $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_name'])['filename'];
         $this->assign('list', $result);
         //文档发布类型 
         $file_type = getConfigInfo('doc_pub_type');

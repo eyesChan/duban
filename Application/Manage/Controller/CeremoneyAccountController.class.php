@@ -181,7 +181,7 @@ class CeremoneyAccountController extends AdminController {
             $mod_upload = new CommonApi\MeetingUpload();
             $param = $_FILES['filename'];
             $config_info = C();
-            $file_config = $config_info['FILE_INTERNALMEETING'];
+            $file_config = $config_info['FILE_CA_MEETING'];
             $files = $mod_upload->normalUpload($file_config);
             $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
             $data = importExcel($fileName);

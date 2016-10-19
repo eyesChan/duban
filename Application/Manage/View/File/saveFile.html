@@ -113,15 +113,11 @@
     </form>
    <script type="text/javascript">
    $('#submit').on("click",function(){
-     if($(".inputFile").siblings("a").html() != ""){
-            $(".inputFile").attr("inputFile",$(".inputFile").siblings("a").html());
-        }else {
-            $(".inputFile").attr("inputFile",$(".inputFile").val());
+     if($(".inputFile").val() == ""){
+            $(".inputFile").removeAttr("name");
         }
-        if($(".inputPic").siblings("a").html() != ""){
-            $(".inputPic").attr("inputPic",$(".inputPic").siblings("a").html());
-        }else {
-            $(".inputPic").attr("inputPic",$(".inputPic").val());
+        if($(".inputPic").val() == ""){
+            $(".inputPic").removeAttr("name");
         }
     if($.trim($("[name=doc_name]").val()) == ""){
         $.dialog.alert("请填写文档名称！");
@@ -131,12 +127,6 @@
         return false;
     }else if($("#date2").val() == ""){
         $.dialog.alert("请填写失效时间！");
-        return false;
-    }else if($(".inputFile").attr("inputFile") == ""){
-        $.dialog.alert("请上传文档！");
-        return false;
-    }else if($(".inputPic").attr("inputPic") == ""){
-        $.dialog.alert("请上传图片！");
         return false;
     }
 });

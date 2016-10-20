@@ -160,9 +160,10 @@ class LedgerMeetingController extends AdminController {
 
     public function importLedgerMeeting() {
         if (!empty($_FILES['filename']['tmp_name'])) {
-            $param = $_FILES['filename'];
+            $config_info = C();
+            $file_config = $config_info['FILE_LEDGER_EXCEL'];
             $upload_obj = new MeetingUplod();
-            $files = $upload_obj->normalUpload($param);
+            $files = $upload_obj->normalUpload($file_config);
             $fileName = $files['rootPath'] . $files['info']['filename']['savepath'] . $files['info']['filename']['savename'];
             $resute = importExcel($fileName, 'AP');
             //删除临时文件

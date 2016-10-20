@@ -3,6 +3,7 @@
 <block name="right">
     <form action="{:U(importExcel)}" method='post' class="mt20" id="productManage" enctype="multipart/form-data">
         <table class="tbl">
+        <caption>签约仪式台账导入</caption>
             <tr>
                 <td class="cap">上传附件：</td>
                 <td colspan="1">
@@ -12,7 +13,7 @@
         </table>
         <div class="wrap-btns">
             <input class="btn btn-red mr10 btn-submit productSubmit" type="submit" value="提交"/>
-            <input class="btn ml10 button btn-normal" type="button" value="取消" onclick="javascript:history.back(-1)" />
+            <a href="{:U(index)}" class="btn ml10 btn-xl button btn-normal">取消</a>
         </div>
     </form>
 

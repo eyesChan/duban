@@ -10,12 +10,14 @@
     padding-top: 40px;
 }
 #allSelect {
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .role-filter {
     margin-left: 10px;
 }
-
+.td10 span {
+    margin-left: -10px;
+}
 .role-filter-input {
     width: 15%;
     margin-left: 10px;
@@ -40,10 +42,6 @@
     background: #fff;
     border-bottom: 1px solid #ededed;
     position: relative;
-}
-
-.tbl .role-row-td {
-    text-align: left;
 }
 
 .role-link-btn {

@@ -166,7 +166,7 @@ class ResidentMeetingController extends AdminController {
      */
 
     public function importResident() {
-        if (!empty($_FILES['filename'])) {
+        if (!empty($_FILES['filename']['tmp_name'])) {
             $param = $_FILES['filename'];
             $upload_obj = new MeetingUplod();
             $files = $upload_obj->normalUpload($param);

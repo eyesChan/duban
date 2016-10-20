@@ -33,6 +33,21 @@ return array(
         'FILE_PATH' => 'meeting_import/',
         'ALLOW_FILE' => array('xlsx', 'xls'),
     ),
+    'FILE_RESIDENT_EXCEL' => array(//驻各地 发展情况模板导入
+        'FILE_SIZE' => 3145728,
+        'FILE_PATH' => 'resident_import/',
+        'ALLOW_FILE' => array('xlsx', 'xls'),
+    ),
+    'FILE_LEDGER_EXCEL' => array(//会谈会见模板导入
+        'FILE_SIZE' => 3145728,
+        'FILE_PATH' => 'ledger_import/',
+        'ALLOW_FILE' => array('xlsx', 'xls'),
+    ),
+    'FILE_PRESENT_EXCEL' => array(//文稿模板导入
+        'FILE_SIZE' => 3145728,
+        'FILE_PATH' => 'present_import/',
+        'ALLOW_FILE' => array('xlsx', 'xls'),
+    ),
     'FILE_INTERNALMEETING_EXCEL' => array(//模板导入
         'FILE_SIZE' => 3145728,
         'FILE_PATH' => 'internalmeeting_import/',

@@ -9,7 +9,9 @@
 .inner-container .role-padding {
     padding-top: 40px;
 }
-
+#allSelect {
+    margin-right: 10px;
+}
 .role-filter {
     margin-left: 10px;
 }
@@ -40,10 +42,8 @@
     position: relative;
 }
 
-.role-row-td {
-    padding: 2px 0;
-    line-height: 35px;
-    position: relative;
+.tbl .role-row-td {
+    text-align: left;
 }
 
 .role-link-btn {

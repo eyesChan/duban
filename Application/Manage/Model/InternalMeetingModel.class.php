@@ -169,6 +169,7 @@ class InternalMeetingModel extends Model {
         $upload->savePath = $param['FILE_PATH']; // 设置附件上传（子）目录
         // 上传文件 
         $info = $upload->upload();
+      
         if (!$info) {// 上传错误提示错误信息
             $this->error($upload->getError());
             return C('COMMON.UPLOAD_ERROR');
@@ -190,7 +191,6 @@ class InternalMeetingModel extends Model {
         $model->startTrans();
         $internal = M('internalmeeting');
         $dateMod = new \PHPExcel_Shared_Date();
-
         for ($i = 0; $i < $count; $i++) {
 
             $info['internal_name'] = $data[$i][0];

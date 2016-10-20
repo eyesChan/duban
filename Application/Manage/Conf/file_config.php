@@ -18,9 +18,14 @@ return array(
         'FILE_PATH' => 'filecover/', //临时存储路径
         'ALLOW_FILE' => array('jpg', 'png'),
     ),
-    'FILE_internalMeeting INTERNALMEETING' => array(//会议相关文件上传
+    'FILE_INTERNALMEETING' => array(//内部会议相关文件上传
         'FILE_SIZE' => 3145728,
         'FILE_PATH' => 'internalMeeting/', //临时存储路径
+        'ALLOW_FILE' => array('xlsx', 'xls'),
+    ),
+    'FILE_CA_MEETING' => array(//内部会议相关文件上传
+        'FILE_SIZE' => 3145728,
+        'FILE_PATH' => 'caMeeting/', //临时存储路径
         'ALLOW_FILE' => array('xlsx', 'xls'),
     ),
     'FILE_IMPORT_EXCEL' => array(//模板导入

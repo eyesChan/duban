@@ -18,8 +18,7 @@ use Think\Model;
  */
 class ResidentMeetingModel extends Model {
 
-    protected $trueTableName = 'db_resident_meeting';
-
+    protected $tableName = 'resident_meeting';
     /**
      * 对数组进行转义
      * @param array 需要转义的数组

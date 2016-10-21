@@ -134,8 +134,8 @@ class FileController extends AdminController {
     public function detailsFile() {
         $doc_id = I('doc_id');
         $result = $this->filedoc->saveFileDoc($doc_id);
-        $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_url'])['filename'];
-        $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_url'])['filename'];
+        $result['doc_upload_file_name'] = pathinfo($result['doc_upload_file_name'])['filename'];
+        $result['doc_upload_img_name'] = pathinfo($result['doc_upload_img_name'])['filename'];
         //文档发布类型 
         $result['doc_pub_type'] = $this->filedoc->getRootView($result['doc_pub_type'], 'doc_pub_type');
         //文档发布部门

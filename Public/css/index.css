@@ -1,4 +1,6 @@
-
+.inner-box table td.index-line {
+	padding-left: 30px;
+}
 td.detail-l {
     text-align: right;
     padding-right: 20px;
@@ -30,6 +32,13 @@ td.detail-r {
 	margin-top: 20px;
 	margin-left: 20px;
 	padding: 20px 10px;
+	overflow: hidden;
+	position: relative;
+}
+.inner-box .bottom-img {
+	position: absolute;
+	bottom: -15px;
+    right: -10px;
 }
 .inner-box table td {
 	font-size: 12px;
@@ -49,26 +58,32 @@ td.detail-r {
 }
 .meeting-prompt {
 	height: 420px;
-	background: #999999;
+	background: #AFCF86;
+}
+.meeting-prompt .bottom-img {
+	bottom: -20px;
 }
 .create-amount {
 	height: 100px;
-	background: #0099FF;
+	background: #1BA89F;
 }
 
 .work-status {
 	height: 100px;
-	background: #66CC66;
+	background: #C0C0C0;
 }
 .work-progress {
 	height: 100px;
-	background: #FFCC66;
+	background: #5AB0C9;
 }
 .file-release {
 	height: 100px;
-	background: #00CCFF;
+	background: #F3D65E;
 }
 .ledger-release {
 	height: 260px;
-	background: #FF6666;
+	background: #5AB0C9;
+}
+.ledger-release .bottom-img {
+	bottom: -8px;
 }

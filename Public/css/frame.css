@@ -27,14 +27,16 @@ html{padding-top: 60px;_padding-top:0;-webkit-box-sizing: border-box;-moz-box-si
 #main-frame {width: 100%;height: 100%;overflow-y: auto;overflow-x: auto;position: relative;}
 .inner-container{padding-right: 20px;}
 /*侧边栏*/
-.wrap .sidebar{_display: inline;float: left;width:200px;height: 100%;border-right:1px solid #d7d7d9;background:#2d3c55;overflow-x:hidden;overflow-y: auto;}
+.wrap .sidebar{_display: inline;float: left;width:200px;height: 100%;border-right:1px solid #d7d7d9;background:#4F4F4F;overflow-x:hidden;overflow-y: auto;}
 .sys-menu li{vertical-align: top;}
-.sys-menu li h2{position:relative;height:50px;line-height:50px;padding:0 30px;background:#2d3c55;cursor: pointer;overflow: hidden;zoom:1;}
-.sys-menu li h2:hover{background: #222d40;}
+.sys-menu li h2{position:relative;height:50px;line-height:50px;padding:0 30px;background:#4F4F4F;cursor: pointer;overflow: hidden;zoom:1;}
+.sys-menu li h2:hover{background: #3E3F43;}
 .sys-menu li h2:hover a{color: #F94A50;}
-.sys-menu li h2 a{position:relative;display:inline;float:left;margin-left:4px;color:#6D7FAD;font:14px/50px "microsoft yahei";}
+.sys-menu li h2.current{background: #3E3F43;}
+.sys-menu li h2.current a{color: #F94A50;}
+.sys-menu li h2 a{position:relative;display:inline;float:left;margin-left:4px;color:#fff;font:14px/50px "microsoft yahei";}
 .tip{position:absolute;right:-8px;top:6px;width:8px;height:8px;vertical-align:top;background: #fc0030;background:url(../images/slice/ico-tips.png) no-repeat; background-position: 0 0;}
-.sub-sys-menu{display:none;background: #2F405E;width: 170px;margin-left: 15px;}
+.sub-sys-menu{display:none;background: #3E3F43;width: 170px;margin-left: 15px;margin-top: 2px;}
 .sub-sys-menu li a{display:block;position:relative;height:36px;padding-left:52px;color:#f2f7ff;font:13px/36px "microsoft yahei";overflow: hidden;}
 .sub-sys-menu li a:hover{color: #f94a50;}
 .sys-menu li .current a{color: #f94a50;}
@@ -59,10 +61,10 @@ html{padding-top: 60px;_padding-top:0;-webkit-box-sizing: border-box;-moz-box-si
 .sys-menu .ico-index,.ico-pencil,.sys-menu .ico-set,.sys-menu .ico-list,.sys-menu .ico-search{_display:inline;float:left;margin-top: 17px;width:14px;height:14px;}
 .sys-menu .ico-index,.ico-pencil{margin-right: 8px;}
 /*左侧图标修改*/
-.sys-menu li:nth-child(1) h2 i.ico-pencil{background: url(../images/index.png);}
-.sys-menu li:nth-child(2) h2 i.ico-pencil{background: url(../images/proManage.png);}
-.sys-menu li:nth-child(3) h2 i.ico-pencil{background: url(../images/proCount.png);}
-.sys-menu li:nth-child(4) h2 i.ico-pencil{background: url(../images/systemManage.png);}
+.sys-menu li:nth-child(1) h2 i.ico-pencil{background: url(../images/sysManage.png);}
+.sys-menu li:nth-child(2) h2 i.ico-pencil{background: url(../images/meeting.png);}
+.sys-menu li:nth-child(3) h2 i.ico-pencil{background: url(../images/fileManage.png);}
+.sys-menu li:nth-child(4) h2 i.ico-pencil{background: url(../images/ledgerManage.png);}
 .sys-menu li:nth-child(5) h2 i.ico-pencil{background-position: -203px -35px;}
 .sys-menu li:nth-child(6) h2 i.ico-pencil{background-position: -63px -35px;}
 .sys-menu li:nth-child(7) h2 i.ico-pencil{background-position: -175px -35px;}

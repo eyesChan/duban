@@ -21,9 +21,9 @@
 	position: relative;
 }
 .notice-prompt {
-	position: absolute;
-	top: 86px;
-	left: 672px;
+	    position: absolute;
+    top: 36px;
+    left: 828px;
 }
 
 .more-notice {

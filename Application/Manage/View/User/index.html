@@ -70,19 +70,20 @@
 
                     <td class="clear">
 
-                        <a class="fl btn btn-c btn-xl button mr5" href="{:U('allocationRole',array('uid'=>$item[uid],'p'=>$p))}">关联角色</a>
-                        <a class="fl btn btn-c btn-xl button mr5" onclick='singleReset({$item.uid})' href="javascript:;">重置密码</a>
+                        <a class="btn btn-c btn-xl button mr5" href="{:U('allocationRole',array('uid'=>$item[uid],'p'=>$p))}">关联角色</a>
+                        <a class="btn btn-c btn-xl button mr5" onclick='singleReset({$item.uid})' href="javascript:;">重置密码</a>
 
-                        <a class="fl btn btn-c btn-xl button mr5" onclick='singleDel({$item.uid})'>删除</a>
-                        <a class="fl btn btn-c btn-xl button mr5" href="{:U('saveUser',array('uid'=>$item[uid],'p'=>$p))}">编辑</a>
+                        
+                        <a class="btn btn-c btn-xl button mr5" href="{:U('saveUser',array('uid'=>$item[uid],'p'=>$p))}">编辑</a>
 
-                        <a class="btn btn-c btn-xl button fl" href="{:U('disableUser',array('uid'=>$item[uid],'p'=>$p))}">
+                        <a class="btn btn-c btn-xl button" href="{:U('disableUser',array('uid'=>$item[uid],'p'=>$p))}">
                             <if condition='$item.status eq 1'>
                                 禁用
                             <else/>
                                 启用
                             </if>
                         </a>
+                        <a class="btn btn-a btn-xl button mr5" onclick='singleDel({$item.uid})'>删除</a>
                     </td>
                     </tr>
                 </foreach>

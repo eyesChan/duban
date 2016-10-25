@@ -3,7 +3,7 @@
 <block name="title"><title>角色列表</title></block>
 <block name="right">
     <css href="__PUBLIC__/css/roleManage.css"/>
-    <div class="role-padding">
+    <div class="role-padding">   
         <form action="{:U(index)}" class="r-from">
             <table class="tbl">
                 <caption>查询条件</caption>
@@ -15,12 +15,15 @@
                     <td colspan="2">
                         <div class="text-center">
                             <input class="btn btn-a submit" type="submit" value="查询"/>
-                            <a href="{:U(add,array('p'=>$p))}" class="btn btn-a submit button">新增</a>
+                            
                         </div>
                     </td>
                 </tr>
             </table>
             <div class="tb1 jxssp">
+            <div class="fr-btn">
+                <a href="{:U(add,array('p'=>$p))}" class="fr btn btn-a submit button">新增</a>
+             </div>
                 <table class="tbl tbl-list" width="100%">
                     <caption>角色列表</caption>
                     <colgroup>
@@ -60,7 +63,7 @@
                         <td class="role-row-td">
                             <a class="btn btn-c btn-xl button mr5" href="{:U('Role/authorizeRole',array('id'=>$v['id'],'p'=>$p))}">角色授权</a>
                             <a class="btn btn-c btn-xl button  mr5" href="{:U('Role/edit',array('id'=>$v['id'],'p'=>$p))}">编辑</a>
-                            <a onclick="singleDel({$v['id']})"  class="btn btn-c btn-xl button" >删除</a>
+                            <a onclick="singleDel({$v['id']})"  class="btn btn-a btn-xl button" >删除</a>
                         </td>
                         </in>
                         </tr>

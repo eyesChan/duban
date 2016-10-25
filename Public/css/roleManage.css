@@ -5,9 +5,11 @@
     line-height: 70px;
     position: relative;
 }
-
+.text-center .btn {
+    width: 80px;
+}
 .inner-container .role-padding {
-    padding-top: 40px;
+    padding-top: 20px;
 }
 #allSelect {
     margin-right: 5px;

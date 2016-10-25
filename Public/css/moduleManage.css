@@ -7,3 +7,6 @@ em {
 	margin-left: 20px;
 	text-decoration: underline;
 }
+.add-btn .btn {
+	margin-bottom: 10px;
+}

@@ -1,12 +1,16 @@
 <extend name="Public:base" />
 <block name="title"><title>下级模块</title></block>
 <block name="right">
+    <css href="__PUBLIC__/css/moduleManage.css"/>
     <div class="container-padding">
+        <div class="add-btn">
+            <a class="btn btn-a submit fr" href="{:U('add')}">新增模块</a>
+        </div>
         <div class="wrap-table mt10">
             <form method="POST" action="{:U(lst)}" name="listForm">
                 <div class="wrap-table">
                     <table class="tbl tbl-list">
-                    <caption>关联子项<a class="tb-detail f-fr mr30" href="{:U('add')}">新增模块</a></caption>
+                    <caption>关联子项</caption>
                         <colgroup>
                             <col width="10%">
                             <col width="10%">
@@ -34,9 +38,10 @@
                                 <td><?php echo $v['title']; ?></td>
                                 <td><?php echo $v['name']; ?></td>
                                 <td>
-                                    <a class="fl mr5 btn btn-c btn-xl button" href="{:U('child?pid='.$v['id'])}">关联子项</a>
-                                    <a class="fl mr5 btn btn-c btn-xl button" title="删除" onClick="return confirm('确定要删除吗？');" href="{:U('delete',array('id'=>$v['id'],'pid'=>$v['pid']))}">删除</a>
-                                    <a class="fl mr5 btn btn-c btn-xl button" title="编辑" href="{:U('save?id='.$v['id'])}">编辑</a>
+                                    <a class="mr5 btn btn-c btn-xl button" href="{:U('child?pid='.$v['id'])}">关联子项</a>
+                                    
+                                    <a class="mr5 btn btn-c btn-xl button" title="编辑" href="{:U('save?id='.$v['id'])}">编辑</a>
+                                    <a class="mr5 btn btn-a btn-xl button" title="删除" onClick="return confirm('确定要删除吗？');" href="{:U('delete',array('id'=>$v['id'],'pid'=>$v['pid']))}">删除</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

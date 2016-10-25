@@ -17,13 +17,13 @@
 /* 表格开始 */
 .tbl{width: 100%;margin: 0 auto 10px;font-size:12px;table-layout: fixed;}
 .tb1 table{border-left: 1px solid #ededed;}
-.tbl caption{width:100%;padding:0;text-indent:20px;font-size:14px;text-align:left;line-height:30px;border-bottom: 1px solid #ededed;  color:#5F5B6F;background: #FEF5F6 url(../images/bg-caption.jpg) no-repeat;}
+.tbl caption{width:100%;padding:0;text-indent:20px;font-size:14px;text-align:left;line-height:30px;border-bottom: 1px solid #ededed;  color:#5F5B6F;background: #F6F6F6 url(../images/bg-caption.jpg) no-repeat;}
 .tbl td{height:28px;padding:5px 2px;line-height:16px;border:1px solid #ededed; border-top:none;position: relative;}
 .tbl td .p-standard{width:19%;height: 30px; line-height: 30px;display: inline-block;}
 .tbl td.no-lborder{border-left: none;border-bottom: none;}
 .tbl td.no-rborder{border-right: none; border-bottom: none;}
 .tbl td.cap {text-align: right;}
-.tbl th {height: 33px;padding:6px 0 7px;line-height: 16px;text-align: center; color: #5F5B6F;background: #FEF5F6;}
+.tbl th {height: 33px;padding:6px 0 7px;line-height: 16px;text-align: center; color: #5F5B6F;background: #F6F6F6;}
 .tbl th:first-child {border-left: 1px solid #ededed;}
 .tbl th:last-child {border-right: 1px solid #ededed;}
 .tbl-list td{text-align: center;}
@@ -58,14 +58,11 @@ select{height: 28px;padding: 1px 0; color: #404040;border: 1px solid #ededed;}
 
 /* 按钮开始 */
 .btn{display:inline-block;height:28px;padding:0 8px;line-height: 28px;color:#fff;font-size:14px;font-weight:bold;border:none;cursor: pointer;vertical-align: top;}
-.btn-a{background: #FF7777;}
+.btn-a{background: #E84945;}
 .btn-b{color:#e86d4c;background: none;border:1px solid #e46e4a;}
-.btn-r, .btn-c{background: #80A6E7;}
+.btn-r, .btn-c{background: #5AB0C9;}
 .btn-xl{width:auto;padding:0 12px!important;}
 .btn-lg{width:auto;padding:0 38px!important;}
-.btn-a:hover{color:#fff;background: #e7542c;cursor: pointer;transition: all 0.2s ease-in;}
-.btn-b:hover{color:#fff;background: #e86d4c;cursor: pointer;}
-.btn-c:hover{background: #1855b0;}
 a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
 .tbl a.button{height: 26px; line-height: 28px;}
 .tbl a.submit{width: 68px;}
@@ -87,7 +84,6 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
 /* 按钮结束 */
 .wrap-btns {width: 100%;text-align: center;}
 .wrap-btns .btn{padding:0 30px;margin:0 5px;}
-.tbl .btn-a{width: 80px;}
 .tbl .operate-row{padding:12px 66px;}
 .operate-row .btn{width:80px;padding:0;margin:0 20px;}
 .abutton{width: 60px;height: 30px;line-height: 30px;margin-bottom: 10px;}
@@ -166,26 +162,30 @@ a.btn,a.btn:focus,a.btn:hover,a.btn:active{color:#fff;}
     background:#30519c;
 }
 a.btn-normal {
-    color: #333;
+    color: #E84945;
     margin-left: 20px;
-    width:  80px;
+    width:  60px;
 }
 a.btn-normal:hover {
-    color: #333;
+    color: #E84945;
 }
 .btn-normal {
-    height: 30px;
+    height: 28px;
     background: #fff;
-    color: #333;
-    border: 1px solid #ddd;
+    color: #E84945;
+    border: 1px solid #E84945;
 }
 .btn-submit {
-    width: 100px;
+    width: 86px;
     height: 30px;
-    background: #80A6E7;
+    background: #E84945;
     color: #fff;
 }
-.
+.fr-btn .btn {
+    width: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .login-step dd{
     float:left;
     border-bottom:3px solid #f5f7f7 ;
